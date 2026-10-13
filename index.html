@@ -1,51 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>12 Apps by Akbar Ali</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,sans-serif}
-body{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
-.iphone{width:390px;background:#000;border-radius:50px;padding:12px;box-shadow:0 50px 100px rgba(0,0,0,.5);position:relative}
-.notch{width:120px;height:28px;background:#000;border-radius:0 0 20px 20px;position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:10}
-.screen{background:linear-gradient(180deg,#667eea 0%,#764ba2 100%);border-radius:40px;overflow:hidden;min-height:800px;padding:60px 20px 20px}
-.status{display:flex;justify-content:space-between;color:#fff;font-size:14px;font-weight:600;padding:0 10px 20px}
-.header{text-align:center;color:#fff;margin-bottom:25px}
-.header h1{font-size:22px;font-weight:800}
-.header p{font-size:12px;opacity:.9;margin-top:5px}
-.apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 10px}
-.app{text-align:center;cursor:pointer;transition:transform .2s}
-.app:hover{transform:scale(1.05)}
-.icon{width:64px;height:64px;border-radius:16px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 4px 15px rgba(0,0,0,.3);background:#fff}
-.app-name{color:#fff;font-size:10.5px;font-weight:500;line-height:12px;text-shadow:0 1px 2px rgba(0,0,0,.5);min-height:24px;display:flex;align-items:center;justify-content:center}
-.dock{background:rgba(255,255,255,.25);backdrop-filter:blur(20px);border-radius:30px;padding:12px;display:flex;justify-content:space-around;margin-top:25px}
-.top-apps{background:rgba(255,255,255,.15);border-radius:20px;padding:15px 10px;margin-bottom:15px;backdrop-filter:blur(10px)}
-.top-apps h3{color:#fff;font-size:12px;margin-bottom:12px;text-align:center;letter-spacing:1px}
-.footer{text-align:center;color:rgba(255,255,255,.7);font-size:10px;margin-top:15px}
+body{margin:0;font-family:Arial;background:#1e1b4b;display:flex;justify-content:center;min-height:100vh}
+.phone{width:360px;background:#7c7cff;border-radius:30px;padding:20px;margin:20px}
+h1{color:white;text-align:center;font-size:22px}
+.sub{color:#e0e0ff;text-align:center;font-size:12px;margin-bottom:15px}
+.section{background:rgba(255,255,255,0.15);border-radius:20px;padding:12px;margin-bottom:10px}
+.sec-title{color:#ffe082;text-align:center;font-size:11px;font-weight:bold;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+a.card{background:white;border-radius:15px;padding:8px 2px;text-align:center;text-decoration:none;color:#333;display:block}
+.icon{font-size:24px}
+.label{font-size:9px;font-weight:bold;margin-top:4px}
 </style>
 </head>
 <body>
-<div class="iphone"><div class="notch"></div><div class="screen">
-<div class="status"><span>3:44 PM</span><span>📶 🔋</span></div>
-<div class="header"><h1>12 Apps Portfolio</h1><p>by Akbar Ali - Educational Apps</p></div>
-<div class="top-apps"><h3>⭐ TOP ENTRY TESTS</h3>
-<div class="apps-grid">
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#ff6a00,#ee0979)">🩺</div><div class="app-name">MDCAT<br>10 Tests</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#00c6ff,#0072ff)">⚙️</div><div class="app-name">ECAT<br>10 Tests</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#f7971e,#ffd200)">⚖️</div><div class="app-name">LAT<br>10 Tests</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#7f00ff,#e100ff)">🧠</div><div class="app-name">Logical<br>1000 MCQs</div></div>
+<div class="phone">
+<h1>12 Apps Portfolio</h1>
+<div class="sub">by Akbar Ali - Educational Apps</div>
+<div class="section">
+<div class="sec-title">⭐ TOP ENTRY TESTS</div>
+<div class="grid">
+<a class="card" href="./mdcat/"><div class="icon">🩺</div><div class="label">MDCAT<br>10 Tests</div></a>
+<a class="card" href="./ecat/"><div class="icon">⚙️</div><div class="label">ECAT<br>10 Tests</div></a>
+<a class="card" href="./lat/"><div class="icon">⚖️</div><div class="label">LAT<br>10 Tests</div></a>
+<a class="card" href="./logical/"><div class="icon">🧠</div><div class="label">Logical<br>1000 MCQs</div></a>
 </div></div>
-<div class="apps-grid">
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#56ab2f,#a8e063)">🧬</div><div class="app-name">FSc Biology<br>2000 MCQs</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#ff416c,#ff4b2b)">🧪</div><div class="app-name">FSc Chemistry<br>2000 MCQs</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#2193b0,#6dd5ed)">🚀</div><div class="app-name">FSc Physics<br>2000 MCQs</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#8e2de2,#4a00e0)">🔢</div><div class="app-name">FSc Maths<br>2000 MCQs</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#fc4a1a,#f7b733)">📝</div><div class="app-name">HSSC English<br>2000 MCQs</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#134e5e,#71b280)">🇵🇰</div><div class="app-name">Constitution<br>Pakistan</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#00b09b,#96c93d)">🌍</div><div class="app-name">Global<br>Translator</div></div>
-<div class="app"><div class="icon" style="background:linear-gradient(135deg,#2c3e50,#3498db)">🔄</div><div class="app-name">Unit<br>Converter</div></div>
+<div class="section">
+<div class="grid">
+<a class="card" href="./fsc-biology/"><div class="icon">🧬</div><div class="label">FSc Biology<br>2000 MCQs</div></a>
+<a class="card" href="./fsc-chemistry/"><div class="icon">🧪</div><div class="label">FSc Chemistry<br>2000 MCQs</div></a>
+<a class="card" href="./fsc-physics/"><div class="icon">🚀</div><div class="label">FSc Physics<br>2000 MCQs</div></a>
+<a class="card" href="./fsc-maths/"><div class="icon">🔢</div><div class="label">FSc Maths<br>2000 MCQs</div></a>
+<a class="card" href="./hssc-english/"><div class="icon">📝</div><div class="label">HSSC English<br>2000 MCQs</div></a>
+<a class="card" href="./constitution/"><div class="icon">🇵🇰</div><div class="label">Constitution<br>Pakistan</div></a>
+<a class="card" href="./translator/"><div class="icon">🌍</div><div class="label">Global<br>Translator</div></a>
+<a class="card" href="./translator/"><div class="icon">🔄</div><div class="label">Unit<br>Converter</div></a>
+</div></div>
 </div>
-<div class="dock"><div class="app"><div class="icon">📚</div></div><div class="app"><div class="icon">🎯</div></div><div class="app"><div class="icon">🏆</div></div><div class="app"><div class="icon">⚙️</div></div></div>
-<div class="footer">12 Apps • All MCQs Series • 2026 • Akbar Ali</div>
-</div></div></body></html>
+</body>
+</html>
