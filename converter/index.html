@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Unit Converter</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+            color: white;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-align: center;
+            padding: 15px 10px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .main-title { font-size: 26px; color: #FF8C00; font-weight: bold; margin-bottom: 2px; }
+        .main-subtitle { font-size: 14px; color: #E0E0FF; margin-bottom: 10px; }
+        .lang-select {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #FFD700;
+            background: #fff;
+            color: #000;
+            font-weight: bold;
+            margin-bottom: 12px;
+            outline: none;
+        }
+        .box {
+            background: linear-gradient(180deg, #001a4d 0%, #003399 100%);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin: 6px 0;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.1s ease;
+        }
+        .box:active { transform: scale(0.98); }
+        .box h2 { font-size: 18px; color: #FF8C00; display: inline-block; font-weight: bold; }
+        .box p { font-size: 13px; color: #E0E0FF; display: inline-block; margin-left: 6px; }
+        .madeby-box {
+            padding: 12px;
+            margin-top: 15px;
+            background: rgba(0, 26, 77, 0.8);
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+        }
+        .madeby-box h3 { font-size: 15px; color: #FFD700; font-weight: bold; margin-bottom: 4px; }
+        .contact { font-size: 12px; color: white; margin: 2px 4px; display: inline-block; }
+        .feedback { color: #FFD700; font-weight: bold; font-size: 13px; margin-top: 6px; }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 17px;
+            border-radius: 8px;
+            border: 1px solid #FFD700;
+            display: block;
+            font-weight: bold;
+            outline: none;
+        }
+        input {
+            background: #ffffff;
+            color: #000;
+        }
+        .result {
+            font-size: 20px;
+            color: #FFD700;
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            word-break: break-word;
+        }
+        .back {
+            background: #FFD700;
+            color: #000;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="main-title" id="title">Universal Unit Converter</h1>
+    <p class="main-subtitle" id="subtitle">All Categories | 100% Free</p>
+
+    <select class="lang-select" id="lang" onchange="changeLang()">
+        <option value="en">English</option>
+        <option value="ur">اردو (Urdu)</option>
+        <option value="ps">پښتو (Pashto)</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="zh">中文 (Chinese)</option>
+        <option value="es">Español (Spanish)</option>
+        <option value="fr">Français (French)</option>
+        <option value="de">Deutsch (German)</option>
+        <option value="ru">Русский (Russian)</option>
+        <option value="tr">Türkçe (Turkish)</option>
+        <option value="id">Indonesia</option>
+        <option value="pt">Português (Portuguese)</option>
+        <option value="ja">日本語 (Japanese)</option>
+        <option value="ko">한국어 (Korean)</option>
+    </select>
+
+    <div id="home"></div>
+
+    <div id="converter" style="display:none;">
+        <button class="back" id="backBtn" onclick="goHome()">Back</button>
+        <h2 id="catTitle" style="color:#FF8C00; font-size:22px; margin-bottom:10px;"></h2>
+        <input type="number" id="val" placeholder="Enter Value" oninput="calc()">
+        <select id="from" onchange="calc()"></select>
+        <select id="to" onchange="calc()"></select>
+        <div class="result" id="res">Result</div>
+    </div>
+
+    <div class="box madeby-box">
+        <h3 id="made">Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone:</b> +923068183790</p>
+        <div class="feedback">📢 Feedback & Suggestions</div>
+    </div>
+</div>
+
+<script>
+const LANG = {
+en: {title:"Universal Unit Converter", sub:"All Categories | 100% Free", back:"← Back", ph:"Enter Value", tap:" - Tap to Convert", res:"Result", cats:["Length","Weight","Area","Speed","Temperature","Data Storage","Volume","Time"]},
+ur: {title:"یونیورسل یونٹ کنورٹر", sub:"تمام زمرے | 100% مفت", back:"واپس ←", ph:"قیمت لکھیں", tap:" - کنورٹ کریں", res:"نتیجہ", cats:["لمبائی","وزن","رقبہ","رفتار","درجہ حرارت","ڈیٹا سٹوریج","حجم","وقت"]},
+ps: {title:"یونیورسل واحد کنورٹر", sub:"ټولې کټګورۍ | 100% وړیا", back:"بیرته ←", ph:"ارزښت ولیکئ", tap:" - بدل کړئ", res:"پایله", cats:["اوږدوالی","وزن","ساحه","سرعت","تودوخه","ډیټا ذخیره","حجم","وخت"]},
+hi: {title:"यूनिवर्सल यूनिट कन्वर्टर", sub:"सभी श्रेणियाँ | 100% मुफ़्त", back:"← वापस", ph:"मान लिखें", tap:" - कन्वर्ट करें", res:"परिणाम", cats:["लंबाई","वजन","क्षेत्र","गति","तापमान","डेटा स्टोरेज","आयतन","समय"]},
+ar: {title:"محول الوحدات العالمي", sub:"جميع الفئات | مجاني 100%", back:"رجوع ←", ph:"أدخل القيمة", tap:" - اضغط للتحويل", res:"النتيجة", cats:["الطول","الوزن","المساحة","السرعة","درجة الحرارة","تخزين البيانات","الحجم","الوقت"]},
+zh: {title:"通用单位转换器", sub:"所有类别 | 100% 免费", back:"← 返回", ph:"输入值", tap:" - 点击转换", res:"结果", cats:["长度","重量","面积","速度","温度","数据存储","体积","时间"]},
+es: {title:"Convertidor Universal de Unidades", sub:"Todas las Categorías | 100% Gratis", back:"← Atrás", ph:"Ingrese Valor", tap:" - Toca para Convertir", res:"Resultado", cats:["Longitud","Peso","Área","Velocidad","Temperatura","Almacenamiento","Volumen","Tiempo"]},
+fr: {title:"Convertisseur Universel d'Unités", sub:"Toutes Catégories | 100% Gratuit", back:"← Retour", ph:"Entrez Valeur", tap:" - Appuyez pour Convertir", res:"Résultat", cats:["Longueur","Poids","Surface","Vitesse","Température","Stockage","Volume","Temps"]},
+de: {title:"Universeller Einheitenumrechner", sub:"Alle Kategorien | 100% Kostenlos", back:"← Zurück", ph:"Wert Eingeben", tap:" - Tippen zum Konvertieren", res:"Ergebnis", cats:["Länge","Gewicht","Fläche","Geschwindigkeit","Temperatur","Datenspeicher","Volumen","Zeit"]},
+ru: {title:"Универсальный Конвертер Единиц", sub:"Все Категории | 100% Бесплатно", back:"← Назад", ph:"Введите Значение", tap:" - Нажмите для Конвертации", res:"Результат", cats:["Длина","Вес","Площадь","Скорость","Температура","Хранение Данных","Объем","Время"]},
+tr: {title:"Evrensel Birim Dönüştürücü", sub:"Tüm Kategoriler | 100% Ücretsiz", back:"← Geri", ph:"Değer Girin", tap:" - Dönüştürmek için Dokunun", res:"Sonuç", cats:["Uzunluk","Ağırlık","Alan","Hız","Sıcaklık","Veri Depolama","Hacim","Zaman"]},
+id: {title:"Konverter Unit Universal", sub:"Semua Kategori | 100% Gratis", back:"← Kembali", ph:"Masukkan Nilai", tap:" - Ketuk untuk Konversi", res:"Hasil", cats:["Panjang","Berat","Luas","Kecepatan","Suhu","Penyimpanan Data","Volume","Waktu"]},
+pt: {title:"Conversor Universal de Unidades", sub:"Todas as Categorias | 100% Grátis", back:"← Voltar", ph:"Digite Valor", tap:" - Toque para Converter", res:"Resultado", cats:["Comprimento","Peso","Área","Velocidade","Temperatura","Armazenamento","Volume","Tempo"]},
+ja: {title:"ユニバーサル単位変換", sub:"すべてのカテゴリ | 100% 無料", back:"← 戻る", ph:"値を入力", tap:" - タップして変換", res:"結果", cats:["長さ","重量","面積","速度","温度","データストレージ","体積","時間"]},
+ko: {title:"유니버셜 단위 변환기", sub:"모든 카테고리 | 100% 무료", back:"← 뒤로", ph:"값 입력", tap:" - 변환하려면 누르세요", res:"결과", cats:["길이","무게","면적","속도","온도","데이터 저장소","부피","시간"]}
+};
+
+const ICONS = ["📏","⚖️","📐","🚀","🌡️","💾","🥛","⏰"];
+const DATA_KEYS = ["Length","Weight","Area","Speed","Temperature","Data Storage","Volume","Time"];
+
+const UNITS_LABELS = {
+"Length": {m:"Meter (m)", ft:"Feet (ft)", inch:"Inch (in)", km:"Kilometer (km)", mile:"Mile (mi)", cm:"Centimeter (cm)", yard:"Yard (yd)"},
+"Weight": {kg:"Kilogram (kg)", pound:"Pound (lb)", gram:"Gram (g)", ton:"Metric Ton (t)", ounce:"Ounce (oz)"},
+"Area": {sqm:"Square Meter (m²)", sqft:"Square Feet (ft²)", sqyard:"Square Yard (yd²)", sqkm:"Square Km (km²)", sqmile:"Square Mile (mi²)", acre:"Acre", hectare:"Hectare"},
+"Speed": {kmh:"Km/h", mph:"Mph", ms:"m/s"},
+"Temperature": {c:"Celsius (°C)", f:"Fahrenheit (°F)", k:"Kelvin (K)"},
+"Data Storage": {MB:"Megabyte (MB)", KB:"Kilobyte (KB)", GB:"Gigabyte (GB)", TB:"Terabyte (TB)"},
+"Volume": {Liter:"Liter (L)", ML:"Milliliter (mL)", Gallon:"Gallon (gal)", Cup:"Cup"},
+"Time": {Second:"Second (s)", Minute:"Minute (min)", Hour:"Hour (hr)", Day:"Day", Week:"Week"}
+};
+
+const DATA = {
+"Length": {m:1, ft:3.280839895, inch:39.37007874, km:0.001, mile:0.000621371192, cm:100, yard:1.093613298},
+"Weight": {kg:1, pound:2.2046226218, gram:1000, ton:0.001, ounce:35.27396195},
+"Area": {sqm:1, sqft:10.763910417, sqyard:1.195990046, sqkm:0.000001, sqmile:3.861021585e-7, acre:0.000247105381, hectare:0.0001},
+"Speed": {kmh:1, mph:0.621371192, ms:0.27777777778},
+"Temperature": {c:1, f:1, k:1},
+"Data Storage": {MB:1, KB:1024, GB:1/1024, TB:1/(1024*1024)},
+"Volume": {Liter:1, ML:1000, Gallon:0.264172052, Cup:4.22675284},
+"Time": {Second:1, Minute:1/60, Hour:1/3600, Day:1/86400, Week:1/604800}
+};
+
+let curLang='en';
+let curCatIndex=0;
+
+function renderHome(){
+    const home=document.getElementById('home');
+    home.innerHTML='';
+    LANG[curLang].cats.forEach((name,i)=>{
+        let div=document.createElement('div');
+        div.className='box';
+        div.innerHTML=`<h2>${ICONS[i]} ${name}</h2><p>${LANG[curLang].tap}</p>`;
+        div.onclick=()=>openCat(i);
+        home.appendChild(div);
+    });
+}
+
+function changeLang(){
+    curLang=document.getElementById('lang').value;
+    if (['ur', 'ps', 'ar'].includes(curLang)) {
+        document.documentElement.dir = 'rtl';
+    } else {
+        document.documentElement.dir = 'ltr';
+    }
+    document.getElementById('title').textContent=LANG[curLang].title;
+    document.getElementById('subtitle').textContent=LANG[curLang].sub;
+    document.getElementById('backBtn').textContent=LANG[curLang].back;
+    document.getElementById('val').placeholder=LANG[curLang].ph;
+    document.getElementById('res').textContent=LANG[curLang].res;
+    renderHome();
+    if(document.getElementById('converter').style.display==='block'){
+        openCat(curCatIndex);
+    }
+}
+
+function openCat(i){
+    curCatIndex=i;
+    let field=DATA_KEYS[i];
+    document.getElementById('home').style.display='none';
+    document.getElementById('converter').style.display='block';
+    document.getElementById('catTitle').textContent=ICONS[i]+' '+LANG[curLang].cats[i];
+    document.getElementById('val').value = '';
+
+    let units=Object.keys(DATA[field]);
+    let labels=UNITS_LABELS[field] || {};
+
+    document.getElementById('from').innerHTML=units.map(u=>`<option value="${u}">${labels[u] || u}</option>`).join('');
+    document.getElementById('to').innerHTML=units.map(u=>`<option value="${u}">${labels[u] || u}</option>`).join('');
+    if(units.length > 1) {
+        document.getElementById('to').selectedIndex=1;
+    }
+    calc();
+}
+
+function formatNum(n) {
+    if (isNaN(n)) return '';
+    if (Math.abs(n) < 0.0001 && n !== 0) {
+        return n.toPrecision(5);
+    }
+    let str = n.toFixed(6);
+    return parseFloat(str).toString();
+}
+
+function calc(){
+    let v=parseFloat(document.getElementById('val').value);
+    let from=document.getElementById('from').value;
+    let to=document.getElementById('to').value;
+    if(isNaN(v)){
+        document.getElementById('res').textContent=LANG[curLang].res;
+        return;
+    }
+    let field=DATA_KEYS[curCatIndex];
+    let labels=UNITS_LABELS[field] || {};
+    let fromLabel = labels[from] || from;
+    let toLabel = labels[to] || to;
+
+    if(field==='Temperature'){
+        let c;
+        if(from==='c') c=v;
+        if(from==='f') c=(v-32)*5/9;
+        if(from==='k') c=v-273.15;
+        let out;
+        if(to==='c') out=c;
+        if(to==='f') out=c*9/5+32;
+        if(to==='k') out=c+273.15;
+        document.getElementById('res').textContent=v+' '+fromLabel+' = '+formatNum(out)+' '+toLabel;
+        return;
+    }
+    let base=v/DATA[field][from];
+    let out=base*DATA[field][to];
+    document.getElementById('res').textContent=v+' '+fromLabel+' = '+formatNum(out)+' '+toLabel;
+}
+
+function goHome(){
+    document.getElementById('converter').style.display='none';
+    document.getElementById('home').style.display='block';
+    document.getElementById('val').value = '';
+}
+
+renderHome();
+</script>
+</body>
+</html>
