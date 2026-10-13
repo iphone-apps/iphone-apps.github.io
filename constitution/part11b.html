@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part X — Emergency Provisions (Articles 232-237)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📓 Part X — Emergency Provisions</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 232-237)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📓 Part X — Emergency Provisions</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 232-237)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 232-237</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 232 -->
+        <div id="article232" class="article-box active">
+            <div class="article-badge">Article 232</div>
+            <div class="article-subheading">Proclamation of Emergency on account of war, internal disturbance, etc.</div>
+            <div class="article-content">
+                <p><b>232. (1) If the President is satisfied that a grave emergency exists in which the security of Pakistan, or any part thereof, is threatened by war or external aggression, or by internal disturbance beyond the power of a Provincial Government to control, he may issue a Proclamation of Emergency:</b></p>
+                <p><b>[Provided that for imposition of emergency due to internal disturbances beyond the powers of a Provincial Government to control, a resolution from the Provincial Assembly of that Province shall be required:</b></p>
+                <p><b>Provided further that if the President acts on his own, the Proclamation of Emergency shall be placed before both Houses of Majlis-e-Shoora (Parliament) for approval by each House within ten days.]</b></p>
+                <p><b>(2) Notwithstanding anything in the Constitution, while a Proclamation of Emergency is in force,—</b></p>
+                <p><b>(a) Majlis-e-Shoora (Parliament) shall have power to make laws for a Province, or any part thereof, with respect to any matter not enumerated in the Federal Legislative List;</b></p>
+                <p><b>(b) the executive authority of the Federation shall extend to the giving of directions to a Province as to the manner in which the executive authority of the Province is to be exercised; and</b></p>
+                <p><b>(c) the Federal Government may by Order assume to itself, or direct the Governor of a Province to assume on behalf of the Federal Government, all or any of the functions of the Government of the Province, and all or any of the powers vested in, or exercisable by, any body or authority in the Province other than the Provincial Assembly, and make such incidental and consequential provisions as appear to the Federal Government to be necessary or desirable for giving effect to the objects of the Proclamation, including provisions for suspending, in whole or in part, the operation of any provisions of the Constitution relating to any body or authority in the Province:</b></p>
+                <p><b>Provided that nothing in paragraph (c) shall authorize the Federal Government to assume to itself, or direct the Governor of the Province to assume on its behalf, any of the powers vested in or exercisable by a High Court, or to suspend either in whole or in part the operation of any provisions of the Constitution relating to High Courts.</b></p>
+                <p><b>(3) The power of Majlis-e-Shoora (Parliament) to make laws for a Province with respect to any matter shall include power to make laws conferring powers and imposing duties, or authorizing the conferring of powers and the imposition of duties upon the Federation, or officers and authorities of the Federation, as respects that matter.</b></p>
+                <p><b>(4) Nothing in this Article shall restrict the power of a Provincial Assembly to make any law which under the Constitution it has power to make, but if any provision of a Provincial law is repugnant to any provision of an Act of Majlis-e-Shoora (Parliament) which Majlis-e-Shoora (Parliament) has under this Article power to make, the Act of Majlis-e-Shoora (Parliament), whether passed before or after the Provincial law, shall prevail and the Provincial law shall, to the extent of the repugnancy, but so long only as the Act of Majlis-e-Shoora (Parliament) continues to have effect, be void.</b></p>
+                <p><b>(5) A law made by Majlis-e-Shoora (Parliament) which Majlis-e-Shoora (Parliament) would not but for the issue of a Proclamation of Emergency have been competent to make, shall, to the extent of the incompetency, cease to have effect on the expiration of a period of six months after the Proclamation of Emergency has ceased to be in force, except as respects things done or omitted to be done before the expiration of the said period.</b></p>
+                <p><b>(6) While a Proclamation of Emergency is in force, Majlis-e-Shoora (Parliament) may by law extend the term of the National Assembly for a period not exceeding one year and not extending in any case beyond a period of six months after the Proclamation has ceased to be in force.</b></p>
+                <p><b>(7) A Proclamation of Emergency shall be laid before a joint sitting which shall be summoned by the President to meet within thirty days of the Proclamation being issued and—</b></p>
+                <p><b>(a) shall cease to be in force at the expiration of two months unless before the expiration of that period it has been approved by a resolution of the joint sitting; and</b></p>
+                <p><b>(b) shall, subject to the provisions of paragraph (a), cease to be in force upon a resolution disapproving the Proclamation being passed by the votes of the majority of the total membership of the two Houses in joint sitting.</b></p>
+                <p><b>(8) Notwithstanding anything contained in clause (7), if the National Assembly stands dissolved at the time when a Proclamation of Emergency is issued, the Proclamation shall continue in force for a period of four months but, if a general election to the Assembly is not held before the expiration of that period, it shall cease to be in force at the expiration of that period unless it has earlier been approved by a resolution of the Senate.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 232 empowers the President to declare a state of emergency if Pakistan's security is threatened by war, external aggression, or internal disturbance beyond the control of a Provincial Government. For internal disturbance, a resolution from the Provincial Assembly is required. If the President acts on his own, the Proclamation must be approved by both Houses of Parliament within ten days. During an Emergency, Parliament can make laws for Provinces on matters not in the Federal Legislative List, and the Federal Government can assume the functions of a Provincial Government (except High Courts).</p>
+            </div>
+        </div>
+
+        <!-- Article 233 -->
+        <div id="article233" class="article-box">
+            <div class="article-badge">Article 233</div>
+            <div class="article-subheading">Power to suspend Fundamental Rights, etc., during emergency period</div>
+            <div class="article-content">
+                <p><b>233. (1) Nothing contained in Articles 15, 16, 17, 18, 19, and 24 shall, while a Proclamation of Emergency is in force, restrict the power of the State as defined in Article 7 to make any law or to take any executive action which it would, but for the provisions in the said Articles, be competent to make or to take, but any law so made shall, to the extent of the incompetency, cease to have effect, and shall be deemed to have been repealed, at the time when the Proclamation is revoked or has ceased to be in force.</b></p>
+                <p><b>(2) While a Proclamation of Emergency is in force, the President may, by Order, declare that the right to move any court for the enforcement of such of the Fundamental Rights conferred by Chapter 1 of Part II as may be specified in the Order, and any proceeding in any court which is for the enforcement, or involves the determination of any question as to the infringement, of any of the Rights so specified, shall remain suspended for the period during which the Proclamation is in force, and any such Order may be made in respect of the whole or any part of Pakistan.</b></p>
+                <p><b>(3) Every Order made under this Article shall, as soon as may be, be laid before both Houses of Majlis-e-Shoora (Parliament) separately for approval and the provisions of clauses (7) and (8) of Article 232 shall apply to such an Order as they apply to a Proclamation of Emergency.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 233 allows the State to make laws or take executive action that would otherwise be restricted by Articles 15, 16, 17, 18, 19, and 24 during a Proclamation of Emergency. The President can suspend the right to move any court for the enforcement of Fundamental Rights. Such orders must be laid before both Houses of Parliament for approval.</p>
+            </div>
+        </div>
+
+        <!-- Article 234 -->
+        <div id="article234" class="article-box">
+            <div class="article-badge">Article 234</div>
+            <div class="article-subheading">Power to issue Proclamation in case of failure of Constitutional machinery in a Province</div>
+            <div class="article-content">
+                <p><b>234. (1) If the President, on receipt of a report from the Governor of a Province is satisfied that a situation has arisen in which the Government of the Province cannot be carried on in accordance with the provisions of the Constitution, the President may, or if a resolution in this behalf is passed by each House separately shall, by Proclamation,—</b></p>
+                <p><b>(a) assume to himself, or direct the Governor of the Province to assume on behalf of the President, all or any of the functions of the Government of the Province, and all or any of the powers vested in, or exercisable by, any body or authority in the Province, other than the Provincial Assembly;</b></p>
+                <p><b>(b) declare that the powers of the Provincial Assembly shall be exercisable by, or under the authority of, Majlis-e-Shoora (Parliament); and</b></p>
+                <p><b>(c) make such incidental and consequential provisions as appear to the President to be necessary or desirable for giving effect to the objects of the Proclamation, including provisions for suspending in whole or in part the operation of any provisions of the Constitution relating to any body or authority in the Province:</b></p>
+                <p><b>Provided that nothing in this Article shall authorize the President to assume to himself, or direct the Governor of the Province to assume on his behalf, any of the powers vested in, or exercisable by, a High Court, or to suspend either in whole or in part the operation of any provisions of the Constitution relating to High Courts.</b></p>
+                <p><b>(2) The provisions of Article 105 shall not apply to the discharge by the Governor of his functions under clause (1).</b></p>
+                <p><b>(3) A Proclamation issued under this Article shall be laid before a joint sitting and shall cease to be in force at the expiration of two months, unless before the expiration of that period it has been approved by resolution of the joint sitting and may by like resolution be extended for a further period not exceeding two months at a time; but no such Proclamation shall in any case remain in force for more than six months.</b></p>
+                <p><b>(4) Notwithstanding anything contained in clause (3), if the National Assembly stands dissolved at the time when a Proclamation is issued under this Article, the Proclamation shall continue in force for a period of three months but, if a general election to the Assembly is not held before the expiration of that period, it shall cease to be in force at the expiration of that period unless it has earlier been approved by a resolution of the Senate.</b></p>
+                <p><b>(5) Where by a Proclamation issued under this Article it has been declared that the powers of the Provincial Assembly shall be exercisable by or under the authority of Majlis-e-Shoora (Parliament), it shall be competent—</b></p>
+                <p><b>(a) to Majlis-e-Shoora (Parliament) in joint sitting to confer on the President the power to make laws with respect to any matter within the legislative competence of the Provincial Assembly;</b></p>
+                <p><b>(b) to Majlis-e-Shoora (Parliament) in joint sitting, or the President, when he is empowered under paragraph (a), to make laws conferring powers and imposing duties, or authorizing the conferring of powers and the imposition of duties, upon the Federation, or officers and authorities thereof;</b></p>
+                <p><b>(c) to the President, when Majlis-e-Shoora (Parliament) is not in session, to authorize expenditure from the Provincial Consolidated Fund, whether the expenditure is charged by the Constitution upon that fund or not, pending the sanction of such expenditure by Majlis-e-Shoora (Parliament) in joint sitting; and</b></p>
+                <p><b>(d) to Majlis-e-Shoora (Parliament) in joint sitting by resolution to sanction expenditure authorized by the President under paragraph (c).</b></p>
+                <p><b>(6) Any law made by Majlis-e-Shoora (Parliament) or the President which Majlis-e-Shoora (Parliament) or the President would not, but for the issue of a Proclamation under this Article, have been competent to make, shall, to the extent of the incompetency, cease to have effect on the expiration of a period of six months after the Proclamation under this Article has ceased to be in force, except as to things done or omitted to be done before the expiration of the said period.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 234 allows the President to issue a Proclamation in case of failure of constitutional machinery in a Province (Governor's Rule). The President can assume the functions of the Provincial Government (except High Courts) and declare that the powers of the Provincial Assembly shall be exercisable by Parliament. The Proclamation must be laid before a joint sitting and ceases to be in force after two months unless approved. It can be extended for periods not exceeding two months at a time, but cannot remain in force for more than six months.</p>
+            </div>
+        </div>
+
+        <!-- Article 235 -->
+        <div id="article235" class="article-box">
+            <div class="article-badge">Article 235</div>
+            <div class="article-subheading">Proclamation in case of financial emergency</div>
+            <div class="article-content">
+                <p><b>235. (1) If the President is satisfied that a situation has arisen whereby the economic life, financial stability or credit of Pakistan, or any part thereof, is threatened, he may, after consultation with the Governors of the Provinces or, as the case may be, the Governor of the Province concerned, by Proclamation make a declaration to that effect, and, while such a Proclamation is in force, the executive authority of the Federation shall extend to the giving of directions to any Province to observe such principles of financial propriety as may be specified in the directions, and to the giving of such other directions as the President may deem necessary in the interest of the economic life, financial stability or credit of Pakistan or any part thereof.</b></p>
+                <p><b>(2) Notwithstanding anything in the Constitution, any such directions may include a provision requiring a reduction of the salary and allowances of all or any class of persons serving in connection with the affairs of a Province.</b></p>
+                <p><b>(3) While a Proclamation issued under this Article is in force the President may issue directions for the reduction of the salaries and allowances of all or any class of persons serving in connection with the affairs of the Federation.</b></p>
+                <p><b>(4) The provisions of clauses (3) and (4) of Article 234 shall apply to a Proclamation issued under this Article as they apply to a Proclamation issued under that Article.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 235 allows the President to declare a financial emergency if the economic life, financial stability, or credit of Pakistan is threatened. The Federation can give directions to Provinces on financial propriety and can reduce salaries and allowances of persons serving in the Federation or Provinces.</p>
+            </div>
+        </div>
+
+        <!-- Article 236 -->
+        <div id="article236" class="article-box">
+            <div class="article-badge">Article 236</div>
+            <div class="article-subheading">Revocation of Proclamation, etc.</div>
+            <div class="article-content">
+                <p><b>236. (1) A Proclamation issued under this Part may be varied or revoked by a subsequent Proclamation.</b></p>
+                <p><b>(2) The validity of any Proclamation issued or Order made under this Part shall not be called in question in any court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 236 allows a Proclamation issued under this Part to be varied or revoked by a subsequent Proclamation. The validity of any Proclamation or Order made under this Part cannot be called in question in any court.</p>
+            </div>
+        </div>
+
+        <!-- Article 237 -->
+        <div id="article237" class="article-box">
+            <div class="article-badge">Article 237</div>
+            <div class="article-subheading">Majlis-e-Shoora (Parliament) may make laws of indemnity, etc.</div>
+            <div class="article-content">
+                <p><b>237. Nothing in the Constitution shall prevent Majlis-e-Shoora (Parliament) from making any law indemnifying any person in the service of the Federal Government or a Provincial Government, or any other person, in respect of any act done in connection with the maintenance or restoration of order in any area in Pakistan.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 237 allows Parliament to make laws indemnifying any person in the service of the Federal or Provincial Government, or any other person, in respect of any act done in connection with the maintenance or restoration of order in any area in Pakistan.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 232;
+    const totalArticles = 237;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 232);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (232-237).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 232 || num > 237) { resultDiv.innerHTML = '❌ Invalid! This Part contains Articles 232 to 237.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 232);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

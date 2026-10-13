@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 2 — Fundamental Rights (Articles 7-28 & 25A)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+       .container { max-width: 800px; margin: 0 auto; }
+       .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+       .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+       .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+       .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+       .disclaimer-box p,.disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+       .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+       .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+       .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+       .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+       .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+       .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+       .index-btn:hover { background: #9900cc; }
+       .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+       .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+       .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+       .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+       .search-wrapper input::placeholder { color: #666; }
+       .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+       .search-wrapper button:hover { background: #ff4500; }
+       .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+       .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+       .article-box.active { display: block; }
+       .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+       .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+       .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+       .article-content ol,.article-content ul { padding-left: 25px; margin: 10px 0; }
+       .article-content li { margin-bottom: 8px; }
+       .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+       .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+       .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+       .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+       .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+       .nav-btn:hover { background: #9900ff; }
+       .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+       .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+       .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) {.header-title { font-size: 22px; }.nav-bar { flex-direction: column; align-items: stretch; gap: 8px; }.index-btn { justify-content: center; width: 100%; }.search-container { justify-content: center; width: 100%; }.search-wrapper { width: 100%; }.search-wrapper input { flex: 1; width: auto; }.nav-buttons { flex-direction: column; }.article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="disclaimerPage">
+        <h1 class="header-title">📗 Chapter 2 — Fundamental Rights</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 7-28 & 25A)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br>
+                <b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+    <div id="articlesPage">
+        <h1 class="header-title">📗 Chapter 2 — Fundamental Rights</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 7-28 & 25A)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article</span>
+                <div class="search-wrapper">
+                    <input type="text" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <div id="article7" class="article-box active">
+            <div class="article-badge">Article 7</div>
+            <div class="article-subheading">Definition of the State</div>
+            <div class="article-content">
+                <p><b>7. In this Part, unless the context otherwise requires, "the State" means the Federal Government, [Majlis-e-Shoora (Parliament)], a Provincial Government, a Provincial Assembly, and such local or other authorities in Pakistan as are by law empowered to impose any tax or cess.</b></p>
+            </div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 7 defines the term "State" for Fundamental Rights. It includes the Federal Government, Parliament, Provincial Governments, Provincial Assemblies, and all local authorities empowered to impose taxes.</p></div>
+        </div>
+
+        <div id="article8" class="article-box">
+            <div class="article-badge">Article 8</div>
+            <div class="article-subheading">Laws inconsistent with Fundamental Rights to be void</div>
+            <div class="article-content">
+                <p><b>8. (1) Any law, or any custom or usage having the force of law, in so far as it is inconsistent with the rights conferred by this Chapter, shall, to the extent of such inconsistency, be void.</b></p>
+                <p><b>(2) The State shall not make any law which takes away or abridges the rights so conferred and any law made in contravention of this clause shall, to the extent of such contravention, be void.</b></p>
+                <p><b>(3) The Provisions of this Article shall not apply to</b></p>
+                <p><b>(a) any law relating to members of the Armed Forces, or of the police or of such other forces as are charged with the maintenance of public order, for the purpose of ensuring the proper discharge of their duties or the maintenance of discipline among them; or</b></p>
+                <p><b>(b) any of the</b></p>
+                <p><b>(i) laws specified in the First Schedule as in force immediately before the commencing day or as amended by any of the laws specified in that Schedule;</b></p>
+                <p><b>(ii) other laws specified in Part I of the First Schedule;</b></p>
+                <p><b>and no such law nor any provision thereof shall be void on the ground that such law or provision is inconsistent with, or repugnant to, any provision of this Chapter.</b></p>
+                <p><b>(4) Notwithstanding anything contained in paragraph (b) of clause (3), within a period of two years from the commencing day, the appropriate Legislature shall bring the laws specified in [Part II of the First Schedule] into conformity with the rights conferred by this Chapter:</b></p>
+                <p><b>Provided that the appropriate Legislature may by resolution extend the said period of two years by a period not exceeding six months.</b></p>
+                <p><b>Explanation.- If in respect of any law [Majlis-e-Shoora (Parliament)] is the appropriate Legislature, such resolution shall be a resolution of the National Assembly.</b></p>
+                <p><b>(5) The rights conferred by this Chapter shall not be suspended except as expressly provided by the Constitution.</b></p>
+            </div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 8 is the cornerstone of Fundamental Rights. It states that any law that goes against the rights given in this chapter is void.</p></div>
+        </div>
+
+        <div id="article9" class="article-box">
+            <div class="article-badge">Article 9</div>
+            <div class="article-subheading">Security of Person</div>
+            <div class="article-content"><p><b>9. No person shall be deprived of life or liberty save in accordance with law.</b></p></div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 9 guarantees the most basic right: the right to life and personal liberty.</p></div>
+        </div>
+
+        <div id="article9A" class="article-box">
+            <div class="article-badge">Article 9A</div>
+            <div class="article-subheading">Clean and Healthy Environment</div>
+            <div class="article-content"><p><b>[9A. Every person shall be entitled to a clean, healthy and sustainable environment.]</b></p></div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 9A guarantees every person the right to a clean, healthy, and sustainable environment.</p></div>
+        </div>
+
+        <div id="article10" class="article-box">
+            <div class="article-badge">Article 10</div>
+            <div class="article-subheading">Safeguards as to Arrest and Detention</div>
+            <div class="article-content">
+                <p><b>10. (1) No person who is arrested shall be detained in custody without being informed, as soon as may be, of the grounds for such arrest, nor shall he be denied the right to consult and be defended by a legal practitioner of his choice.</b></p>
+                <p><b>(2) Every person who is arrested and detained in custody shall be produced before a magistrate within a period of twenty-four hours of such arrest, excluding the time necessary for the journey from the place of arrest to the court of the nearest magistrate, and no such person shall be detained in custody beyond the said period without the authority of a magistrate.</b></p>
+                <p><b>(3) Nothing in clauses (1) and (2) shall apply to any person who is arrested or detained under any law providing for preventive detention.</b></p>
+                <p><b>(4) No law providing for preventive detention shall be made except to deal with persons acting in a manner prejudicial to the integrity, security or defence of Pakistan or any part thereof, or external affairs of Pakistan, or public order, or the maintenance of supplies or services, and no such law shall authorize the detention of a person for a period exceeding [three months] unless the appropriate Review Board has, after affording him an opportunity of being heard in person, reviewed his case and reported, before the expiration of the said period, that there is, in its opinion, sufficient cause for such detention, and, if the detention is continued after the said period of [three months], unless the appropriate Review Board has reviewed his case and reported, before the expiration of each period of three months, that there is, in its opinion, sufficient cause for such detention.</b></p>
+                <p><b>Explanation I.- In this Article, "the appropriate Review Board" means,-</b></p>
+                <p><b>(i) in the case of a person detained under a Federal law, a Board appointed by the Chief Justice of [Supreme Court of] Pakistan and consisting of a Chairman and two other persons, each of whom is or has been a Judge of the Supreme Court or a High Court; and</b></p>
+                <p><b>(ii) in the case of a person detained under a Provincial law, a Board appointed by the Chief Justice of the High Court concerned and consisting of a Chairman and two other persons, each of whom is or has been a Judge of a High Court.</b></p>
+                <p><b>Explanation II.- The opinion of a Review Board shall be expressed in terms of the views of the majority of its members.</b></p>
+                <p><b>(5) When any person is detained in pursuance of an order made under any law providing for preventive detention, the authority making the order shall, [within fifteen days] from such detention, communicate to such person the grounds on which the order has been made, and shall afford him the earliest opportunity of making a representation against the order:</b></p>
+                <p><b>Provided that the authority making any such order may refuse to disclose facts which such authority considers it to be against the public interest to disclose.</b></p>
+                <p><b>(6) The authority making the order shall furnish to the appropriate Review Board all documents relevant to the case unless a certificate, signed by a Secretary to the Government concerned, to the effect that it is not in the public interest to furnish any documents, is produced.</b></p>
+                <p><b>(7) Within a period of twenty-four months commencing on the day of his first detention in pursuance of an order made under a law providing for preventive detention, no person shall be detained in pursuance of any such order for more than a total period of eight months in the case of a person detained for acting in a manner prejudicial to public order and twelve months in any other case:</b></p>
+                <p><b>Provided that this clause shall not apply to any person who is employed by, or works for, or acts on instructions received from, the enemy [or who is acting or attempting to act in a manner prejudicial to the integrity, security or defence of Pakistan or any part thereof or who commits or attempts to commit any act which amounts to an anti-national activity as defined in a Federal law or is a member of any association which has for its objects, or which indulges in, any such anti-national activity.]</b></p>
+                <p><b>(8) The appropriate Review Board shall determine the place of detention of the person detained and fix a reasonable subsistence allowance for his family.</b></p>
+                <p><b>(9) Nothing in this Article shall apply to any person who for the time being is an enemy alien.</b></p>
+            </div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 10 provides strict protections against arbitrary arrest and includes detailed provisions for preventive detention.</p></div>
+        </div>
+
+        <div id="article10A" class="article-box"><div class="article-badge">Article 10A</div><div class="article-subheading">Right to Fair Trial</div><div class="article-content"><p><b>[10A. For the determination of his civil rights and obligations or in any criminal charge against him a person shall be entitled to a fair trial and due process.]</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 10A guarantees the right to a fair trial and due process.</p></div></div>
+        <div id="article11" class="article-box"><div class="article-badge">Article 11</div><div class="article-subheading">Slavery and Forced Labour</div><div class="article-content"><p><b>11. (1) Slavery is non-existent and forbidden and no law shall permit or facilitate its introduction into Pakistan in any form.</b></p><p><b>(2) All forms of forced labour and traffic in human beings are prohibited.</b></p><p><b>(3) No child below the age of fourteen years shall be engaged in any factory or mine or any other hazardous employment.</b></p><p><b>(4) Nothing in this Article shall be deemed to affect compulsory service</b></p><p><b>(a) by any person undergoing punishment for an offence against any law; or</b></p><p><b>(b) required by any law for public purpose:</b></p><p><b>Provided that no compulsory service shall be of a cruel nature or incompatible with human dignity.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 11 bans slavery and forced labor and protects children under 14.</p></div></div>
+        <div id="article12" class="article-box"><div class="article-badge">Article 12</div><div class="article-subheading">Protection against Retrospective Punishment</div><div class="article-content"><p><b>12. (1) No law shall authorize the punishment of a person</b></p><p><b>(a) for an act or omission that was not punishable by law at the time of the act or omission; or</b></p><p><b>(b) for an offence by a penalty greater than, or of a kind different from, the penalty prescribed by law for that offence at the time the offence was committed.</b></p><p><b>(2) Nothing in clause (1) or in Article 270 shall apply to any law making acts of abrogation or subversion of a Constitution in force in Pakistan at any time since the twenty-third day of March, one thousand nine hundred and fifty-six, an offence.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 12 prevents ex-post facto laws.</p></div></div>
+        <div id="article13" class="article-box"><div class="article-badge">Article 13</div><div class="article-subheading">Protection against Double Punishment and Self-Incrimination</div><div class="article-content"><p><b>13. No person</b></p><p><b>(a) shall be prosecuted or punished for the same offence more than once; or</b></p><p><b>(b) shall, when accused of an offence, be compelled to be a witness against himself.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 13 provides protection against Double Jeopardy and self-incrimination.</p></div></div>
+        <div id="article14" class="article-box"><div class="article-badge">Article 14</div><div class="article-subheading">Inviolability of Dignity of Man</div><div class="article-content"><p><b>14. (1) The dignity of man and, subject to law, the privacy of home, shall be inviolable.</b></p><p><b>(2) No person shall be subjected to torture for the purpose of extracting evidence.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 14 protects human dignity and forbids torture.</p></div></div>
+
+        <div id="article15" class="article-box">
+            <div class="article-badge">Article 15</div>
+            <div class="article-subheading">Freedom of Movement</div>
+            <div class="article-content">
+                <p><b>15. Every citizen shall have the right to remain in, and, subject to any reasonable restriction imposed by law in the public interest, enter and move freely throughout Pakistan and to reside and settle in any part thereof.</b></p>
+            </div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 15 guarantees citizens the freedom to remain in and move throughout Pakistan.</p></div>
+        </div>
+
+        <div id="article16" class="article-box"><div class="article-badge">Article 16</div><div class="article-subheading">Freedom of Assembly</div><div class="article-content"><p><b>16. Every citizen shall have the right to assemble peacefully and without arms, subject to any reasonable restrictions imposed by law in the interest of public order.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 16 gives citizens the right to hold peaceful meetings.</p></div></div>
+        <div id="article17" class="article-box"><div class="article-badge">Article 17</div><div class="article-subheading">Freedom of Association</div><div class="article-content"><p><b>[17. (1) Every citizen shall have the right to form associations or unions, subject to any reasonable restrictions imposed by law in the interest of sovereignty or integrity of Pakistan, public order or morality.</b></p><p><b>(2) Every citizen, not being in the service of Pakistan, shall have the right to form or be a member of a political party, subject to any reasonable restrictions imposed by law in the interest of the sovereignty or integrity of Pakistan and such law shall provide that where the Federal Government declares that any political party has been formed or is operating in a manner prejudicial to the sovereignty or integrity of Pakistan, the Federal Government shall, within fifteen days of such declaration, refer the matter to the [Federal Constitutional Court of Pakistan] whose decision on such reference shall be final.</b></p><p><b>(3) Every political party shall account for the source of its funds in accordance with law.]</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 17 grants citizens the right to form associations, unions, and political parties. The 27th Amendment replaced "Supreme Court" with "Federal Constitutional Court".</p></div></div>
+
+        <div id="article18" class="article-box">
+            <div class="article-badge">Article 18</div>
+            <div class="article-subheading">Freedom of Trade, Business or Profession</div>
+            <div class="article-content">
+                <p><b>18. Subject to such qualifications, if any, as may be prescribed by law, every citizen shall have the right to enter upon any lawful profession or occupation, and to conduct any lawful trade or business:</b></p>
+                <p><b>Provided that nothing in this Article shall prevent</b></p>
+                <p><b>(a) the regulation of any trade or profession by a licensing system; or</b></p>
+                <p><b>(b) the regulation of trade, commerce or industry in the interest of free competition therein; or</b></p>
+                <p><b>(c) the carrying on, by the Federal Government or a Provincial Government, or by a corporation controlled by any such Government, of any trade, business, industry or service, whether to the exclusion, complete or partial, of other persons or otherwise.</b></p>
+            </div>
+            <div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 18 ensures every citizen can choose any lawful profession, business, or trade.</p></div>
+        </div>
+
+        <div id="article19" class="article-box"><div class="article-badge">Article 19</div><div class="article-subheading">Freedom of Speech</div><div class="article-content"><p><b>19. Every citizen shall have the right to freedom of speech and expression, and there shall be freedom of the press, subject to any reasonable restrictions imposed by law in the interest of the glory of Islam or the integrity, security or defence of Pakistan or any part thereof, friendly relations with foreign States, public order, decency or morality, or in relation to contempt of court, [commission of] or incitement to an offence.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 19 guarantees freedom of speech and press.</p></div></div>
+        <div id="article19A" class="article-box"><div class="article-badge">Article 19A</div><div class="article-subheading">Right to Information</div><div class="article-content"><p><b>[19A. Every citizen shall have the right to have access to information in all matters of public importance subject to regulation and reasonable restrictions imposed by law.]</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 19A guarantees the right to access information.</p></div></div>
+        <div id="article20" class="article-box"><div class="article-badge">Article 20</div><div class="article-subheading">Freedom to Profess Religion</div><div class="article-content"><p><b>20. Subject to law, public order and morality,</b></p><p><b>(a) every citizen shall have the right to profess, practise and propagate his religion; and</b></p><p><b>(b) every religious denomination and every sect thereof shall have the right to establish, maintain and manage its religious institutions.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 20 protects religious freedom.</p></div></div>
+        <div id="article21" class="article-box"><div class="article-badge">Article 21</div><div class="article-subheading">Safeguard against Taxation for Religious Purposes</div><div class="article-content"><p><b>21. No person shall be compelled to pay any special tax the proceeds of which are to be spent on the propagation or maintenance of any religion other than his own.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 21 protects a citizen's right to not be forced to pay taxes for a religion they don't follow.</p></div></div>
+        <div id="article22" class="article-box"><div class="article-badge">Article 22</div><div class="article-subheading">Safeguards as to Educational Institutions</div><div class="article-content"><p><b>22. (1) No person attending any educational institution shall be required to receive religious instruction, or take part in any religious ceremony, or attend religious worship, if such instruction, ceremony or worship relates to a religion other than his own.</b></p><p><b>(2) In respect of any religious institution, there shall be no discrimination against any community in the granting of exemption or concession in relation to taxation.</b></p><p><b>(3) Subject to law</b></p><p><b>(a) no religious community or denomination shall be prevented from providing religious instruction for pupils of that community or denomination in any educational institution maintained wholly by that community or denomination; and</b></p><p><b>(b) no citizen shall be denied admission to any educational institution receiving aid from public revenues on the ground only of race, religion, caste or place of birth.</b></p><p><b>(4) Nothing in this Article shall prevent any public authority from making provision for the advancement of any socially or educationally backward class of citizens.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 22 protects students from forced religious instruction.</p></div></div>
+        <div id="article23" class="article-box"><div class="article-badge">Article 23</div><div class="article-subheading">Provision as to Property</div><div class="article-content"><p><b>23. Every citizen shall have the right to acquire, hold and dispose of property in any part of Pakistan, subject to the Constitution and any reasonable restrictions imposed by law in the public interest.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 23 grants citizens the right to acquire, hold, and dispose of property.</p></div></div>
+        <div id="article24" class="article-box"><div class="article-badge">Article 24</div><div class="article-subheading">Protection of Property Rights</div><div class="article-content"><p><b>24. (1) No person shall be deprived of his property save in accordance with law.</b></p><p><b>(2) No property shall be compulsorily acquired or taken possession of save for a public purpose, and save by the authority of law which provides for compensation therefor and either fixes the amount of compensation or specifies the principles on and the manner in which compensation is to be determined and given.</b></p><p><b>(3) Nothing in this Article shall affect the validity of</b></p><p><b>(a) any law permitting the compulsory acquisition or taking possession of any property for preventing danger to life, property or public health; or</b></p><p><b>(b) any law permitting the taking over of any property which has been acquired by, or come into the possession of, any person by any unfair means, or in any manner, contrary to law; or</b></p><p><b>(c) any law relating to the acquisition, administration or disposal of any property which is or is deemed to be enemy property or evacuee property under any law (not being property which has ceased to be evacuee property under any law); or</b></p><p><b>(d) any law providing for the taking over of the management of any property by the State for a limited period, either in the public interest or in order to secure the proper management of the property, or for the benefit of its owner; or</b></p><p><b>(e) any law providing for the acquisition of any class of property for the purpose of</b></p><p><b>(i) providing education and medical aid to all or any specified class of citizens; or</b></p><p><b>(ii) providing housing and public facilities and services such as roads, water supply, sewerage, gas and electric power to all or any specified class of citizens; or</b></p><p><b>(iii) providing maintenance to those who, on account of unemployment, sickness, infirmity or old age, are unable to maintain themselves; or</b></p><p><b>(f) any existing law or any law made in pursuance of Article 253.</b></p><p><b>(4) The adequacy or otherwise of any compensation provided for by any such law as is referred to in this Article, or determined in pursuance thereof, shall not be called in question in any court.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 24 protects private property and requires compensation for compulsory acquisition.</p></div></div>
+        <div id="article25" class="article-box"><div class="article-badge">Article 25</div><div class="article-subheading">Equality of Citizens</div><div class="article-content"><p><b>25. (1) All citizens are equal before law and are entitled to equal protection of law.</b></p><p><b>(2) There shall be no discrimination on the basis of sex</b></p><p><b>(3) Nothing in this Article shall prevent the State from making any special provision for the protection of women and children.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 25 establishes the right to equality.</p></div></div>
+        <div id="article25A" class="article-box"><div class="article-badge">Article 25A</div><div class="article-subheading">Right to Education</div><div class="article-content"><p><b>[25A. The State shall provide free and compulsory education to all children of the age of five to sixteen years in such manner as may be determined by law.]</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 25A guarantees free and compulsory education to every child between 5 and 16 years.</p></div></div>
+        <div id="article26" class="article-box"><div class="article-badge">Article 26</div><div class="article-subheading">Non-discrimination in respect of Access to Public Places</div><div class="article-content"><p><b>26. (1) In respect of access to places of public entertainment or resort, not intended for religious purposes only, there shall be no discrimination against any citizen on the ground only of race, religion, caste, sex, residence or place of birth.</b></p><p><b>(2) Nothing in clause (1) shall prevent the State from making any special provision for women and children.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 26 ensures no discrimination in access to public places.</p></div></div>
+        <div id="article27" class="article-box"><div class="article-badge">Article 27</div><div class="article-subheading">Safeguard against Discrimination in Services</div><div class="article-content"><p><b>27. (1) No citizen otherwise qualified for appointment in the service of Pakistan shall be discriminated against in respect of any such appointment on the ground only of race, religion, caste, sex, residence or place of birth:</b></p><p><b>Provided that, for a period not exceeding [forty] years from the commencing day, posts may be reserved for persons belonging to any class or area to secure their adequate representation in the service of Pakistan:</b></p><p><b>Provided further that, in the interest of the said service, specified posts or services may be reserved for members of either sex if such posts or services entail the performance of duties and functions which cannot be adequately performed by members of the other sex:</b></p><p><b>Provided also that under-representation of any class or area in the service of Pakistan may be redressed in such manner as may be determined by an Act of Majlis-e-Shoora (Parliament).]</b></p><p><b>(2) Nothing in clause (1) shall prevent any Provincial Government, or any local or other authority in a Province, from prescribing, in relation to any post or class of service under that Government or authority, conditions as to residence in the Province, for a period not exceeding three years, prior to appointment under that Government or authority.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 27 protects citizens from discrimination in government jobs.</p></div></div>
+        <div id="article28" class="article-box"><div class="article-badge">Article 28</div><div class="article-subheading">Preservation of Language, Script and Culture</div><div class="article-content"><p><b>28. Subject to Article 251 any section of citizens having a distinct language, script or culture shall have the right to preserve and promote the same and subject to law, establish institutions for that purpose.</b></p></div><div class="explanation-box"><h4>📖 Explanation:</h4><p>Article 28 allows citizens to preserve and promote their distinct language, script, or culture.</p></div></div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    const articleSequence = ['7','8','9','9A','10','10A','11','12','13','14','15','16','17','18','19','19A','20','21','22','23','24','25','25A','26','27','28'];
+    let currentIndex = 0;
+    const totalArticles = articleSequence.length;
+    function changeArticle(direction) {
+        document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+        currentIndex += direction;
+        document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentIndex === 0);
+        document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (7-28, 9A, 10A, 19A, or 25A).'; return; }
+        let num = input.toUpperCase();
+        let targetId = null;
+        if (num === '9A') targetId = '9A';
+        else if (num === '10A') targetId = '10A';
+        else if (num === '19A') targetId = '19A';
+        else if (num === '25A') targetId = '25A';
+        else { let intNum = parseInt(num); if (!isNaN(intNum) && intNum >= 7 && intNum <= 28) { targetId = String(intNum); } }
+        if (targetId === null) { resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 7-28 (and 9A, 10A, 19A, 25A).'; return; }
+        let targetIndex = articleSequence.indexOf(targetId);
+        if (targetIndex!== -1) {
+            document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+            currentIndex = targetIndex;
+            document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+            let element = document.getElementById('article' + targetId);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${targetId}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

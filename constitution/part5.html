@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 5 — Provinces (Articles 101-140)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📕 Chapter 5 — Provinces</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 101-140)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📕 Chapter 5 — Provinces</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 101-140)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 101-140</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 101 -->
+        <div id="article101" class="article-box active">
+            <div class="article-badge">Article 101</div>
+            <div class="article-subheading">Appointment of Governor</div>
+            <div class="article-content">
+                <p><b>101. [(1) There shall be a Governor for each Province, who shall be appointed by the President on the advice of the Prime Minister.]</b></p>
+                <p><b>(2) A person shall not be appointed a Governor unless he is qualified to be elected as a member of the National Assembly and is not less than thirty-five years of age [and is a registered voter and resident of the Province concerned] [: ]</b></p>
+                <p><b>(3) The Governor shall hold office during the pleasure of the President [and shall be entitled to such salary, allowances and privileges as the President may determine].</b></p>
+                <p><b>(4) The Governor may, by writing under his hand addressed to the President, resign his office.</b></p>
+                <p><b>[(5) The President may make such provision as he thinks fit for the discharge of the functions of a Governor [in any contingency not provided for in this Part].]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 101 establishes the provincial Governor as the head of the province. The Governor is appointed by the President on the advice of the Prime Minister. The Governor must be qualified to be a member of the National Assembly, at least 35 years old, and a registered voter and resident of the province. The Governor holds office during the pleasure of the President and can resign by writing to the President.</p>
+            </div>
+        </div>
+
+        <!-- Article 102 -->
+        <div id="article102" class="article-box">
+            <div class="article-badge">Article 102</div>
+            <div class="article-subheading">Oath of Office</div>
+            <div class="article-content">
+                <p><b>102. Before entering upon office, the Governor shall make before the Chief Justice of the High Court oath in the form set out in the Third Schedule.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 102 requires the Governor to take a formal oath before the Chief Justice of the High Court before assuming office, in the form set out in the Third Schedule.</p>
+            </div>
+        </div>
+
+        <!-- Article 103 -->
+        <div id="article103" class="article-box">
+            <div class="article-badge">Article 103</div>
+            <div class="article-subheading">Conditions of Governor's office</div>
+            <div class="article-content">
+                <p><b>103. (1) The Governor shall not hold any office of profit in the service of Pakistan or occupy any other position carrying the right to remuneration for the rendering of services.</b></p>
+                <p><b>(2) The Governor shall not be a candidate for election as a member of [Majlis-e-Shoora (Parliament)] or a Provincial Assembly and, if a member of [Majlis-e-Shoora (Parliament)] or a Provincial Assembly is appointed as Governor, his seat in [Majlis-e-Shoora (Parliament)] or, as the case may be, the Provincial Assembly shall become vacant on the day he enters upon his office.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 103 ensures the Governor remains neutral and independent during his tenure. The Governor cannot hold any other office of profit and cannot be a candidate for election to Parliament or Provincial Assembly while holding office. If a member of Parliament or Provincial Assembly is appointed as Governor, his seat becomes vacant.</p>
+            </div>
+        </div>
+
+        <!-- Article 104 -->
+        <div id="article104" class="article-box">
+            <div class="article-badge">Article 104</div>
+            <div class="article-subheading">Speaker Provincial Assembly to act as, or perform functions of Governor in his absence</div>
+            <div class="article-content">
+                <p><b>104. When the Governor, by reason of absence from Pakistan or for any other cause, is unable to perform his functions, the Speaker of the Provincial Assembly and in his absence any other person as the President may nominate shall perform the functions of Governor until the Governor returns to Pakistan or, as the case may be, resumes his functions.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 104 provides that when the Governor is unable to perform his functions due to absence from Pakistan or any other cause, the Speaker of the Provincial Assembly (or in his absence, any person nominated by the President) shall perform the functions of Governor until the Governor returns or resumes his functions.</p>
+            </div>
+        </div>
+
+        <!-- Article 105 -->
+        <div id="article105" class="article-box">
+            <div class="article-badge">Article 105</div>
+            <div class="article-subheading">Governor to act on advice, etc.</div>
+            <div class="article-content">
+                <p><b>105. (1) Subject to Constitution, in the performance of his functions, the Governor shall act [on and] in accordance with the advice of the Cabinet [or the Chief Minister]:</b></p>
+                <p><b>Provided that [within fifteen days] the Governor may require the Cabinet or, as the case may be, the Chief Minister to reconsider such advice, whether generally or otherwise, and the Governor shall [within ten days], act in accordance with the advice tendered after such reconsideration.]</b></p>
+                <p><b>(2) The question whether any, and if so what, advice was tendered to the Governor by the Chief Minister [or the Cabinet] shall not be inquired into in, or by, any court, tribunal or other authority.</b></p>
+                <p><b>(3) Where the Governor dissolves the Provincial Assembly, notwithstanding anything contained in clause (1), he shall,</b></p>
+                <p><b>(a) appoint a date, not later than ninety days from the date of dissolution, for the holding of a general election to the Assembly; and</b></p>
+                <p><b>(b) appoint a care-taker Cabinet [in accordance with the provisions of Article 224 or, as the case may be, Article 224A].]</b></p>
+                <p><b>(5) The provisions of clause [2] of Article 48 shall have effect in relation to a Governor as if reference therein to "President" were reference to "Governor".]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 105 defines the Governor's role. The Governor must act on the advice of the Cabinet or Chief Minister. The Governor can require reconsideration of advice within fifteen days and must act on the reconsidered advice within ten days. The question of what advice was tendered cannot be inquired into by any court. When dissolving the Provincial Assembly, the Governor must appoint a date for elections within ninety days and appoint a care-taker Cabinet.</p>
+            </div>
+        </div>
+
+        <!-- Article 106 -->
+        <div id="article106" class="article-box">
+            <div class="article-badge">Article 106</div>
+            <div class="article-subheading">Constitution of Provincial Assemblies</div>
+            <div class="article-content">
+                <p><b>[106. (1) Each Provincial Assembly shall consist of general seats and seats reserved for women and non-Muslims as specified herein below:-</b></p>
+                <p><b>Balochistan: General 51, Women 11, Non-Muslims 3, Total 65</b></p>
+                <p><b>[Khyber Pakhtunkhwa: General 115, Women 26, Non-Muslims 4, Total 145]</b></p>
+                <p><b>Punjab: General 297, Women 66, Non-Muslims 8, Total 371</b></p>
+                <p><b>Sindh: General 130, Women 29, Non-Muslims 9, Total 168</b></p>
+                <p><b>(2) A person shall be entitled to vote if</b></p>
+                <p><b>(a) he is a citizen of Pakistan;</b></p>
+                <p><b>(b) he is not less than eighteen years of age;</b></p>
+                <p><b>(c) his name appears on the electoral roll for any area in the Province; and</b></p>
+                <p><b>(d) he is not declared by a competent court to be of unsound mind.</b></p>
+                <p><b>(3) For the purpose of election to a Provincial Assembly,</b></p>
+                <p><b>(a) the constituencies for the general seats shall be single member territorial constituencies and the members to fill such seats shall be elected by direct and free vote;</b></p>
+                <p><b>(b) each Province shall be a single constituency for all seats reserved for women and non-Muslims allocated to the respective Provinces under clause (1);</b></p>
+                <p><b>(c) the members to fill seats reserved for women and non-Muslims allocated to a Province under clause (1) shall be elected in accordance with law through proportional representation system of political parties lists of candidates on the basis of the total number of general seats secured by each political party in the Provincial Assembly:</b></p>
+                <p><b>Provided that for the purpose of this sub-clause, the total number of general seats won by a political party shall include the independent returned candidate or candidates who may duly join such political party within three days of the publication in the official Gazette of the names of the returned candidates.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 106 establishes the composition of Provincial Assemblies. Each Provincial Assembly consists of general seats, seats reserved for women, and seats for non-Muslims. Every citizen of 18 years or above is entitled to vote. General seats are filled by direct election, while seats reserved for women and non-Muslims are filled through proportional representation based on political parties' lists.</p>
+            </div>
+        </div>
+
+        <!-- Article 107 -->
+        <div id="article107" class="article-box">
+            <div class="article-badge">Article 107</div>
+            <div class="article-subheading">Duration of Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>107. A Provincial Assembly shall, unless sooner dissolved, continue for a term of five years from the day of its first meeting and shall stand dissolved at the expiration of its term.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 107 sets the term of a Provincial Assembly to five years from the day of its first meeting. It can be dissolved earlier, but if not dissolved, it stands dissolved at the expiration of its term.</p>
+            </div>
+        </div>
+
+        <!-- Article 108 -->
+        <div id="article108" class="article-box">
+            <div class="article-badge">Article 108</div>
+            <div class="article-subheading">Speaker and Deputy Speaker</div>
+            <div class="article-content">
+                <p><b>108. After a general election, a Provincial Assembly shall, at its first meeting and to the exclusion of any other business, elect from amongst its members a Speaker and a Deputy Speaker and, so often as the office of Speaker or Deputy Speaker becomes vacant, the Assembly shall elect another member as Speaker or, as the case may be, Deputy Speaker.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 108 requires the Provincial Assembly to elect a Speaker and a Deputy Speaker at its first meeting after a general election. When the office of Speaker or Deputy Speaker becomes vacant, the Assembly elects another member to fill the vacancy.</p>
+            </div>
+        </div>
+
+        <!-- Article 109 -->
+        <div id="article109" class="article-box">
+            <div class="article-badge">Article 109</div>
+            <div class="article-subheading">Summoning and prorogation of Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>109. The Governor may from time to time</b></p>
+                <p><b>(a) summon the Provincial Assembly to meet at such time and place as he thinks fit; and</b></p>
+                <p><b>(b) prorogue the Provincial Assembly.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 109 gives the Governor the power to summon and prorogue the Provincial Assembly. The Governor can summon it to meet at any time and place and can also prorogue it.</p>
+            </div>
+        </div>
+
+        <!-- Article 110 -->
+        <div id="article110" class="article-box">
+            <div class="article-badge">Article 110</div>
+            <div class="article-subheading">Right of Governor to address Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>110. The Governor may address the Provincial Assembly and may for that purpose require the attendance of the members.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 110 allows the Governor to address the Provincial Assembly and require the attendance of its members.</p>
+            </div>
+        </div>
+
+        <!-- Article 111 -->
+        <div id="article111" class="article-box">
+            <div class="article-badge">Article 111</div>
+            <div class="article-subheading">Right to speak in Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>111. The Advocate-General [and an Advisor appointed under clause (11) of Article 130] shall have the right to speak and otherwise take part in the proceedings of the Provincial Assembly or any committee thereof of which he may be named a member, but shall not by virtue of this Article be entitled to vote.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 111 gives the Advocate-General and Advisors appointed under Article 130(11) the right to speak and take part in the proceedings of the Provincial Assembly, but they cannot vote.</p>
+            </div>
+        </div>
+
+        <!-- Article 112 -->
+        <div id="article112" class="article-box">
+            <div class="article-badge">Article 112</div>
+            <div class="article-subheading">Dissolution of Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>112. (1) The Governor shall dissolve the Provincial Assembly if so advised by the Chief Minister; and the Provincial Assembly shall, unless sooner dissolved, stand dissolved at the expiration of forty-eight hours after the Chief Minister has so advised.</b></p>
+                <p><b>Explanation.- Reference in this Article to Chief Minister shall not be construed to include reference to a Chief Minister against whom a notice of a resolution for a vote of no-confidence has been given in the Provincial Assembly but has not been voted upon or against whom a resolution for a vote of no-confidence has been passed.</b></p>
+                <p><b>(2) The Governor may also dissolve the Provincial Assembly in his discretion, but subject to the previous approval of the President, where a vote of no-confidence having been passed against the Chief Minister, no other member of the Provincial Assembly commands the confidence of the majority of the members of the Provincial Assembly in accordance with the provisions of the Constitution, as ascertained in a session of the Provincial Assembly summoned for the purpose.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 112 describes how the Provincial Assembly can be dissolved. The Governor must dissolve the Assembly if the Chief Minister advises. The Assembly dissolves after 48 hours unless dissolved sooner. The Governor can also dissolve the Assembly in his discretion, with the previous approval of the President, if a vote of no-confidence has been passed against the Chief Minister and no other member commands the confidence of the majority.</p>
+            </div>
+        </div>
+
+        <!-- Article 113 -->
+        <div id="article113" class="article-box">
+            <div class="article-badge">Article 113</div>
+            <div class="article-subheading">Qualifications and disqualifications for membership of Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>[113. The qualifications and disqualifications for membership of the National Assembly set out in Articles 62 and 63 shall also apply for membership of a Provincial Assembly as if reference therein to "National Assembly" were a reference to "Provincial Assembly".]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 113 provides that the qualifications and disqualifications for membership of the National Assembly (set out in Articles 62 and 63) also apply to membership of a Provincial Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 114 -->
+        <div id="article114" class="article-box">
+            <div class="article-badge">Article 114</div>
+            <div class="article-subheading">Restriction on discussion in Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>114. No discussion shall take place in a Provincial Assembly with respect to the conduct of any Judge of [the Federal Constitutional Court,] the Supreme Court or of a High Court in the discharge of his duties.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 114 prevents discussion in the Provincial Assembly about the conduct of any Judge of the Federal Constitutional Court, Supreme Court, or High Court in the discharge of their duties. The 27th Amendment added "Federal Constitutional Court".</p>
+            </div>
+        </div>
+
+        <!-- Article 115 -->
+        <div id="article115" class="article-box">
+            <div class="article-badge">Article 115</div>
+            <div class="article-subheading">Provincial Government's consent required for financial measures</div>
+            <div class="article-content">
+                <p><b>115. (1) A Money Bill, or a Bill or amendment which if enacted and brought into operation would involve expenditure from the Provincial Consolidated Fund or withdrawal from the Public Account of the Province shall not be introduced or moved in the Provincial Assembly except by or with the consent of the Provincial Government.</b></p>
+                <p><b>(2) For the purposes of this Article, a Bill or amendment shall be deemed to be a Money Bill if it contains provisions dealing with all or any of the following matters, namely:-</b></p>
+                <p><b>(a) the imposition, abolition, remission, alteration or regulation of any tax;</b></p>
+                <p><b>(b) the borrowing of money, or the giving of any guarantee, by the Provincial Government or the amendment of the law relating to the financial obligations of that Government;</b></p>
+                <p><b>(c) the custody of the Provincial Consolidated Fund, the payment of moneys into, or issue of moneys from, that Fund;</b></p>
+                <p><b>(d) the imposition of a charge upon the Provincial Consolidated Fund, or the abolition or alteration of any such charge;</b></p>
+                <p><b>(e) the receipt of moneys on account of the Public Account of the Province, the custody or issue of such moneys; and</b></p>
+                <p><b>(f) any matter incidental to any of the matters specified in the preceding paragraphs.</b></p>
+                <p><b>(3) A Bill shall not be deemed to be a Money Bill by reason only that it provides—</b></p>
+                <p><b>(a) for the imposition or alteration of any fine or other pecuniary penalty or for the demand or payment of a licence fee or a fee or charge for any service rendered; or</b></p>
+                <p><b>(b) for the imposition, abolition, remission, alteration or regulation of any tax by any local authority or body for local purposes.</b></p>
+                <p><b>(4) If any question arises whether a Bill is a Money Bill or not, the decision of the Speaker of the Provincial Assembly thereon shall be final.</b></p>
+                <p><b>(5) Every Money Bill presented to the Governor for assent shall bear a certificate under the hand of the Speaker of the Provincial Assembly that it is a Money Bill and such certificate shall be conclusive for all purposes and shall not be called in question.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 115 regulates financial measures in the Provincial Assembly. A Money Bill or any Bill that would involve expenditure from the Provincial Consolidated Fund or withdrawal from the Public Account must be introduced only with the consent of the Provincial Government. The Speaker's decision on whether a Bill is a Money Bill is final.</p>
+            </div>
+        </div>
+
+        <!-- Article 116 -->
+        <div id="article116" class="article-box">
+            <div class="article-badge">Article 116</div>
+            <div class="article-subheading">Governor's assent to Bills</div>
+            <div class="article-content">
+                <p><b>[116. (1) When a Bill has been passed by the Provincial Assembly, it shall be presented to the Governor for assent.</b></p>
+                <p><b>(2) When a Bill is presented to the Governor for assent, the Governor shall, within [ten] days,-</b></p>
+                <p><b>(a) assent to the Bill; or</b></p>
+                <p><b>(b) in the case of a Bill other than a Money Bill, return the Bill to the Provincial Assembly with a message requesting that the Bill, or any specified provision thereof, be reconsidered and that any amendment specified in the message be considered.</b></p>
+                <p><b>[(3) When the Governor has returned a Bill to the Provincial Assembly, it shall be reconsidered by the Provincial Assembly and, if it is again passed, with or without amendment, by the Provincial Assembly, by the votes of the majority of the members of the Provincial Assembly present and voting, it shall be again presented to the Governor and the Governor shall [give his assent within ten days, failing which such assent shall be deemed to have been given].]</b></p>
+                <p><b>(4) When the Governor has assented [or is deemed to have assented] to a Bill, it shall become law and be called an Act of Provincial Assembly.</b></p>
+                <p><b>(5) No Act of a Provincial Assembly, and no provision in any such Act, shall be invalid by reason only that some recommendation, previous sanction or consent required by the Constitution was not given if that Act was assented to in accordance with the Constitution.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 116 details the procedure for the Governor's assent to Bills passed by the Provincial Assembly. The Governor must assent to a Bill within 10 days, or return it for reconsideration (except Money Bills). If returned and passed again by majority vote, it is presented again and the Governor must give assent within 10 days, failing which assent is deemed to have been given.</p>
+            </div>
+        </div>
+
+        <!-- Article 117 -->
+        <div id="article117" class="article-box">
+            <div class="article-badge">Article 117</div>
+            <div class="article-subheading">Bill not to lapse on prorogation, etc.</div>
+            <div class="article-content">
+                <p><b>117. (1) A Bill pending in a Provincial Assembly shall not lapse by reason of the prorogation of the Assembly.</b></p>
+                <p><b>(2) A Bill pending in a Provincial Assembly shall lapse on the dissolution of the Assembly.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 117 states that a Bill pending in a Provincial Assembly does not lapse due to prorogation, but it does lapse on the dissolution of the Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 118 -->
+        <div id="article118" class="article-box">
+            <div class="article-badge">Article 118</div>
+            <div class="article-subheading">Provincial Consolidated Fund and Public Account</div>
+            <div class="article-content">
+                <p><b>118. (1) All revenues received by the Provincial Government, all loans raised by that Government, and all moneys received by it in repayment of any loan, shall form part of a consolidated fund, to be known as the Provincial Consolidated Fund.</b></p>
+                <p><b>(2) All other moneys-</b></p>
+                <p><b>(a) received by or on behalf of the Provincial Government; or</b></p>
+                <p><b>(b) received by or deposited with the High Court or any other court established under the authority of the Province;</b></p>
+                <p><b>shall be credited to the Public Account of the Province.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 118 establishes the Provincial Consolidated Fund for revenues, loans, and repayments. Other moneys received by or on behalf of the Provincial Government or by the High Court or other courts are credited to the Public Account of the Province.</p>
+            </div>
+        </div>
+
+        <!-- Article 119 -->
+        <div id="article119" class="article-box">
+            <div class="article-badge">Article 119</div>
+            <div class="article-subheading">Custody, etc., of Provincial Consolidated Fund and Public Account</div>
+            <div class="article-content">
+                <p><b>119. The custody of the Provincial Consolidated Fund, the payment of moneys into that Fund, the withdrawal of moneys therefrom, the custody of other moneys received by or on behalf of the Provincial Government, their payment into, and withdrawal from, the Public Account of the Province, and all matters connected with or ancillary to the matters aforesaid shall be regulated by Act of the Provincial Assembly or, until provision in that behalf is so made, by rules made by the Governor.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 119 provides that the custody, payment, and withdrawal of moneys from the Provincial Consolidated Fund and the Public Account of the Province shall be regulated by Act of the Provincial Assembly or, until provision is made, by rules made by the Governor.</p>
+            </div>
+        </div>
+
+        <!-- Article 120 -->
+        <div id="article120" class="article-box">
+            <div class="article-badge">Article 120</div>
+            <div class="article-subheading">Annual Budget Statement</div>
+            <div class="article-content">
+                <p><b>120. (1) The Provincial Government shall, in respect of every financial year, cause to be laid before the Provincial Assembly a statement of the estimated receipts and expenditure of the Provincial Government for that year, in this Chapter referred to as the Annual Budget Statement.</b></p>
+                <p><b>(2) The Annual Budget Statement shall show separately</b></p>
+                <p><b>(a) the sums required to meet expenditure described by the constitution as expenditure charged upon the Provincial Consolidated Fund; and</b></p>
+                <p><b>(b) the sums required to meet other expenditure proposed to be made from the Provincial Consolidated Fund;</b></p>
+                <p><b>and shall distinguish expenditure on revenue account from other expenditure.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 120 requires the Provincial Government to lay the Annual Budget Statement before the Provincial Assembly every financial year. The statement shows expenditure charged upon the Provincial Consolidated Fund and other expenditure proposed to be made from it.</p>
+            </div>
+        </div>
+
+        <!-- Article 121 -->
+        <div id="article121" class="article-box">
+            <div class="article-badge">Article 121</div>
+            <div class="article-subheading">Expenditure charged upon Provincial Consolidated Fund</div>
+            <div class="article-content">
+                <p><b>121. The following expenditure shall be expenditure charged upon the Provincial Consolidated Fund:</b></p>
+                <p><b>(a) the remuneration payable to the Governor and other expenditure relating to his office, and the remuneration payable to</b></p>
+                <p><b>(i) the Judges of the High Court; and</b></p>
+                <p><b>(ii) the Speaker and Deputy Speaker of the Provincial Assembly;</b></p>
+                <p><b>(b) the administrative expenses, including the remuneration payable to officers and servants, of the High Court and the Secretariat of the Provincial Assembly;</b></p>
+                <p><b>(c) all debt charges for which the Provincial Government is liable, including interest, sinking fund charges, the repayment or amortisation of capital, and other expenditure in connection with the raising of loans, and the service and redemption of debt on the security of the Provincial Consolidated Fund;</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 121 lists the expenditure that is charged upon the Provincial Consolidated Fund. This includes remuneration of the Governor, Judges of the High Court, Speaker and Deputy Speaker, administrative expenses of the High Court and Provincial Assembly Secretariat, and debt charges.</p>
+            </div>
+        </div>
+
+        <!-- Article 122 -->
+        <div id="article122" class="article-box">
+            <div class="article-badge">Article 122</div>
+            <div class="article-subheading">Procedure relating to Annual Budget Statement</div>
+            <div class="article-content">
+                <p><b>122. (1) So much of the Annual Budget Statement as relates to expenditure charged upon the Provincial Consolidated Fund may be discussed in, but shall not be submitted to the vote of, the Provincial Assembly.</b></p>
+                <p><b>(2) So much of the Annual Budget Statement as relates to other expenditure shall be submitted to the Provincial Assembly in the form of demands for grants, and that Assembly shall have power to assent to, or to refuse to assent to, any demand, or to assent to any demand subject to a reduction of the amount specified therein:</b></p>
+                <p><b>(3) No demand for a grant shall be made except on the recommendation of the Provincial Government.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 122 provides that expenditure charged upon the Provincial Consolidated Fund can be discussed but not voted on. Other expenditure is submitted as demands for grants, which the Assembly can assent to, refuse, or reduce. Demands can only be made on the recommendation of the Provincial Government.</p>
+            </div>
+        </div>
+
+        <!-- Article 123 -->
+        <div id="article123" class="article-box">
+            <div class="article-badge">Article 123</div>
+            <div class="article-subheading">Authentication of schedule of authorized expenditure</div>
+            <div class="article-content">
+                <p><b>123. (1) The Chief Minister shall authenticate by his signature a schedule specifying</b></p>
+                <p><b>(a) the grants made or deemed to have been made by the Provincial Assembly under Article 122; and</b></p>
+                <p><b>(b) the several sums required to meet the expenditure charged upon the Provincial Consolidated Fund but not exceeding, in the case of any sum, the sum shown in the statement previously laid before the Assembly.</b></p>
+                <p><b>(2) The schedule so authenticated shall be laid before the Provincial Assembly, but shall not be open to discussion or vote thereon.</b></p>
+                <p><b>(3) Subject to the Constitution, no expenditure from the Provincial Consolidated Fund shall be deemed to be duly authorized unless it is specified in the schedule so authenticated and such schedule is laid before the Provincial Assembly as required by clause (2).</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 123 requires the Chief Minister to authenticate a schedule specifying grants made by the Provincial Assembly and sums for expenditure charged upon the Provincial Consolidated Fund. The schedule is laid before the Assembly but is not open to discussion or vote. No expenditure from the Provincial Consolidated Fund is authorized unless specified in this schedule.</p>
+            </div>
+        </div>
+
+        <!-- Article 124 -->
+        <div id="article124" class="article-box">
+            <div class="article-badge">Article 124</div>
+            <div class="article-subheading">Supplementary and excess grant</div>
+            <div class="article-content">
+                <p><b>124. If in respect of any financial year it is found</b></p>
+                <p><b>(a) that the amount authorized to be expended for a particular service for the current financial year is insufficient, or that a need has arisen for expenditure upon some new service not included in the Annual Budget Statement for that year; or</b></p>
+                <p><b>(b) that any money has been spent on any service during a financial year in excess of the amount granted for that service for that year;</b></p>
+                <p><b>the Provincial Government shall have power to authorize expenditure from the Provincial Consolidated Fund, whether the expenditure is charged by the Constitution upon that Fund or not, and shall cause to be laid before the Provincial Assembly a Supplementary Budget Statement or, as the case may be, an Excess Budget Statement, setting out the amount of that expenditure, and the provisions of Articles 120 to 123 shall apply to those statements as they apply to the Annual Budget Statement.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 124 allows the Provincial Government to authorize expenditure from the Provincial Consolidated Fund if the amount authorized is insufficient or if expenditure on a new service is needed, or if money was spent in excess. The Government must lay a Supplementary or Excess Budget Statement before the Provincial Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 125 -->
+        <div id="article125" class="article-box">
+            <div class="article-badge">Article 125</div>
+            <div class="article-subheading">Votes on account</div>
+            <div class="article-content">
+                <p><b>125. Notwithstanding anything contained in the foregoing provisions relating to financial matters, the Provincial Assembly shall have power to make any grant in advance in respect of the estimated expenditure for a part of any financial year, not exceeding three months, pending completion of the procedure prescribed in Article 122 for the voting of such grant and the authentication of the schedule of expenditure in accordance with the provisions of Article 123 in relation to the expenditure.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 125 allows the Provincial Assembly to make grants in advance for estimated expenditure for up to three months, pending completion of the full procedure for voting and authentication of expenditure.</p>
+            </div>
+        </div>
+
+        <!-- Article 126 -->
+        <div id="article126" class="article-box">
+            <div class="article-badge">Article 126</div>
+            <div class="article-subheading">Power to authorize expenditure when Assembly stands dissolved</div>
+            <div class="article-content">
+                <p><b>126. Notwithstanding anything contained in the foregoing provisions relating to financial matters, at any time when the Provincial Assembly stands dissolved, the Provincial Government may authorize expenditure from the Provincial Consolidated Fund in respect of the estimated expenditure for a period not exceeding four months in any financial year, pending completion of the procedure prescribed in Article 122 for the voting of grants and the authentication of the schedule of authorized expenditure, in accordance with the provisions of Article 123 in relation to the expenditure.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 126 allows the Provincial Government to authorize expenditure from the Provincial Consolidated Fund for up to four months when the Provincial Assembly is dissolved, pending completion of the full procedure.</p>
+            </div>
+        </div>
+
+        <!-- Article 127 -->
+        <div id="article127" class="article-box">
+            <div class="article-badge">Article 127</div>
+            <div class="article-subheading">Provisions relating to National Assembly, etc., to apply to Provincial Assembly, etc.</div>
+            <div class="article-content">
+                <p><b>127. Subject to the Constitution, the provisions of clauses (2) to (8) of Article 53, clauses (2) and (3) of Article 54, Article 55, Articles 63 to 67, Article 69, Article 77, Article 87 and Article 88 shall apply to and in relation to a Provincial Assembly or a committee or members thereof or the Provincial Government, but so that -</b></p>
+                <p><b>(a) any reference in those provisions to [Majlis-e-Shoora (Parliament)], a House or the National Assembly shall be read as a reference to the Provincial Assembly;</b></p>
+                <p><b>(b) any reference in those provisions to the President shall be read as a reference to the Governor of the Province;</b></p>
+                <p><b>(c) any reference in those provisions to the Federal Government shall be read as a reference to the Provincial Government;</b></p>
+                <p><b>(d) any reference in those provisions to the Prime Minister shall be read as a reference to the Chief Minister;</b></p>
+                <p><b>(e) any reference in those provisions to a Federal Minister shall be read as a reference to a Provincial Minister;</b></p>
+                <p><b>(f) any reference in those provisions to the National Assembly of Pakistan shall be read as a reference to the Provincial Assembly in existence immediately before the commencing day;</b></p>
+                <p><b>[(g) the said clause (2) of Article 54 shall have effect as if, in the proviso thereto, for the words "one hundred and thirty" the words [one hundred] were substituted.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 127 applies various provisions relating to the National Assembly to the Provincial Assembly, with appropriate modifications. It provides for the application of provisions relating to Speaker/Deputy Speaker, summoning, voting, qualifications/disqualifications, privileges, rules of procedure, and financial matters to the Provincial Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 128 -->
+        <div id="article128" class="article-box">
+            <div class="article-badge">Article 128</div>
+            <div class="article-subheading">Power of Governor to promulgate Ordinances</div>
+            <div class="article-content">
+                <p><b>[128. (1) The Governor may, except when the Provincial Assembly is in session, if satisfied that circumstances exist which render it necessary to take immediate action, make and promulgate an Ordinance as the circumstances may require.</b></p>
+                <p><b>(2) An Ordinance promulgated under this Article shall have the same force and effect as an Act of the Provincial Assembly and shall be subject to like restrictions as the power of the Provincial Assembly to make laws, but every such Ordinance</b></p>
+                <p><b>(a) shall be laid before the Provincial Assembly and shall stand repealed at the expiration of [ninety days] from its promulgation or, if before the expiration of that period a resolution disapproving it is passed by the Assembly, upon the passing of that resolution [: ]</b></p>
+                <p><b>[Provided that the Provincial Assembly may by a resolution extend the Ordinance for a further period of ninety days and it shall stand repealed at the expiration of the extended period, or if before the expiration of that period a resolution disapproving it is passed by the Assembly, upon the passing of that resolution:</b></p>
+                <p><b>Provided further that extension for a further period may be made only once.]</b></p>
+                <p><b>(b) may be withdrawn at any time by the Governor.</b></p>
+                <p><b>(3) Without prejudice to the provisions of clause (2), an Ordinance laid before the Provincial Assembly shall be deemed to be a Bill introduced in the Provincial Assembly.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 128 gives the Governor the power to promulgate Ordinances when the Provincial Assembly is not in session. An Ordinance has the same force as an Act of the Provincial Assembly but must be laid before the Assembly. It stands repealed after 90 days unless extended by a resolution. The Assembly can also pass a resolution disapproving it. The Ordinance can be withdrawn at any time by the Governor.</p>
+            </div>
+        </div>
+
+        <!-- Article 129 -->
+        <div id="article129" class="article-box">
+            <div class="article-badge">Article 129</div>
+            <div class="article-subheading">The Provincial Government</div>
+            <div class="article-content">
+                <p><b>[129. (1) Subject to the Constitution, the executive authority of the Province shall be exercised in the name of the Governor by the Provincial Government, consisting of the Chief Minister and Provincial Ministers, which shall act through the Chief Minister.</b></p>
+                <p><b>(2) In the performance of his functions under the Constitution, the Chief Minister may act either directly or through the Provincial Ministers.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 129 vests the executive authority of the Province in the Provincial Government, consisting of the Chief Minister and Provincial Ministers. The Chief Minister acts either directly or through the Provincial Ministers.</p>
+            </div>
+        </div>
+
+        <!-- Article 130 -->
+        <div id="article130" class="article-box">
+            <div class="article-badge">Article 130</div>
+            <div class="article-subheading">The Cabinet</div>
+            <div class="article-content">
+                <p><b>[130. (1) There shall be a Cabinet of Ministers, with the Chief Minister at its head, to aid and advise the Governor in the exercise of his functions.</b></p>
+                <p><b>(2) The Provincial Assembly shall meet on the twenty-first day following the day on which a general election to the Assembly is held, unless sooner summoned by the Governor.</b></p>
+                <p><b>(3) After the election of the Speaker and the Deputy Speaker, the Provincial Assembly shall, to the exclusion of any other business, proceed to elect without debate one of its members to be the Chief Minister.</b></p>
+                <p><b>(4) The Chief Minister shall be elected by the votes of the majority of the total membership of the Provincial Assembly:</b></p>
+                <p><b>Provided that, if no member secures such majority in the first poll, a second poll shall be held between the members who secure the two highest numbers of votes in the first poll and the member who secures a majority of votes of the members present and voting shall be declared to have been elected as Chief Minister:</b></p>
+                <p><b>Provided further that, if the number of votes secured by two or more members securing the highest number of votes is equal, further polls shall be held between them until one of them secures a majority of votes of the members present and voting.</b></p>
+                <p><b>(5) The member elected under clause (4) shall be called upon by the Governor to assume the office of Chief Minister and he shall, before entering upon the office, make before the Governor oath in the form set out in the Third Schedule:</b></p>
+                <p><b>Provided that there shall be no restriction on the number of terms for the office of the Chief Minister.</b></p>
+                <p><b>(6) The Cabinet shall be collectively responsible to the Provincial Assembly and the total strength of the Cabinet shall not exceed [seventeen] members or [thirteen] percent of the total membership of a Provincial Assembly, whichever is higher [.]</b></p>
+                <p><b>(7) The Chief Minister shall hold office during the pleasure of the Governor, but the Governor shall not exercise his powers under this clause unless he is satisfied that the Chief Minister does not command the confidence of the majority of the members of the Provincial Assembly, in which case he shall summon the Provincial Assembly and require the Chief Minister to obtain a vote of confidence from the Assembly.</b></p>
+                <p><b>(8) The Chief Minister may, by writing under his hand addressed to the Governor, resign his office.</b></p>
+                <p><b>(9) A Minister who for any period of six consecutive months is not a member of the Provincial Assembly shall, at the expiration of that period, cease to be a Minister and shall not before the dissolution of that Assembly be again appointed a Minister unless he is elected a member of that Assembly.</b></p>
+                <p><b>(10) Nothing contained in this Article shall be construed as disqualifying the Chief Minister or any other Minister for continuing in office during any period during which the Provincial Assembly stands dissolved, or as preventing the appointment of any person as Chief Minister or other Minister during any such period.</b></p>
+                <p><b>(11) The Chief Minister shall not appoint more than [seven] Advisers.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 130 establishes the Provincial Cabinet with the Chief Minister at its head. The Chief Minister is elected by the Provincial Assembly by majority vote. The Cabinet is collectively responsible to the Provincial Assembly. The total strength of the Cabinet cannot exceed 17 members or 13% of the total membership of the Provincial Assembly, whichever is higher. The Chief Minister holds office during the pleasure of the Governor, but the Governor can only exercise this power if satisfied that the Chief Minister does not command the confidence of the majority. The Chief Minister can resign by writing to the Governor. A Minister who is not a member of the Provincial Assembly for six consecutive months ceases to be a Minister.</p>
+            </div>
+        </div>
+
+        <!-- Article 131 -->
+        <div id="article131" class="article-box">
+            <div class="article-badge">Article 131</div>
+            <div class="article-subheading">Governor to be kept informed</div>
+            <div class="article-content">
+                <p><b>[131. The Chief Minister shall keep the Governor informed on matters relating to Provincial administration and on all legislative proposals the Provincial Government intends to bring before the Provincial Assembly.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 131 requires the Chief Minister to keep the Governor informed on matters relating to Provincial administration and all legislative proposals the Provincial Government intends to bring before the Provincial Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 132 -->
+        <div id="article132" class="article-box">
+            <div class="article-badge">Article 132</div>
+            <div class="article-subheading">Provincial Ministers</div>
+            <div class="article-content">
+                <p><b>[132. (1) Subject to clauses [(9) and (10)] of Article 130, the Governor shall appoint Provincial Ministers from amongst members of the Provincial Assembly on the advice of the Chief Minister.</b></p>
+                <p><b>(2) Before entering upon office, a Provincial Minister shall make before the Governor oath in the form set out in the Third Schedule.</b></p>
+                <p><b>(3) A Provincial Minister may, by writing under his hand addressed to the Governor, resign his office or may be removed from office by the Governor on the advice of the Chief Minister.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 132 provides that the Governor appoints Provincial Ministers on the advice of the Chief Minister, from among members of the Provincial Assembly. Ministers take an oath before the Governor and can resign or be removed on the advice of the Chief Minister.</p>
+            </div>
+        </div>
+
+        <!-- Article 133 -->
+        <div id="article133" class="article-box">
+            <div class="article-badge">Article 133</div>
+            <div class="article-subheading">Chief Minister continuing in office</div>
+            <div class="article-content">
+                <p><b>133. The Governor may ask the Chief Minister to continue to hold office until his successor enters upon the office of Chief Minister.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 133 allows the Governor to ask the Chief Minister to continue in office until a successor enters upon the office.</p>
+            </div>
+        </div>
+
+        <!-- Article 134 -->
+        <div id="article134" class="article-box">
+            <div class="article-badge">Article 134</div>
+            <div class="article-subheading">[Resignation by Chief Minister]</div>
+            <div class="article-content">
+                <p><b>134. [Omitted by P.O. No. 14 of 1985, Art. 2 and Sch.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 134, which previously dealt with resignation by the Chief Minister, was omitted by P.O. No. 14 of 1985.</p>
+            </div>
+        </div>
+
+        <!-- Article 135 -->
+        <div id="article135" class="article-box">
+            <div class="article-badge">Article 135</div>
+            <div class="article-subheading">[Provincial Minister performing functions of Chief Minister]</div>
+            <div class="article-content">
+                <p><b>135. [Omitted by P.O. No. 14 of 1985, Art. 2 and Sch.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 135, which previously dealt with a Provincial Minister performing functions of the Chief Minister, was omitted by P.O. No. 14 of 1985.</p>
+            </div>
+        </div>
+
+        <!-- Article 136 -->
+        <div id="article136" class="article-box">
+            <div class="article-badge">Article 136</div>
+            <div class="article-subheading">Vote of no-confidence against Chief Minister</div>
+            <div class="article-content">
+                <p><b>[136. (1) A resolution for a vote of no-confidence moved by not less than twenty per centum of the total membership of the Provincial Assembly may be passed against the Chief Minister by the Provincial Assembly.</b></p>
+                <p><b>(2) A resolution referred to in clause (1) shall not be voted upon before the expiration of three days, or later than seven days, from the day on which such resolution is moved in the Provincial Assembly.</b></p>
+                <p><b>(3) If the resolution referred to in clause (1) is passed by a majority of the total membership of the Provincial Assembly, the Chief Minister shall cease to hold office.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 136 allows the Provincial Assembly to pass a vote of no-confidence against the Chief Minister. The resolution must be moved by at least 20% of the total membership. It cannot be voted upon before three days or later than seven days. If passed by majority of the total membership, the Chief Minister ceases to hold office.</p>
+            </div>
+        </div>
+
+        <!-- Article 137 -->
+        <div id="article137" class="article-box">
+            <div class="article-badge">Article 137</div>
+            <div class="article-subheading">Extent of executive authority of Province</div>
+            <div class="article-content">
+                <p><b>137. Subject to the Constitution, the executive authority of the Province shall extend to the matters with respect to which the Provincial Assembly has power to make laws:</b></p>
+                <p><b>Provided that, in any matter with respect to which both [Majlis-e-Shoora (Parliament)] and the Provincial Assembly of a Province have power to make laws, the executive authority of the Province shall be subject to, and limited by, the executive authority expressly conferred by the Constitution or by law made by [Majlis-e-Shoora (Parliament)] upon the Federal Government or authorities thereof.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 137 provides that the executive authority of the Province extends to matters on which the Provincial Assembly has power to make laws. However, in matters on which both Parliament and the Provincial Assembly have power to make laws, the executive authority of the Province is subject to and limited by the executive authority conferred on the Federal Government.</p>
+            </div>
+        </div>
+
+        <!-- Article 138 -->
+        <div id="article138" class="article-box">
+            <div class="article-badge">Article 138</div>
+            <div class="article-subheading">Conferring of functions on subordinate authorities</div>
+            <div class="article-content">
+                <p><b>138. On the recommendation of the Provincial Government, the Provincial Assembly may by law confer functions upon officers or authorities subordinate to the Provincial Government.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 138 allows the Provincial Assembly, on the recommendation of the Provincial Government, to confer functions upon officers or authorities subordinate to the Provincial Government.</p>
+            </div>
+        </div>
+
+        <!-- Article 139 -->
+        <div id="article139" class="article-box">
+            <div class="article-badge">Article 139</div>
+            <div class="article-subheading">Conduct of business of Provincial Government</div>
+            <div class="article-content">
+                <p><b>139. (1) All executive actions of the Provincial Government shall be expressed to be taken in the name of the Governor.</b></p>
+                <p><b>(2) The [Provincial Government] shall by rules specify the manner in which orders and other instruments made and executed [in the name of Governor] shall be authenticated, and the validity of any order or instrument so authenticated shall not be questioned in any court on the ground that it was not made or executed by the Governor.</b></p>
+                <p><b>[(3) The Provincial Government shall also make rules for the allocation and transaction of its business.]]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 139 provides that all executive actions of the Provincial Government are expressed to be taken in the name of the Governor. The Provincial Government makes rules for authentication of orders and instruments. The validity of any order or instrument so authenticated cannot be questioned in court on the ground that it was not made or executed by the Governor.</p>
+            </div>
+        </div>
+
+        <!-- Article 140 -->
+        <div id="article140" class="article-box">
+            <div class="article-badge">Article 140</div>
+            <div class="article-subheading">Advocate-General for a Province</div>
+            <div class="article-content">
+                <p><b>140. (1) The Governor of each Province shall appoint a person, being a person qualified to be appointed a Judge of the High Court, to be the Advocate-General for the Province.</b></p>
+                <p><b>(2) It shall be the duty of the Advocate-General to give advice to the Provincial Government upon such legal matters, and to perform such other duties of a legal character, as may be referred or assigned to him by the Provincial Government.</b></p>
+                <p><b>(3) The Advocate-General shall hold office during the pleasure of the Governor [and shall not engage in private practice so long as he holds the office of the Advocate-General].</b></p>
+                <p><b>(4) The Advocate-General may, by writing under his hand addressed to the Governor, resign his office.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 140 establishes the office of the Advocate-General for each Province. The Governor appoints a person qualified to be a Judge of the High Court. The Advocate-General gives legal advice to the Provincial Government and holds office during the pleasure of the Governor. The Advocate-General cannot engage in private practice and can resign by writing to the Governor.</p>
+            </div>
+        </div>
+
+        <!-- Article 140A -->
+        <div id="article140A" class="article-box">
+            <div class="article-badge">Article 140A</div>
+            <div class="article-subheading">Local Government</div>
+            <div class="article-content">
+                <p><b>[140A. (1) Each Province shall, by law, establish a local government system and devolve political, administrative and financial responsibility and authority to the elected representatives of the local governments.</b></p>
+                <p><b>(2) Elections to the local governments shall be held by the Election Commission of Pakistan.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 140A (added by the 18th Amendment) requires each Province to establish a local government system and devolve political, administrative, and financial responsibility to elected representatives of local governments. Elections to local governments are to be held by the Election Commission of Pakistan.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 101;
+    const totalArticles = 140;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 101);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (101-140).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 101 || num > 140) { resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 101 to 140.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 101);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

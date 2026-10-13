@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 7 — Finance (Articles 160-175)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📓 Chapter 7 — Finance</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 160-175)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📓 Chapter 7 — Finance</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 160-175)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 160-175</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 160 -->
+        <div id="article160" class="article-box active">
+            <div class="article-badge">Article 160</div>
+            <div class="article-subheading">National Finance Commission</div>
+            <div class="article-content">
+                <p><b>160. (1) Within six months of the commencing day and thereafter at intervals not exceeding five years, the President shall constitute a National Finance Commission consisting of the Minister of Finance of the Federal Government, the Ministers of Finance of the Provincial Governments, and such other persons as may be appointed by the President after consultation with the Governors of the Provinces.</b></p>
+                <p><b>(2) It shall be the duty of the National Finance Commission to make recommendations to the President as to</b></p>
+                <p><b>(a) the distribution between the Federation and the Provinces of the net proceeds of the taxes mentioned in clause (3);</b></p>
+                <p><b>(b) the making of grants-in-aid by the Federal Government to the Provincial Governments;</b></p>
+                <p><b>(c) the exercise by the Federal Government and the Provincial Governments of the borrowing powers conferred by the Constitution; and</b></p>
+                <p><b>(d) any other matter relating to finance referred to the Commission by the President.</b></p>
+                <p><b>(3) The taxes referred to in paragraph (a) of clause (2) are the following taxes raised under the authority of [Majlis-e-Shoora (Parliament)], namely:</b></p>
+                <p><b>(i) taxes on income, including corporation tax but not including taxes on income consisting of remuneration paid out of the Federal Consolidated Fund;</b></p>
+                <p><b>(ii) taxes on the sales and purchases of goods imported, exported, produced, manufactured or consumed;</b></p>
+                <p><b>(iii) export duties on cotton, and such other export duties as may be specified by the President;</b></p>
+                <p><b>(iv) such duties of excise as may be specified by the President; and</b></p>
+                <p><b>(v) such other taxes as may be specified by the President.</b></p>
+                <p><b>[(3A) The share of the Provinces in each Award of National Finance Commission shall not be less than the share given to the Provinces in the previous Award.</b></p>
+                <p><b>(3B) The Federal Finance Minister and Provincial Finance Ministers shall monitor the implementation of the Award biannually and lay their reports before both Houses of Majlis-e-Shoora (Parliament) and the Provincial Assemblies.]</b></p>
+                <p><b>(4) As soon as may be after receiving the recommendations of the National Finance Commission, the President shall, by Order, specify, in accordance with the recommendations of the Commission under paragraph (a) of clause (2), the share of the net proceeds of the taxes mentioned in clause (3) which is to be allocated to each Province, and that share shall be paid to the Government of the Province concerned, and, notwithstanding the provision of Article 78 shall not form part of the Federal Consolidated Fund.</b></p>
+                <p><b>(5) The recommendations of the National Finance Commission, together with an explanatory memorandum as to the action taken thereon, shall be laid before both Houses and the Provincial Assemblies.</b></p>
+                <p><b>(6) At any time before an Order under clause (4) is made, the President may, by Order, make such amendments or modifications in the law relating to the distribution of revenues between the Federal Government and the Provincial Governments as he may deem necessary or expedient.</b></p>
+                <p><b>(7) The President may, by Order, make grants-in-aid of the revenues of the Provinces in need of assistance and such grants shall be charged upon the Federal Consolidated Fund.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 160 establishes the National Finance Commission (NFC), a constitutional body responsible for deciding how tax revenues are fairly divided between the federal government and the four provinces. The NFC is constituted every five years and consists of the Federal Finance Minister, Provincial Finance Ministers, and other appointed members. The share of Provinces in each NFC Award cannot be less than the previous Award. The Federal and Provincial Finance Ministers monitor implementation biannually.</p>
+            </div>
+        </div>
+
+        <!-- Article 161 -->
+        <div id="article161" class="article-box">
+            <div class="article-badge">Article 161</div>
+            <div class="article-subheading">Natural gas and hydro-electric power</div>
+            <div class="article-content">
+                <p><b>161. (1) Notwithstanding the provisions of Article 78,</b></p>
+                <p><b>(a) the net proceeds of the Federal duty of excise on natural gas levied at well-head and collected by the Federal Government and of the royalty collected by the Federal Government, shall not form part of the Federal Consolidated Fund and shall be paid to the Province in which the well-head of natural gas is situated.</b></p>
+                <p><b>(2) The net profits earned by the Federal Government, or any undertaking established or administered by the Federal Government from the bulk generation of power at a hydro-electric station shall be paid to the Province in which the hydro-electric station is situated.</b></p>
+                <p><b>Explanation.- For the purposes of this clause "net profits" shall be computed by deducting from the revenues accruing from the bulk supply of power from the bus-bars of a hydro-electric station at a rate to be determined by the Council of Common Interests, the operating expenses of the station, which shall include any sums payable as taxes, duties, interest or return on investment, and depreciations and element of obsolescence, and over-heads, and provision for reserves.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 161 provides that the net proceeds of excise duty on natural gas and royalty collected by the Federal Government shall be paid to the Province where the well-head is situated. Similarly, net profits from hydro-electric power generation are paid to the Province where the station is situated.</p>
+            </div>
+        </div>
+
+        <!-- Article 162 -->
+        <div id="article162" class="article-box">
+            <div class="article-badge">Article 162</div>
+            <div class="article-subheading">Prior sanction of President required to Bills affecting taxation in which Provinces are interested</div>
+            <div class="article-content">
+                <p><b>162. No Bill or amendment which imposes or varies a tax or duty the whole or part of the net proceeds whereof is assigned to any Province, or which varies the meaning of the expression "agricultural income" as defined for the purposes of the enactments relating to income-tax, or which affects the principles on which under any of the foregoing provisions of this Chapter moneys are or may be distributable to Provinces, shall be introduced or moved in the National Assembly except with the previous sanction of the President.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 162 requires the previous sanction of the President for any Bill or amendment that imposes or varies a tax or duty assigned to a Province, varies the definition of "agricultural income" for income-tax purposes, or affects the principles of distribution of moneys to Provinces.</p>
+            </div>
+        </div>
+
+        <!-- Article 163 -->
+        <div id="article163" class="article-box">
+            <div class="article-badge">Article 163</div>
+            <div class="article-subheading">Provincial taxes in respect of professions, etc.</div>
+            <div class="article-content">
+                <p><b>163. A Provincial Assembly may by Act impose taxes, not exceeding such limits as may from time to time be fixed by Act of [Majlis-e-Shoora (Parliament)], on persons engaged in professions, trades, callings or employments, and no such Act of the Assembly shall be regarded as imposing a tax on income.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 163 allows Provincial Assemblies to impose taxes on persons engaged in professions, trades, callings, or employments, subject to limits fixed by Parliament. Such taxes are not regarded as taxes on income.</p>
+            </div>
+        </div>
+
+        <!-- Article 164 -->
+        <div id="article164" class="article-box">
+            <div class="article-badge">Article 164</div>
+            <div class="article-subheading">Grants out of Consolidated Fund</div>
+            <div class="article-content">
+                <p><b>164. The Federation or a Province may make grants for any purpose, notwithstanding that the purpose is not one with respect to which [Majlis-e-Shoora (Parliament)] or, as the case may be, a Provincial Assembly may make laws.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 164 allows the Federation or a Province to make grants for any purpose, even if that purpose is not within the legislative competence of Parliament or the Provincial Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 165 -->
+        <div id="article165" class="article-box">
+            <div class="article-badge">Article 165</div>
+            <div class="article-subheading">Exemption of certain public property from taxation</div>
+            <div class="article-content">
+                <p><b>165. (1) The Federal Government shall not, in respect of its property or income, be liable to taxation under any Act of Provincial Assembly and, subject to clause (2), a Provincial Government shall not, in respect of its property or income, be liable to taxation under Act of [Majlis-e-Shoora (Parliament)] or under Act of the Provincial Assembly of any other Province.</b></p>
+                <p><b>(2) If a trade or business of any kind is carried on by or on behalf of the Government of a Province outside that Province, that Government may, in respect of any property used in connection with that trade or business or any income arising from that trade or business, be taxed under Act of [Majlis-e-Shoora (Parliament)] or under Act of the Provincial Assembly of the Province in which that trade or business is carried on.</b></p>
+                <p><b>(3) Nothing in this Article shall prevent the imposition of fees for services rendered.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 165 exempts the Federal Government and Provincial Governments from taxation on their property and income by each other's laws. However, if a Province carries on trade or business outside its Province, it can be taxed in the Province where the trade is carried on. This does not prevent the imposition of fees for services rendered.</p>
+            </div>
+        </div>
+
+        <!-- Article 165A -->
+        <div id="article165A" class="article-box">
+            <div class="article-badge">Article 165A</div>
+            <div class="article-subheading">Power of Majlis-e-Shoora (Parliament) to impose tax on the income of certain corporations, etc.</div>
+            <div class="article-content">
+                <p><b>[165A. (1) For the removal of doubt, it is hereby declared that [Majlis-e-Shoora (Parliament)] has, and shall be deemed always to have had, the power to make a law to provide for the levy and recovery of a tax on the income of a corporation, company or other body or institution established by or under a Federal law or a Provincial law or an existing law or a corporation, company or other body or institution owned or controlled, either directly or indirectly, by the Federal Government or a Provincial Government, regardless of the ultimate destination of such income.</b></p>
+                <p><b>(2) All orders made, proceedings taken and acts done by any authority or person, which were made, taken or done, or purported to have been made, taken or done, before the commencement of the Constitution (Amendment) Order, 1985, in exercise of the powers derived from any law referred to in clause (1), or in execution of any orders made by any authority in the exercise or purported exercise of powers as aforesaid, shall, notwithstanding any judgment of any court or tribunal, including the Supreme Court and a High Court, be deemed to be and always to have been validly made, taken or done and shall not be called in question in any court, including [the Federal Constitutional Court,] the Supreme Court and a High Court, on any ground whatsoever.</b></p>
+                <p><b>(3) Every judgement or order of any court or tribunal, including [the Federal Constitutional Court,] the Supreme Court and a High Court, which is repugnant to the provisions of clause (1) or clause (2) shall be, and shall be deemed always to have been, void and of no effect whatsoever.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 165A clarifies that Parliament has the power to impose taxes on the income of corporations, companies, or other bodies established by or under Federal or Provincial law, or owned or controlled by the Government. This power is deemed to have always existed, and all orders made in exercise of this power before 1985 are validated. The 27th Amendment added "Federal Constitutional Court" in clauses (2) and (3).</p>
+            </div>
+        </div>
+
+        <!-- Article 166 -->
+        <div id="article166" class="article-box">
+            <div class="article-badge">Article 166</div>
+            <div class="article-subheading">Borrowing by Federal Government</div>
+            <div class="article-content">
+                <p><b>166. The executive authority of the Federation extends to borrowing upon the security of the Federal Consolidated Fund within such limits, if any, as may from time to time be fixed by Act of [Majlis-e-Shoora (Parliament)], and to the giving of guarantees within such limits, if any, as may be so fixed.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 166 allows the Federal Government to borrow money on the security of the Federal Consolidated Fund, subject to limits fixed by Parliament, and to give guarantees within such limits.</p>
+            </div>
+        </div>
+
+        <!-- Article 167 -->
+        <div id="article167" class="article-box">
+            <div class="article-badge">Article 167</div>
+            <div class="article-subheading">Borrowing by Provincial Government</div>
+            <div class="article-content">
+                <p><b>167. (1) Subject to the provisions of this Article, the executive authority of a Province extends to borrowing upon the security of the Provincial Consolidated Fund within such limits, if any, as may from time to time be fixed by Act of the Provincial Assembly, and to the giving of guarantees within such limits, if any, as may be so fixed.</b></p>
+                <p><b>(2) The Federal Government may, subject to such conditions, if any, as it may think fit to impose, make loans to, or, so long as any limits fixed under Article 166 are not exceeded give guarantees in respect of loans raised by, any Province, and any sums required for the purpose of making loans to a Province shall be charged upon the Federal Consolidated Fund.</b></p>
+                <p><b>(3) A Province may not, without the consent of the Federal Government, raise any loan if there is still outstanding any part of a loan made to the Province by the Federal Government, or in respect of which guarantee has been given by the Federal Government; and consent under this clause may be granted subject to such conditions, if any, as the Federal Government may think fit to impose.</b></p>
+                <p><b>[(4) A Province may raise domestic or international loan, or give guarantees on the security of the Provincial Consolidated Fund within such limits and subject to such conditions as may be specified by the National Economic Council.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 167 allows Provinces to borrow money on the security of the Provincial Consolidated Fund, subject to limits fixed by the Provincial Assembly. The Federal Government can make loans to Provinces and give guarantees. A Province cannot raise a loan without the consent of the Federal Government if there is still outstanding any part of a loan made by the Federal Government. Provinces can raise domestic or international loans subject to conditions specified by the National Economic Council.</p>
+            </div>
+        </div>
+
+        <!-- Article 168 -->
+        <div id="article168" class="article-box">
+            <div class="article-badge">Article 168</div>
+            <div class="article-subheading">Auditor-General of Pakistan</div>
+            <div class="article-content">
+                <p><b>168. (1) There shall be an Auditor-General of Pakistan, who shall be appointed by the President.</b></p>
+                <p><b>(2) Before entering upon office, the Auditor-General shall make before the Chief Justice of Pakistan oath in the form set out in the Third Schedule.</b></p>
+                <p><b>[(3) The Auditor-General shall, unless he sooner resigns or is removed from office in accordance with clause (5), hold office for a term of four years from the date on which he assumes such office or attains the age of sixty-five years, whichever is earlier.]</b></p>
+                <p><b>[(3A) The other terms and conditions of service of the Auditor-General shall be determined by Act of Majlis-e-Shoora (Parliament); and, until so determined, by Order of the President.]</b></p>
+                <p><b>(4) A person who has held office as Auditor-General shall not be eligible for further appointment in the service of Pakistan before the expiration of two years after he has ceased to hold that office.</b></p>
+                <p><b>(5) The Auditor-General shall not be removed from office except in the like manner and on the like grounds as a Judge of the Supreme Court.</b></p>
+                <p><b>(6) At any time when the office of the Auditor-General is vacant or the Auditor-General is absent or is unable to perform the functions of his office due to any cause, [the President may appoint the most senior officer in the Office of the Auditor-General to] act as Auditor-General and perform the functions of that office.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 168 establishes the office of the Auditor-General of Pakistan, appointed by the President. The Auditor-General takes an oath before the Chief Justice of Pakistan, holds office for a term of four years or until age 65, whichever is earlier. The Auditor-General cannot be removed except in the same manner and on the same grounds as a Judge of the Supreme Court.</p>
+            </div>
+        </div>
+
+        <!-- Article 169 -->
+        <div id="article169" class="article-box">
+            <div class="article-badge">Article 169</div>
+            <div class="article-subheading">Functions and powers of Auditor-General</div>
+            <div class="article-content">
+                <p><b>169. The Auditor-General shall, in relation to</b></p>
+                <p><b>(a) the accounts of the Federation and of the Provinces; and</b></p>
+                <p><b>(b) the accounts of any authority or body established by the Federation or a Province,</b></p>
+                <p><b>perform such functions and exercise such powers as may be determined by or under Act of [Majlis-e-Shoora (Parliament)] and, until so determined, by Order of the President.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 169 defines the functions and powers of the Auditor-General in relation to the accounts of the Federation, Provinces, and any authority or body established by them. These functions are determined by Act of Parliament or, until so determined, by Order of the President.</p>
+            </div>
+        </div>
+
+        <!-- Article 170 -->
+        <div id="article170" class="article-box">
+            <div class="article-badge">Article 170</div>
+            <div class="article-subheading">Power of Auditor-General to give directions as to accounts</div>
+            <div class="article-content">
+                <p><b>[170. (1) The accounts of the Federation and of the Provinces shall be kept in such form and in accordance with such principles and methods as the Auditor-General may, with the approval of the President, prescribe.</b></p>
+                <p><b>[(2) The audit of the accounts of the Federal and of the Provincial Governments and the accounts of any authority or body established by, or under the control of, the Federal or a Provincial Government shall be conducted by the Auditor-General, who shall determine the extent and nature of such audit.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 170 gives the Auditor-General the power to prescribe the form and principles for keeping accounts of the Federation and Provinces, with the approval of the President. The Auditor-General also conducts the audit of Government accounts.</p>
+            </div>
+        </div>
+
+        <!-- Article 171 -->
+        <div id="article171" class="article-box">
+            <div class="article-badge">Article 171</div>
+            <div class="article-subheading">Reports of Auditor-General</div>
+            <div class="article-content">
+                <p><b>171. The reports of the Auditor-General relating to the accounts of the Federation shall be submitted to the President, who shall cause them to be laid before the [both Houses of Majlis-e-Shoora (Parliament)] and the reports of the Auditor-General relating to the accounts of a Province shall be submitted to the Governor of the Province, who shall cause them to be laid before the Provincial Assembly.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 171 requires the Auditor-General to submit reports on federal accounts to the President, who lays them before Parliament. Reports on provincial accounts are submitted to the Governor, who lays them before the Provincial Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 172 -->
+        <div id="article172" class="article-box">
+            <div class="article-badge">Article 172</div>
+            <div class="article-subheading">Ownership property</div>
+            <div class="article-content">
+                <p><b>172. (1) Any property which has no rightful owner shall, if located in a Province, vest in the Government of that Province, and in every other case, in the Federal Government.</b></p>
+                <p><b>(2) All lands, minerals and other things of value within the continental shelf or underlying the ocean [beyond] the territorial waters of Pakistan shall vest in the Federal Government.</b></p>
+                <p><b>(3) Subject to the existing commitments and obligations, mineral oil and natural gas within the Province or the territorial waters adjacent thereto shall vest jointly and equally in that Province and the Federal Government.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 172 deals with ownership of property. Property with no rightful owner vests in the Provincial Government if located in a Province, otherwise in the Federal Government. Lands, minerals, and other valuables within the continental shelf or beyond territorial waters vest in the Federal Government. Mineral oil and natural gas within a Province or its adjacent territorial waters vest jointly and equally in the Province and the Federal Government.</p>
+            </div>
+        </div>
+
+        <!-- Article 173 -->
+        <div id="article173" class="article-box">
+            <div class="article-badge">Article 173</div>
+            <div class="article-subheading">Power to acquire property and to make contracts, etc.</div>
+            <div class="article-content">
+                <p><b>173. (1) The executive authority of the Federation and of a Province shall extend, subject to any Act of the appropriate Legislature, to the grant, sale, disposition or mortgage of any property vested in, and to the purchase or acquisition of property on behalf of, the Federal Government or, as the case may be, the Provincial Government, and to the making of contracts.</b></p>
+                <p><b>(2) All property acquired for the purposes of the Federation or of a Province shall vest in the Federal Government or, as the case may be, in the Provincial Government.</b></p>
+                <p><b>(3) All contracts made in the exercise of the executive authority of the Federation or of a Province shall be expressed to be made in the name of the President or, as the case may be, the Governor of the Province, and all such contracts and all assurances of property made in the exercise of that authority shall be executed on behalf of the President or Governor by such persons and in such manner as he may direct or authorize.</b></p>
+                <p><b>(4) Neither the President, nor the Governor of a Province, shall be personally liable in respect of any contract or assurance made or executed in the exercise of the executive authority of the Federation or, as the case may be, the Province, nor shall any person making or executing any such contract or assurance on behalf of any of them be personally liable in respect thereof.</b></p>
+                <p><b>(5) Transfer of land by the Federal Government or a Provincial Government shall be regulated by law.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 173 provides that the executive authority of the Federation and Provinces extends to the grant, sale, disposition, mortgage, purchase, or acquisition of property, and to making contracts. Property acquired for the purposes of the Federation or a Province vests in the respective Government. Contracts are expressed to be made in the name of the President or Governor. The President and Governor are not personally liable on such contracts. Transfer of land by Government is regulated by law.</p>
+            </div>
+        </div>
+
+        <!-- Article 174 -->
+        <div id="article174" class="article-box">
+            <div class="article-badge">Article 174</div>
+            <div class="article-subheading">Suits and proceedings</div>
+            <div class="article-content">
+                <p><b>174. The Federation may sue or be sued by the name of Pakistan and a Province may sue or be sued by the name of the Province.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 174 provides that the Federation may sue or be sued in the name of Pakistan, and a Province may sue or be sued in the name of the Province.</p>
+            </div>
+        </div>
+
+        <!-- Article 175 -->
+        <div id="article175" class="article-box">
+            <div class="article-badge">Article 175</div>
+            <div class="article-subheading">Establishment and jurisdiction of courts</div>
+            <div class="article-content">
+                <p><b>175. (1) There shall be [a Federal Constitutional Court of Pakistan, hereinafter referred to as the Federal Constitutional Court] a Supreme Court of Pakistan [hereinafter referred to as the Supreme Court], a High Court for each Province [and a High Court for the Islamabad Capital Territory] and such other courts as may be established by law.</b></p>
+                <p><b>[Explanation.—Unless the context otherwise requires, the words "High Court" wherever occurring in the Constitution shall include "Islamabad High Court."]</b></p>
+                <p><b>(2) No court shall have any jurisdiction save as is or may be conferred on it by the Constitution or by or under any law.</b></p>
+                <p><b>(3) The Judiciary shall be separated progressively from the Executive within [fourteen] years from the commencing day</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175 establishes the judicial hierarchy of Pakistan. It provides for a Federal Constitutional Court, a Supreme Court, a High Court for each Province, and a High Court for the Islamabad Capital Territory. No court has any jurisdiction except as conferred by the Constitution or by law. The Judiciary is to be separated from the Executive within 14 years from the commencing day. This article was significantly amended by the 27th Amendment to establish the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 160;
+    const totalArticles = 175;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 160);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (160-175).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 160 || num > 175) { resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 160 to 175.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 160);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

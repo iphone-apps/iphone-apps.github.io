@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part VII — Federal Shariat Court (Articles 203A-212)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📖 Part VII — Federal Shariat Court</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 203A-212)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📖 Part VII — Federal Shariat Court</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 203A-212)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article</span>
+                <div class="search-wrapper">
+                    <input type="text" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 203A -->
+        <div id="article203A" class="article-box active">
+            <div class="article-badge">Article 203A</div>
+            <div class="article-subheading">Provisions of Chapter to override other provisions of Constitution</div>
+            <div class="article-content">
+                <p><b>203A. The provisions of this Chapter shall have effect notwithstanding anything contained in the Constitution.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203A establishes the supremacy of the Federal Shariat Court provisions over any other provisions of the Constitution. This means the provisions relating to the Federal Shariat Court override any other constitutional provisions.</p>
+            </div>
+        </div>
+
+        <!-- Article 203B -->
+        <div id="article203B" class="article-box">
+            <div class="article-badge">Article 203B</div>
+            <div class="article-subheading">Definitions</div>
+            <div class="article-content">
+                <p><b>203B. In this Chapter, unless there is anything repugnant in the subject or context,</b></p>
+                <p><b>[(a) "Chief Justice" means Chief Justice of the Court;]</b></p>
+                <p><b>(b) "Court" means the Federal Shariat Court constituted in pursuance of Article 203C;</b></p>
+                <p><b>[(b) "Judge" means Judge of the Court;]</b></p>
+                <p><b>(c) "law" includes any custom or usage having the force of law but does not include the Constitution, Muslim personal law, any law relating to the procedure of any court or tribunal or, until the expiration of [ten] years from the commencement of this Chapter, any fiscal law or any law relating to the levy and collection of taxes and fees or banking or insurance practice and procedure; and</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203B defines key terms used in the Federal Shariat Court Chapter. "Court" means the Federal Shariat Court. "Law" includes custom but does not include the Constitution, Muslim personal law, procedural laws, and (for ten years) fiscal laws, tax laws, banking, and insurance laws.</p>
+            </div>
+        </div>
+
+        <!-- Article 203C -->
+        <div id="article203C" class="article-box">
+            <div class="article-badge">Article 203C</div>
+            <div class="article-subheading">The Federal Shariat Court</div>
+            <div class="article-content">
+                <p><b>203C. (1) There shall be constituted for the purposes of this Chapter a Court to be called the Federal Shariat Court.</b></p>
+                <p><b>[(2) The Court shall consist of not more than eight Muslim [Judges], including the [Chief Justice], to be appointed by the President [in accordance with Article 175A].]</b></p>
+                <p><b>[(3) The Chief Justice shall be a person who is, or has been, or is qualified to be, a Judge of the Supreme Court or who is or has been a permanent Judge of a High Court [or a Judge of the Federal Shariat Court qualified to be a Judge of the Supreme Court].</b></p>
+                <p><b>(3A) Of the Judges, not more than four shall be persons each one of whom is, or has been, or is qualified to be, a Judge of a High Court and not more than three shall be Ulema [having at least fifteen years experience in Islamic law, research or instruction].]</b></p>
+                <p><b>(4) The [Chief Justice] and a [Judge] shall hold office for a period not exceeding three years, but may be appointed for such further term or terms as the President may determine:</b></p>
+                <p><b>Provided that a Judge of a High Court shall not be appointed to be a [Judge] except with his consent and [except where the Judge is himself the Chief Justice,] after consultation by the President with the Chief Justice of the High Court.</b></p>
+                <p><b>[(4A) The [Chief Justice], if he is not a Judge of the Supreme Court, and a [Judge] who is not a Judge of a High Court, may, by writing under his hand addressed to the President, resign his office.]</b></p>
+                <p><b>[(4B) The Chief Justice and a Judge shall not be removed from office except in the like manner and on the like grounds as a Judge of the Supreme Court.]</b></p>
+                <p><b>(6) The principal seat of the Court shall be at Islamabad, but the Court may from time to time sit in such other places in Pakistan as the [Chief Justice] may, with the approval of the President, appoint.</b></p>
+                <p><b>(7) Before entering upon office, the [Chief Justice] and a [Judge] shall make before the President or a person nominated by him oath in the form set out in the Third Schedule.</b></p>
+                <p><b>(8) At any time when the [Chief Justice] or a [Judge] is absent or is unable to perform the functions of his office, the President shall appoint another person qualified for the purpose to act as [Chief Justice] or, as the case may be, [Judge].</b></p>
+                <p><b>[(9) A Chief Justice who is not a Judge of the Supreme Court shall be entitled to the same remuneration, allowances and privileges as are admissible to a Judge of the Supreme Court and a Judge who is not a Judge of a High Court shall be entitled to the same remuneration, allowances and privileges as are admissible to a Judge of a High Court:</b></p>
+                <p><b>Provided that where a Judge is already drawing a pension for any other post in the service of Pakistan, the amount of such pension shall be deducted from the pension admissible under this clause.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203C establishes the Federal Shariat Court. It consists of not more than eight Muslim Judges, including the Chief Justice, appointed by the President in accordance with Article 175A. The Chief Justice must be a person who is or has been a Judge of the Supreme Court or a permanent Judge of a High Court. Judges hold office for a term not exceeding three years.</p>
+            </div>
+        </div>
+
+        <!-- Article 203CC — Omitted -->
+        <div id="article203CC" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 203CC</div>
+            <div class="article-subheading">[Panel of Ulema and Ulema members]</div>
+            <div class="article-content">
+                <p><b>203CC. [Omitted by the Constitution (Second Amdt.) Order, 1981 (P.O. No. 7 of 1981), Art. 3, which was previously ins. by P.O. No. 5 of 1981, Art. 2.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203CC, which previously dealt with the Panel of Ulema, was omitted by the Second Amendment Order of 1981.</p>
+            </div>
+        </div>
+
+        <!-- Article 203D -->
+        <div id="article203D" class="article-box">
+            <div class="article-badge">Article 203D</div>
+            <div class="article-subheading">Powers, jurisdiction and functions of the Court</div>
+            <div class="article-content">
+                <p><b>203D. (1) The Court may, [either of its own motion or] on the petition of a citizen of Pakistan or the Federal Government or a Provincial Government, examine and decide the question whether or not any law or provision of law is repugnant to the Injunctions of Islam, as laid down in the Holy Quran and the Sunnah of the Holy Prophet, hereinafter referred to as the Injunctions of Islam.</b></p>
+                <p><b>[(1A) Where the Court takes up the examination of any law or provision of law under clause (1) and such law or provision of law appears to it to be repugnant to the Injunctions of Islam, the Court shall cause to be given to the Federal Government in the case of a law with respect to a matter in the Federal Legislative List or to the Provincial Government in the case of a law with respect to a matter not enumerated [in the Federal Legislative List], a notice specifying the particular provisions that appear to it to be so repugnant, and afford to such Government adequate opportunity to have its point of view placed before the Court.]</b></p>
+                <p><b>[(2) If the Court decides that any law or provision of law is repugnant to the Injunctions of Islam, it shall set out in its decision :-</b></p>
+                <p><b>(a) the reasons for its holding that opinion; and</b></p>
+                <p><b>(b) the extent to which such law or provision is so repugnant;</b></p>
+                <p><b>and specify the day on which the decision shall take effect [: ]</b></p>
+                <p><b>Provided that no such decision shall be deemed to take effect before the expiration of the period within which an appeal therefrom may be preferred to the Supreme Court or, where an appeal has been so preferred, before the disposal of such appeal [: ]</b></p>
+                <p><b>Provided further that appeal against decision given after the commencement of the Constitution (Twenty-sixth Amendment) Act, 2024 (XXVI of 2024) shall be disposed of within twelve months whereafter the decision shall take effect unless suspended by the Supreme Court.]</b></p>
+                <p><b>(3) If any law or provision of law is held by the Court to be repugnant to the Injunctions of Islam,-</b></p>
+                <p><b>(a) the President in the case of a law with respect to a matter in the Federal Legislative List or the Governor in the case of a law with respect to a matter not enumerated in [said List] shall take steps to amend the law so as to bring such law or provision into conformity with the Injunctions of Islam; and</b></p>
+                <p><b>(b) such law or provision shall, to the extent to which it is held to be so repugnant, cease to have effect on the day on which the decision of the Court takes effect.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203D gives the Federal Shariat Court the power to examine and decide whether any law is repugnant to the Injunctions of Islam (as laid down in the Holy Quran and Sunnah). The Court can act on its own motion or on petition. If a law is found repugnant, the Court sets out its reasons and the extent of repugnancy. The decision takes effect after the appeal period or after disposal of appeal. The President or Governor must take steps to amend such laws.</p>
+            </div>
+        </div>
+
+        <!-- Article 203DD -->
+        <div id="article203DD" class="article-box">
+            <div class="article-badge">Article 203DD</div>
+            <div class="article-subheading">Revisional and other jurisdiction of the Court</div>
+            <div class="article-content">
+                <p><b>[203DD. (1) The Court may call for and examine the record of any case decided by any criminal court under any law relating to the enforcement of Hudood for the purpose of satisfying itself as to the correctness, legality or propriety of any finding, sentence or order recorded or passed by, and as to the regularity of any proceedings of, such court and may, when calling for such record, direct that the execution of any sentence be suspended and, if the accused is in confinement, that he be released on bail or on his own bond pending the examination of the record.</b></p>
+                <p><b>(2) In any case the record of which has been called for by the Court, the Court may pass such order as it may deem fit and may enhance the sentence :</b></p>
+                <p><b>Provided that nothing in this Article shall be deemed to authorize the Court to convert a finding of acquittal into one of conviction and no order under this Article shall be made to the prejudice of the accused unless he has had an opportunity of being heard in his own defence.</b></p>
+                <p><b>(3) The Court shall have such other jurisdiction as may be conferred on it by or under any law.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203DD gives the Federal Shariat Court revisional jurisdiction over cases decided by criminal courts under laws relating to the enforcement of Hudood. The Court can examine records, suspend sentences, and release accused on bail. It can also enhance sentences but cannot convert acquittal into conviction.</p>
+            </div>
+        </div>
+
+        <!-- Article 203E -->
+        <div id="article203E" class="article-box">
+            <div class="article-badge">Article 203E</div>
+            <div class="article-subheading">Powers and procedure of the Court</div>
+            <div class="article-content">
+                <p><b>203E. (1) For the purposes of the performance of its functions, the Court shall have the powers of a Civil Court trying a suit under the Code of Civil Procedure, 1908 (Act V of 1908), in respect of the following matters, namely :—</b></p>
+                <p><b>(a) summoning and enforcing the attendance of any person and examining him on oath;</b></p>
+                <p><b>(b) requiring the discovery and production of any document;</b></p>
+                <p><b>(c) receiving evidence on affidavits; and</b></p>
+                <p><b>(d) issuing commissions for the examination of witnesses or documents.</b></p>
+                <p><b>(2) The Court shall have power to conduct its proceedings and regulate its procedure in all respects as it deems fit.</b></p>
+                <p><b>(3) The Court shall have the power of a High Court to punish its own contempt.</b></p>
+                <p><b>(4) A party to any proceedings before the Court under clause (1) of Article 203D may be represented by a legal practitioner who is a Muslim and has been enrolled as an advocate of a High Court for a period of not less than five years or as an advocate of the Supreme Court or by a jurisconsult selected by the party from out of a panel of jurisconsults maintained by the Court for the purpose.</b></p>
+                <p><b>(5) For being eligible to have his name borne on the panel of jurisconsults referred to in clause (4), a person shall be an aalim who, in the opinion of the Court, is well-versed in Shariat.</b></p>
+                <p><b>(6) A legal practitioner or jurisconsult representing a party before the Court shall not plead for the party but shall state, expound and interpret the Injunctions of Islam relevant to the proceedings so far as may be known to him and submit to the Court a written statement of his interpretation of such Injunctions of Islam.</b></p>
+                <p><b>(7) The Court may invite any person in Pakistan or abroad whom the Court considers to be well-versed in Islamic law to appear before it and render such assistance as may be required of him.</b></p>
+                <p><b>(8) No court fee shall be payable in respect of any petition or application made to the Court under [Article 203D].</b></p>
+                <p><b>[(9) The Court shall have power to review any decision given or order made by it.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203E prescribes the powers and procedure of the Federal Shariat Court. The Court has the powers of a Civil Court in matters of summoning witnesses, requiring production of documents, receiving evidence on affidavits, and issuing commissions. It can also punish for contempt. Parties may be represented by Muslim legal practitioners or jurisconsults. No court fee is payable.</p>
+            </div>
+        </div>
+
+        <!-- Article 203F -->
+        <div id="article203F" class="article-box">
+            <div class="article-badge">Article 203F</div>
+            <div class="article-subheading">Appeal to Supreme Court</div>
+            <div class="article-content">
+                <p><b>203F. (1) Any party to any proceedings before the Court under Article 203D aggrieved by the final decision of the Court in such proceedings may, within sixty days of such decision, prefer an appeal to the Supreme Court</b></p>
+                <p><b>Provided that an appeal on behalf of the Federation or of a Province may be preferred within six months of such decision.]</b></p>
+                <p><b>(2) The provisions of clauses (2) and (3) of Article 203D and clauses (4) to (8) of Article 203E shall apply to and in relation to the Supreme Court as if reference in those provisions to Court were a reference to the Supreme Court.</b></p>
+                <p><b>[(2A) An appeal shall lie to the Supreme Court from any judgment, final order or sentence of the Federal Shariat Court</b></p>
+                <p><b>(a) if the Federal Shariat Court has on appeal reversed an order of acquittal of an accused person and sentenced him to death or imprisonment for life or imprisonment for a term exceeding fourteen years; or, on revision, has enhanced a sentence as aforesaid; or</b></p>
+                <p><b>(b) if the Federal Shariat Court has imposed any punishment on any person for contempt of the Court.</b></p>
+                <p><b>(2B) An appeal to the Supreme Court from a judgment, decision, order or sentence of the Federal Shariat Court in a case to which the preceding clauses do not apply shall lie only if the Supreme Court grants leave to appeal.]</b></p>
+                <p><b>[(3) For the purpose of the exercise of the jurisdiction conferred by this Article, there shall be constituted in the Supreme Court a Bench to be called the Shariat Appellate Bench and consisting of</b></p>
+                <p><b>(a) three Muslim Judges of the Supreme Court; and</b></p>
+                <p><b>(b) not more than two Ulema to be appointed by the President to attend sittings of the Bench as ad-hoc members thereof from amongst the Judges of the Federal Shariat Court or from out of a panel of Ulema to be drawn up by the President in consultation with the Chief Justice.</b></p>
+                <p><b>(4) A person appointed under paragraph (b) of clause (3) shall hold office for such period as the President may determine.</b></p>
+                <p><b>(5) Reference in clauses (1) and (2) to "Supreme Court" shall be construed as a reference to the Shariat Appellate Bench.</b></p>
+                <p><b>[(6) While attending sittings of the Shariat Appellate Bench, a person appointed under paragraph (b) of clause (3) shall have the same power and jurisdiction, and be entitled to the same privileges, as a Judge of the Supreme Court and be paid such allowances as the President may determine.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203F provides for appeals from the Federal Shariat Court to the Supreme Court. Appeals must be filed within 60 days (6 months for the Federation or Province). The Supreme Court has a Shariat Appellate Bench consisting of three Muslim Judges and not more than two Ulema as ad-hoc members.</p>
+            </div>
+        </div>
+
+        <!-- Article 203G -->
+        <div id="article203G" class="article-box">
+            <div class="article-badge">Article 203G</div>
+            <div class="article-subheading">Bar of jurisdiction</div>
+            <div class="article-content">
+                <p><b>203G. Save as provided in Article 203F, no court or tribunal, including the Supreme Court and a High Court, shall entertain any proceedings or exercise any power or jurisdiction in respect of any matter within the power or jurisdiction of the Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203G bars the jurisdiction of all other courts (including the Supreme Court and High Courts) in matters within the jurisdiction of the Federal Shariat Court, except as provided in Article 203F (appeals).</p>
+            </div>
+        </div>
+
+        <!-- Article 203GG -->
+        <div id="article203GG" class="article-box">
+            <div class="article-badge">Article 203GG</div>
+            <div class="article-subheading">Decision of Court binding on High Court and courts subordinate to it</div>
+            <div class="article-content">
+                <p><b>[203GG. Subject to Articles 203D and 203F, any decision of the Court in the exercise of its jurisdiction under this Chapter shall be binding on a High Court and on all courts subordinate to a High Court.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203GG provides that decisions of the Federal Shariat Court are binding on High Courts and all courts subordinate to them, subject to the provisions of Articles 203D and 203F.</p>
+            </div>
+        </div>
+
+        <!-- Article 203H -->
+        <div id="article203H" class="article-box">
+            <div class="article-badge">Article 203H</div>
+            <div class="article-subheading">Pending proceedings to continue, etc.</div>
+            <div class="article-content">
+                <p><b>203H. (1) Subject to clause (2) nothing in this Chapter shall be deemed to require any proceedings pending in any court or tribunal immediately before the commencement of this Chapter or initiated after such commencement, to be adjourned or stayed by reason only of a petition having been made to the Court for a decision as to whether or not a law or provision of law relevant to the decision of the point in issue in such proceedings is repugnant to the Injunctions of Islam; and all such proceedings shall continue, and the point in issue therein shall be decided, in accordance with the law for the time being in force.</b></p>
+                <p><b>(2) All proceedings under clause (1) of Article 203B of the Constitution that may be pending before any High Court immediately before the commencement of this Chapter shall stand transferred to the Court and shall be dealt with by the Court from the stage from which they are so transferred.</b></p>
+                <p><b>(3) Neither the Court nor the Supreme Court shall in the exercise of its jurisdiction under this Chapter have power to grant an injunction or make any interim order in relation to any proceedings pending in any other court or tribunal.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203H provides that proceedings in other courts shall not be adjourned or stayed merely because a petition has been made to the Federal Shariat Court. Proceedings pending under Article 203B before High Courts are transferred to the Federal Shariat Court. Neither the Federal Shariat Court nor the Supreme Court can grant injunctions or interim orders in relation to proceedings in other courts.</p>
+            </div>
+        </div>
+
+        <!-- Article 203I — Omitted -->
+        <div id="article203I" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 203I</div>
+            <div class="article-subheading">[Administrative arrangements, etc.]</div>
+            <div class="article-content">
+                <p><b>203I. [Omitted by the Constitution (Second Amdt.) Order, 1982, (P.O. No. 5 of 1982), Art. 8.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203I, which previously dealt with administrative arrangements, was omitted by the Second Amendment Order of 1982.</p>
+            </div>
+        </div>
+
+        <!-- Article 203J -->
+        <div id="article203J" class="article-box">
+            <div class="article-badge">Article 203J</div>
+            <div class="article-subheading">Power to make rules</div>
+            <div class="article-content">
+                <p><b>203J. (1) The Court may, by notification in the official Gazette, make rules for carrying out the purposes of this Chapter.</b></p>
+                <p><b>(2) In particular, and without prejudice to the generality of the foregoing power, such rules may make provision in respect of all or any of the following matters, namely :</b></p>
+                <p><b>(a) the scale of payment of honoraria to be made to jurisconsults, experts and witnesses summoned by the Court to defray the expenses, if any, incurred by them in attending for the purposes of the proceedings before the Court;</b></p>
+                <p><b>[(c) the powers and functions of the Court being exercised or performed by Benches consisting of one or more members constituted by the Chairman ;</b></p>
+                <p><b>(d) the decision of the Court being expressed in terms of the opinion of the majority of its members or, as the case may be, of the members constituting a Bench ; and</b></p>
+                <p><b>(e) the decision of cases in which the members constituting a Bench are equally divided in their opinion.]</b></p>
+                <p><b>(3) Until rules are made under clause (1), the Shariat Benches of Superior Courts Rules, 1979, shall, with the necessary modifications and so far as they are not inconsistent with the provisions of this Chapter, continue in force.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203J gives the Federal Shariat Court the power to make rules for carrying out the purposes of this Chapter. These rules can cover matters such as honoraria for jurisconsults, the composition of Benches, and decision-making by majority. Until rules are made, the Shariat Benches of Superior Courts Rules, 1979, continue to apply.</p>
+            </div>
+        </div>
+
+        <!-- Article 204 -->
+        <div id="article204" class="article-box">
+            <div class="article-badge">Article 204</div>
+            <div class="article-subheading">Contempt of Court</div>
+            <div class="article-content">
+                <p><b>[204. (1) In this Article, "Court" means the [Federal Constitutional Court or the] Supreme Court or a High Court.</b></p>
+                <p><b>(2) A Court shall have power to punish any person who—</b></p>
+                <p><b>(a) abuses, interferes with or obstructs the process of the Court in any way or disobeys any order of the Court;</b></p>
+                <p><b>(b) scandalizes the Court or otherwise does anything which tends to bring the Court or a Judge of the Court into hatred, ridicule or contempt;</b></p>
+                <p><b>(c) does anything which tends to prejudice the determination of a matter pending before the Court; or</b></p>
+                <p><b>(d) does any other thing which, by law, constitutes contempt of the Court.</b></p>
+                <p><b>(3) The exercise of the power conferred on a Court by this Article may be regulated by law and, subject to law, by rules made by the Court.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 204 deals with contempt of court. Courts (Federal Constitutional Court, Supreme Court, and High Courts) have the power to punish for contempt. This includes abuse of process, disobedience of orders, scandalizing the Court, and prejudicing the determination of a matter. The exercise of this power can be regulated by law and by rules made by the Court. The 27th Amendment added "Federal Constitutional Court".</p>
+            </div>
+        </div>
+
+        <!-- Article 205 -->
+        <div id="article205" class="article-box">
+            <div class="article-badge">Article 205</div>
+            <div class="article-subheading">Remuneration, etc., of Judges</div>
+            <div class="article-content">
+                <p><b>205. The remuneration and other terms and conditions of service of a Judge of [the Federal Constitutional Court or] the Supreme Court or of a High Court shall be as provided in the Fifth Schedule.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 205 provides that the remuneration and other terms and conditions of service of Judges of the Federal Constitutional Court, Supreme Court, or High Court shall be as provided in the Fifth Schedule. The 27th Amendment added "Federal Constitutional Court".</p>
+            </div>
+        </div>
+
+        <!-- Article 206 -->
+        <div id="article206" class="article-box">
+            <div class="article-badge">Article 206</div>
+            <div class="article-subheading">Resignation</div>
+            <div class="article-content">
+                <p><b>[206. (1) A Judge of the [Federal Constitutional Court or of the] Supreme Court or of a High Court may resign his office by writing under his hand addressed to the President.</b></p>
+                <p><b>[(2) A Judge of a High Court who does not accept appointment as a Judge of the Federal Constitutional Court or the Supreme Court or a Judge of the Supreme Court who does not accept appointment as a Judge of the Federal Constitutional Court shall be deemed to have retired from his office and, on retirement, shall be entitled to receive a pension calculated on the basis of the length of his service as Judge and total service, if any, in the service of Pakistan.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 206 allows Judges of the Federal Constitutional Court, Supreme Court, or High Court to resign by writing to the President. If a Judge of a High Court does not accept appointment to the Federal Constitutional Court or Supreme Court, or a Judge of the Supreme Court does not accept appointment to the Federal Constitutional Court, they are deemed to have retired and are entitled to a pension.</p>
+            </div>
+        </div>
+
+        <!-- Article 207 -->
+        <div id="article207" class="article-box">
+            <div class="article-badge">Article 207</div>
+            <div class="article-subheading">Judge not to hold office of profit, etc.</div>
+            <div class="article-content">
+                <p><b>207. (1) A Judge of the [Federal Constitutional Court or of the Supreme Court] or of a High Court shall not—</b></p>
+                <p><b>(a) hold any other office of profit in the service of Pakistan if his remuneration is thereby increased; or</b></p>
+                <p><b>(b) occupy any other position carrying the right to remuneration for the rendering of services.</b></p>
+                <p><b>(2) A person who has held office as a Judge of the [Federal Constitutional Court or of the Supreme Court] or of a High Court shall not hold any office of profit in the service of Pakistan, not being a judicial or quasi-judicial office or the office of Chief Election Commissioner or of Chairman or member of a Law Commission or of Chairman or member of the Council of Islamic Ideology, before the expiration of two years after he has ceased to hold that office.</b></p>
+                <p><b>(3) A person who has held office as a permanent Judge</b></p>
+                <p><b>(a) of the [Federal Constitutional Court or of the Supreme Court], shall not plead or act in any court or before any authority in Pakistan; [and]</b></p>
+                <p><b>(b) of a High Court, shall not plead or act in any court or before any authority within its jurisdiction[.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 207 prohibits Judges from holding other offices of profit or positions carrying remuneration. Former Judges cannot hold any office of profit in the service of Pakistan for two years after ceasing to hold office, except judicial or quasi-judicial offices or certain specified offices. Former Judges of the Federal Constitutional Court or Supreme Court cannot plead or act in any court; former High Court Judges cannot plead or act within the jurisdiction of their former High Court.</p>
+            </div>
+        </div>
+
+        <!-- Article 208 -->
+        <div id="article208" class="article-box">
+            <div class="article-badge">Article 208</div>
+            <div class="article-subheading">Officers and servants of Courts</div>
+            <div class="article-content">
+                <p><b>208. The [Federal Constitutional Court, the] [Supreme Court, the Federal Shariat Court and the Islamabad High Court], with the approval of the President and a High Court, with the approval of the Governor concerned, may make rules providing for the appointment by the Court of officers and servants of the Court and for their terms and conditions of employment[.]</b></p>
+                <p><b>[Provided that till such time rules are made in this regard, the rules providing for the appointment of officers and servants of the Supreme Court and for their terms and conditions of employment shall mutatis mutandis apply to the officers and servants of the Federal Constitutional Court.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 208 allows courts to make rules for the appointment of officers and servants and their terms and conditions of employment, with the approval of the President (for federal courts) or Governor (for High Courts). The 27th Amendment added "Federal Constitutional Court" and provided that Supreme Court rules apply to the Federal Constitutional Court until rules are made.</p>
+            </div>
+        </div>
+
+        <!-- Article 209 -->
+        <div id="article209" class="article-box">
+            <div class="article-badge">Article 209</div>
+            <div class="article-subheading">Supreme Judicial Council</div>
+            <div class="article-content">
+                <p><b>[209. (1) There shall be a Supreme Judicial Council of Pakistan, in this Chapter referred to as the Council.</b></p>
+                <p><b>[(2) The Council shall consist of</b></p>
+                <p><b>(a) the Chief Justice of the Federal Constitutional Court;</b></p>
+                <p><b>(b) the Chief Justice of the Supreme Court;</b></p>
+                <p><b>(c) one next most senior Judge each of the Federal Constitutional Court and the Supreme Court;</b></p>
+                <p><b>(d) a Judge of the Federal Constitutional Court or the Supreme Court jointly nominated by the Chief Justice of the Federal Constitutional Court and the Chief Justice of the Supreme Court, for a period of two years;</b></p>
+                <p><b>(e) the two most senior Chief Justices of the High Courts.</b></p>
+                <p><b>Explanation I. The senior amongst the Chief Justice of the Federal Constitutional Court and the Chief Justice of the Supreme Court shall be the Chairperson of the Council. Their inter-se seniority shall be determined with reference to their dates of appointment as the Chief Justices of the Federal Constitutional Court and the Chief Justice of the Supreme Court otherwise than as acting Chief Justice, in case the dates of such appointment are the same, with reference to their dates of appointment as Judges of the High Courts.</b></p>
+                <p><b>Explanation II. If a Judge may not be nominated under paragraph (d), the respective Chief Justices shall forward one nominee each to the President who shall, on advice of the Prime Minister, nominate one of them as a Judge under paragraph (d).</b></p>
+                <p><b>Explanation III. For the purposes of this clause, the inter-se seniority of the Chief Justices of the High Courts shall be determined with reference to their dates of appointment as Chief Justice otherwise than as acting Chief Justice, and in case the dates of such appointment are the same, with reference to their dates of appointment as Judges of the High Courts.]</b></p>
+                <p><b>[(3) If at any time, the Council is inquiring into the capacity, inefficiency or conduct of a Judge who is a member of the Council, or a member of the Council is absent or is unable to act due to illness or any other cause, then if such member is the</b></p>
+                <p><b>(a) Chief Justice or Judge of the Federal Constitutional Court or the Supreme Court, as the case may be, the Judge who is next in seniority below the Judges referred to in paragraph (c) of clause (2), as the case may be;</b></p>
+                <p><b>(b) Judge of the Federal Constitutional Court or the Supreme Court referred to in paragraph (d) of clause (2), another Judge nominated under paragraph (d) or Explanation II of clause (2); and</b></p>
+                <p><b>(c) Chief Justice of a High Court, the Chief Justice of another High Court who is next in seniority amongst the Chief Justices of the remaining High Courts, shall act as a member of the Council in his place.]</b></p>
+                <p><b>(4) If, upon any matter inquired into by the Council, there is a difference of opinion amongst its members, the opinion of the majority shall prevail, and the report of the Council to the President shall be expressed in terms of the view of the majority.</b></p>
+                <p><b>(5) If, on information from any source or the report from the Commission under clause (19) of Article 175A [and Article 200], the Council or the President is of the opinion that a Judge [of the Federal Constitution Court or] of the Supreme Court or of a High Court</b></p>
+                <p><b>(a) may be incapable of properly performing the duties of his office by reason of physical or mental incapacity; or</b></p>
+                <p><b>(b) may be inefficient in the performance of the duties of his office; or</b></p>
+                <p><b>(c) may have been guilty of misconduct, [or]</b></p>
+                <p><b>[(d) does not accept a transfer under Article 200.]</b></p>
+                <p><b>the Council, on its own motion or on receipt of report from the Commission under clause (19) of Article 175A [and Article 200], or on the direction of the President, shall inquire into the matter.</b></p>
+                <p><b>(6) If, after inquiring into the matter, without unnecessary delay and in case of report or direction under clause (5), within six months [and within thirty days in case where paragraph (d) applies], the Council reports to the President that it is of the opinion that</b></p>
+                <p><b>(a) the Judge is incapable of performing the duties of his office or is found inefficient in performance of the duties of his office or has been guilty of misconduct [or does not accept transfer under Article 200]; and</b></p>
+                <p><b>(b) he should be removed from office, the President may remove the Judge from office.</b></p>
+                <p><b>(7) A Judge [of the Federal Constitutional Court or] of the Supreme Court or of a High Court shall not be removed from office except as provided by this Article.</b></p>
+                <p><b>(8) The Council shall issue a code of conduct to be observed by Judges of [the Federal Constitutional Court,] the Supreme Court and the High Courts.</b></p>
+                <p><b>(9) Subject to the rules made by the Council, there shall be a secretariat of the Council to be headed by a secretary and shall include such other officers and staff, as may be necessary.]</b></p>
+                <p><b>[(10) Within sixty days of commencement of the Constitution (Twenty-seventh Amendment) Act, 2025, the Council shall make rules regulating its procedure and conduct of business.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 209 establishes the Supreme Judicial Council, which consists of the Chief Justice of the Federal Constitutional Court, the Chief Justice of the Supreme Court, senior Judges of both Courts, and the two most senior Chief Justices of the High Courts. The Council inquires into the capacity, efficiency, or conduct of Judges. The President may remove a Judge on the recommendation of the Council. The Council also issues a code of conduct for Judges. The 27th Amendment restructured the Council to include the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <!-- Article 210 -->
+        <div id="article210" class="article-box">
+            <div class="article-badge">Article 210</div>
+            <div class="article-subheading">Power of Council to enforce attendance of persons, etc.</div>
+            <div class="article-content">
+                <p><b>210. (1) For the purpose of inquiring into any matter, the Council shall have the same power as the [the Federal Constitutional Court or the Supreme Court] has to issue directions or orders for securing the attendance of any person or the discovery or production of any document; and any such direction or order shall be enforceable as if it had been issued by the [the Federal Constitutional Court or the Supreme Court].</b></p>
+                <p><b>(2) The provisions of Article 204 shall apply to the Council as they apply to the [Federal Constitutional Court, the Supreme Court] and a High Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 210 gives the Supreme Judicial Council the same powers as the Federal Constitutional Court or Supreme Court to secure the attendance of persons and the production of documents. The provisions of Article 204 (contempt of court) also apply to the Council.</p>
+            </div>
+        </div>
+
+        <!-- Article 211 -->
+        <div id="article211" class="article-box">
+            <div class="article-badge">Article 211</div>
+            <div class="article-subheading">Bar of jurisdiction</div>
+            <div class="article-content">
+                <p><b>211. The proceedings before the Council, its report to the President and the removal of a Judge under clause (6) of Article 209 shall not be called in question in any court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 211 bars courts from calling into question the proceedings before the Supreme Judicial Council, its report to the President, or the removal of a Judge under Article 209.</p>
+            </div>
+        </div>
+
+        <!-- Article 212 -->
+        <div id="article212" class="article-box">
+            <div class="article-badge">Article 212</div>
+            <div class="article-subheading">Administrative Courts and Tribunals</div>
+            <div class="article-content">
+                <p><b>212. (1) Notwithstanding anything hereinbefore contained the appropriate Legislature may by Act [provide for the establishment of] one or more Administrative Courts or Tribunals to exercise exclusive jurisdiction in respect of</b></p>
+                <p><b>(a) matters relating to the terms and conditions of persons [who are or have been] in the service of Pakistan, including disciplinary matters;</b></p>
+                <p><b>(b) matters relating to claims arising from tortious acts of Government, or any person in the service of Pakistan, or of any local or other authority empowered by law to levy any tax or cess and any servant of such authority acting in the discharge of his duties as such servant; or</b></p>
+                <p><b>(c) matters relating to the acquisition, administration and disposal of any property which is deemed to be enemy property under any law.</b></p>
+                <p><b>(2) Notwithstanding anything hereinbefore contained where any Administrative Court or Tribunal is established under clause (1), no other court shall grant an injunction, make any order or entertain any proceedings in respect of any matter to which the jurisdiction of such Administrative Court or Tribunal extends [and all proceedings in respect of any such matter which may be pending before such other court immediately before the establishment of the Administrative Court or Tribunal [; other than an appeal pending before the Supreme Court,] shall abate on such establishment]:</b></p>
+                <p><b>Provided that the provisions of this clause shall not apply to an Administrative Court or Tribunal established under an Act of a Provincial Assembly unless, at the request of that Assembly made in the form of a resolution, [Majlis-e-Shoora (Parliament)] by law extends the provisions to such a Court or Tribunal.</b></p>
+                <p><b>(3) An appeal to the Supreme Court from a judgment, decree, order or sentence of an Administrative Court or Tribunal shall lie only if the Supreme Court, being satisfied that the case involves a substantial question of law of public importance, grants leave to appeal.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 212 allows the appropriate Legislature to establish Administrative Courts or Tribunals with exclusive jurisdiction over matters relating to service of Pakistan, tortious claims against Government, and enemy property. Once established, no other court can grant injunctions or entertain proceedings in such matters. Appeals to the Supreme Court from Administrative Courts lie only if the Supreme Court grants leave to appeal on a substantial question of law of public importance.</p>
+            </div>
+        </div>
+
+        <!-- Article 212A — Omitted -->
+        <div id="article212A" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 212A</div>
+            <div class="article-subheading">[Establishment of Military Courts or Tribunals]</div>
+            <div class="article-content">
+                <p><b>212A. [Omitted by S.R.O. No. 1278 (I) 85, dated 30-12-85, read with proclamation of withdrawal of Martial Law dated 30-12-85 see Gaz. of P. 1985, Ext., Pt. I, dated 30-12-85, pp. 431-432, which was previously added by P. O. No. 21 of 1979, Art. 2.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 212A, which previously dealt with the establishment of Military Courts or Tribunals, was omitted by the withdrawal of Martial Law in 1985.</p>
+            </div>
+        </div>
+
+        <!-- Article 212B — Repealed -->
+        <div id="article212B" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 212B</div>
+            <div class="article-subheading">[Establishment of Special Courts for trial of heinous offences]</div>
+            <div class="article-content">
+                <p><b>212B. [Repealed by the Constitution (Twelfth Amdt.) Act, 1991 (14 of 1991), s. 1 (3), (w.e.f. 26th July, 1994), which was previously added by Act 14 of 1991 s. 2, (w.e.f. 27th July, 1991).]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 212B, which previously dealt with the establishment of Special Courts for trial of heinous offences, was repealed by the Twelfth Amendment in 1994.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Article sequence for Part 9
+    const articleSequence = [
+        '203A', '203B', '203C', '203CC', '203D', '203DD', '203E', '203F',
+        '203G', '203GG', '203H', '203I', '203J',
+        '204', '205', '206', '207', '208', '209', '210', '211', '212', '212A', '212B'
+    ];
+    let currentIndex = 0;
+    const totalArticles = articleSequence.length;
+
+    function changeArticle(direction) {
+        document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+        currentIndex += direction;
+        document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentIndex === 0);
+        document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+
+        if (input === '') {
+            resultDiv.innerHTML = '⚠️ Please enter an article number (203A-203J, 204-212, 212A, 212B).';
+            return;
+        }
+
+        let num = input.toUpperCase();
+        let targetId = null;
+
+        // Check for exact matches
+        if (num === '203A') targetId = '203A';
+        else if (num === '203B') targetId = '203B';
+        else if (num === '203C') targetId = '203C';
+        else if (num === '203CC') targetId = '203CC';
+        else if (num === '203D') targetId = '203D';
+        else if (num === '203DD') targetId = '203DD';
+        else if (num === '203E') targetId = '203E';
+        else if (num === '203F') targetId = '203F';
+        else if (num === '203G') targetId = '203G';
+        else if (num === '203GG') targetId = '203GG';
+        else if (num === '203H') targetId = '203H';
+        else if (num === '203I') targetId = '203I';
+        else if (num === '203J') targetId = '203J';
+        else if (num === '204') targetId = '204';
+        else if (num === '205') targetId = '205';
+        else if (num === '206') targetId = '206';
+        else if (num === '207') targetId = '207';
+        else if (num === '208') targetId = '208';
+        else if (num === '209') targetId = '209';
+        else if (num === '210') targetId = '210';
+        else if (num === '211') targetId = '211';
+        else if (num === '212') targetId = '212';
+        else if (num === '212A') targetId = '212A';
+        else if (num === '212B') targetId = '212B';
+        else {
+            // Check for numeric range 203-212
+            let intNum = parseInt(num);
+            if (!isNaN(intNum) && intNum >= 203 && intNum <= 212) {
+                targetId = String(intNum);
+            }
+        }
+
+        if (targetId === null) {
+            resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 203A-203J and 204-212.';
+            return;
+        }
+
+        let targetIndex = articleSequence.indexOf(targetId);
+        
+        if (targetIndex !== -1) {
+            document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+            currentIndex = targetIndex;
+            document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+
+            let element = document.getElementById('article' + targetId);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${targetId}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+
+    document.getElementById('articleInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') searchArticle();
+    });
+</script>
+</body>
+</html>

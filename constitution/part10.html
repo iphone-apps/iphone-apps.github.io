@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 10 — Elections (Articles 213-226)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📚 Chapter 10 — Elections</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 213-226)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📚 Chapter 10 — Elections</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 213-226)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article</span>
+                <div class="search-wrapper">
+                    <input type="text" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 213 -->
+        <div id="article213" class="article-box active">
+            <div class="article-badge">Article 213</div>
+            <div class="article-subheading">Chief Election Commissioner</div>
+            <div class="article-content">
+                <p><b>213. (1) There shall be a Chief Election Commissioner (in this Part referred to as the Commissioner), who shall be appointed by the President</b></p>
+                <p><b>[(2) No person shall be appointed Commissioner unless he has been a Judge of the Supreme Court or has been a senior civil servant or is a technocrat and is not more than sixty-eight years of age.</b></p>
+                <p><b>Explanation 1. "senior civil servant" means a civil servant who has served for at least twenty years under Federal or a Provincial Government and has retired in BPS-22 or above.</b></p>
+                <p><b>Explanation 2. "technocrat" means a person who is the holder of a degree requiring conclusion of at least sixteen years of education, recognized by the Higher Education Commission and has at least twenty years of experience, including a record of achievements at the national or international level.</b></p>
+                <p><b>[(2A) The Prime Minister shall in consultation with the Leader of the Opposition in the National Assembly, forward three names for appointment of the Commissioner to a Parliamentary Committee for hearing and confirmation of any one person</b></p>
+                <p><b>Provided that in case there is no consensus between the Prime Minister and the Leader of the Opposition, each shall forward separate lists to the Parliamentary Committee for consideration which may confirm any one name.</b></p>
+                <p><b>(2B) The Parliamentary Committee to be constituted by the Speaker shall comprise fifty percent members from the Treasury Benches and fifty percent from the Opposition Parties, based on their strength in Majlis-e-Shoora (Parliament), to be nominated by the respective Parliamentary Leaders:</b></p>
+                <p><b>Provided that the total strength of the Parliamentary Committee shall be twelve members out of which one-third shall be from the Senate:</b></p>
+                <p><b>Provided [further] that when the National Assembly is dissolved and a vacancy occurs in the office of the Chief Election Commissioner, the [total membership of the Parliamentary Committee shall consist of] the members from the Senate only and the foregoing provisions of this clause shall, mutatis mutandis, apply.</b></p>
+                <p><b>[(3) The Commissioner [or a member] shall have such powers and functions as are conferred on him by the Constitution and law.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 213 establishes the Chief Election Commissioner. The Commissioner must be a former Judge of the Supreme Court, a senior civil servant (BPS-22 or above with at least 20 years of service), or a technocrat (with 16 years of education and 20 years of experience). The Prime Minister nominates three names in consultation with the Leader of the Opposition, which are sent to a Parliamentary Committee for confirmation.</p>
+            </div>
+        </div>
+
+        <!-- Article 214 -->
+        <div id="article214" class="article-box">
+            <div class="article-badge">Article 214</div>
+            <div class="article-subheading">Oath of Office</div>
+            <div class="article-content">
+                <p><b>214. Before entering upon office, the Commissioner shall make before the Chief Justice of Pakistan [and a member of the Election Commission shall make before the Commissioner] oath in the form set-out in the Third Schedule.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 214 requires the Chief Election Commissioner to take an oath before the Chief Justice of Pakistan, and members of the Election Commission to take an oath before the Commissioner, in the form set out in the Third Schedule.</p>
+            </div>
+        </div>
+
+        <!-- Article 215 -->
+        <div id="article215" class="article-box">
+            <div class="article-badge">Article 215</div>
+            <div class="article-subheading">Term of office of Commissioner and members</div>
+            <div class="article-content">
+                <p><b>215. (1) The Commissioner [and a member] shall, subject to this Article, hold office for a term of [five] years from the day he enters upon his office:</b></p>
+                <p><b>[Provided that two of the members shall retire after the expiration of first two and a half years and two shall retire after the expiration of the next two and a half years:]</b></p>
+                <p><b>[Provided further that the Commissioner and a member shall, notwithstanding the expiration of his term, continue to hold office until his successor enters upon the office:]</b></p>
+                <p><b>Provided [also] that the Commission shall for the first term of office of members draw a lot as to which two members shall retire after the first two and a half years:</b></p>
+                <p><b>Provided also that the term of office of a member appointed to fill a casual vacancy shall be the un-expired term of office of the member whose vacancy he has filled.]</b></p>
+                <p><b>(2) The Commissioner [or a member] shall not be removed from office except in the manner prescribed in Article 209 for the removal from office of a Judge and, in the application of the Article for the purposes of this clause, any reference in that Article to a Judge shall be construed as a reference to the Commissioner [or, as the case may be, a member].</b></p>
+                <p><b>(3) The Commissioner [or a member] may, by writing under his hand addressed to the President, resign his office.</b></p>
+                <p><b>[(4) Vacancy in the office of the Commissioner or a member shall be filled within forty-five days.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 215 sets the term of the Chief Election Commissioner and members at five years. Two members retire every two and a half years. The Commissioner cannot be removed except in the manner prescribed for a Judge under Article 209. Vacancies must be filled within 45 days.</p>
+            </div>
+        </div>
+
+        <!-- Article 216 -->
+        <div id="article216" class="article-box">
+            <div class="article-badge">Article 216</div>
+            <div class="article-subheading">Commissioner and members not to hold office of profit</div>
+            <div class="article-content">
+                <p><b>216. (1) The Commissioner [or a member] shall not</b></p>
+                <p><b>(a) hold any other office of profit in the service of Pakistan; or</b></p>
+                <p><b>(b) occupy any other position carrying the right to remuneration for the rendering of services.</b></p>
+                <p><b>(2) A person who has held office as Commissioner [or a member] shall not hold any office of profit in the service of Pakistan before the expiration of two years after he has ceased to hold that office [.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 216 prohibits the Chief Election Commissioner and members from holding any other office of profit in the service of Pakistan. They cannot occupy any other position carrying remuneration. A person who has held office as Commissioner or member cannot hold any office of profit in the service of Pakistan for two years after ceasing to hold that office.</p>
+            </div>
+        </div>
+
+        <!-- Article 217 -->
+        <div id="article217" class="article-box">
+            <div class="article-badge">Article 217</div>
+            <div class="article-subheading">Acting Commissioner</div>
+            <div class="article-content">
+                <p><b>217. At any time when</b></p>
+                <p><b>(a) the office of Commissioner is vacant, or</b></p>
+                <p><b>(b) the Commissioner is absent or is unable to perform the functions of his office due to any other cause,</b></p>
+                <p><b>the most senior member in age of the members of Commission shall act as Commissioner.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 217 provides that when the office of Commissioner is vacant or the Commissioner is unable to perform his functions, the most senior member (in age) of the Commission shall act as Commissioner.</p>
+            </div>
+        </div>
+
+        <!-- Article 218 -->
+        <div id="article218" class="article-box">
+            <div class="article-badge">Article 218</div>
+            <div class="article-subheading">Election Commission</div>
+            <div class="article-content">
+                <p><b>[218. (1) For the purpose of election to both Houses of Majlis-e-Shoora (Parliament), Provincial Assemblies and for election to such other public offices as may be specified by law, a permanent Election Commission shall be constituted in accordance with this Article.]</b></p>
+                <p><b>[(2) The Election Commission shall consist of,</b></p>
+                <p><b>(a) the Commissioner who shall be the Chairman of the Commission; and</b></p>
+                <p><b>(b) four members, one from each Province, each of whom shall be a person who has been a Judge of a High Court or has been a senior civil servant or is a technocrat and is not more than sixty-five years of age, to be appointed by the President in the manner provided for appointment of the Commissioner in clauses (2A) and (2B) of Article 213.</b></p>
+                <p><b>Explanation. "senior civil servant" and "technocrat" shall have the same meaning as given in clause (2) of Article 213.]</b></p>
+                <p><b>(3) It shall be the duty of the Election Commission to organize and conduct the election and to make such arrangements as are necessary to ensure that the election is conducted honestly, justly, fairly and in accordance with law, and that corrupt practices are guarded against.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 218 establishes the Election Commission of Pakistan. The Commission consists of the Chief Election Commissioner (Chairman) and four members (one from each Province), each of whom must be a former Judge of a High Court, a senior civil servant, or a technocrat, not more than 65 years of age. The Commission's duty is to organize and conduct elections honestly, justly, fairly, and in accordance with law.</p>
+            </div>
+        </div>
+
+        <!-- Article 219 -->
+        <div id="article219" class="article-box">
+            <div class="article-badge">Article 219</div>
+            <div class="article-subheading">Duties of Commission</div>
+            <div class="article-content">
+                <p><b>[219. The [Commission] shall be charged with the duty of</b></p>
+                <p><b>[(a) preparing electoral rolls for election to the National Assembly, Provincial Assemblies and local governments, and revising such rolls periodically to keep them up-to-date;]</b></p>
+                <p><b>[(d) the holding of general elections to the National Assembly, Provincial Assemblies and the local governments; and</b></p>
+                <p><b>(e) such other functions as may be specified by an Act of Majlis-e-Shoora (Parliament)]</b></p>
+                <p><b>Provided that till such time as the members of the Commission are first appointed in accordance with the provisions of paragraph (b) of clause (2) of Article 218 pursuant to the Constitution (Eighteenth Amendment) Act, 2010, and enter upon their office, the Commissioner shall remain charged with the duties enumerated in paragraphs (a), (b) and (c) of this Article.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 219 charges the Election Commission with the duty of preparing and revising electoral rolls for elections to the National Assembly, Provincial Assemblies, and local governments, and holding general elections.</p>
+            </div>
+        </div>
+
+        <!-- Article 220 -->
+        <div id="article220" class="article-box">
+            <div class="article-badge">Article 220</div>
+            <div class="article-subheading">Executive authorities to assist Commission, etc.</div>
+            <div class="article-content">
+                <p><b>220. It shall be the duty of all executive authorities in the Federation and in the Provinces to assist the Commissioner and the Election Commission in the discharge of his or their functions.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 220 requires all executive authorities in the Federation and Provinces to assist the Chief Election Commissioner and the Election Commission in the discharge of their functions.</p>
+            </div>
+        </div>
+
+        <!-- Article 221 -->
+        <div id="article221" class="article-box">
+            <div class="article-badge">Article 221</div>
+            <div class="article-subheading">Officers and staff</div>
+            <div class="article-content">
+                <p><b>221. Until [Majlis-e-Shoora (Parliament)] by law otherwise provides, the [Election Commission] may, with the approval of the President, make rules providing for the appointment by the [Commissioner] of officers and [staff] to be employed in connection with the functions of the Election Commission and for their terms and conditions of employment.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 221 allows the Election Commission, with the approval of the President, to make rules for the appointment of officers and staff and for their terms and conditions of employment, until Parliament makes provision by law.</p>
+            </div>
+        </div>
+
+        <!-- Article 222 -->
+        <div id="article222" class="article-box">
+            <div class="article-badge">Article 222</div>
+            <div class="article-subheading">Electoral laws</div>
+            <div class="article-content">
+                <p><b>222. Subject to the Constitution, [Majlis-e-Shoora (Parliament)] may by law provide for—</b></p>
+                <p><b>(a) the allocation of seats in the National Assembly as required by clauses (3) and (4) of Article 51;</b></p>
+                <p><b>(b) the delimitation of constituencies by the Election Commission [including delimitation of constituencies of local governments];</b></p>
+                <p><b>(c) the preparation of electoral rolls, the requirements as to residence in a constituency, the determination of objections pertaining to and the commencement of electoral rolls;</b></p>
+                <p><b>(d) the conduct of elections and election petitions the decision of doubts and disputes arising in connection with elections;</b></p>
+                <p><b>(e) matters relating to corrupt practices and other offences in connection with elections; and</b></p>
+                <p><b>(f) all other matters necessary for the due constitution of the two Houses [.] [and local governments];</b></p>
+                <p><b>but no such law shall have the effect of taking away or abridging any of the powers of the Commissioner or "[the] Election Commission under this Part.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 222 allows Parliament to make laws regarding the allocation of seats, delimitation of constituencies, preparation of electoral rolls, conduct of elections, corrupt practices, and other matters necessary for the constitution of the Houses and local governments. However, such laws cannot take away or abridge the powers of the Commissioner or Election Commission.</p>
+            </div>
+        </div>
+
+        <!-- Article 223 -->
+        <div id="article223" class="article-box">
+            <div class="article-badge">Article 223</div>
+            <div class="article-subheading">Bar against double membership</div>
+            <div class="article-content">
+                <p><b>223. (1) No person shall, at the same time, be a member of</b></p>
+                <p><b>(a) both Houses; or</b></p>
+                <p><b>(b) a House and a Provincial Assembly; or</b></p>
+                <p><b>(c) the Assemblies of two or more Provinces; or</b></p>
+                <p><b>(d) a House or a Provincial Assembly in respect of more than one seat.</b></p>
+                <p><b>(2) Nothing in clause (1) shall prevent a person from being a candidate for two or more seats at the same time, whether in the same body or in different bodies, but if he is elected to more than one seat he shall, within a period of thirty days after the declaration of the result for the last such seat, resign all but one of his seats, and if he does not so resign, all the seats to which he has been elected shall become vacant at the expiration of the said period of thirty days except the seat to which he has been elected last or, if he has been elected to more than one seat on the same day, the seat for election to which his nomination was filed last.</b></p>
+                <p><b>Explanation. In this clause, "body" means either House or a Provincial Assembly.</b></p>
+                <p><b>(3) A person to whom clause (2) applies shall not take a seat in either House or the Provincial Assembly to which he has been elected until he has resigned all but one of his seats.</b></p>
+                <p><b>(4) Subject to clause (2) if a member of either House or of a Provincial Assembly becomes a candidate for a second seat which, in accordance with clause (1), he may not hold concurrently with his first seat, then his first seat shall become vacant as soon as he is elected to the second seat.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 223 prohibits a person from being a member of both Houses, or a House and a Provincial Assembly, or the Assemblies of two or more Provinces at the same time. A person can be a candidate for multiple seats but must resign all but one within 30 days of the last declaration of result. If they fail to resign, all seats become vacant except the one elected last.</p>
+            </div>
+        </div>
+
+        <!-- Article 224 -->
+        <div id="article224" class="article-box">
+            <div class="article-badge">Article 224</div>
+            <div class="article-subheading">Time of election and bye-election</div>
+            <div class="article-content">
+                <p><b>[224. (1) A general election to the National Assembly or a Provincial Assembly shall be held within a period of sixty days immediately following the day on which the term of the Assembly is due to expire, unless the Assembly has been sooner dissolved, and the results of the election shall be declared not later than fourteen days before that day.]</b></p>
+                <p><b>[(1A) On dissolution of the Assembly on completion of its term, or in case it is dissolved under Article 58 or Article 112, the President, or the Governor, as the case may be, shall appoint a care-taker Cabinet:</b></p>
+                <p><b>Provided that the care-taker Prime Minister shall be [appointed] by the President in consultation with the Prime Minister and the Leader of the Opposition in the outgoing National Assembly, and a care-taker Chief Minister shall be appointed by the Governor in consultation with the Chief Minister and the Leader of the Opposition in the outgoing Provincial Assembly:</b></p>
+                <p><b>Provided further that if the Prime Minister or a Chief Minister and their respective Leader of the Opposition do not agree on any person to be appointed as a care-taker Prime Minister or the care-taker Chief Minister, as the case may be, the provisions of Article 224A shall be followed:]</b></p>
+                <p><b>Provided [also] that the Members of the Federal and Provincial care-taker Cabinets shall be appointed on the advice of the care-taker Prime Minister or the care-taker Chief Minister, as the case may be.</b></p>
+                <p><b>(1B) Members of the care-taker Cabinets including the care-taker Prime Minister and the care-taker Chief Minister and their immediate family members shall not be eligible to contest the immediately following elections to such Assemblies.</b></p>
+                <p><b>Explanation. In this clause "immediate family members" means spouse and children.]</b></p>
+                <p><b>(2) When the National Assembly or a Provincial Assembly is dissolved, a general election to the Assembly shall be held within a period of ninety days after the dissolution, and the results of the election shall be declared not later than fourteen days after the conclusion of the polls.</b></p>
+                <p><b>(3) An election to fill the seats in the Senate which are to become vacant on the expiration of the term of the members of the Senate shall be held not earlier than thirty days immediately preceding the day on which the vacancies are due to occur.</b></p>
+                <p><b>(4) When, except by dissolution of the National Assembly or a Provincial Assembly, a seat in any such Assembly has become vacant not later than one hundred and twenty days before the term of that Assembly is due to expire, an election to fill the seat shall be held within sixty days from the occurrence of the vacancy.</b></p>
+                <p><b>(5) When a seat in the Senate has become vacant, an election to fill the seat shall be held within thirty days from the occurrence of the vacancy.</b></p>
+                <p><b>[(6) When a seat reserved for women or non-Muslims in the National Assembly or a Provincial Assembly falls vacant, on account of death, resignation or disqualification of a member, it shall be filled by the next person in order of precedence from the party list of the candidates to be submitted to the Election Commission by the political party whose member has vacated such seat]</b></p>
+                <p><b>[Provided that if at any time the party list is exhausted, the concerned political party may submit a name for any vacancy which may occur thereafter.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 224 sets the time limits for elections. General elections to the National Assembly or Provincial Assemblies must be held within 60 days of the term expiring (or within 90 days of dissolution). On dissolution, a care-taker Cabinet is appointed by the President or Governor in consultation with the Prime Minister/Chief Minister and Leader of the Opposition. Members of care-taker Cabinets and their immediate family cannot contest the immediately following elections.</p>
+            </div>
+        </div>
+
+        <!-- Article 224A -->
+        <div id="article224A" class="article-box">
+            <div class="article-badge">Article 224A</div>
+            <div class="article-subheading">Resolution by Committee or Election Commission</div>
+            <div class="article-content">
+                <p><b>[224A. (1) In case the Prime Minister and the Leader of the Opposition in the outgoing National Assembly do not agree on any person to be appointed as the care-taker Prime Minister, within three days of the dissolution of the National Assembly, they shall forward two nominees each to a Committee to be immediately constituted by the Speaker of the National Assembly, comprising eight members of the outgoing National Assembly, or the Senate, or both, having equal representation from the Treasury and the Opposition, to be nominated by the Prime Minister and the Leader of the Opposition respectively.</b></p>
+                <p><b>(2) In case a Chief Minister and the Leader of the Opposition in the outgoing Provincial Assembly do not agree on any person to be appointed as the care-taker Chief Minister, within three days of the dissolution of that Assembly, they shall forward two nominees each to a Committee to be immediately constituted by the Speaker of the Provincial Assembly, comprising six members of the outgoing Provincial Assembly having equal representation from the Treasury and the Opposition, to be nominated by the Chief Minister and the Leader of the Opposition respectively.</b></p>
+                <p><b>(3) The Committee constituted under clause (1) or (2) shall finalize the name of the care-taker Prime Minister or care-taker Chief Minister, as the case may be, within three days of the referral of the matter to it.</b></p>
+                <p><b>Provided that in case of inability of the Committee to decide the matter in the aforesaid period, the names of the nominees shall be referred to the Election Commission of Pakistan for final decision within two days.</b></p>
+                <p><b>(4) The incumbent Prime Minister and the incumbent Chief Minister shall continue to hold office till appointment of the care-taker Prime Minister and the care-taker Chief Minister, as the case may be.</b></p>
+                <p><b>(5) Notwithstanding anything contained in clauses (1) and (2), if the members of the Opposition are less than five in the Majlis-e-Shoora (Parliament) and less than four in any Provincial Assembly, then all of them shall be members of the Committee mentioned in the aforesaid clauses and the Committee shall be deemed to be duly constituted.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 224A provides a mechanism for the appointment of care-taker Prime Minister or Chief Minister when the Prime Minister/Chief Minister and Leader of the Opposition cannot agree. Each side forwards two nominees to a Committee (8 members for National Assembly, 6 for Provincial Assembly). If the Committee cannot decide within three days, the matter is referred to the Election Commission for final decision within two days. The incumbent continues until the care-taker is appointed.</p>
+            </div>
+        </div>
+
+        <!-- Article 225 -->
+        <div id="article225" class="article-box">
+            <div class="article-badge">Article 225</div>
+            <div class="article-subheading">Election dispute</div>
+            <div class="article-content">
+                <p><b>225. No election to a House or a Provincial Assembly shall be called in question except by an election petition presented to such tribunal and in such manner as may be determined by Act of [Majlis-e-Shoora (Parliament)].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 225 provides that elections to Parliament or Provincial Assemblies can only be challenged through an election petition presented to a tribunal, in the manner determined by Act of Parliament.</p>
+            </div>
+        </div>
+
+        <!-- Article 226 -->
+        <div id="article226" class="article-box">
+            <div class="article-badge">Article 226</div>
+            <div class="article-subheading">Election by secret ballot</div>
+            <div class="article-content">
+                <p><b>[226. All elections under the Constitution, other than those of the Prime Minister and the Chief Minister, shall be by secret ballot.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 226 requires that all elections under the Constitution (except those of the Prime Minister and Chief Minister) shall be by secret ballot.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Article sequence for Part 10
+    const articleSequence = [
+        '213', '214', '215', '216', '217', '218', '219', '220',
+        '221', '222', '223', '224', '224A', '225', '226'
+    ];
+    let currentIndex = 0;
+    const totalArticles = articleSequence.length;
+
+    function changeArticle(direction) {
+        document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+        currentIndex += direction;
+        document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentIndex === 0);
+        document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+
+        if (input === '') {
+            resultDiv.innerHTML = '⚠️ Please enter an article number (213-226 or 224A).';
+            return;
+        }
+
+        let num = input.toUpperCase();
+        let targetId = null;
+
+        if (num === '224A') targetId = '224A';
+        else {
+            let intNum = parseInt(num);
+            if (!isNaN(intNum) && intNum >= 213 && intNum <= 226) {
+                targetId = String(intNum);
+            }
+        }
+
+        if (targetId === null) {
+            resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 213 to 226 (and 224A).';
+            return;
+        }
+
+        let targetIndex = articleSequence.indexOf(targetId);
+        
+        if (targetIndex !== -1) {
+            document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+            currentIndex = targetIndex;
+            document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+
+            let element = document.getElementById('article' + targetId);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${targetId}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+
+    document.getElementById('articleInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') searchArticle();
+    });
+</script>
+</body>
+</html>

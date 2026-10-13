@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 12 — Miscellaneous (Articles 238-280)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📔 Chapter 12 — Miscellaneous</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 238-280)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📔 Chapter 12 — Miscellaneous</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 238-280)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 238-280</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 238 -->
+        <div id="article238" class="article-box active">
+            <div class="article-badge">Article 238</div>
+            <div class="article-subheading">Amendment of Constitution</div>
+            <div class="article-content">
+                <p><b>238. Subject to this Part, the Constitution may be amended by Act of [Majlis-e-Shoora (Parliament)].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 238 gives Parliament the power to amend the Constitution, subject to the provisions of this Part (Part XI — Amendment of Constitution).</p>
+            </div>
+        </div>
+
+        <!-- Article 239 -->
+        <div id="article239" class="article-box">
+            <div class="article-badge">Article 239</div>
+            <div class="article-subheading">Constitution, amendment Bill</div>
+            <div class="article-content">
+                <p><b>[239. (1) A Bill to amend the Constitution may originate in either House and, when the Bill has been passed by the votes of not less than two-thirds of the total membership of the House, it shall be transmitted to the other House.</b></p>
+                <p><b>(2) If the Bill is passed without amendment by the votes of not less than two-thirds of the total membership of the House to which it is transmitted under clause (1), it shall, subject to the provisions of clause (4), be presented to the President for assent.</b></p>
+                <p><b>(3) If the Bill is passed with amendment by the votes of not less than two-thirds of the total membership of the House to which it is transmitted under clause (1), it shall be reconsidered by the House in which it had originated, and if the Bill as amended by the former House is passed by the latter by the votes of not less than two-thirds of its total membership it shall, subject to the provisions of clause (4), be presented to the President for assent.</b></p>
+                <p><b>(4) A Bill to amend the Constitution which would have the effect of altering the limits of a Province shall not be presented to the President for assent unless it has been passed by the Provincial Assembly of that Province by the votes of not less than two-thirds of its total membership.</b></p>
+                <p><b>[(5) Notwithstanding anything contained in the Constitution and any judgment of any court, no court shall have jurisdiction to call in question any amendment to the Constitution on any ground whatsoever.]</b></p>
+                <p><b>(6) For the removal of doubt, it is hereby declared that there is no limitation whatever on the power of the Majlis-e-Shoora (Parliament) to amend any of the provisions of the Constitution.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 239 sets the procedure for amending the Constitution. A Bill to amend the Constitution must be passed by a two-thirds majority of the total membership of each House. If the Bill affects the limits of a Province, it must also be passed by the Provincial Assembly of that Province by a two-thirds majority. No court can call into question any amendment to the Constitution. Parliament has unlimited power to amend any provision of the Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 240 -->
+        <div id="article240" class="article-box">
+            <div class="article-badge">Article 240</div>
+            <div class="article-subheading">Appointments to service of Pakistan and conditions of service</div>
+            <div class="article-content">
+                <p><b>240. Subject to the Constitution, the appointments to and the conditions of service of persons in the service of Pakistan shall be determined</b></p>
+                <p><b>(a) in the case of the services of the Federation, posts in connection with the affairs of the Federation and All-Pakistan Services, by or under Act of [Majlis-e-Shoora (Parliament)]; and</b></p>
+                <p><b>(b) in the case of the services of a Province and posts in connection with the affairs of a Province, by or under Act of the Provincial Assembly.</b></p>
+                <p><b>Explanation.- In this Article, "All-Pakistan Service" means a service common to the Federation and the Provinces, which was in existence immediately before the commencing day or which may be created by Act of [Majlis-e-Shoora (Parliament)].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 240 provides that appointments and conditions of service of persons in the service of Pakistan shall be determined by Act of Parliament (for federal services and All-Pakistan Services) or Act of Provincial Assembly (for provincial services). "All-Pakistan Service" means a service common to the Federation and Provinces.</p>
+            </div>
+        </div>
+
+        <!-- Article 241 -->
+        <div id="article241" class="article-box">
+            <div class="article-badge">Article 241</div>
+            <div class="article-subheading">Existing rules, etc., to continue</div>
+            <div class="article-content">
+                <p><b>241. Until the appropriate Legislature makes a law under Article 240, all rules and orders in force immediately before the commencing day shall, so far as consistent with the provisions of the Constitution, continue in force and may be amended from time to time by the Federal Government or, as the case may be the Provincial Government.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 241 provides that until Parliament or the Provincial Assembly makes a law under Article 240, all rules and orders in force before the commencing day shall continue in force and may be amended by the Federal Government or Provincial Government.</p>
+            </div>
+        </div>
+
+        <!-- Article 242 -->
+        <div id="article242" class="article-box">
+            <div class="article-badge">Article 242</div>
+            <div class="article-subheading">Public Service Commission</div>
+            <div class="article-content">
+                <p><b>242. (1) [Majlis-e-Shoora (Parliament)] in relation to the affairs of the Federation, and the Provincial Assembly of a Province in relation to the affairs of the Province may, by law provide for the establishment and constitution of a Public Service Commission.</b></p>
+                <p><b>[(1A) The Chairman of the Public Service Commission constituted in relation to the affairs of the Federation shall be appointed by the President [on the advice of the Prime Minister].</b></p>
+                <p><b>[(1B) The Chairman of the Public Service Commission constituted in relation to affairs of a Province shall be appointed by the Governor on advice of the Chief Minister.]</b></p>
+                <p><b>(2) A Public Service Commission shall perform such functions as may be prescribed by law.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 242 allows Parliament and Provincial Assemblies to establish Public Service Commissions. The Chairman of the Federal Public Service Commission is appointed by the President on the advice of the Prime Minister. The Chairman of a Provincial Public Service Commission is appointed by the Governor on the advice of the Chief Minister.</p>
+            </div>
+        </div>
+
+        <!-- Article 243 -->
+        <div id="article243" class="article-box">
+            <div class="article-badge">Article 243</div>
+            <div class="article-subheading">Command of Armed Forces</div>
+            <div class="article-content">
+                <p><b>[243. (1) The Federal Government shall have control and command of the Armed Forces.</b></p>
+                <p><b>(2) Without prejudice to the generality of the foregoing provision, the Supreme Command of the Armed Forces shall vest in the President.</b></p>
+                <p><b>(3) The President shall subject to law, have power</b></p>
+                <p><b>(a) to raise and maintain the Military, Naval and Air Forces of Pakistan; and the Reserves of such Forces; and</b></p>
+                <p><b>(b) to grant Commissions in such Forces.</b></p>
+                <p><b>(4) The President shall, on advice of the Prime Minister, appoint</b></p>
+                <p><b>(a) the Chief of the Army Staff concurrently the Chief of the Defense Forces;</b></p>
+                <p><b>(b) the Chief of the Naval Staff; and</b></p>
+                <p><b>(c) the Chief of the Air Staff;</b></p>
+                <p><b>and shall also determine their salaries and allowances.</b></p>
+                <p><b>(5) Notwithstanding anything contained in clause (4), the office of the Chairman, Joint Chiefs of Staff Committee shall stand abolished with effect from the twenty-seventh day of November two thousand and twenty-five.</b></p>
+                <p><b>(6) The Prime Minister shall, on the recommendation of the Chief of the Army Staff concurrently the Chief of the Defense Forces, appoint the Commander of the National Strategic Command from the members of Pakistan Army and shall also determine his salary and allowances.</b></p>
+                <p><b>(7) Where the Federal Government promotes a member of the Armed Forces to the rank of Field Marshal, Marshal of the Air Force or Admiral of the Fleet, such officer shall retain the rank, privileges and remain in uniform for life.</b></p>
+                <p><b>(8) Field Marshal, Marshal of the Air Force and Admiral of the Fleet, being national heroes, shall not be removed from office except on the ground or charges and in the manner provided under Article 47.</b></p>
+                <p><b>(9) The provisions of Article 248, as applicable to the President, shall mutatis mutandis apply to Field Marshal, Marshal of the Air Force and Admiral of the Fleet.</b></p>
+                <p><b>(10) Upon completion of the term of his command, under the law, the Federal Government shall determine the responsibilities and duties of Field Marshal, Marshal of the Air Force or Admiral of the Fleet in the interest of State.</b></p>
+                <p><b>(11) The President shall, on advice of the Prime Minister, determine the salary, allowances and privileges of Field Marshal, Marshal of the Air Force and Admiral of the Fleet.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 243 provides that the Federal Government has control and command of the Armed Forces, with the Supreme Command vesting in the President. The President appoints the Chiefs of Army, Naval, and Air Staff on the advice of the Prime Minister. The office of the Chairman, Joint Chiefs of Staff Committee was abolished with effect from 27 November 2025. The Prime Minister appoints the Commander of the National Strategic Command. Field Marshal, Marshal of the Air Force, and Admiral of the Fleet retain their rank and privileges for life.</p>
+            </div>
+        </div>
+
+        <!-- Article 244 -->
+        <div id="article244" class="article-box">
+            <div class="article-badge">Article 244</div>
+            <div class="article-subheading">Oath of Armed Forces</div>
+            <div class="article-content">
+                <p><b>244. Every member of the Armed Forces shall make oath in the form set out in the Third Schedule.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 244 requires every member of the Armed Forces to take an oath in the form set out in the Third Schedule.</p>
+            </div>
+        </div>
+
+        <!-- Article 245 -->
+        <div id="article245" class="article-box">
+            <div class="article-badge">Article 245</div>
+            <div class="article-subheading">Functions of Armed Forces</div>
+            <div class="article-content">
+                <p><b>[245. (1) The Armed Forces shall, under the directions of the Federal Government defend Pakistan against external aggression or threat of war, and, subject to law, act in aid of civil power when called upon to do so.</b></p>
+                <p><b>[(2) The validity of any direction issued by the Federal Government under clause (1) shall not be called in question in any court.</b></p>
+                <p><b>(3) A High Court shall not exercise any jurisdiction under Article 199 in relation to any area in which the Armed Forces of Pakistan are, for the time being, acting in aid of civil power in pursuance of Article 245:</b></p>
+                <p><b>Provided that this clause shall not be deemed to affect the jurisdiction of the High Court in respect of any proceeding pending immediately before the day on which the Armed Forces start acting in aid of civil power.</b></p>
+                <p><b>(4) Any proceeding in relation to an area referred to in clause (3) instituted on or after the day the Armed Forces start acting in aid of civil power and pending in any High Court shall remain suspended for the period during which the Armed Forces are so acting.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 245 provides that the Armed Forces shall defend Pakistan against external aggression and act in aid of civil power when called upon. The validity of directions issued by the Federal Government cannot be questioned in any court. High Courts cannot exercise jurisdiction under Article 199 in areas where the Armed Forces are acting in aid of civil power.</p>
+            </div>
+        </div>
+
+        <!-- Article 246 -->
+        <div id="article246" class="article-box">
+            <div class="article-badge">Article 246</div>
+            <div class="article-subheading">Tribal Areas</div>
+            <div class="article-content">
+                <p><b>246. In the Constitution,</b></p>
+                <p><b>(a) "Tribal Areas" means the areas in Pakistan which, immediately before the commencing day, were Tribal Area, and includes</b></p>
+                <p><b>(i) the Tribal Areas of [Balochistan] and the [Khyber Pakhtunkhwa];</b></p>
+                <p><b>(ii) the former States of Amb, Chitral, Dir and Swat;</b></p>
+                <p><b>(b) "Provincially Administered Tribal Areas" means -</b></p>
+                <p><b>(i) the districts of Chitral, Dir and Swat (which includes Kalam) [the Tribal Area in Kohistan district,] Malakand Protected Area, the Tribal Area adjoining [Mansehra] district and the former State of Amb; and</b></p>
+                <p><b>(ii) Zhob district, Loralai district (excluding Duki Tehsil), Dalbandin Tehsil of Chagai district and Marri and Bugti Tribal territories of Sibi district;</b></p>
+                <p><b>(c) "Federally Administered Tribal Areas" includes -</b></p>
+                <p><b>(i) Tribal Areas, adjoining Peshawar district;</b></p>
+                <p><b>(ii) Tribal Areas adjoining Kohat district;</b></p>
+                <p><b>(iii) Tribal Areas adjoining Bannu district;</b></p>
+                <p><b>[(iiia) Tribal Areas adjoining Lakki Marwat district;</b></p>
+                <p><b>(iv) Tribal Areas adjoining Dera Ismail Khan district;</b></p>
+                <p><b>[(iva) Tribal Areas adjoining Tank district;]</b></p>
+                <p><b>[(v) Bajaur Agency;</b></p>
+                <p><b>(va) Orakzai Agency;</b></p>
+                <p><b>(vi) Mohmand Agency;</b></p>
+                <p><b>(vii) Khyber Agency;</b></p>
+                <p><b>(viii) Kurram Agency;</b></p>
+                <p><b>(ix) North Waziristan Agency; and</b></p>
+                <p><b>(x) South Waziristan Agency [and]</b></p>
+                <p><b>[(d) On the commencement of the Constitution (Twenty-fifth Amendment) Act, 2018, the areas mentioned in-</b></p>
+                <p><b>(i) paragraph (b),-</b></p>
+                <p><b>(a) in sub-paragraph (i), shall stand merged in the Province of Khyber Pakhtunkhwa; and</b></p>
+                <p><b>(b) in sub-paragraph (ii), shall stand merged in the Province of Balochistan; and</b></p>
+                <p><b>(ii) paragraph (c), shall stand merged in the Province of Khyber Pakhtunkhwa.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 246 defines "Tribal Areas", "Provincially Administered Tribal Areas", and "Federally Administered Tribal Areas". On the commencement of the 25th Amendment in 2018, the Provincially Administered Tribal Areas merged into Khyber Pakhtunkhwa and Balochistan, and the Federally Administered Tribal Areas merged into Khyber Pakhtunkhwa.</p>
+            </div>
+        </div>
+
+        <!-- Article 247 -->
+        <div id="article247" class="article-box">
+            <div class="article-badge">Article 247</div>
+            <div class="article-subheading">[Administration of Tribal Areas]</div>
+            <div class="article-content">
+                <p><b>247. [Omitted by the Constitution (Twenty-fifth Amdt.) Act, 2018 (37 of 2018), s. 9.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 247, which previously dealt with the administration of Tribal Areas, was omitted by the 25th Amendment in 2018 after the merger of Tribal Areas with Khyber Pakhtunkhwa and Balochistan.</p>
+            </div>
+        </div>
+
+        <!-- Article 248 -->
+        <div id="article248" class="article-box">
+            <div class="article-badge">Article 248</div>
+            <div class="article-subheading">Protection to President, Governor, Minister, etc.</div>
+            <div class="article-content">
+                <p><b>[248. (1) [Notwithstanding any judgment of any court, the] President, a Governor, the Prime Minister, a Federal Minister, a Minister of State, the Chief Minister and a Provincial Minister shall not be answerable to any court for the exercise of powers and performance of functions of their respective offices or for any act done or purported to be done in the exercise of those powers and performance of those functions:</b></p>
+                <p><b>Provided that nothing in this clause shall be construed as restricting the right of any person to bring appropriate proceedings against the Federation or a Province.</b></p>
+                <p><b>[(2) No criminal proceedings whatsoever shall be initiated or continued against the President for his life and for a Governor during his term of office in any court.]</b></p>
+                <p><b>[(3) No process for arrest or imprisonment of the President for his life and for a Governor during his term of office, shall be issued from any court:</b></p>
+                <p><b>Provided that the provisions of clauses (2) and (3) shall not apply during the period the President holds a public office after he ceases to be the President.]</b></p>
+                <p><b>(4) No civil proceedings in which relief is claimed against the President or a Governor shall be instituted during his term of office in respect of any thing done or not done by him in his personal capacity whether before or after he enters upon his office unless, at least sixty days before the proceedings are instituted, notice in writing has been delivered to him, or sent to him in the manner prescribed by law, stating the nature of the proceedings, the cause of action, the name, description and place of residence of the party by whom the proceedings are to be instituted and the relief which the party claims.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 248 provides immunity to the President, Governors, Prime Minister, Federal Ministers, Ministers of State, Chief Minister, and Provincial Ministers from being answerable to any court for the exercise of their official powers and functions. No criminal proceedings can be initiated or continued against the President for life and against a Governor during his term. No process for arrest or imprisonment of the President for life and of a Governor during his term can be issued from any court.</p>
+            </div>
+        </div>
+
+        <!-- Article 249 -->
+        <div id="article249" class="article-box">
+            <div class="article-badge">Article 249</div>
+            <div class="article-subheading">Legal proceedings</div>
+            <div class="article-content">
+                <p><b>249. (1) Any legal proceedings which, but for the Constitution, could have been brought by or against the Federation in respect of a matter which, immediately before the commencing day, was the responsibility of the Federation and has, under the Constitution, become the responsibility of a Province, shall be brought by or against the Province concerned; and if any such legal proceedings were pending in any court immediately before the commencing day then, in those proceedings, for the Federation the Province concerned shall, as from that day, be deemed to have been substituted.</b></p>
+                <p><b>(2) Any legal proceedings which, but for the Constitution, could have been brought by or against a Province in respect of a matter which, immediately before the commencing day, was the responsibility of the Province and has under the Constitution become the responsibility of the Federation, shall be brought by or against the Federation; and if any such legal proceedings were pending in any court immediately before the commencing day then, in those proceedings, for the Province the Federation shall, as from that day, be deemed to have been substituted.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 249 deals with legal proceedings where responsibility for a matter has been transferred between the Federation and a Province. Proceedings that could have been brought by or against the Federation or a Province shall be brought by or against the Province or Federation as the case may be.</p>
+            </div>
+        </div>
+
+        <!-- Article 250 -->
+        <div id="article250" class="article-box">
+            <div class="article-badge">Article 250</div>
+            <div class="article-subheading">Salaries, allowances, etc., of the President, etc.</div>
+            <div class="article-content">
+                <p><b>250. (1) Within two years from the commencing day, provision shall be made by law for determining the salaries, allowances and privileges of the President, the Speaker and Deputy Speaker and a member of the National Assembly or a Provincial Assembly, the Chairman and Deputy Chairman and a member of the Senate, the Prime Minister, a Federal Minister, a Minister of State, a Chief Minister, a Provincial Minister and the Chief Election Commissioner.</b></p>
+                <p><b>(2) Until other provision is made by law,</b></p>
+                <p><b>(a) the salaries, allowances and privileges of the President, the Speaker or Deputy Speaker or a member of the National Assembly or a Provincial Assembly, a Federal Minister, a Minister of State, a Chief Minister, a Provincial Minister and the Chief Election Commissioner shall be same as the salaries, allowances and privileges to which the President, the Speaker or Deputy Speaker or member of the National Assembly of Pakistan or a Provincial Assembly, a Federal Minister, a Minister of State, a Chief Minister, a Provincial Minister or, as the case may be, the Chief Election Commissioner was entitled immediately before the commencing day; and</b></p>
+                <p><b>(b) the salaries, allowances and privileges of the Chairman, the Deputy Chairman, the Prime Minister and a member of the Senate shall be such as the President may by Order determine.</b></p>
+                <p><b>(3) The salary, allowances and privileges of a person holding office as</b></p>
+                <p><b>(a) the President;</b></p>
+                <p><b>(b) the Chairman or Deputy Chairman;</b></p>
+                <p><b>(c) the Speaker or Deputy Speaker of the National Assembly or a Provincial Assembly;</b></p>
+                <p><b>(d) a Governor;</b></p>
+                <p><b>(e) the Chief Election Commissioner; or</b></p>
+                <p><b>(f) the Auditor-General;</b></p>
+                <p><b>shall not be varied to his disadvantage during his term of office.</b></p>
+                <p><b>(4) At any time when the Chairman or Speaker is acting as President, he shall be entitled to the same salary, allowances and privileges as a President but shall not exercise any of the functions of the office of Chairman or Speaker or a member of [Majlis-e-Shoora (Parliament)] or be entitled to salary, allowances or privileges as Chairman, Speaker or such a member.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 250 provides for the salaries, allowances, and privileges of the President, Speakers, Chairman, members of Parliament and Provincial Assemblies, Prime Minister, Federal Ministers, Chief Ministers, Provincial Ministers, and the Chief Election Commissioner. These shall be determined by law. The salary, allowances, and privileges of certain office-holders shall not be varied to their disadvantage during their term.</p>
+            </div>
+        </div>
+
+        <!-- Article 251 -->
+        <div id="article251" class="article-box">
+            <div class="article-badge">Article 251</div>
+            <div class="article-subheading">National language</div>
+            <div class="article-content">
+                <p><b>251. (1) The National language of Pakistan is Urdu, and arrangements shall be made for its being used for official and other purposes within fifteen years from the commencing day.</b></p>
+                <p><b>(2) Subject to clause (1), the English language may be used for official purposes until arrangements are made for its replacement by Urdu.</b></p>
+                <p><b>(3) Without prejudice to the status of the National language, a Provincial Assembly may by law prescribe measures for the teaching, promotion and use of a provincial language in addition to the national language.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 251 declares Urdu as the National language of Pakistan. Arrangements shall be made for its use for official purposes within 15 years from the commencing day. English may be used for official purposes until arrangements are made for its replacement by Urdu. Provincial Assemblies may prescribe measures for the teaching, promotion, and use of provincial languages in addition to the national language.</p>
+            </div>
+        </div>
+
+        <!-- Article 252 -->
+        <div id="article252" class="article-box">
+            <div class="article-badge">Article 252</div>
+            <div class="article-subheading">Special provisions in relation to major ports and aerodromes</div>
+            <div class="article-content">
+                <p><b>252. (1) Notwithstanding anything contained in the Constitution or in any law, the President may, by public notification, direct that, for a period not exceeding three months from a specified date, a specified law, whether a Federal law or a Provincial law, shall not apply to a specified major port or major aerodrome, or shall apply to a specified major port or major aerodrome subject to specified exceptions or modifications.</b></p>
+                <p><b>(2) The giving of a direction under this Article in relation to any law shall not affect the operation of the law prior to the date specified in the direction.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 252 allows the President to direct that a specified law (Federal or Provincial) shall not apply to a major port or aerodrome for a period not exceeding three months, or shall apply subject to exceptions or modifications. This does not affect the operation of the law prior to the date specified in the direction.</p>
+            </div>
+        </div>
+
+        <!-- Article 253 -->
+        <div id="article253" class="article-box">
+            <div class="article-badge">Article 253</div>
+            <div class="article-subheading">Maximum limits as to property, etc.</div>
+            <div class="article-content">
+                <p><b>253. (1) [Majlis-e-Shoora (Parliament)] may by law</b></p>
+                <p><b>(a) prescribe the maximum limits as to property or any class thereof which may be owned, held, possessed or controlled by any person; and</b></p>
+                <p><b>(b) declare that any trade, business, industry or service specified in such law shall be carried on or owned, to the exclusion, complete or partial, of other persons, by the Federal Government or a Provincial Government, or by a corporation controlled by any such Government.</b></p>
+                <p><b>(2) Any law which permits a person to own beneficially or possess beneficially an area of land greater than that which, immediately before the commencing day, he could have lawfully owned beneficially or possessed beneficially shall be invalid.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 253 allows Parliament to prescribe maximum limits on property ownership and to declare that certain trades, businesses, industries, or services shall be carried on by the Government to the exclusion of others. Any law that permits a person to own land greater than what they could have lawfully owned before the commencing day is invalid.</p>
+            </div>
+        </div>
+
+        <!-- Article 254 -->
+        <div id="article254" class="article-box">
+            <div class="article-badge">Article 254</div>
+            <div class="article-subheading">Failure to comply with requirement as to time does not render an act invalid</div>
+            <div class="article-content">
+                <p><b>254. When any act or thing is required by the Constitution to be done within a particular period and it is not done within that period, the doing of the act or thing shall not be invalid or otherwise ineffective by reason only that it was not done within that period.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 254 provides that if any act or thing required by the Constitution to be done within a particular period is not done within that period, it shall not be invalid or ineffective solely for that reason.</p>
+            </div>
+        </div>
+
+        <!-- Article 255 -->
+        <div id="article255" class="article-box">
+            <div class="article-badge">Article 255</div>
+            <div class="article-subheading">Oath of Office</div>
+            <div class="article-content">
+                <p><b>255. (1) An oath required to be made by a person under the Constitution shall [preferably be made in Urdu or] a language that is understood by that person.</b></p>
+                <p><b>(2) Where, under the Constitution, an oath is required to be made before a specified person and, for any reason, it is impracticable for the oath to be made before that person, it may be made before such other person as may be nominated by [the Chief Justice of a High Court, in case of a Province and by the Chief Justice of Pakistan, in all other cases].</b></p>
+                <p><b>(3) Where, under the Constitution, a person is required to make an oath before he enters upon an office, he shall be deemed to have entered upon the office on the day on which he makes the oath.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 255 provides that an oath required by the Constitution should preferably be made in Urdu or a language understood by that person. If it is impracticable to make the oath before the specified person, it may be made before another person nominated by the Chief Justice of a High Court (for Provinces) or the Chief Justice of Pakistan (for other cases). A person is deemed to have entered upon office on the day they make the oath.</p>
+            </div>
+        </div>
+
+        <!-- Article 256 -->
+        <div id="article256" class="article-box">
+            <div class="article-badge">Article 256</div>
+            <div class="article-subheading">Private armies forbidden</div>
+            <div class="article-content">
+                <p><b>256. No private organisation capable of functioning as a military organisation shall be formed, and any such organisation shall be illegal.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 256 prohibits the formation of any private organisation capable of functioning as a military organisation. Any such organisation is illegal.</p>
+            </div>
+        </div>
+
+        <!-- Article 257 -->
+        <div id="article257" class="article-box">
+            <div class="article-badge">Article 257</div>
+            <div class="article-subheading">Provision relating to the State of Jammu and Kashmir</div>
+            <div class="article-content">
+                <p><b>257. When the people of the State of Jammu and Kashmir decide to accede to Pakistan, the relationship between Pakistan and that State shall be determined in accordance with the wishes of the people of that State.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 257 provides that when the people of Jammu and Kashmir decide to accede to Pakistan, the relationship between Pakistan and that State shall be determined in accordance with the wishes of the people of that State.</p>
+            </div>
+        </div>
+
+        <!-- Article 258 -->
+        <div id="article258" class="article-box">
+            <div class="article-badge">Article 258</div>
+            <div class="article-subheading">Government of territories outside Provinces</div>
+            <div class="article-content">
+                <p><b>258. Subject to the Constitution, until [Majlis-e-Shoora (Parliament)] by law otherwise provides, the President may, by Order, make provision for peace and good government of any part of Pakistan not forming part of a Province.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 258 allows the President to make provision for peace and good government of any part of Pakistan not forming part of a Province, until Parliament makes provision by law.</p>
+            </div>
+        </div>
+
+        <!-- Article 259 -->
+        <div id="article259" class="article-box">
+            <div class="article-badge">Article 259</div>
+            <div class="article-subheading">Awards</div>
+            <div class="article-content">
+                <p><b>259. (1) No citizen shall accept any title, honour or decoration from any foreign State except with the approval of the Federal Government.</b></p>
+                <p><b>(2) No title, honour or decoration shall be conferred by the Federal Government or any Provincial Government on any citizen, but the President may award decorations in recognition of gallantry, meritorious service in the Armed Forces, academic distinction or distinction in the field of sports, science, technology, medicine, arts or public service, as provided by Federal law.</b></p>
+                <p><b>(3) All titles, honours and decorations awarded to citizens by any authority in Pakistan before the commencing day otherwise than in recognition of gallantry, meritorious service in the Armed Forces or academic distinction shall stand annulled.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 259 prohibits citizens from accepting titles, honours, or decorations from foreign States without the approval of the Federal Government. The President may award decorations in recognition of gallantry, meritorious service in the Armed Forces, academic distinction, sports, science, technology, medicine, arts, or public service as provided by Federal law.</p>
+            </div>
+        </div>
+
+        <!-- Article 260 -->
+        <div id="article260" class="article-box">
+            <div class="article-badge">Article 260</div>
+            <div class="article-subheading">Definitions</div>
+            <div class="article-content">
+                <p><b>260. (1) In the Constitution, unless the context otherwise requires, the following expressions have the meaning hereby respectively assigned to them, that is to say,-</b></p>
+                <p><b>"Act of [Majlis-e-Shoora (Parliament)]" means an Act passed by [Majlis-e-Shoora (Parliament)] or the National Assembly and assented to, or deemed to have been assented to, by the President;</b></p>
+                <p><b>"Act of Provincial Assembly" means an Act passed by the Provincial Assembly of a Province and assented to, or deemed to have been assented to, by the Governor;</b></p>
+                <p><b>"agricultural income" means agricultural income as defined for the purposes of the law relating to income-tax;</b></p>
+                <p><b>"Article" means Article of the Constitution;</b></p>
+                <p><b>"borrow" includes the raising of money by the grant of annuities, and "loans" shall be construed accordingly;</b></p>
+                <p><b>"Chairman" means the Chairman of the Senate and, except in Article 49, includes a person acting as Chairman of the Senate;</b></p>
+                <p><b>["Chief Justice", in relation to the [Federal Constitutional Court or the] Supreme Court or a High Court, includes the Judge for the time being acting as Chief Justice of the Court;]</b></p>
+                <p><b>["Chief Justice of Pakistan" means the senior amongst the Chief Justice of the Federal Constitutional Court and the Chief Justice of Supreme Court;]</b></p>
+                <p><b>"citizen" means a citizen of Pakistan as defined by law;</b></p>
+                <p><b>"clause" means clause of the Article in which it occurs;</b></p>
+                <p><b>"corporation tax" means any tax on income that is payable by companies and in respect of which the following conditions apply:-</b></p>
+                <p><b>(a) the tax is not chargeable in respect of agricultural income;</b></p>
+                <p><b>(b) no deduction in respect of the tax paid by companies is, by any law which may apply to the tax, authorized to be made from dividends payable by the companies to individuals;</b></p>
+                <p><b>(c) no provision exists for taking the tax so paid into account in computing for the purposes of income-tax the total income of individual receiving such dividends, or in computing the income-tax payable by, or refundable to, such individuals;</b></p>
+                <p><b>"debt" includes any liability in respect of any obligation to repay capital sums by way of annuities and any liability under any guarantee, and "debt charges" shall be construed accordingly;</b></p>
+                <p><b>"estate duty" means a duty assessed on, or by reference to, the value of property passing upon death;</b></p>
+                <p><b>"existing law" has the same meaning as in clause (7) of Article 268;</b></p>
+                <p><b>"Federal law" means a law made by or under the authority of [Majlis-e-Shoora (Parliament)];</b></p>
+                <p><b>"financial year" means a year commencing on the first day of July;</b></p>
+                <p><b>"goods" includes all materials, commodities and articles;</b></p>
+                <p><b>"Governor" means the Governor of a Province and includes any person for the time being acting as the Governor of a Province;</b></p>
+                <p><b>"guarantee" includes any obligation undertaken before the commencing day to make payments in the event of the profits of an undertaking falling short of a specified amount;</b></p>
+                <p><b>"House" means the Senate or the National Assembly;</b></p>
+                <p><b>"Joint sitting" means a joint sitting of the two Houses;</b></p>
+                <p><b>"Judge" in relation to the [Federal Constitutional Court or the] Supreme Court or a High Court, includes the Chief Justice of the Court and also includes</b></p>
+                <p><b>[(a) in relation to the Federal Constitutional Court, a person who is acting as a Judge of the Court;]</b></p>
+                <p><b>[(b) in relation to the Supreme Court, a person who is acting as a Judge of the Court; and]</b></p>
+                <p><b>[(c) in relation to the High Court, a person who is an Additional Judge of the Court;]</b></p>
+                <p><b>"members of the Armed Forces" does not include persons who are not, for the time being, subject to any law relating to the members of the Armed Forces;</b></p>
+                <p><b>"net proceeds" means, in relation to any tax or duty, the proceeds thereof, reduced by the cost of collection, as ascertained and certified by the Auditor-General;</b></p>
+                <p><b>"oath" includes affirmation;</b></p>
+                <p><b>"Part" means Part of the Constitution;</b></p>
+                <p><b>"pension" means a pension, whether contributory or not, of any kind whatsoever payable to, or in respect of, any person and includes retired pay so payable, a gratuity so payable, and any sum or sums so payable by way of the return, with or without interest thereon or any addition thereto, of subscriptions to a provident fund;</b></p>
+                <p><b>"person" includes any body politic or corporate;</b></p>
+                <p><b>"President" means the President of Pakistan and includes a person for the time being acting as, or performing the functions of, the President of Pakistan and, as respects anything required to be done under the Constitution before the commencing day, the President under the Interim Constitution of the Islamic Republic of Pakistan;</b></p>
+                <p><b>"Property" includes any right, title or interest in property, movable or immovable, and any means and instruments of production;</b></p>
+                <p><b>"Provincial law" means a law made by or under the authority of the Provincial Assembly;</b></p>
+                <p><b>"remuneration" includes salary and pension;</b></p>
+                <p><b>"Schedule" means Schedule to the Constitution;</b></p>
+                <p><b>"security of Pakistan" includes the safety, welfare, stability and integrity of Pakistan and of each part of Pakistan, but shall not include public safety as such;</b></p>
+                <p><b>"service of Pakistan" means any service, post or office in connection with the affairs of the Federation or of a Province, and includes an All-Pakistan Service, service in the Armed Forces and any other service declared to be a service of Pakistan by or under Act of [Majlis-e-Shoora (Parliament)] or of a Provincial Assembly, but does not include service as [President,] Speaker, Deputy Speaker, Chairman, Deputy Chairman, Prime Minister, Federal Minister, Minister of State, Chief Minister, Provincial Minister, [Attorney-General, [Advocate-General,] Parliamentary Secretary] or [Chairman or member of a Law Commission, Chairman or member of the Council of Islamic Ideology, Special Assistant to the Prime Minister, Adviser to the Prime Minister, Special Assistant to a Chief Minister, Adviser to a Chief Minister] or member of a House or a Provincial Assembly;</b></p>
+                <p><b>"Speaker" means the Speaker of the National Assembly or a Provincial Assembly, and includes any person acting as the Speaker of the Assembly;</b></p>
+                <p><b>"taxation" includes the imposition of any tax or duty, whether general, local or special, and "tax" shall be construed accordingly;</b></p>
+                <p><b>"tax on income" includes a tax in the nature of an excess profits tax or a business profits tax.</b></p>
+                <p><b>["technocrat" means a person who has sixteen years of education and fifteen years of experience in his field.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 260 provides definitions of various terms used in the Constitution, including "Act of Parliament", "Act of Provincial Assembly", "Chief Justice", "Chief Justice of Pakistan", "Federal law", "Provincial law", "service of Pakistan", "technocrat", and others. The 27th Amendment added definitions for "Federal Constitutional Court" and "Chief Justice of Pakistan".</p>
+            </div>
+        </div>
+
+        <!-- Article 261 -->
+        <div id="article261" class="article-box">
+            <div class="article-badge">Article 261</div>
+            <div class="article-subheading">Person acting in office not to be regarded as successor to previous occupant of office, etc.</div>
+            <div class="article-content">
+                <p><b>261. For the purposes of the Constitution, a person who acts in an office shall not be regarded as the successor to the person who held that office before him or as the predecessor to the person who holds that office after him.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 261 provides that a person acting in an office shall not be regarded as the successor to the person who held that office before him or as the predecessor to the person who holds that office after him.</p>
+            </div>
+        </div>
+
+        <!-- Article 262 -->
+        <div id="article262" class="article-box">
+            <div class="article-badge">Article 262</div>
+            <div class="article-subheading">Gregorian calendar to be used</div>
+            <div class="article-content">
+                <p><b>262. For the purposes of the Constitution, periods of time shall be reckoned according to the Gregorian calendar.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 262 provides that periods of time shall be reckoned according to the Gregorian calendar.</p>
+            </div>
+        </div>
+
+        <!-- Article 263 -->
+        <div id="article263" class="article-box">
+            <div class="article-badge">Article 263</div>
+            <div class="article-subheading">Gender and number</div>
+            <div class="article-content">
+                <p><b>263. In the Constitution,</b></p>
+                <p><b>(a) words importing the masculine gender shall be taken to include females; and</b></p>
+                <p><b>(b) words in the singular shall include the plural, and words in the plural shall include the singular.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 263 provides rules of interpretation: words importing the masculine gender include females, and words in the singular include the plural and vice versa.</p>
+            </div>
+        </div>
+
+        <!-- Article 264 -->
+        <div id="article264" class="article-box">
+            <div class="article-badge">Article 264</div>
+            <div class="article-subheading">Effect of repeal of laws</div>
+            <div class="article-content">
+                <p><b>264. Where a law is repealed, or is deemed to have been repealed, by, under, or by virtue of the Constitution, the repeal shall not, except as otherwise provided in the Constitution,-</b></p>
+                <p><b>(a) revive anything not in force or existing at the time at which the repeal takes effect;</b></p>
+                <p><b>(b) affect the previous operation of the law or anything duly done or suffered under the law;</b></p>
+                <p><b>(c) affect any right, privilege, obligation or liability acquired, accrued or incurred under the law;</b></p>
+                <p><b>(d) affect any penalty, forfeiture or punishment incurred in respect of any offence committed against the law; or</b></p>
+                <p><b>(e) affect any investigation, legal proceeding or remedy in respect of any such right, privilege, obligation, liability, penalty, forfeiture or punishment;</b></p>
+                <p><b>and any such investigation, legal proceeding or remedy may be instituted, continued or enforced, and any such penalty, forfeiture or punishment may be imposed, as if the law had not been repealed.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 264 provides that the repeal of a law does not revive anything not in force, affect the previous operation of the law, affect rights, privileges, obligations, or liabilities acquired under the law, affect penalties or punishments incurred, or affect investigations or legal proceedings in respect of such matters.</p>
+            </div>
+        </div>
+
+        <!-- Article 265 -->
+        <div id="article265" class="article-box">
+            <div class="article-badge">Article 265</div>
+            <div class="article-subheading">Title of Constitution and commencement</div>
+            <div class="article-content">
+                <p><b>265. (1) This Constitution shall be known as the Constitution of the Islamic Republic of Pakistan.</b></p>
+                <p><b>(2) Subject to clauses (3) and (4), the Constitution shall come into force on the fourteenth day of August, one thousand nine hundred and seventy-three or on such earlier day as the President may, by notification in the official Gazette, appoint, in the Constitution referred to as the "commencing day".</b></p>
+                <p><b>(3) The Constitution shall, to the extent necessary</b></p>
+                <p><b>(a) for the constitution of the first Senate;</b></p>
+                <p><b>(b) for the first meeting of a House or a joint sitting to be held;</b></p>
+                <p><b>(c) for the election of the President and the Prime Minister to be held; and</b></p>
+                <p><b>(d) to enable any other thing to be done which, for the purposes of the Constitution, it is necessary to do before the commencing day,</b></p>
+                <p><b>come into force upon the enactment of the Constitution, but the person elected as President or Prime Minister shall not enter upon his office before the commencing day.</b></p>
+                <p><b>(4) Where by the Constitution a power is conferred to make rules or to issue orders with respect to the enforcement of any provision thereof, or with respect to the establishment of any court or office, or the appointment of any Judge or officer thereunder, or with respect to the person by whom, or the time when, or the place where, or the manner in which, anything is to be done under any such provision, then that power may be exercised at any time between the enactment of the Constitution and its commencement.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 265 gives the title of the Constitution as "The Constitution of the Islamic Republic of Pakistan". It came into force on 14 August 1973 (or earlier as the President may appoint). The Constitution could come into force before the commencing day for certain purposes (e.g., constitution of the first Senate, first meeting of a House, election of the President and Prime Minister).</p>
+            </div>
+        </div>
+
+        <!-- Article 266 -->
+        <div id="article266" class="article-box">
+            <div class="article-badge">Article 266</div>
+            <div class="article-subheading">Repeal</div>
+            <div class="article-content">
+                <p><b>266. The Interim Constitution of the Islamic Republic of Pakistan, together with the Acts and President's Orders making omissions from, additions to, modifications of, or amendments in, that Constitution is hereby repealed.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 266 repealed the Interim Constitution of the Islamic Republic of Pakistan and all Acts and President's Orders that made omissions, additions, modifications, or amendments in that Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 267 -->
+        <div id="article267" class="article-box">
+            <div class="article-badge">Article 267</div>
+            <div class="article-subheading">Power of President to remove difficulties</div>
+            <div class="article-content">
+                <p><b>267. (1) At any time before the commencing day or before the expiration of three months from the commencing day, the President may, for the purpose of removing any difficulties, or for bringing the provisions of the Constitution into effective operation, by Order, direct that the provisions of the Constitution shall, during such period as may be specified in the Order, have effect, subject to such adaptations, whether by way of modification, addition or omission, as he may deem to be necessary or expedient.</b></p>
+                <p><b>(2) An Order made under clause (1) shall be laid before both Houses without undue delay, and shall remain in force until a resolution disapproving it is passed by each House or, in case of disagreement between the two Houses, until such resolution is passed at a joint sitting.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 267 allows the President to make Orders to remove difficulties or bring the provisions of the Constitution into effective operation within three months of the commencing day. Any such Order must be laid before both Houses and shall remain in force until a resolution disapproving it is passed by each House or a joint sitting.</p>
+            </div>
+        </div>
+
+        <!-- Article 267A -->
+        <div id="article267A" class="article-box">
+            <div class="article-badge">Article 267A</div>
+            <div class="article-subheading">Power to remove difficulties</div>
+            <div class="article-content">
+                <p><b>[267A. If any difficulty arises in giving effect to the provisions of the Constitution (Eighteenth Amendment) Act, 2010, hereinafter in this Article referred to as the Act, or for bringing the provisions of the Act into effective operation, the matter shall be laid before both Houses in a joint sitting which may by a resolution direct that the provisions of the Act shall, during such period as may be specified in the resolution, have effect, subject to such adaptations, whether by way of modification, addition or omission, as may be deemed necessary or expedient:</b></p>
+                <p><b>Provided that this power shall be available for a period of one year from the commencement of the Act.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 267A allows a joint sitting of Parliament to direct adaptations to the provisions of the 18th Amendment Act if any difficulty arises in giving effect to it. This power was available for a period of one year from the commencement of the Act.</p>
+            </div>
+        </div>
+
+        <!-- Article 267B -->
+        <div id="article267B" class="article-box">
+            <div class="article-badge">Article 267B</div>
+            <div class="article-subheading">Removal of doubt</div>
+            <div class="article-content">
+                <p><b>267B. For removal of doubt it is hereby declared that Article 152A omitted and Articles 179 and 195 substituted by the Constitution (Seventeenth Amendment) Act, 2003 (Act No. III of 2003), notwithstanding its repeal, shall be deemed always to have been so omitted and substituted.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 267B provides that Article 152A (National Security Council) omitted and Articles 179 and 195 substituted by the 17th Amendment Act of 2003, notwithstanding its repeal, shall be deemed always to have been so omitted and substituted.</p>
+            </div>
+        </div>
+
+        <!-- Article 268 -->
+        <div id="article268" class="article-box">
+            <div class="article-badge">Article 268</div>
+            <div class="article-subheading">Continuance in force, and adaptation of certain laws</div>
+            <div class="article-content">
+                <p><b>268. (1) Except as provided by this Article, all existing laws shall, subject to the Constitution, continue in force, so far as applicable and with the necessary adaptations, until altered, repealed or amended by the appropriate Legislature.</b></p>
+                <p><b>(3) For the purpose of bringing the provisions of any existing law into accord with the provisions of the Constitution (other than Part II of the Constitution), the President may by Order, within a period of two years from the commencing day, make such adaptations, whether by way of modification, addition or omission, as he may deem to be necessary or expedient, and any such Order may be made so as to have effect from such day, not being a day earlier than the commencing day, as may be specified in the Order.</b></p>
+                <p><b>(4) The President may authorise the Governor of a Province to exercise, in relation to the Province, the powers conferred on the President by clause (3) in respect of laws relating to matters with respect to which the Provincial Assembly has power to make laws.</b></p>
+                <p><b>(5) The powers exercisable under clauses (3) and (4) shall be subject to the provisions of an Act of the appropriate Legislature.</b></p>
+                <p><b>(6) Any court, tribunal or authority required or empowered to enforce an existing law shall, notwithstanding that no adaptations have been made in such law by an Order made under clause (3) or clause (4), construe the law with all such adaptations as are necessary to bring it into accord with the provisions of the Constitution.</b></p>
+                <p><b>(7) In this Article, "existing laws" means all laws (including Ordinances, Orders-in-Council, Orders, rules, bye-laws, regulations and Letters Patent constituting a High Court, and any notifications and other legal instruments having the force of law) in force in Pakistan or any part thereof, or having extra-territorial validity, immediately before the commencing day.</b></p>
+                <p><b>Explanation.- In this Article, "in force", in relation to any law, means having effect as law whether or not the law has been brought into operation.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 268 provides that all existing laws continue in force subject to the Constitution until altered, repealed, or amended. The President may make adaptations to existing laws within two years from the commencing day. Courts construe existing laws with all necessary adaptations to bring them into accord with the Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 269 -->
+        <div id="article269" class="article-box">
+            <div class="article-badge">Article 269</div>
+            <div class="article-subheading">Validation of laws, acts, etc.</div>
+            <div class="article-content">
+                <p><b>269. (1) All Proclamations, President's Orders, Martial Law Regulations, Martial Law Orders and all other laws made between the twentieth day of December, one thousand nine hundred and seventy-one and the twentieth day of April, one thousand nine hundred and seventy-two (both days inclusive), are hereby declared notwithstanding any judgment of any court, to have been validly made by competent authority and shall not be called in question in any court on any ground whatsoever.</b></p>
+                <p><b>(2) All orders made, proceedings taken and acts done by any authority, or by any person, which were made, taken or done, or purported to have been made, taken or done, between the twentieth day of December, one thousand nine hundred and seventy-one, and the twentieth day of April, one thousand nine hundred and seventy-two (both days inclusive), in exercise of the powers derived from any President's Orders, Martial Law Regulations, Martial Law Orders, enactments, notifications, rules, orders or bye-laws, or in execution of any orders made or sentences passed by any authority in the exercise or purported exercise of powers as aforesaid, shall, notwithstanding any judgment of any court, be deemed to be and always to have been validly made, taken or done and shall not be called in question in any court on any ground whatsoever.</b></p>
+                <p><b>(3) No suit or other legal proceedings shall lie in any court against any authority or any person for or on account of or in respect of any order made, proceedings taken or act done whether in the exercise or purported exercise of the powers referred to in clause (2) or in execution of or in compliance with orders made or sentences passed in exercise or purported exercise of such powers.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 269 validates all Proclamations, President's Orders, Martial Law Regulations, Martial Law Orders, and other laws made between 20 December 1971 and 20 April 1972 (both days inclusive). They are declared to have been validly made and cannot be called in question in any court.</p>
+            </div>
+        </div>
+
+        <!-- Article 270 -->
+        <div id="article270" class="article-box">
+            <div class="article-badge">Article 270</div>
+            <div class="article-subheading">Temporary validation of certain laws, etc.</div>
+            <div class="article-content">
+                <p><b>270. (1) [Majlis-e-Shoora (Parliament)] may by law made in the manner prescribed for legislation for a matter in Part I of the Federal Legislative List validate all Proclamations, President's Orders, Martial Law Regulations, Martial Law Orders and other laws made between the twenty-fifth day of March, one thousand nine hundred and sixty-nine, and the nineteenth day of December, one thousand nine hundred and seventy-one (both days inclusive).</b></p>
+                <p><b>(2) Notwithstanding a judgment of any court, a law made by [Majlis-e-Shoora (Parliament)] under clause (1) shall not be questioned in any court on any ground, whatsoever.</b></p>
+                <p><b>(3) Notwithstanding the provisions of clause (1), and a judgment of any court to the contrary, for a period of two years from the commencing day, the validity of all such instruments as are referred to in clause (1) shall not be called in question before any court on any ground whatsoever.</b></p>
+                <p><b>(4) All orders, made, proceedings taken, and acts done by any authority, or any person, which were made, taken or done, or purported to have been made, taken or done, between the twenty-fifth day of March, one thousand nine hundred and sixty-nine and nineteenth day of December, one thousand nine hundred and seventy-one (both days inclusive), in exercise of powers derived from any President's Orders, Martial Law Regulations, Martial Law Orders, enactments, notifications, rules, orders or bye-laws, or in execution of any order made or sentence passed by any authority in the exercise or purported exercise of power as aforesaid shall, notwithstanding any judgement of any court, be deemed to be and always to have been validly made, taken or done, so however that any such order, proceeding or act may be declared invalid by [Majlis-e-Shoora (Parliament)] at any time within a period of two years from the commencing day by resolution of both Houses, or in case of disagreement between the two Houses, by such resolution passed at a joint sitting and shall not be called in question before any court on any ground, whatsoever.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 270 provides for the temporary validation of laws made between 25 March 1969 and 19 December 1971. Parliament may validate such laws by law made in the manner prescribed for legislation for a matter in Part I of the Federal Legislative List. Such laws cannot be questioned in any court.</p>
+            </div>
+        </div>
+
+        <!-- Article 270A -->
+        <div id="article270A" class="article-box">
+            <div class="article-badge">Article 270A</div>
+            <div class="article-subheading">Affirmation of President's Orders, etc.</div>
+            <div class="article-content">
+                <p><b>[270A. (1) The Proclamation of the fifth day of July, 1977, all President's Orders, Ordinances, Martial Law Regulations, Martial Law Orders, including the Referendum Order, 1984 (P.O. No. 11 of 1984), the Revival of the Constitution of 1973 Order, 1985 (P.O. No. 14 of 1985), the Constitution (Second Amendment) Order, 1985 (P.O. No. 20 of 1985), the Constitution (Third Amendment) Order, 1985 (P.O. No. 24 of 1985), and all other laws made between the fifth day of July, 1977, and the date on which this Article comes into force are hereby affirmed, adopted and declared, notwithstanding any judgement of any court, to have been validly made by competent authority and, notwithstanding anything contained in the Constitution, shall not be called in question in any court on any ground whatsoever:</b></p>
+                <p><b>Provided that a President's Order, Martial Law Regulation or Martial Law Order made after the thirtieth day of September, 1985, shall be confined only to making such provisions as facilitate, or are incidental to, the revocation of the Proclamation of the fifth day of July, 1977.</b></p>
+                <p><b>(2) All orders made, proceedings taken and acts done by any authority or by any person, which were made, taken or done, or purported to have been made, taken or done, between the fifth day of July, 1977, and the date on which this Article comes into force, in exercise of the powers derived from any Proclamation, President's Orders, Ordinances, Martial Law Regulations, Martial Law Orders, enactments, notifications, rules, orders or bye-laws, or in execution of or in compliance with any order made or sentence passed by any authority in the exercise or purported exercise of powers as aforesaid, shall, notwithstanding any judgement of any court, be deemed to be and always to have been validly made, taken or done and shall not be called in question in any court on any ground whatsoever.</b></p>
+                <p><b>(3) All President's Orders, Ordinances, Martial Law Regulations, Martial Law Orders, enactments, notifications, rules, orders, or bye-laws, in force immediately before the date on which this Article comes into force shall continue in force until altered, repealed or amended by competent authority.</b></p>
+                <p><b>Explanation.-In this clause, "competent authority" means,-</b></p>
+                <p><b>(a) in respect of President's Orders, Ordinances, Martial Law Regulations, Martial Law Orders and enactments, the appropriate Legislature; and</b></p>
+                <p><b>(b) in respect of notifications, rules, orders and bye-laws, the authority in which the power to make, alter, repeal or amend the same vests under the law.</b></p>
+                <p><b>(4) No suit, prosecution or other legal proceedings shall lie in any court against any authority or any person, for or on account of or in respect of any order made, proceedings taken or act done whether in the exercise or purported exercise of the powers referred to in clause (2) or in execution of or in compliance with orders made or sentences passed in exercise or purported exercise of such powers.</b></p>
+                <p><b>(5) For the purposes of clauses (1), (2) and (4), all orders made, proceedings taken, acts done or purporting to be made, taken or done by any authority or person shall be deemed to have been made, taken or done in good faith and for the purpose intended to be served thereby.</b></p>
+                <p><b>[(6) The laws referred to in clause (1) may be amended by the appropriate Legislature in the manner provided for amendment of such laws.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 270A affirms and validates the Proclamation of 5 July 1977, all President's Orders, Ordinances, Martial Law Regulations, Martial Law Orders, and other laws made between 5 July 1977 and the date this Article came into force. They are declared to have been validly made and cannot be called in question in any court.</p>
+            </div>
+        </div>
+
+        <!-- Article 270AA -->
+        <div id="article270AA" class="article-box">
+            <div class="article-badge">Article 270AA</div>
+            <div class="article-subheading">Declaration and continuance of laws etc.</div>
+            <div class="article-content">
+                <p><b>[270AA. (1) The Proclamation of Emergency of the fourteenth day of October, 1999, the Provisional Constitution Order No. 1 of 1999, the Oath of Office (Judges) Order, 2000 (No. 1 of 2000), Chief Executive's Order No. 12 of 2002, Chief Executive's Order No. 19 of 2002, the amendments made in the Constitution through the Legal Framework Order, 2002 (Chief Executive's Order No. 24 of 2002), the Legal Framework (Amendment) Order, 2002 (Chief Executive's Order No. 29 of 2002) and the Legal Framework (Second Amendment) Order, 2002 (Chief Executive's Order No. 32 of 2002) notwithstanding any judgment of any court including the Supreme Court or a High Court, are hereby declared as having been made without lawful authority and of no legal effect.</b></p>
+                <p><b>(2) Except as provided in clause (1) and subject to the provisions of the Constitution (Eighteenth Amendment) Act, 2010, all laws including President's Orders, Acts, Ordinances, Chief Executive's Orders, regulations, enactments, notifications, rules, orders or bye-laws made between the twelfth day of October, one thousand nine hundred and ninety-nine and the thirty-first day of December, two thousand and three (both days inclusive) and still in force shall, continue to be in force until altered, repealed or amended by the competent authority.</b></p>
+                <p><b>Explanation.- For the purposes of clause (2) and clause (6), "competent authority" means,-</b></p>
+                <p><b>(a) in respect of Presidents' Orders, Ordinances, Chief Executive's Orders and all other laws, the appropriate Legislature; and</b></p>
+                <p><b>(b) in respect of notifications, rules, orders and bye-laws, the authority in which the power to make, alter, repeal or amend the same vests under the law.</b></p>
+                <p><b>(3) Notwithstanding anything contained in the Constitution or clause (1), or judgment of any court including the Supreme Court or a High Court,</b></p>
+                <p><b>(a) Judges of the Supreme Court, High Courts and Federal Shariat Court who were holding the office of a Judge or were appointed as such, and had taken oath under the Oath of Office (Judges) Order, 2000 (1 of 2000), shall be deemed to have continued to hold the office as a Judge or to have been appointed as such, as the case may be, under the Constitution, and such continuance or appointment, shall have effect accordingly.</b></p>
+                <p><b>(b) Judges of the Supreme Court, High Courts and Federal Shariat Court who not having been given or taken oath under the Oath of Office (Judges) Order, 2000 (1 of 2000), and ceased to hold the office of a Judge shall, for the purposes of pensionary benefits only, be deemed to have continued to hold office under the Constitution till their date of superannuation.</b></p>
+                <p><b>(4) All orders made, proceedings taken, appointments made, including secondments and deputations, and acts done by any authority, or by any person, which were made, taken or done, or purported to have been made, taken or done, between the twelfth day of October, one thousand nine hundred and ninety-nine, and the thirty first day of December, two thousand and three (both days inclusive), in exercise of the powers derived from any authority or laws mentioned in clause (2), or in execution of or in compliance with any orders made or sentences passed by any authority in the exercise or purported exercise of powers as aforesaid, shall, notwithstanding anything contained in clause (1), be deemed to be valid and shall not be called in question in any court or forum on any ground whatsoever.</b></p>
+                <p><b>(5) No suit, prosecution or other legal proceedings, including writ petitions, shall lie in any court or forum against any authority or any person, for or on account of or in respect of any order made, proceedings taken or act done whether in the exercise or purported exercise of the powers referred to in clause (2) or clause (4) or in execution of or in compliance with orders made or sentences passed in exercise or purported exercise of such powers.</b></p>
+                <p><b>(6) Notwithstanding omission of the Concurrent Legislative List by the Constitution (Eighteenth Amendment) Act, 2010, all laws with respect to any of the matters enumerated in the said List (including Ordinances, Orders, rules, bye-laws, regulations and notifications and other legal instruments having the force of law) in force in Pakistan or any part thereof, or having extra-territorial operation, immediately before the commencement of the Constitution (Eighteenth Amendment) Act, 2010, shall continue to remain in force until altered, repealed or amended by the competent authority.</b></p>
+                <p><b>(7) Notwithstanding anything contained in the Constitution, all taxes and fees levied under any law in force immediately before the commencement of the Constitution (Eighteenth Amendment) Act, 2010, shall continue to be levied until they are varied or abolished by an Act of the appropriate legislature.</b></p>
+                <p><b>(8) On the omission of the Concurrent Legislative List, the process of devolution of the matters mentioned in the said List to the Provinces shall be completed by the thirtieth day of June, two thousand and eleven.</b></p>
+                <p><b>(9) For purposes of the devolution process under clause (8), the Federal Government shall constitute an Implementation Commission as it may deem fit within fifteen days of the commencement of the Constitution (Eighteenth Amendment) Act, 2010.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 270AA declares the Proclamation of Emergency of 14 October 1999 and certain related orders as having been made without lawful authority and of no legal effect. However, all laws made between 12 October 1999 and 31 December 2003 continue in force until amended or repealed. Judges who took oath under the Oath of Office (Judges) Order, 2000 are deemed to have continued in office. The article also deals with the continuance of laws after the omission of the Concurrent Legislative List by the 18th Amendment.</p>
+            </div>
+        </div>
+
+        <!-- Article 270B -->
+        <div id="article270B" class="article-box">
+            <div class="article-badge">Article 270B</div>
+            <div class="article-subheading">Elections to be deemed to be held under Constitution</div>
+            <div class="article-content">
+                <p><b>270B. Notwithstanding anything contained in the Constitution, the elections held under the Houses of (Parliament) and Provincial Assemblies (Elections) Order, 1977, [and the Conduct of General Elections Order, 2002 (Chief Executive's Order No. 7 of 2002),] to the Houses and the Provincial Assemblies shall be deemed to have been held under the Constitution and shall have effect accordingly].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 270B provides that elections held under certain Orders in 1977 and 2002 shall be deemed to have been held under the Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 270BB -->
+        <div id="article270BB" class="article-box">
+            <div class="article-badge">Article 270BB</div>
+            <div class="article-subheading">General Elections 2008</div>
+            <div class="article-content">
+                <p><b>[270BB. Notwithstanding anything contained in the Constitution, or any other law for the time being in force, the General Elections 2008, to the National Assembly and the Provincial Assemblies held on the eighteenth day of February, two thousand and eight shall be deemed to have been held under the Constitution and shall have effect accordingly.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 270BB provides that the General Elections of 2008 held on 18 February 2008 shall be deemed to have been held under the Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 271 -->
+        <div id="article271" class="article-box">
+            <div class="article-badge">Article 271</div>
+            <div class="article-subheading">First National Assembly</div>
+            <div class="article-content">
+                <p><b>[271. (1) Notwithstanding anything contained in the Constitution, but subject to [Article 63,] Article 64 and Article 223,</b></p>
+                <p><b>[(a) the first National Assembly shall consist of</b></p>
+                <p><b>(i) persons who have taken oath in the National Assembly of Pakistan existing immediately before the commencing day; and</b></p>
+                <p><b>(ii) the persons to be elected in accordance with law by the members of the Assembly to fill the seats referred to in clause (2A) of Article 51,</b></p>
+                <p><b>and, unless sooner dissolved, shall continue until the fourteenth day of August, one thousand nine hundred and seventy-seven; and reference to 'total membership' of National Assembly in the Constitution shall be construed accordingly;]</b></p>
+                <p><b>(b) the qualifications and disqualifications for being elected and being a member of the first National Assembly shall, except in case of members filling casual vacancies [', or to be elected to the additional seats referred to in clause (2A) of Article 51,] after the commencing day, be the same as under the Interim Constitution of the Islamic Republic of Pakistan:</b></p>
+                <p><b>Provided that no person holding an office of profit in the service of Pakistan shall continue to be a member of the first National Assembly after the expiration of three months from the commencing day.</b></p>
+                <p><b>(2) If a person referred to in paragraph (a) of clause (1) is, immediately before the commencing day, also a member of a Provincial Assembly, he shall not take a seat in the National Assembly or the Provincial Assembly until he resigns one of his seats.</b></p>
+                <p><b>(3) A casual vacancy in a seat in the first National Assembly, including a vacancy in a seat in the National Assembly of Pakistan existing before the commencing day which was not filled before that day, caused by reason of death or resignation of a member or consequent upon his incurring a disqualification or ceasing to be a member as a result of the final decision of an election petition may be filled in the same manner in which it would have been filled before the commencing day.</b></p>
+                <p><b>(4) A person referred to in paragraph (a) of clause (1) shall not sit or vote in the National Assembly until he has made the oath prescribed by Article 65 and, if, without the leave of the Speaker of the National Assembly granted on reasonable cause shown, he fails to make the oath within twenty one days from the day of the first meeting of the Assembly, his seat shall become vacant at the expiration of that period.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 271 deals with the composition of the first National Assembly under the 1973 Constitution. It consisted of persons who had taken oath in the National Assembly existing before the commencing day and persons elected to fill additional seats. The first National Assembly continued until 14 August 1977 unless sooner dissolved.</p>
+            </div>
+        </div>
+
+        <!-- Article 272 -->
+        <div id="article272" class="article-box">
+            <div class="article-badge">Article 272</div>
+            <div class="article-subheading">First Constitution of Senate</div>
+            <div class="article-content">
+                <p><b>272. [Notwithstanding anything contained in the Constitution, but subject to Article 63 and Article 223,–</b></p>
+                <p><b>(a) the Senate shall, until the first National Assembly under Constitution continues in existence, consist of forty-five members and the provisions of Article 59 shall have effect as if, in paragraph (a) of clause (1) thereof, for the word "fourteen" the word "ten" and in paragraph (b) of that clause for the word "five" the word "three", were substituted, and reference to "total membership" of the Senate in the Constitution shall be construed accordingly;</b></p>
+                <p><b>(b) the members elected or chosen as members of the Senate shall be divided into two groups by drawing of lots, the first group consisting of five members from each Province, two members from the Federally Administered Tribal Areas and one member from the Federal Capital and the second group consisting of five members from each Province one member from the said Areas and one member from the Federal Capital;</b></p>
+                <p><b>(c) the term of office of members of the first group and of the second group shall respectively be two years and four years;</b></p>
+                <p><b>(d) the term of office of persons elected or chosen to succeed the members of the Senate at the expiration of their respective terms shall be four years;</b></p>
+                <p><b>(e) the term of office of a person elected or chosen to fill a casual vacancy shall be the unexpired term of the member whose vacancy he is elected or chosen to fill;</b></p>
+                <p><b>(f) as soon as the first general election to the National Assembly is held, there shall be elected to the Senate four additional members from each Province and two additional members from the Federally Administered Tribal Areas; and</b></p>
+                <p><b>(g) the term of office of such half of the members elected under paragraph (f) as may be determined by drawing of lots shall be the unexpired term of office of the members of the first group and the term of office of the other half shall be the unexpired term of the members of the second group.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 272 deals with the first constitution of the Senate under the 1973 Constitution. The Senate initially consisted of 45 members and was subject to Article 63 (disqualifications) and Article 223 (bar against double membership).</p>
+            </div>
+        </div>
+
+        <!-- Article 273 -->
+        <div id="article273" class="article-box">
+            <div class="article-badge">Article 273</div>
+            <div class="article-subheading">First Provincial Assembly</div>
+            <div class="article-content">
+                <p><b>273. (1) Notwithstanding anything contained in the Constitution, but subject to [Article 63,] Article 64 and Article 223,–</b></p>
+                <p><b>[(a) the first Assembly of a Province under the Constitution shall consist of–</b></p>
+                <p><b>(i) the members of the Assembly of that Province in existence immediately before the commencing day, and</b></p>
+                <p><b>(ii) the additional members to be elected in accordance with law by the members of the Assembly to fill the seats referred to in clause (3) of Article 106,</b></p>
+                <p><b>and, unless sooner dissolved, shall continue until the fourteenth day of August, one thousand nine hundred and seventy-seven ; and reference "total membership" of the Assembly of a Province in the Constitution shall be construed accordingly;]</b></p>
+                <p><b>(b) the qualifications and disqualifications for membership of the first Assembly of a Province shall, except in case of members filling casual vacancies [', or to be elected to the additional seats referred to in clause (3) of Article 106,] after the commencing day, be the same as were provided in the Interim Constitution of the Islamic Republic of Pakistan :</b></p>
+                <p><b>Provided that no person holding an office of profit in the service of Pakistan shall continue to be a member of the Assembly after the expiration of three months from the commencing day.</b></p>
+                <p><b>(2) A casual vacancy in a seat in the first Assembly of a Province, including a vacancy in a seat in the Assembly of that Province in existence immediately before the commencing day which was not filled before that day, caused by reason of death or resignation of a member or consequent upon his incurring a disqualification or ceasing to be a member as a result of the final decision of an election petition may be filled in the same manner in which it would have been filled before the commencing day.</b></p>
+                <p><b>(3) A member referred to in paragraph (a) of clause (1) shall not sit or vote in the Provincial Assembly until he has made the oath prescribed by Article 65 read with Article 127 and, if, without leave of the Speaker of the Provincial Assembly granted on reasonable cause shown, he fails to make the oath within twenty-one days from the day of the first meeting of the Provincial Assembly, his seat shall become vacant at the expiration of that period.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 273 deals with the first Provincial Assemblies under the 1973 Constitution. They consisted of members of the existing Provincial Assemblies and additional members elected to fill seats under Article 106. The first Provincial Assemblies continued until 14 August 1977 unless sooner dissolved.</p>
+            </div>
+        </div>
+
+        <!-- Article 274 -->
+        <div id="article274" class="article-box">
+            <div class="article-badge">Article 274</div>
+            <div class="article-subheading">Vesting of property, assets, rights, liabilities and obligations</div>
+            <div class="article-content">
+                <p><b>274. (1) All property and assets which, immediately before the commencing day, were vested in the President or the Federal Government shall, as from that day, vest in the Federal Government unless they were used for purposes which, on that day, became purposes of the Government of a Province, in which case they shall, as from that day, vest in the Government of the Province.</b></p>
+                <p><b>(2) All property and assets which, immediately before the commencing day, were vested in the Government of a Province, shall, as from that day, continue to be vested in the Government of that Province, unless they were used for purposes, which on that day, became purposes of the Federal Government in which case they shall, as from that day, vest in the Federal Government.</b></p>
+                <p><b>(3) All rights, liabilities and obligations of the Federal Government or of the Government of a Province, whether arising out of contract or otherwise, shall as from the commencing day, continue to be respectively the rights, liabilities and obligations of the Federal Government or of the Government of the Province, except that –</b></p>
+                <p><b>(a) all rights, liabilities and obligations relating to any matter which, immediately before that day, was the responsibility of the Federal Government, but which under the Constitution, has become the responsibility of the Government of a Province, shall devolve upon the Government of that Province; and</b></p>
+                <p><b>(b) all rights, liabilities and obligations relating to any matter which, immediately before that day, was the responsibility of the Government of a Province, but which under the Constitution, has become the responsibility of the Federal Government, shall devolve upon the Federal Government.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 274 deals with the vesting of property, assets, rights, liabilities, and obligations of the Federation and Provinces from the Interim Constitution to the 1973 Constitution. Property and assets used for purposes that became purposes of the Federal Government or Provincial Government vested accordingly. Rights, liabilities, and obligations devolved to the Government responsible for the matter under the new Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 275 -->
+        <div id="article275" class="article-box">
+            <div class="article-badge">Article 275</div>
+            <div class="article-subheading">Continuance in office of persons in service of Pakistan, etc.</div>
+            <div class="article-content">
+                <p><b>275. (1) Subject to the Constitution and until law is made under Article 240 any person who, immediately before the commencing day, was in the service of Pakistan shall, as from that day, continue in the service of Pakistan on the same terms and conditions as were applicable to him under the Interim Constitution of the Islamic Republic of Pakistan immediately before that day.</b></p>
+                <p><b>(2) Clause (1) shall also apply in relation to a person holding office immediately before the commencing day as –</b></p>
+                <p><b>(a) Chief Justice of Pakistan or other Judge of the Supreme Court, or Chief Justice or other Judge of a High Court;</b></p>
+                <p><b>(b) Governor of a Province;</b></p>
+                <p><b>(c) Chief Minister of a Province;</b></p>
+                <p><b>(d) Speaker or Deputy Speaker of the National Assembly or a Provincial Assembly;</b></p>
+                <p><b>(e) Chief Election Commissioner;</b></p>
+                <p><b>(f) Attorney-General for Pakistan or Advocate-General for a Province; and</b></p>
+                <p><b>(g) Auditor-General of Pakistan.</b></p>
+                <p><b>(3) Notwithstanding anything contained in the Constitution, for a period of six months from the commencing day, a Federal Minister or a Minister of State or the Chief Minister of a Province or a Provincial Minister may be a person who is not a member of [Majlis-e-Shoora (Parliament)] or, as the case may be, the Provincial Assembly of that Province; and such Chief Minister and Provincial Minister shall have the right to speak and otherwise take part in the proceedings of the Provincial Assembly or any committee thereof of which he may be named a member, but shall not by virtue of this clause be entitled to vote.</b></p>
+                <p><b>(4) Any person who, under this Article, is continued in an office in respect of which a form of oath is set out in the third Schedule shall, as soon as is practicable after the commencing day make before the appropriate person oath in that form.</b></p>
+                <p><b>(5) Subject to the Constitution and law–</b></p>
+                <p><b>(a) all civil, criminal and revenue courts exercising jurisdiction and functions immediately before the commencing day shall, as from that day, continue to exercise their respective jurisdictions and functions; and</b></p>
+                <p><b>(b) all authorities and all offices (whether judicial, executive, revenue or ministerial) throughout Pakistan exercising functions immediately before the commencing day shall, as from that day, continue to exercise their respective functions.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 275 provides for the continuance in office of persons in the service of Pakistan, including Judges, Governors, Chief Ministers, Speakers, Chief Election Commissioner, Attorney-General, and Auditor-General. Federal Ministers and Ministers of State could be appointed from outside Parliament for six months. All courts and authorities continued to exercise their respective functions.</p>
+            </div>
+        </div>
+
+        <!-- Article 276 -->
+        <div id="article276" class="article-box">
+            <div class="article-badge">Article 276</div>
+            <div class="article-subheading">Oath of first President</div>
+            <div class="article-content">
+                <p><b>276. Notwithstanding anything contained in the Constitution, the first President may, in the absence of the Chief Justice of Pakistan, make the oath referred to in Article 42 before the Speaker of the National Assembly.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 276 provides that the first President under the 1973 Constitution could, in the absence of the Chief Justice of Pakistan, take the oath before the Speaker of the National Assembly.</p>
+            </div>
+        </div>
+
+        <!-- Article 277 -->
+        <div id="article277" class="article-box">
+            <div class="article-badge">Article 277</div>
+            <div class="article-subheading">Transitional Financial Provisions</div>
+            <div class="article-content">
+                <p><b>277. (1) The schedule or authorized expenditure authenticated by the President for the financial year ending on the thirtieth day of June, one thousand nine hundred and seventy-four, shall continue to remain a valid authority for expenditure from the Federal Consolidated Fund for that year.</b></p>
+                <p><b>(2) The President may, in respect of expenditure of the Federal Government for any financial year preceding the financial year commencing on the first day of July, one thousand nine hundred and seventy-three (being expenditure in excess of the authorized expenditure for that year), authorize the withdrawal of moneys from the Federal Consolidated Fund.</b></p>
+                <p><b>(3) The provisions of clauses (1) and (2) shall apply to and in relation to a Province, and for that purpose–</b></p>
+                <p><b>(a) any reference in those provisions to the President shall be read as a reference to the Governor of the Province;</b></p>
+                <p><b>(b) any reference in those provisions to the Federal Government shall be read as a reference to the Government of the Province; and</b></p>
+                <p><b>(c) any reference in those provisions to the Federal Consolidated Fund shall be read as a reference to the Provincial Consolidated Fund of the Province.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 277 provides transitional financial provisions. The authorized expenditure schedule for the financial year ending 30 June 1974 continued to be valid. The President could authorize withdrawal of moneys from the Federal Consolidated Fund for expenditure in excess of authorized expenditure for earlier years.</p>
+            </div>
+        </div>
+
+        <!-- Article 278 -->
+        <div id="article278" class="article-box">
+            <div class="article-badge">Article 278</div>
+            <div class="article-subheading">Accounts not audited before commencing day</div>
+            <div class="article-content">
+                <p><b>278. The Auditor-General shall perform the same functions and exercise the same powers in relation to accounts which have not been completed or audited before the commencing day as, by virtue of the Constitution, he is empowered to perform or exercise in relation to other accounts, and Article 171 shall, with the necessary modifications, apply accordingly.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 278 provides that the Auditor-General shall perform the same functions and exercise the same powers in relation to accounts not completed or audited before the commencing day as he does in relation to other accounts.</p>
+            </div>
+        </div>
+
+        <!-- Article 279 -->
+        <div id="article279" class="article-box">
+            <div class="article-badge">Article 279</div>
+            <div class="article-subheading">Continuance of Taxes</div>
+            <div class="article-content">
+                <p><b>279. Notwithstanding anything contained in the Constitution, all taxes and fees levied under any law in force immediately before the commencing day shall continue to be levied until they are varied or abolished by Act of the appropriate Legislature.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 279 provides that all taxes and fees levied under any law in force before the commencing day shall continue to be levied until they are varied or abolished by Act of the appropriate Legislature.</p>
+            </div>
+        </div>
+
+        <!-- Article 280 -->
+        <div id="article280" class="article-box">
+            <div class="article-badge">Article 280</div>
+            <div class="article-subheading">Continuance of Proclamation of Emergency</div>
+            <div class="article-content">
+                <p><b>280. The Proclamation of Emergency issued on the twenty-third day of November, one thousand nine hundred and seventy-one, shall be deemed to be a Proclamation of Emergency issued under Article 232, and for the purposes of clause (7) and clause (8) thereof to have been issued on the commencing day, and any law, rule or order made or purporting to have been made in pursuance of that Proclamation shall be deemed to have been validly made [and shall not be called in question in any Court on the ground of inconsistency with any of the rights conferred by Chapter I of Part II].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 280 provides that the Proclamation of Emergency issued on 23 November 1971 shall be deemed to be a Proclamation of Emergency issued under Article 232. Any law, rule, or order made in pursuance of that Proclamation shall be deemed to have been validly made and cannot be called in question in any court on the ground of inconsistency with Fundamental Rights.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 238;
+    const totalArticles = 280;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 238);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (238-280).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 238 || num > 280) { resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 238 to 280.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 238);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

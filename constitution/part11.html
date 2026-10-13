@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Part IX — Islamic Provisions (Articles 227-231)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📖 Part IX — Islamic Provisions</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 227-231)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📖 Part IX — Islamic Provisions</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 227-231)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 227-231</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 227 -->
+        <div id="article227" class="article-box active">
+            <div class="article-badge">Article 227</div>
+            <div class="article-subheading">Provisions relating to the Holy Quran and Sunnah</div>
+            <div class="article-content">
+                <p><b>227. (1) All existing laws shall be brought in conformity with the Injunctions of Islam as laid down in the Holy Quran and Sunnah, in this Part referred to as the Injunctions of Islam, and no law shall be enacted which is repugnant to such Injunctions.</b></p>
+                <p><b>[Explanation.—In the application of this clause to the personal law of any Muslim sect, the expression "Quran and Sunnah" shall mean the Quran and Sunnah as interpreted by that sect.]</b></p>
+                <p><b>(2) Effect shall be given to the provisions of clause (1) only in the manner provided in this Part.</b></p>
+                <p><b>(3) Nothing in this Part shall affect the personal laws of non-Muslim citizens or their status as citizens.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 227 declares that all existing laws shall be brought in conformity with the Injunctions of Islam as laid down in the Holy Quran and Sunnah, and no law repugnant to such Injunctions shall be enacted. It also protects the personal laws of non-Muslim citizens.</p>
+            </div>
+        </div>
+
+        <!-- Article 228 -->
+        <div id="article228" class="article-box">
+            <div class="article-badge">Article 228</div>
+            <div class="article-subheading">Composition of Council of Islamic Ideology</div>
+            <div class="article-content">
+                <p><b>228. (1) There shall be constituted a Council of Islamic Ideology, in this Part referred to as the Islamic Council, consisting of such number of members as the President may determine, but not less than eight and not more than twenty.</b></p>
+                <p><b>(2) The members of the Islamic Council shall be appointed by the President from amongst persons having knowledge of the principles and philosophy of Islam as enunciated in the Holy Quran and Sunnah, or understanding of the economic, political, legal or administrative problems of Pakistan.</b></p>
+                <p><b>(3) While appointing members of the Islamic Council, the President shall ensure that—</b></p>
+                <p><b>(a) so far as practicable, not less than one-third of the members are persons having knowledge of the principles and philosophy of Islam as enunciated in the Holy Quran and Sunnah;</b></p>
+                <p><b>(b) not less than two members are persons having knowledge of the economic, political, legal or administrative problems of Pakistan;</b></p>
+                <p><b>(c) not less than one member is a woman; and</b></p>
+                <p><b>(d) not less than one member is a non-Muslim.</b></p>
+                <p><b>(4) The President shall appoint one of the members of the Islamic Council to be the Chairman of the Islamic Council.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 228 establishes the Council of Islamic Ideology, consisting of 8 to 20 members appointed by the President. Members must have knowledge of Islam or understanding of Pakistan's economic, political, legal, or administrative problems. At least one member must be a woman and one must be a non-Muslim.</p>
+            </div>
+        </div>
+
+        <!-- Article 229 -->
+        <div id="article229" class="article-box">
+            <div class="article-badge">Article 229</div>
+            <div class="article-subheading">Reference by President to Islamic Council, etc.</div>
+            <div class="article-content">
+                <p><b>229. (1) The President or the Governor of a Province may refer to the Islamic Council for advice any question as to whether a proposed law is or is not repugnant to the Injunctions of Islam.</b></p>
+                <p><b>(2) When the Council receives a reference under clause (1), it shall, after taking into consideration the provisions of the Constitution and the law relating to the matter, and after consulting such persons as it may consider necessary, submit its advice to the President or, as the case may be, the Governor within thirty days or such longer period as the President or the Governor may allow.</b></p>
+                <p><b>(3) The advice of the Council shall not be binding on the President or the Governor.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 229 allows the President or a Governor to refer any proposed law to the Council of Islamic Ideology for advice on whether it is repugnant to the Injunctions of Islam. The Council must submit its advice within 30 days. The advice is not binding.</p>
+            </div>
+        </div>
+
+        <!-- Article 230 -->
+        <div id="article230" class="article-box">
+            <div class="article-badge">Article 230</div>
+            <div class="article-subheading">Functions of the Islamic Council</div>
+            <div class="article-content">
+                <p><b>230. (1) The functions of the Islamic Council shall be—</b></p>
+                <p><b>(a) to make recommendations to [Majlis-e-Shoora (Parliament)] and the Provincial Assemblies as to the ways and means of enabling and encouraging the Muslims of Pakistan to order their lives individually and collectively in all respects in accordance with the principles and concepts of Islam as enunciated in the Holy Quran and Sunnah;</b></p>
+                <p><b>(b) to advise a House, a Provincial Assembly, the President or a Governor on any question referred to the Council under Article 229; and</b></p>
+                <p><b>(c) to make recommendations for the proper organisation of Zakat, Ushr, Auqaf, mosques and other religious institutions and for the promotion of unity and solidarity among the Muslims.</b></p>
+                <p><b>(2) The Council shall, in the performance of its functions under this Article, be guided by the principles and concepts of Islam as enunciated in the Holy Quran and Sunnah.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 230 defines the functions of the Council of Islamic Ideology: (1) to recommend ways to enable Muslims to order their lives according to Islam, (2) to advise on questions referred to it, and (3) to recommend proper organization of Zakat, Ushr, Auqaf, and mosques.</p>
+            </div>
+        </div>
+
+        <!-- Article 231 -->
+        <div id="article231" class="article-box">
+            <div class="article-badge">Article 231</div>
+            <div class="article-subheading">Rules of procedure</div>
+            <div class="article-content">
+                <p><b>231. The proceedings of the Islamic Council shall be regulated by rules of procedure to be made by the Council with the approval of the President.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 231 provides that the proceedings of the Council of Islamic Ideology shall be regulated by rules made by the Council with the approval of the President.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 227;
+    const totalArticles = 231;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 227);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (227-231).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 227 || num > 231) { resultDiv.innerHTML = '❌ Invalid! This Part contains Articles 227 to 231.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 227);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

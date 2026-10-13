@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 3 — Principles of Policy (Articles 29-40)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📙 Chapter 3 — Principles of Policy</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 29-40)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📙 Chapter 3 — Principles of Policy</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 29-40)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 29-40</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 29 -->
+        <div id="article29" class="article-box active">
+            <div class="article-badge">Article 29</div>
+            <div class="article-subheading">Principles of Policy</div>
+            <div class="article-content">
+                <p><b>29. (1) The Principles set out in this Chapter shall be known as the Principles of Policy, and it is the responsibility of each organ and authority of the State, and of each person performing functions on behalf of an organ or authority of the State, to act in accordance with those Principles in so far as they relate to the functions of the organ or authority.</b></p>
+                <p><b>(2) In so far as the observance of any particular Principle of Policy may be dependent upon resources being available for the purpose, the Principle shall be regarded as being subject to the availability of resources.</b></p>
+                <p><b>(3) In respect of each year, the President in relation to the affairs of the Federation, and the Governor of each Province in relation to the affairs of his Province, shall cause to be prepared and laid before [each House of Majlis-e-Shoora (Parliament)] or, as the case may be, the Provincial Assembly, a report on the observance and implementation of the Principles of Policy, and provision shall be made in the rules of procedure of the National Assembly [and the Senate] or, as the case may be, the Provincial Assembly, for discussion on such report.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 29 establishes that the Principles of Policy are fundamental to the governance of Pakistan. It binds the State to apply these principles when making laws and policies, subject to availability of resources. Annual reports on implementation must be laid before Parliament/Provincial Assemblies.</p>
+            </div>
+        </div>
+
+        <!-- Article 30 -->
+        <div id="article30" class="article-box">
+            <div class="article-badge">Article 30</div>
+            <div class="article-subheading">Responsibility with respect to Principles of Policy</div>
+            <div class="article-content">
+                <p><b>30. (1) The responsibility of deciding whether any action of an organ or authority of the State, or of a person performing functions on behalf of an organ or authority of the State, is in accordance with the Principles of Policy is that of the organ or authority of the State, or of the person, concerned.</b></p>
+                <p><b>(2) The validity of an action or of a law shall not be called in question on the ground that it is not in accordance with the Principles of Policy, and no action shall lie against the State, any organ or authority of the State or any person on such ground.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 30 makes the State responsible for implementing the Principles of Policy, but the validity of any law or action cannot be challenged in court on the ground that it violates these Principles.</p>
+            </div>
+        </div>
+
+        <!-- Article 31 -->
+        <div id="article31" class="article-box">
+            <div class="article-badge">Article 31</div>
+            <div class="article-subheading">Islamic way of life</div>
+            <div class="article-content">
+                <p><b>31. (1) Steps shall be taken to enable the Muslims of Pakistan, individually and collectively, to order their lives in accordance with the fundamental principles and basic concepts of Islam and to provide facilities whereby they may be enabled to understand the meaning of life according to the Holy Quran and Sunnah.</b></p>
+                <p><b>(2) The State shall endeavour, as respects the Muslims of Pakistan,</b></p>
+                <p><b>(a) to make the teaching of the Holy Quran and Islamiat compulsory, to encourage and facilitate the learning of Arabic language and to secure correct and exact printing and publishing of the Holy Quran;</b></p>
+                <p><b>(b) to promote unity and the observance of the Islamic moral standards; and</b></p>
+                <p><b>(c) to secure the proper organisation of zakat, [ushr,] auqaf and mosques.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 31 directs the State to enable Muslims to order their lives according to Islamic principles. It also requires the State to make Quranic and Islamic education compulsory, promote unity, and organize zakat, ushr, auqaf, and mosques.</p>
+            </div>
+        </div>
+
+        <!-- Article 32 -->
+        <div id="article32" class="article-box">
+            <div class="article-badge">Article 32</div>
+            <div class="article-subheading">Promotion of local Government institutions</div>
+            <div class="article-content">
+                <p><b>32. The State shall encourage local Government institutions composed of elected representatives of the areas concerned and in such institutions special representation will be given to peasants, workers and women.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 32 encourages the establishment of local government institutions with elected representatives, with special representation for peasants, workers, and women.</p>
+            </div>
+        </div>
+
+        <!-- Article 33 -->
+        <div id="article33" class="article-box">
+            <div class="article-badge">Article 33</div>
+            <div class="article-subheading">Parochial and other similar prejudices to be discouraged</div>
+            <div class="article-content">
+                <p><b>33. The State shall discourage parochial, racial, tribal, sectarian and provincial prejudices among the citizens.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 33 requires the State to discourage all forms of prejudice based on region, race, tribe, sect, or province among citizens.</p>
+            </div>
+        </div>
+
+        <!-- Article 34 -->
+        <div id="article34" class="article-box">
+            <div class="article-badge">Article 34</div>
+            <div class="article-subheading">Full participation of women in national life</div>
+            <div class="article-content">
+                <p><b>34. Steps shall be taken to ensure full participation of women in all spheres of national life.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 34 mandates the State to ensure full participation of women in all spheres of national life.</p>
+            </div>
+        </div>
+
+        <!-- Article 35 -->
+        <div id="article35" class="article-box">
+            <div class="article-badge">Article 35</div>
+            <div class="article-subheading">Protection of family, etc.</div>
+            <div class="article-content">
+                <p><b>35. The State shall protect the marriage, the family, the mother and the child.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 35 protects the basic social unit: the family, along with marriage, mothers, and children.</p>
+            </div>
+        </div>
+
+        <!-- Article 36 -->
+        <div id="article36" class="article-box">
+            <div class="article-badge">Article 36</div>
+            <div class="article-subheading">Protection of minorities</div>
+            <div class="article-content">
+                <p><b>36. The State shall safeguard the legitimate rights and interests of minorities, including their due representation in the Federal and Provincial services.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 36 protects the rights and interests of minorities, including their representation in federal and provincial services.</p>
+            </div>
+        </div>
+
+        <!-- Article 37 -->
+        <div id="article37" class="article-box">
+            <div class="article-badge">Article 37</div>
+            <div class="article-subheading">Promotion of social justice and eradication of social evils</div>
+            <div class="article-content">
+                <p><b>37. The State shall</b></p>
+                <p><b>(a) promote, with special care, the educational and economic interests of backward classes or areas;</b></p>
+                <p><b>(b) remove illiteracy and provide free and compulsory secondary education within minimum possible period;</b></p>
+                <p><b>(c) make technical and professional education generally available and higher education equally accessible to all on the basis of merit;</b></p>
+                <p><b>(d) ensure inexpensive and expeditious justice;</b></p>
+                <p><b>(e) make provision for securing just and humane conditions of work, ensuring that children and women are not employed in vocations unsuited to their age or sex, and for maternity benefits for women in employment;</b></p>
+                <p><b>(f) enable the people of different areas, through education, training, agricultural and industrial development and other methods, to participate fully in all forms of national activities, including employment in the service of Pakistan;</b></p>
+                <p><b>(g) prevent prostitution, gambling and taking of injurious drugs, printing, publication, circulation and display of obscene literature and advertisements;</b></p>
+                <p><b>(h) prevent the consumption of alcoholic liquor otherwise than for medicinal and, in the case of non-Muslims, religious purposes; and</b></p>
+                <p><b>(i) decentralise the Government administration so as to facilitate expeditious disposal of its business to meet the convenience and requirements of the public.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 37 is a comprehensive provision on social justice. It requires the State to promote backward classes, remove illiteracy, provide technical education, ensure justice, protect workers' rights, prevent social evils, and decentralize administration.</p>
+            </div>
+        </div>
+
+        <!-- Article 38 -->
+        <div id="article38" class="article-box">
+            <div class="article-badge">Article 38</div>
+            <div class="article-subheading">Promotion of social and economic well-being of the people</div>
+            <div class="article-content">
+                <p><b>38. The State shall</b></p>
+                <p><b>(a) secure the well-being of the people, irrespective of sex, caste, creed or race, by raising their standard of living, by preventing the concentration of wealth and means of production and distribution in the hands of a few to the detriment of general interest and by ensuring equitable adjustment of rights between employers and employees, and landlords and tenants;</b></p>
+                <p><b>(b) provide for all citizens, within the available resources of the country, facilities for work and adequate livelihood with reasonable rest and leisure;</b></p>
+                <p><b>(c) provide for all persons employed in the service of Pakistan or otherwise, social security by compulsory social insurance or other means;</b></p>
+                <p><b>(d) provide basic necessities of life, such as food, clothing, housing, education and medical relief, for all such citizens, irrespective of sex, caste, creed or race, as are permanently or temporarily unable to earn their livelihood on account of infirmity, sickness or unemployment;</b></p>
+                <p><b>(e) reduce disparity in the income and earnings of individuals, including persons in the various classes of the service of Pakistan;</b></p>
+                <p><b>[(f) eliminate riba completely before the first day of January, two thousand twenty-eight; and]</b></p>
+                <p><b>[(g) ensure that the shares of the Provinces in all Federal services, including autonomous bodies and corporations established by, or under the control of, the Federal Government, shall be secured and any omission in the allocation of the shares of the Provinces in the past shall be rectified.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 38 is a comprehensive principle of social and economic justice. It requires the State to secure well-being, provide work and livelihood, ensure social security, provide basic necessities, reduce income disparity, eliminate riba (interest) by 2028, and secure provincial shares in federal services.</p>
+            </div>
+        </div>
+
+        <!-- Article 39 -->
+        <div id="article39" class="article-box">
+            <div class="article-badge">Article 39</div>
+            <div class="article-subheading">Participation of people in Armed Forces</div>
+            <div class="article-content">
+                <p><b>39. The State shall enable people from all parts of Pakistan to participate in the Armed Forces of Pakistan.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 39 guides Pakistan's policy on armed forces — ensuring participation from all parts of the country.</p>
+            </div>
+        </div>
+
+        <!-- Article 40 -->
+        <div id="article40" class="article-box">
+            <div class="article-badge">Article 40</div>
+            <div class="article-subheading">Strengthening bonds with Muslim world and promoting international peace</div>
+            <div class="article-content">
+                <p><b>40. The State shall endeavour to preserve and strengthen fraternal relations among Muslim countries based on Islamic unity, support the common interests of the peoples of Asia, Africa and Latin America, promote international peace and security, foster goodwill and friendly relations among all nations and encourage the settlement of international disputes by peaceful means.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 40 represents Pakistan's commitment to global peace, fraternal relations with Muslim countries, support for developing nations, and peaceful settlement of international disputes.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 29;
+    const totalArticles = 40;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 29);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (29-40).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 29 || num > 40) { resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 29 to 40.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 29);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

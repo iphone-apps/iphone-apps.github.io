@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 6 — Distribution of Powers (Articles 141-159)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📒 Chapter 6 — Distribution of Powers</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 141-159)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📒 Chapter 6 — Distribution of Powers</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 141-159)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article 141-159</span>
+                <div class="search-wrapper">
+                    <input type="number" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- Article 141 -->
+        <div id="article141" class="article-box active">
+            <div class="article-badge">Article 141</div>
+            <div class="article-subheading">Extent of Federal and Provincial laws</div>
+            <div class="article-content">
+                <p><b>141. Subject to the Constitution, [Majlis-e-Shoora (Parliament)] may make laws (including laws having extra-territorial operation) for the whole or any part of Pakistan, and a Provincial Assembly may make laws for the Province or any part thereof.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 141 establishes the basic principle of legislative jurisdiction. Parliament can make laws for the entire country (including extra-territorial), while Provincial Assemblies make laws for their respective provinces only.</p>
+            </div>
+        </div>
+
+        <!-- Article 142 -->
+        <div id="article142" class="article-box">
+            <div class="article-badge">Article 142</div>
+            <div class="article-subheading">Subject-matter of Federal and Provincial laws</div>
+            <div class="article-content">
+                <p><b>142. Subject to the Constitution</b></p>
+                <p><b>(a) [Majlis-e-Shoora (Parliament)] shall have exclusive power to make laws with respect to any matter in the Federal Legislative List;</b></p>
+                <p><b>(b) Majlis-e-Shoora (Parliament) and a Provincial Assembly shall have power to make laws with respect to criminal law, criminal procedure and evidence;</b></p>
+                <p><b>(c) subject to paragraph (b), a Provincial Assembly shall, and Majlis-e-Shoora (Parliament) shall not, have power to make laws with respect to any matter not enumerated in the Federal Legislative List;</b></p>
+                <p><b>(d) Majlis-e-Shoora (Parliament) shall have exclusive power to make laws with respect to all matters pertaining to such areas in the Federation as are not included in any Province.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 142 clearly divides subjects into federal and provincial lists. Parliament has exclusive power over matters in the Federal Legislative List. Both Parliament and Provincial Assemblies can make laws on criminal law, criminal procedure, and evidence. Provincial Assemblies have exclusive power over matters not enumerated in the Federal Legislative List (subject to criminal law). Parliament has exclusive power over areas not included in any Province.</p>
+            </div>
+        </div>
+
+        <!-- Article 143 -->
+        <div id="article143" class="article-box">
+            <div class="article-badge">Article 143</div>
+            <div class="article-subheading">Inconsistency between Federal and Provincial laws</div>
+            <div class="article-content">
+                <p><b>[143. If any provision of an Act of a Provincial Assembly is repugnant to any provision of an Act of Majlis-e-Shoora (Parliament) which Majlis-e-Shoora (Parliament) is competent to enact, then the Act of Majlis-e-Shoora (Parliament), whether passed before or after the Act of the Provincial Assembly, shall prevail and the Act of the Provincial Assembly shall, to the extent of the repugnancy, be void.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 143 establishes supremacy of Federal law. If a provincial law conflicts with a federal law that Parliament is competent to enact, the federal law prevails and the provincial law is void to the extent of the conflict.</p>
+            </div>
+        </div>
+
+        <!-- Article 144 -->
+        <div id="article144" class="article-box">
+            <div class="article-badge">Article 144</div>
+            <div class="article-subheading">Power of Majlis-e-Shoora (Parliament) to legislate for one or more Provinces by consent</div>
+            <div class="article-content">
+                <p><b>144. (1) If [one] or more Provincial Assemblies pass resolutions to the effect that [Majlis-e-Shoora (Parliament)] may by law regulate any matter not enumerated in [the Federal Legislative List] in the Fourth Schedule, it shall be lawful for [Majlis-e-Shoora (Parliament)] to pass an Act for regulating that matter accordingly, but any Act so passed may, as respects any Province to which it applies, be amended or repealed by Act of the Assembly of that Province.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 144 allows Parliament to make laws on provincial matters if one or more Provincial Assemblies pass resolutions requesting it to do so. However, any such Act can be amended or repealed by the Provincial Assembly of the Province to which it applies.</p>
+            </div>
+        </div>
+
+        <!-- Article 145 -->
+        <div id="article145" class="article-box">
+            <div class="article-badge">Article 145</div>
+            <div class="article-subheading">Power of President to direct Governor to discharge certain functions as his Agent</div>
+            <div class="article-content">
+                <p><b>145. (1) The President may direct the Governor of any Province to discharge as his Agent, either generally or in any particular matter, such functions relating to such areas in the Federation which are not included in any Province as may be specified in the direction.</b></p>
+                <p><b>(2) The provisions of Article 105 shall not apply to the discharge by the Governor of his functions under clause (1).</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 145 allows the President to direct a Governor to discharge functions as his Agent in relation to areas not included in any Province. The provisions of Article 105 (Governor acting on advice) do not apply to these functions.</p>
+            </div>
+        </div>
+
+        <!-- Article 146 -->
+        <div id="article146" class="article-box">
+            <div class="article-badge">Article 146</div>
+            <div class="article-subheading">Power of Federation to confer powers, etc., on Provinces, in certain cases</div>
+            <div class="article-content">
+                <p><b>146. (1) Notwithstanding anything contained in the Constitution, the Federal Government may, with the consent of the Government of a Province, entrust either conditionally or unconditionally to that Government, or to its officers functions in relation to any matter to which the executive authority of the Federation extends.</b></p>
+                <p><b>(2) An Act of [Majlis-e-Shoora (Parliament)] may, notwithstanding that it relates to a matter with respect to which a Provincial Assembly has no power to make laws, confer powers and impose duties upon a Province or officers and authorities thereof.</b></p>
+                <p><b>(3) Where by virtue of this Article powers and duties have been conferred or imposed upon a Province or officers or authorities thereof, there shall be paid by the Federation to the Province such sum as may be agreed or, in default of agreement, as may be determined by an arbitrator appointed by the Chief Justice of [Federal Constitutional Court], in respect of any extra costs of administration incurred by the Province in connection with the exercise of those powers or the discharge of those duties.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 146 allows the Federal Government to entrust functions to a Province with its consent. Parliament can confer powers and impose duties on a Province even on matters on which the Provincial Assembly has no power to make laws. Any extra costs incurred by the Province are paid by the Federation, and disputes are resolved by an arbitrator appointed by the Chief Justice of the Federal Constitutional Court (27th Amendment).</p>
+            </div>
+        </div>
+
+        <!-- Article 147 -->
+        <div id="article147" class="article-box">
+            <div class="article-badge">Article 147</div>
+            <div class="article-subheading">Power of the Provinces to entrust functions to the Federation</div>
+            <div class="article-content">
+                <p><b>147. Notwithstanding anything contained in the Constitution, the Government of a Province may, with the consent of the Federal Government, entrust, either conditionally or unconditionally, to the Federal Government, or to its officers, functions in relation to any matter to which the executive authority of the Province extends:</b></p>
+                <p><b>[Provided that the Provincial Government shall get the functions so entrusted ratified by the Provincial Assembly within sixty days.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 147 allows a Province to entrust its functions to the Federal Government with the Federal Government's consent. The Provincial Government must get the functions ratified by the Provincial Assembly within sixty days.</p>
+            </div>
+        </div>
+
+        <!-- Article 148 -->
+        <div id="article148" class="article-box">
+            <div class="article-badge">Article 148</div>
+            <div class="article-subheading">Obligation of Provinces and Federation</div>
+            <div class="article-content">
+                <p><b>148. (1) The executive authority of every Province shall be so exercised as to secure compliance with Federal laws which apply in that Province.</b></p>
+                <p><b>(2) Without prejudice to any other provision of this Chapter, in the exercise of the executive authority of the Federation in any Province regard shall be had to the interests of that Province.</b></p>
+                <p><b>(3) It shall be the duty of the Federation to protect every Province against external aggression and internal disturbances and to ensure that the Government of every Province is carried on in accordance with the provisions of the Constitution.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 148 imposes duties on both the Federation and Provinces. Provinces must exercise their authority to secure compliance with Federal laws. The Federation must have regard to the interests of each Province. The Federation has a duty to protect every Province against external aggression and internal disturbances and to ensure that Provincial Governments are carried on in accordance with the Constitution.</p>
+            </div>
+        </div>
+
+        <!-- Article 149 -->
+        <div id="article149" class="article-box">
+            <div class="article-badge">Article 149</div>
+            <div class="article-subheading">Directions to Provinces in certain cases</div>
+            <div class="article-content">
+                <p><b>149. (1) The executive authority of every Province shall be so exercised as not to impede or prejudice the exercise of the executive authority of the Federation, and the executive authority of the Federation shall extend to the giving of such directions to a Province as may appear to the Federal Government to be necessary for that purpose.</b></p>
+                <p><b>(3) The executive authority of the Federation shall also extend to the giving of directions to a Province as to the construction and maintenance of means of communication declared in the direction to be of national or strategic importance.</b></p>
+                <p><b>(4) The executive authority of the Federation shall also extend to the giving of directions to a Province as to the manner in which the executive authority thereof is to be exercised for the purpose of preventing any grave menace to the peace or tranquillity or economic life of Pakistan or any part thereof.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 149 gives the Federal Government the authority to issue directions to Provinces. Provinces must exercise their authority so as not to impede the Federal executive authority. The Federation can give directions on construction and maintenance of means of communication of national or strategic importance, and to prevent any grave menace to peace, tranquillity, or economic life.</p>
+            </div>
+        </div>
+
+        <!-- Article 150 -->
+        <div id="article150" class="article-box">
+            <div class="article-badge">Article 150</div>
+            <div class="article-subheading">Full faith and credit for public acts, etc.</div>
+            <div class="article-content">
+                <p><b>150. Full faith and credit shall be given throughout Pakistan to public acts and records, and judicial proceedings of every Province.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 150 ensures that public acts, records, and judicial proceedings of every Province are given full faith and credit throughout Pakistan.</p>
+            </div>
+        </div>
+
+        <!-- Article 151 -->
+        <div id="article151" class="article-box">
+            <div class="article-badge">Article 151</div>
+            <div class="article-subheading">Inter-Provincial trade</div>
+            <div class="article-content">
+                <p><b>151. (1) Subject to clause (2), trade, commerce and intercourse throughout Pakistan shall be free.</b></p>
+                <p><b>(2) [Majlis-e-Shoora (Parliament)] may by law impose such restrictions on the freedom of trade, commerce or intercourse between one Province and another or within any part of Pakistan as may be required in the public interest.</b></p>
+                <p><b>(3) A Provincial Assembly or a Provincial Government shall not have power to</b></p>
+                <p><b>(a) make any law, or take any executive action, prohibiting or restricting the entry into, or the export from, the Province of goods of any class or description, or</b></p>
+                <p><b>(b) impose a tax which, as between goods manufactured or produced in the Province and similar goods not so manufactured or produced, discriminates in favour of the former goods or which, in the case of goods manufactured or produced outside the Province discriminates between goods manufactured or produced in any area in Pakistan and similar goods manufactured or produced in any other area in Pakistan.</b></p>
+                <p><b>(4) An Act of a Provincial Assembly which imposes any reasonable restriction in the interest of public health, public order or morality, or for the purpose of protecting animals or plants from disease or preventing or alleviating any serious shortage in the Province of any essential commodity shall not, if it was made with the consent of the President, be invalid.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 151 ensures freedom of trade, commerce, and intercourse throughout Pakistan. Parliament can impose restrictions in the public interest. Provincial Assemblies and Governments cannot prohibit or restrict trade in goods or impose discriminatory taxes. However, a Provincial Assembly can impose restrictions in the interest of public health, public order, or morality, or to protect animals/plants from disease or prevent serious shortages, with the consent of the President.</p>
+            </div>
+        </div>
+
+        <!-- Article 152 -->
+        <div id="article152" class="article-box">
+            <div class="article-badge">Article 152</div>
+            <div class="article-subheading">Acquisition of land for Federal purposes</div>
+            <div class="article-content">
+                <p><b>152. The Federation may, if it deems necessary to acquire any land situate in a Province for any purpose connected with a matter with respect to which [Majlis-e-Shoora (Parliament)] has power to make laws, require the Province to acquire the land on behalf, and at the expense, of the Federation or, if the land belongs to the Province, to transfer it to the Federation on such terms as may be agreed or, in default of agreement, as may be determined by an arbitrator appointed by the Chief Justice of [Federal Constitutional Court].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 152 allows the Federation to require a Province to acquire land on its behalf (at the Federation's expense) or to transfer land belonging to the Province to the Federation. Disputes are resolved by an arbitrator appointed by the Chief Justice of the Federal Constitutional Court (27th Amendment).</p>
+            </div>
+        </div>
+
+        <!-- Article 153 -->
+        <div id="article153" class="article-box">
+            <div class="article-badge">Article 153</div>
+            <div class="article-subheading">Council of Common Interests</div>
+            <div class="article-content">
+                <p><b>153. (1) There shall be a Council of Common Interests, in this Chapter referred to as the Council, to be appointed by the President.</b></p>
+                <p><b>(2) The Council shall consist of</b></p>
+                <p><b>(a) the Prime Minister who shall be the Chairman of the Council;</b></p>
+                <p><b>(b) the Chief Ministers of the Provinces; and</b></p>
+                <p><b>(c) three members from the Federal Government to be nominated by the Prime Minister from time to time.]</b></p>
+                <p><b>(4) The Council shall be responsible to [Majlis-e-Shoora (Parliament)] [and shall submit an Annual Report to both Houses of Majlis-e-Shoora (Parliament)].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 153 establishes the Council of Common Interests, a powerful forum where the Prime Minister and all Chief Ministers meet to discuss matters affecting both the Federation and the Provinces. The Council consists of the Prime Minister (Chairman), Chief Ministers of the Provinces, and three members from the Federal Government nominated by the Prime Minister. The Council is responsible to Parliament and submits an Annual Report to both Houses.</p>
+            </div>
+        </div>
+
+        <!-- Article 154 -->
+        <div id="article154" class="article-box">
+            <div class="article-badge">Article 154</div>
+            <div class="article-subheading">Functions and rules of procedure</div>
+            <div class="article-content">
+                <p><b>[154. (1) The Council shall formulate and regulate policies in relation to matters in Part II of the Federal Legislative List and shall exercise supervision and control over related institutions.]</b></p>
+                <p><b>[(2) The Council shall be constituted within thirty days of the Prime Minister taking oath of office.</b></p>
+                <p><b>(3) The Council shall have a permanent Secretariat and shall meet at least once in ninety days:</b></p>
+                <p><b>Provided that the Prime Minister may convene a meeting on the request of a Province on an urgent matter.</b></p>
+                <p><b>[(4) The decisions of the Council shall be expressed in terms of the opinion of the majority.</b></p>
+                <p><b>[(5) Until Majlis-e-Shoora (Parliament) makes provision by law in this behalf, the Council may make its rules of procedure.</b></p>
+                <p><b>[(6) Majlis-e-Shoora (Parliament) in joint sitting may from time to time by resolution issue directions through the Federal Government to the Council generally or in a particular matter to take action as Majlis-e-Shoora (Parliament) may deem just and proper and such directions shall be binding on the Council.</b></p>
+                <p><b>[(7) If the Federal Government or a Provincial Government is dissatisfied with a decision of the Council, it may refer the matter to Majlis-e-Shoora (Parliament) in a joint sitting whose decision in this behalf shall be final.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 154 defines the functions of the Council of Common Interests. It formulates and regulates policies on matters in Part II of the Federal Legislative List and exercises supervision over related institutions. The Council is constituted within 30 days of the Prime Minister taking oath, meets at least once in 90 days, and its decisions are by majority vote. Parliament can issue directions to the Council, and disputes can be referred to Parliament in joint sitting.</p>
+            </div>
+        </div>
+
+        <!-- Article 155 -->
+        <div id="article155" class="article-box">
+            <div class="article-badge">Article 155</div>
+            <div class="article-subheading">Complaints as to interference with water supplies</div>
+            <div class="article-content">
+                <p><b>155. (1) If the interests of a Province, the Federal Capital or any of the inhabitants thereof, in water from any natural source of supply [or reservoir] have been or are likely to be affected prejudicially by</b></p>
+                <p><b>(a) any executive act or legislation taken or passed or proposed to be taken or passed, or</b></p>
+                <p><b>(b) the failure of any authority to exercise any of its powers with respect to the use and distribution or control of water from that source,</b></p>
+                <p><b>the Federal Government or the Provincial Government concerned may make a complaint in writing to the Council.</b></p>
+                <p><b>(2) Upon receiving such complaint, the Council shall, after having considered the matter, either give its decision or request the President to appoint a commission consisting of such persons having special knowledge and experience in irrigation, engineering, administration, finance or law as he may think fit, hereinafter referred to as the Commission.</b></p>
+                <p><b>(3) Until [Majlis-e-Shoora (Parliament)] makes provision by law in this behalf, the provisions of the Pakistan Commissions of Inquiry Act, 1956, as in force immediately before the commencing day shall apply to the Council or the Commission as if the Council or the Commission were a Commission appointed under that Act to which all the provisions of section 5 thereof applied and upon which the power contemplated by section 10A thereof had been conferred.</b></p>
+                <p><b>(4) After considering the report and supplementary report, if any, of the Commission, the Council shall record its decision on all matters referred to the Commission.</b></p>
+                <p><b>(5) Notwithstanding any law to the contrary, but subject to the provisions of clause (5) of Article 154, it shall be the duty of the Federal Government and the Provincial Government concerned in the matter in issue to give effect to the decision of the Council faithfully according to its terms and tenor.</b></p>
+                <p><b>(6) No proceeding shall lie before any court at the instance of any party to a matter which is or has been in issue before the Council, or of any person whatsoever, in respect of a matter which is actually or has been or might or ought to have been a proper subject of complaint to the Council under this Article.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 155 provides a mechanism for resolving complaints about interference with water supplies. If a Province or the Federal Capital's interests in water from any natural source are affected, a complaint can be made to the Council of Common Interests. The Council can decide the matter or request the President to appoint a Commission. The Council's decision is binding on the Federal and Provincial Governments, and no court proceedings can lie in respect of matters before the Council.</p>
+            </div>
+        </div>
+
+        <!-- Article 156 -->
+        <div id="article156" class="article-box">
+            <div class="article-badge">Article 156</div>
+            <div class="article-subheading">National Economic Council</div>
+            <div class="article-content">
+                <p><b>[156. (1) The President shall constitute a National Economic Council which shall consist of</b></p>
+                <p><b>(a) the Prime Minister, who shall be the Chairman of the Council;</b></p>
+                <p><b>(b) the Chief Ministers and one member from each Province to be nominated by the Chief Minister; and</b></p>
+                <p><b>(c) four other members as the Prime Minister may nominate from time to time.</b></p>
+                <p><b>(2) The National Economic Council shall review the overall economic condition of the country and shall, for advising the Federal Government and the Provincial Governments, formulate plans in respect of financial, commercial, social and economic policies; and in formulating such plans it shall,</b></p>
+                <p><b>(3) The meetings of the Council shall be summoned by the Chairman or on a requisition made by one-half of the members of the Council.</b></p>
+                <p><b>(4) The Council shall meet at least twice in a year and the quorum for a meeting of the Council shall be one-half of its total membership.</b></p>
+                <p><b>(5) The Council shall be responsible to the Majlis-e-Shoora (Parliament) and shall submit an Annual Report to each House of Majlis-e-Shoora (Parliament).]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 156 establishes the National Economic Council, consisting of the Prime Minister (Chairman), Chief Ministers and one member from each Province, and four other members nominated by the Prime Minister. The Council reviews the overall economic condition of the country and formulates plans on financial, commercial, social, and economic policies. It meets at least twice a year and submits an Annual Report to Parliament.</p>
+            </div>
+        </div>
+
+        <!-- Article 157 -->
+        <div id="article157" class="article-box">
+            <div class="article-badge">Article 157</div>
+            <div class="article-subheading">Electricity</div>
+            <div class="article-content">
+                <p><b>157. (1) The Federal Government may in any Province construct or cause to be constructed hydro-electric or thermal power installations or grid stations for the generation of electricity and lay or cause to be laid inter-Provincial transmission lines</b></p>
+                <p><b>[Provided that the Federal Government, prior to taking a decision to construct or cause to be constructed, hydro-electric power stations in any Province, shall consult the Provincial Government concerned.]</b></p>
+                <p><b>(2) The Government of a Province may</b></p>
+                <p><b>(a) to the extent electricity is supplied to that Province from the national grid, require supply to be made in bulk for transmission and distribution within the Province;</b></p>
+                <p><b>(b) levy tax on consumption of electricity within the Province;</b></p>
+                <p><b>(c) construct power houses and grid stations and lay transmission lines for use within the Province; and</b></p>
+                <p><b>(d) determine the tariff for distribution of electricity within the Province.</b></p>
+                <p><b>[(3) In case of any dispute between the Federal Government and a Provincial Government in respect of any matter under this Article, any of the said Governments may move the Council of Common Interests for resolution of the dispute.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 157 deals with electricity. The Federal Government can construct hydro-electric or thermal power installations and inter-Provincial transmission lines, but must consult the Provincial Government before constructing hydro-electric power stations in a Province. Provincial Governments can require bulk supply from the national grid, levy tax on electricity consumption, construct power houses and grid stations, and determine tariffs for distribution. Disputes can be resolved by the Council of Common Interests.</p>
+            </div>
+        </div>
+
+        <!-- Article 158 -->
+        <div id="article158" class="article-box">
+            <div class="article-badge">Article 158</div>
+            <div class="article-subheading">Priority of requirements of natural gas</div>
+            <div class="article-content">
+                <p><b>158. The Province in which a well-head of natural gas is situated shall have precedence over other parts of Pakistan in meeting the requirements from that well-head, subject to the commitments and obligations as on the commencing day.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 158 provides that the Province where a natural gas well-head is situated has precedence over other parts of Pakistan in meeting its requirements from that well-head, subject to existing commitments and obligations as on the commencing day.</p>
+            </div>
+        </div>
+
+        <!-- Article 159 -->
+        <div id="article159" class="article-box">
+            <div class="article-badge">Article 159</div>
+            <div class="article-subheading">Broadcasting and telecasting</div>
+            <div class="article-content">
+                <p><b>159. (1) The Federal Government shall not unreasonably refuse to entrust to a Provincial Government such functions with respect to broadcasting and telecasting as may be necessary to enable that Government</b></p>
+                <p><b>(a) to construct and use transmitters in the Province; and</b></p>
+                <p><b>(b) to regulate, and impose fees in respect of, the construction and use of transmitters and the use of receiving apparatus in the Province:</b></p>
+                <p><b>Provided that nothing in this clause shall be construed as requiring the Federal Government to entrust to any Provincial Government any control over the use of transmitters constructed or maintained by the Federal Government or by persons authorized by the Federal Government, or over the use of receiving apparatus by person so authorized.</b></p>
+                <p><b>(2) Any functions so entrusted to a Provincial Government shall be exercised subject to such conditions as may be imposed by the Federal Government, including, notwithstanding anything contained in the Constitution, any conditions with respect to finance, but it shall not be lawful for the Federal Government so to impose any conditions regulating the matter of broadcast or telecast by, or by authority of, the Provincial Government.</b></p>
+                <p><b>(3) Any Federal law with respect to broadcasting and telecasting shall be such as to secure that effect can be given to the foregoing provisions of this Article.</b></p>
+                <p><b>(4) If any question arises whether any conditions imposed on any Provincial Government are lawfully imposed, or whether any refusal by the Federal Government to entrust functions is unreasonable, the question shall be determined by an arbitrator appointed by the Chief Justice of [Federal Constitutional Court].</b></p>
+                <p><b>(5) Nothing in this Article shall be construed as restricting the powers of the Federal Government under the Constitution for the prevention of any grave menace to the peace or tranquillity of Pakistan or any part thereof.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 159 deals with broadcasting and telecasting. The Federal Government cannot unreasonably refuse to entrust functions to a Provincial Government for constructing and using transmitters and regulating them. Conditions can be imposed by the Federal Government, but not on the content of broadcast or telecast. Federal law must secure effect to these provisions. Disputes are determined by an arbitrator appointed by the Chief Justice of the Federal Constitutional Court (27th Amendment).</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentArticleId = 141;
+    const totalArticles = 159;
+    function changeArticle(direction) {
+        document.getElementById('article' + currentArticleId).classList.remove('active');
+        currentArticleId += direction;
+        document.getElementById('article' + currentArticleId).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentArticleId === 141);
+        document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+        if (input === '') { resultDiv.innerHTML = '⚠️ Please enter an article number (141-159).'; return; }
+        let num = parseInt(input);
+        if (isNaN(num) || num < 141 || num > 159) { resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 141 to 159.'; return; }
+        let element = document.getElementById('article' + num);
+        if (element) {
+            document.getElementById('article' + currentArticleId).classList.remove('active');
+            currentArticleId = num;
+            element.classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentArticleId === 141);
+            document.getElementById('nextBtn').disabled = (currentArticleId === totalArticles);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${num}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+    document.getElementById('articleInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') searchArticle(); });
+</script>
+</body>
+</html>

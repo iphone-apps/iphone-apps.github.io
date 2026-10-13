@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 8 — Judiciary (Articles 175-203)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d0d24; color: white; font-family: 'Segoe UI', Arial, sans-serif; padding: 12px; }
+        .container { max-width: 800px; margin: 0 auto; }
+
+        .header-title { color: #ffeb3b; font-size: 26px; text-align: center; font-weight: bold; text-shadow: 0 0 15px rgba(255, 235, 59, 0.4); margin-bottom: 5px; }
+        .header-subtitle { color: #a0a0b8; text-align: center; font-size: 14px; margin-bottom: 15px; }
+
+        #disclaimerPage { display: block; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .disclaimer-box { background: #1a0f2e; border: 1px solid #ffeb3b; padding: 25px; margin: 20px 0; border-radius: 12px; }
+        .disclaimer-box h4 { color: #ffeb3b; font-size: 18px; margin-bottom: 12px; }
+        .disclaimer-box p, .disclaimer-box li { color: #c4b5d6; font-size: 14px; line-height: 1.8; }
+        .disclaimer-box ul { padding-left: 20px; margin: 10px 0; }
+        .disclaimer-box a { color: #ffeb3b; text-decoration: underline; }
+        .start-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 14px; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .start-btn:hover { background: #ff4500; transform: scale(1.02); }
+        #articlesPage { display: none; }
+
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ffeb3b; padding-bottom: 10px; margin-bottom: 15px; gap: 10px; flex-wrap: wrap; }
+        .index-btn { background: #bf00ff; color: white; padding: 8px 18px; border-radius: 20px; text-decoration: none; font-weight: bold; font-size: 14px; display: flex; align-items: center; gap: 5px; transition: 0.3s; white-space: nowrap; }
+        .index-btn:hover { background: #9900cc; }
+        .search-container { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+        .search-label { color: #ffeb3b; font-weight: bold; font-size: 14px; white-space: nowrap; }
+        .search-wrapper { display: flex; align-items: center; border: 2px solid #ffeb3b; border-radius: 8px; background: rgba(0,0,0,0.5); overflow: hidden; }
+        .search-wrapper input { background: transparent; border: none; color: white; padding: 6px 10px; width: 55px; font-size: 15px; outline: none; }
+        .search-wrapper input::placeholder { color: #666; }
+        .search-wrapper button { background: #ff6600; color: white; border: none; padding: 6px 16px; border-radius: 0; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; }
+        .search-wrapper button:hover { background: #ff4500; }
+        .search-result { text-align: center; margin-top: 8px; color: #ffeb3b; font-weight: bold; font-size: 14px; min-height: 24px; }
+        .article-box { background: #1a0f2e; border: 1px solid #4a3a6a; border-radius: 12px; padding: 20px; margin: 12px 0; display: none; }
+        .article-box.active { display: block; }
+        .article-badge { background: black; display: inline-block; padding: 5px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; color: #ffeb3b; margin-bottom: 12px; }
+        .article-subheading { color: #a855f7; font-size: 16px; font-weight: bold; margin-bottom: 12px; }
+        .article-content { color: #d1c5e8; line-height: 1.8; font-size: 15px; }
+        .article-content ol, .article-content ul { padding-left: 25px; margin: 10px 0; }
+        .article-content li { margin-bottom: 8px; }
+        .highlight-italic { color: #ffeb3b; font-style: italic; font-weight: bold; }
+        .explanation-box { background: #2a1040; border-left: 4px solid #ffeb3b; padding: 12px 15px; margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .explanation-box h4 { color: #ffeb3b; font-size: 15px; margin-bottom: 5px; }
+        .explanation-box p { color: #c4b5d6; font-size: 14px; line-height: 1.6; }
+        .nav-buttons { display: flex; justify-content: space-between; gap: 12px; margin: 15px 0; }
+        .nav-btn { flex: 1; background: #7f00ff; color: white; border: none; padding: 10px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .nav-btn:hover { background: #9900ff; }
+        .nav-btn:disabled { background: #333; color: #777; cursor: not-allowed; }
+        .back-main-btn { display: block; width: 100%; background: #ff6600; color: white; border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; text-align: center; text-decoration: none; margin-top: 5px; }
+        .back-main-btn:hover { background: #ff4500; }
+        @media (max-width: 600px) { .header-title { font-size: 22px; } .nav-bar { flex-direction: column; align-items: stretch; gap: 8px; } .index-btn { justify-content: center; width: 100%; } .search-container { justify-content: center; width: 100%; } .search-wrapper { width: 100%; } .search-wrapper input { flex: 1; width: auto; } .nav-buttons { flex-direction: column; } .article-content { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- ===== PAGE 1: DISCLAIMER ===== -->
+    <div id="disclaimerPage">
+        <h1 class="header-title">📔 Chapter 8 — Judiciary</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 175-203)</p>
+        <div class="disclaimer-box">
+            <h4>⚠️ Disclaimer:</h4>
+            <p><b>1. Purpose:</b> This application is created <b>solely for educational and study purposes</b> to help users understand the Constitution of Pakistan in a simplified manner. It is NOT intended to replace official legal consultation.</p>
+            <p><b>2. Official Source:</b> The content of this app is based on the official document published by the National Assembly of Pakistan. For official verification, please refer to the original document:<br><b>🔗 Source:</b> <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf</a></p>
+            <p><b>3. Non-Official Status:</b> This is <b>NOT</b> an official application of any Court, University, or any Government Institute of Pakistan.</p>
+            <p><b>4. Accuracy Guarantee:</b> We do <b>NOT</b> guarantee 100% accuracy. Users are strongly advised to cross-check all articles and clauses with official books, legal experts, or government websites before relying on them.</p>
+            <p><b>5. Liability:</b> The developers and creators of this app shall not be held responsible for any loss, legal issue, or misunderstanding arising from the use of this application.</p>
+        </div>
+        <button class="start-btn" onclick="startReading()">📖 Start Reading</button>
+    </div>
+
+    <!-- ===== PAGE 2: ARTICLES ===== -->
+    <div id="articlesPage">
+        <h1 class="header-title">📔 Chapter 8 — Judiciary</h1>
+        <p class="header-subtitle">Constitution of Islamic Republic of Pakistan (Articles 175-203)</p>
+        <div class="nav-bar">
+            <a href="index.html" class="index-btn">🏠 Index</a>
+            <div class="search-container">
+                <span class="search-label">Go to Article</span>
+                <div class="search-wrapper">
+                    <input type="text" id="articleInput" placeholder="">
+                    <button onclick="searchArticle()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="searchResult" class="search-result"></div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175 — Establishment and jurisdiction of courts                   -->
+        <!-- ======================================================================= -->
+        <div id="article175" class="article-box active">
+            <div class="article-badge">Article 175</div>
+            <div class="article-subheading">Establishment and jurisdiction of courts</div>
+            <div class="article-content">
+                <p><b>175. (1) There shall be [a Federal Constitutional Court of Pakistan, hereinafter referred to as the Federal Constitutional Court] a Supreme Court of Pakistan [hereinafter referred to as the Supreme Court], a High Court for each Province [and a High Court for the Islamabad Capital Territory] and such other courts as may be established by law.</b></p>
+                <p><b>[Explanation.—Unless the context otherwise requires, the words "High Court" wherever occurring in the Constitution shall include "Islamabad High Court."]</b></p>
+                <p><b>(2) No court shall have any jurisdiction save as is or may be conferred on it by the Constitution or by or under any law.</b></p>
+                <p><b>(3) The Judiciary shall be separated progressively from the Executive within [fourteen] years from the commencing day</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175 establishes the judicial hierarchy: a Federal Constitutional Court, a Supreme Court, a High Court for each Province, and a High Court for the Islamabad Capital Territory. The 27th Amendment introduced the Federal Constitutional Court. No court has any jurisdiction except as conferred by the Constitution or law. The Judiciary is to be separated from the Executive within 14 years from the commencing day.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175A — Judicial Commission of Pakistan                           -->
+        <!-- ======================================================================= -->
+        <div id="article175A" class="article-box">
+            <div class="article-badge">Article 175A</div>
+            <div class="article-subheading">Appointment of Judges to the Federal Constitutional Court, the Supreme Court, High Courts and the Federal Shariat Court</div>
+            <div class="article-content">
+                <p><b>[175A. (1) There shall be a Judicial Commission of Pakistan, hereinafter in this Article referred to as the Commission, for appointment of Judges of [the Federal Constitutional Court,] the Supreme Court, High Courts and the Federal Shariat Court, [and for performance evaluation of Judges of the High Courts,] as hereinafter provided.</b></p>
+                <p><b>[(2) The Commission shall consist of,</b></p>
+                <p><b>(i) Chief Justice of the Federal Constitutional Court;</b></p>
+                <p><b>(ii) Chief Justice of the Supreme Court;</b></p>
+                <p><b>(iii) one next most senior Judge each of the Federal Constitutional Court and the Supreme Court;</b></p>
+                <p><b>[(iiia) a Judge of the Federal Constitutional Court or the Supreme Court jointly nominated by the Chief Justice of the Federal Constitutional Court and the Chief Justice of the Supreme Court, for a period of two years;]</b></p>
+                <p><b>(iv) Federal Minister for Law and Justice;</b></p>
+                <p><b>(v) Attorney-General for Pakistan;</b></p>
+                <p><b>(vi) an advocate having not less than fifteen years of practice in the Supreme Court to be nominated by the Pakistan Bar Council for a term of two years;</b></p>
+                <p><b>(vii) two members from the Senate and two members from the National Assembly of whom two shall be from the Treasury Benches, one from each House, and two from the Opposition Benches, one from each House. The nomination from the Treasury Benches shall be made by the Leader of the House and from the Opposition Benches by the Leader of the Opposition:</b></p>
+                <p><b>[ (viii) a woman or non Muslim or a technocrat, other than a member of Majlis-e-Shoora (Parliament), who is qualified to be member of the Majlis-e-Shoora (Parliament), to be appointed by the Speaker of the National Assembly;]</b></p>
+                <p><b>[Explanation I.- The senior amongst the Chief Justice of the Federal Constitutional Court and the Chief Justice of the Supreme Court shall be the Chairperson of the Commission. Their inter se seniority shall be determined with reference to their dates of appointment as the Chief Justice of the Federal Constitutional Court and the Chief Justice of the Supreme Court otherwise than as Acting Chief Justice and in case the dates of such appointment are the same, with reference to their dates of appointment as Judges of the High Courts.</b></p>
+                <p><b>Explanation II.- If a Judge may not be nominated under paragraph (iiia), one nominee each of the respective Chief Justices shall be placed before the Commission which shall, by the majority of its total membership, nominate a Judge under paragraph (iiia) from amongst the nominees.</b></p>
+                <p><b>Explanation III.- If the Chief Justice of the Supreme Court or a Judge mentioned in paragraph (iii) is to be nominated for appointment as a Judge of the Federal Constitutional Court, the next most senior Judge, as the case may be, shall act as a member of the Commission in his place.</b></p>
+                <p><b>Explanation IV.- If a Judge appointed under paragraph (iiia) is a Judge of the Supreme Court and is to be nominated for appointment as a Judge of the Federal Constitutional Court, another Judge of the Federal Constitutional Court or the Supreme Court shall be nominated under clause (iiia) or Explanation II, as the case may be, to act as a member of the Commission in his place.]</b></p>
+                <p><b>[(3) Notwithstanding anything contained in clause (1), or clause (2), [the Chief Justice of the Federal Constitutional Court and the Chief Justice of the Supreme Court] shall be nominated by the Special Parliamentary Committee, in this Article referred to as the Committee, from amongst the three most senior Judges of [the Federal Constitutional Court or the Supreme Court, as the case may be]. The Committee shall send the name of the nominee to the Prime Minister who shall forward the same to the President for appointment:</b></p>
+                <p><b>Provided that if the nominee under this clause declines to become the Chief Justice, he shall be deemed to have retired and the three next most senior Judges shall be considered and so on till the appointment of the Chief Justice of the Federal Constitutional Court or the Chief Justice of the Supreme Court, as the case may be:</b></p>
+                <p><b>Provided further that notwithstanding anything contained in the Constitution, the President shall, on advice of the Prime Minister, appoint the first Chief Justice of the Federal Constitutional Court from amongst the Judges of the Supreme Court:</b></p>
+                <p><b>Provided also and notwithstanding anything contained in the Constitution, the appointment of the first batch of Judges of the Federal Constitutional Court, shall be made by the President, on advice of the Prime Minister in consultation with the Chief Justice of the Federal Constitutional Court:</b></p>
+                <p><b>Provided also that the second, third and this proviso shall stand omitted on the appointment of the first Chief Justice and the Judges under the above said provisos.]</b></p>
+                <p><b>[(3A) The Committee shall consist of the following twelve members, namely:</b></p>
+                <p><b>(i) eight members from the National Assembly; and</b></p>
+                <p><b>(ii) four members from the Senate:</b></p>
+                <p><b>Provided that when the National Assembly stands dissolved, the total membership of the Committee shall consist of the members from the Senate only mentioned in paragraph (ii) and the provisions of this Article shall, mutatis mutandis, apply.</b></p>
+                <p><b>(3B) The Parliamentary Parties shall have proportional representation on the Committee, based on their strength in Majlis-e-Shoora (Parliament), to be nominated by their respective Parliamentary Leaders. The Chairman and the Speaker of the National Assembly, as the case may be, shall notify members of the Committee.</b></p>
+                <p><b>(3C) The Committee, by the majority of not less than two-thirds of its total membership, within fourteen days prior to the retirement of the Chief Justice of [the Federal Constitutional Court or the Chief Justice of the Supreme Court, as the case may be] shall send the nomination as provided in clause (3).</b></p>
+                <p><b>(3D) No action or decision taken by the Commission or the Committee shall be invalid or called in question only on the ground of existence of a vacancy therein or of the absence of any member from any meeting thereof.</b></p>
+                <p><b>(3E) The meetings of the Committee shall be held in camera and the record of its proceedings shall be maintained.</b></p>
+                <p><b>(3F) The provisions of Article 68 shall not apply to the proceedings of the Committee.</b></p>
+                <p><b>(3G) The Committee may make rules for regulating its procedure.]</b></p>
+                <p><b>[(4) The Commission [shall] make rules regulating its procedure including the procedure and criteria for assessment, [interview,] evaluation and fitness for appointment of Judges.]</b></p>
+                <p><b>(5) For appointment of Judges of a High Court, the Commission in clause (2) shall also include the following, namely:</b></p>
+                <p><b>(i) Chief Justice of the High Court to Member which the appointment is being made;</b></p>
+                <p><b>(ii) [Head of Constitutional Benches of Member that High Court]</b></p>
+                <p><b>(iii) Provincial Minister for Law; and</b></p>
+                <p><b>(iv) an advocate having not less than Member fifteen years practice in the High Court to be nominated by the concerned Bar Council for a term of two years.</b></p>
+                <p><b>[Explanation.- If Head of Constitutional Benches of a High Court is the Chief Justice of that High Court, the Judge who is next in seniority shall become member of the Commission:]</b></p>
+                <p><b>[Provided that for appointment of the Chief Justice of a High Court the Judge mentioned in paragraph (ii), if he is the most senior Judge of a High Court, shall not be member of the Commission:]</b></p>
+                <p><b>Provided further that if for any reason the Chief Justice of a High Court is not available, he shall be substituted by a former Chief Justice or former Judge of that Court, to be nominated by the [Commission] [: ]</b></p>
+                <p><b>[Provided also that if Article 202A has not come into force for a High Court, the most senior Judge of such High Court shall be a member of the Commission under paragraph (ii).]</b></p>
+                <p><b>(6) For appointment of Judges of the Islamabad High Court, the Commission in clause (2) shall also include the following, namely:</b></p>
+                <p><b>(i) Chief Justice of the Islamabad High Court;</b></p>
+                <p><b>(ii) [Head of Constitutional Benches of that High Court] [;]</b></p>
+                <p><b>[(iii) an advocate having not less than fifteen years of practice in the High Court to be nominated by the Islamabad Bar Council for a term of two years; and]</b></p>
+                <p><b>(iv) a Federal Minister nominated by the Prime Minister:</b></p>
+                <p><b>Provided that for initial appointment of the Chief Justice and the Judges of the Islamabad High Court, the Chief Justices of the four Provincial High Courts shall also be members of the Commission:</b></p>
+                <p><b>Provided further that subject to the foregoing proviso, in case of appointment of Chief Justice [and the Judges] of Islamabad High Court, the [Explanation and] provisos to clause (5) shall, mutatis mutandis, apply.</b></p>
+                <p><b>(7) For appointment of Judges of the Federal Shariat Court, the Commission in clause (2) shall also include the Chief Justice of the Federal Shariat Court and the most senior Judge of that Court as its members:</b></p>
+                <p><b>Provided that for appointment of Chief Justice of Federal Shariat Court, the provisos, to clause (5) shall, mutatis mutandis, apply.</b></p>
+                <p><b>[(8) The Commission, by the majority of its total membership, shall nominate one person for each vacancy of a Judge in [the Federal Constitutional Court,] the Supreme Court, a High Court or the Federal Shariat Court, as the case may be, to the Prime Minister who shall forward the same to the President for appointment.]</b></p>
+                <p><b>(11) Secretary, [National Assembly] shall act as the Secretary of the Committee.</b></p>
+                <p><b>[(18) The Commission in clause (2) shall conduct an annual performance evaluation of Judges of the High Courts.</b></p>
+                <p><b>(19) If the performance of a Judge of a High Court is found by the Commission to be inefficient, it shall grant him such period for improvement, as it deems appropriate. If, upon completion of the period so granted, the performance of such Judge is again found to be inefficient, the Commission shall send its report to the Supreme Judicial Council.</b></p>
+                <p><b>[(20) The Commission shall make rules for the purposes of clauses (18) and (19) within sixty days of commencement of the Constitution (Twenty-seventh Amendment) Act, 2025.]</b></p>
+                <p><b>(21) For the purposes of this Article and subject to the rules made by the Commission, there shall be a secretariat of the Commission to be headed by a secretary and shall include such other officers and staff, as may be necessary.</b></p>
+                <p><b>(22) One-third of the members of the Commission may requisition a meeting of the Commission by sending a written request to the Chairperson who shall convene the meeting of the Commission not later than fifteen days from the receipt of such requisition. If the Chairperson fails to convene a meeting within the aforesaid period, the secretary shall convene the meeting within seven days of the expiry of the aforesaid period.</b></p>
+                <p><b>(23) For each anticipated or actual vacancy of a Judge in [the Federal Constitutional Court,] the Supreme Court, the Chief Justice of the Federal Shariat Court, the Chief Justice of a High Court, a Judge in the Federal Shariat Court or a Judge in a High Court, any member of the Commission may give nominations in the Commission for appointment against such vacancy.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175A establishes the Judicial Commission of Pakistan for the appointment of Judges to the Federal Constitutional Court, Supreme Court, High Courts, and the Federal Shariat Court. The 27th Amendment significantly restructured this article to include the Federal Constitutional Court and its Chief Justice in the Commission's composition. The Commission also conducts annual performance evaluation of High Court Judges.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175B — Constitution of Federal Constitutional Court              -->
+        <!-- ======================================================================= -->
+        <div id="article175B" class="article-box">
+            <div class="article-badge">Article 175B</div>
+            <div class="article-subheading">Constitution of Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175B. (1) The Federal Constitutional Court shall consist of a Chief Justice to be known as the Chief Justice of the Federal Constitutional Court of Pakistan hereinafter referred to as the Chief Justice of the Federal Constitutional Court and as many other Judges as may be determined by Act of Majlis-e-Shoora (Parliament) or, until so determined, as may be fixed by the President:</b></p>
+                <p><b>Provided that the Federal Constitutional Court shall have equal number of Judges from each Province and at least one Judge from Islamabad High Court.</b></p>
+                <p><b>Explanation. In no case the number of Judges from the Islamabad High Court shall exceed the numbers of Judges from a Province:</b></p>
+                <p><b>Provided further that nothing contained in the first proviso shall effect the functioning of the Federal Constitutional Court.</b></p>
+                <p><b>(2) The President may, by Order, make necessary provisions for the matters consequential or ancillary to the establishment and functioning of the Federal Constitutional Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175B constitutes the Federal Constitutional Court. It has a Chief Justice and as many other Judges as determined by Parliament or the President. The Court must have equal number of Judges from each Province and at least one Judge from the Islamabad High Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175C — Appointment of FCC Judges                                 -->
+        <!-- ======================================================================= -->
+        <div id="article175C" class="article-box">
+            <div class="article-badge">Article 175C</div>
+            <div class="article-subheading">Appointment of Federal Constitutional Court Judges</div>
+            <div class="article-content">
+                <p><b>[175C. (1) The Chief Justice of the Federal Constitutional Court and each of the other Judges thereof shall be appointed by the President in accordance with Article 175A.</b></p>
+                <p><b>(2) A person shall not be appointed as Judge of the Federal Constitutional Court unless he is a citizen of Pakistan and</b></p>
+                <p><b>(a) is or has been a Judge of the Supreme Court; or</b></p>
+                <p><b>(b) has, for a period of not less than five years, been a Judge of a High Court; or</b></p>
+                <p><b>(c) has, for a period of not less than twenty years, been an advocate of a High Court and is an advocate of the Supreme Court.</b></p>
+                <p><b>(3) The inter se seniority of Judges appointed under this Article shall be reckoned from the date they enter upon the office and in case that date is same then on the basis of their age:</b></p>
+                <p><b>Provided that a Judge of the Supreme Court, who holds the said office on the commencement of the Constitution (Twenty-seventh Amendment) Act, 2025, shall retain his inter se seniority among Judges other than the Chief Justice of the Federal Constitutional Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175C provides for the appointment of Federal Constitutional Court Judges in accordance with Article 175A. A Judge must be a citizen of Pakistan and must have been a Judge of the Supreme Court, a Judge of a High Court for at least five years, or an advocate of a High Court and Supreme Court for at least twenty years.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175D — Oath of Office of FCC Judges                              -->
+        <!-- ======================================================================= -->
+        <div id="article175D" class="article-box">
+            <div class="article-badge">Article 175D</div>
+            <div class="article-subheading">Oath of Office of the Chief Justice and other judges of the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175D. Before entering upon office, the Chief Justice of the Federal Constitutional Court shall make before the President, and any other Judge of the Federal Constitutional Court shall make before the Chief Justice, oath in the form set out in the Third Schedule.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175D requires the Chief Justice of the Federal Constitutional Court to take an oath before the President, and other Judges to take an oath before the Chief Justice, in the form set out in the Third Schedule.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175E — Original jurisdiction of FCC                             -->
+        <!-- ======================================================================= -->
+        <div id="article175E" class="article-box">
+            <div class="article-badge">Article 175E</div>
+            <div class="article-subheading">Original jurisdiction of Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175E. (1) The Federal Constitutional Court shall, to the exclusion of every other court, have original jurisdiction in any dispute between any two or more Governments.</b></p>
+                <p><b>Explanation.- In this clause, "Governments" means the Federal Government and the Provincial Governments.</b></p>
+                <p><b>(2) In the exercise of the jurisdiction conferred on it by clause (1), the Federal Constitutional Court shall pronounce declaratory judgments only.</b></p>
+                <p><b>(3) Without prejudice to the provisions of Article 199, the Federal Constitutional Court shall, if it considers that a question of public importance with reference to the enforcement of any of the Fundamental Rights conferred by Chapter 1 of Part II is involved, have the power to make an order of the nature mentioned in the said Article:</b></p>
+                <p><b>Provided that, subject to the satisfaction of the Federal Constitutional Court, the jurisdiction under this clause shall only be exercised if an application is filed by a person in that Court.</b></p>
+                <p><b>(4) All petitions which fall under this Article and appeals or review applications against judgments rendered or orders passed under this Article, pending or filed before the Supreme Court or its Constitutional Benches, prior to commencement of the Constitution (Twenty-seventh Amendment) Act, 2025, shall forthwith stand transferred to the Federal Constitutional Court and shall only be heard and decided by the Federal Constitutional Court.</b></p>
+                <p><b>(5) The Federal Constitutional Court may, on its own motion or otherwise, if it considers that the case involves a substantial question of law as to the interpretation of the Constitution, call for the record of any case pending before any court and make such order in the case as it thinks fit.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175E grants the Federal Constitutional Court original jurisdiction in disputes between Governments (Federal and Provincial). It also has the power to enforce Fundamental Rights. All pending petitions before the Supreme Court's Constitutional Benches are transferred to the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175F — Appellate jurisdiction of FCC                            -->
+        <!-- ======================================================================= -->
+        <div id="article175F" class="article-box">
+            <div class="article-badge">Article 175F</div>
+            <div class="article-subheading">Appellate jurisdiction of the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175F. (1) The Federal Constitutional Court shall have jurisdiction to hear and determine appeals from judgments, decrees, final orders or sentences of a High Court as provided herein below</b></p>
+                <p><b>(a) where an Act of Majlis-e-Shoora (Parliament) so provides;</b></p>
+                <p><b>(b) if the High Court certifies that the case involves a substantial question of law as to the interpretation of the Constitution; or</b></p>
+                <p><b>(c) from a judgment or an order of a High Court made under Article 199 only if the Federal Constitutional Court grants leave to appeal:</b></p>
+                <p><b>Provided that no appeal shall lie against a judgment or an order of a High Court made under Article 199, in a case which relates to rent and family except guardianship and such other matters as may be determined by law.</b></p>
+                <p><b>(2) All petitions for leave to appeal, appeals or review applications, to which clause (1) apply or any other proceedings falling within the jurisdiction of the Federal Constitutional Court, filed or pending before the Supreme Court prior to commencement of the Constitution (Twenty-seventh Amendment) Act, 2025, stand transferred to the Federal Constitutional Court and shall only be heard and decided by that Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175F gives the Federal Constitutional Court appellate jurisdiction over certain High Court judgments, including cases involving constitutional interpretation. All pending appeals before the Supreme Court are transferred to the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175G — Review of judgments by FCC                               -->
+        <!-- ======================================================================= -->
+        <div id="article175G" class="article-box">
+            <div class="article-badge">Article 175G</div>
+            <div class="article-subheading">Review of judgments or orders by the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175G. The Federal Constitutional Court shall have the power, subject to the provisions of any Act of Majlis-e-Shoora (Parliament) and any rules made by the Federal Constitutional Court, to review any judgment pronounced or any order made by it.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175G gives the Federal Constitutional Court the power to review its own judgments or orders, subject to Act of Parliament and rules made by the Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175H — Advisory jurisdiction of FCC                             -->
+        <!-- ======================================================================= -->
+        <div id="article175H" class="article-box">
+            <div class="article-badge">Article 175H</div>
+            <div class="article-subheading">Advisory jurisdiction</div>
+            <div class="article-content">
+                <p><b>[175H. (1) If, at any time, the President considers that it is desirable to obtain the opinion of the Federal Constitutional Court on any question of law which he considers of public importance, he may refer the question to the Federal Constitutional Court for consideration.</b></p>
+                <p><b>(2) The Federal Constitutional Court shall consider a question so referred and report its opinion on the question to the President.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175H grants the Federal Constitutional Court advisory jurisdiction. The President can refer any question of law of public importance to the Court for its opinion.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175I — Retiring Age of FCC Judges                               -->
+        <!-- ======================================================================= -->
+        <div id="article175I" class="article-box">
+            <div class="article-badge">Article 175I</div>
+            <div class="article-subheading">Retiring Age of the Chief Justice and other judges of the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175I. A Judge of the Federal Constitutional Court shall hold office until he attains the age of sixty-eight years, unless he sooner resigns or is removed from office in accordance with the Constitution:</b></p>
+                <p><b>Provided that the term of office of the Chief Justice of the Federal Constitutional Court shall be three years or unless he sooner resigns or he attains the age of sixty-eight years or is removed from his office in accordance with the Constitution, whichever is earlier:</b></p>
+                <p><b>Provided further that the Chief Justice of the Federal Constitutional Court on completion of his term of three years shall stand retired notwithstanding his age of superannuation.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175I sets the retiring age for Federal Constitutional Court Judges at 68 years. The Chief Justice serves a term of three years, unless he resigns sooner or reaches age 68.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175J — Acting Chief Justice of FCC                              -->
+        <!-- ======================================================================= -->
+        <div id="article175J" class="article-box">
+            <div class="article-badge">Article 175J</div>
+            <div class="article-subheading">Acting Chief Justice of the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175J. At any time when</b></p>
+                <p><b>(a) the office of Chief Justice of the Federal Constitutional Court is vacant; or</b></p>
+                <p><b>(b) the Chief Justice of the Federal Constitutional Court is absent or is unable to perform the functions of his office due to any other cause,</b></p>
+                <p><b>the President shall appoint one of the other Judges of the Federal Constitutional Court to act as its Chief Justice.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175J provides that when the office of Chief Justice of the Federal Constitutional Court is vacant or the Chief Justice is unable to perform his functions, the President shall appoint one of the other Judges to act as Chief Justice.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175K — Acting Judges of FCC                                     -->
+        <!-- ======================================================================= -->
+        <div id="article175K" class="article-box">
+            <div class="article-badge">Article 175K</div>
+            <div class="article-subheading">Acting Judges of the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175K. (1) At any time when</b></p>
+                <p><b>(a) the office of a Judge of the Federal Constitutional Court is vacant; or</b></p>
+                <p><b>(b) a Judge of the Federal Constitutional Court is absent or is unable to perform the functions of his office due to any other cause,</b></p>
+                <p><b>the President may, in the manner provided in clause (1) of Article 175A, appoint a Judge of the Supreme Court or a High Court who is qualified for appointment as a Judge of the Federal Constitutional Court to act temporarily as a Judge of the Federal Constitutional Court.</b></p>
+                <p><b>Explanation. In this clause, Judge of the Supreme Court or a High Court includes a person who has retired as a Judge of the Supreme Court or a High Court.</b></p>
+                <p><b>(2) An appointment under this Article shall continue in force until it is revoked by the President.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175K allows the President to appoint a Judge of the Supreme Court or High Court (including retired Judges) to act temporarily as a Judge of the Federal Constitutional Court when there is a vacancy or a Judge is unable to perform functions.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 175L — Seat of the Federal Constitutional Court                  -->
+        <!-- ======================================================================= -->
+        <div id="article175L" class="article-box">
+            <div class="article-badge">Article 175L</div>
+            <div class="article-subheading">Seat of the Federal Constitutional Court</div>
+            <div class="article-content">
+                <p><b>[175L. (1) The permanent seat of the Federal Constitutional Court shall be at Islamabad.</b></p>
+                <p><b>(2) The Federal Constitutional Court may from time to time sit at such other places as the Chief Justice of the Federal Constitutional Court, with the prior approval of the President, may appoint.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 175L establishes the permanent seat of the Federal Constitutional Court at Islamabad. The Court can sit at other places with the approval of the President.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 176 — Constitution of Supreme Court                             -->
+        <!-- ======================================================================= -->
+        <div id="article176" class="article-box">
+            <div class="article-badge">Article 176</div>
+            <div class="article-subheading">Constitution of Supreme Court</div>
+            <div class="article-content">
+                <p><b>176. The Supreme Court shall consist of a Chief Justice to be known as the Chief Justice [of Supreme Court] of Pakistan and so many other Judges as may be determined by Act of [Majlis-e-Shoora (Parliament)] or, until so determined, as may be fixed by the President [: ]</b></p>
+                <p><b>Provided that and notwithstanding anything contained in the Constitution, the incumbent Chief Justice shall be and continue to be known as the Chief Justice of Pakistan during his term in office.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 176 establishes the Supreme Court of Pakistan. It consists of a Chief Justice and as many other Judges as determined by Parliament or fixed by the President. The 27th Amendment clarified that the Chief Justice shall continue to be known as the Chief Justice of Pakistan during his term.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 177 — Appointment of Supreme Court Judges                       -->
+        <!-- ======================================================================= -->
+        <div id="article177" class="article-box">
+            <div class="article-badge">Article 177</div>
+            <div class="article-subheading">Appointment of Supreme Court Judges</div>
+            <div class="article-content">
+                <p><b>[177. (1) The Chief Justice of [Supreme Court] and each of the other Judges of the Supreme Court shall be appointed by the President in accordance with Article 175A.]</b></p>
+                <p><b>[(2) A person shall not be appointed as Judge of the Supreme Court unless he is a citizen of Pakistan and</b></p>
+                <p><b>(a) has for a period of, or for periods aggregating, not less than five years been a Judge of a High Court; or</b></p>
+                <p><b>(b) has, for a period of not less than fifteen years, been an advocate of a High Court and is an advocate of the Supreme Court.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 177 provides for the appointment of Supreme Court Judges by the President in accordance with Article 175A. A person must be a citizen of Pakistan and have been a Judge of a High Court for at least five years or an advocate of a High Court and Supreme Court for at least fifteen years.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 178 — Oath of Office of Supreme Court Judges                    -->
+        <!-- ======================================================================= -->
+        <div id="article178" class="article-box">
+            <div class="article-badge">Article 178</div>
+            <div class="article-subheading">Oath of Office</div>
+            <div class="article-content">
+                <p><b>178. Before entering upon office, the Chief Justice of [Supreme Court] shall make before the President, and any other Judge of the Supreme Court shall make before the Chief Justice, oath in the form set out in the Third Schedule.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 178 requires the Chief Justice of the Supreme Court to take an oath before the President, and other Judges to take an oath before the Chief Justice, in the form set out in the Third Schedule.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 179 — Retiring age of Supreme Court Judges                      -->
+        <!-- ======================================================================= -->
+        <div id="article179" class="article-box">
+            <div class="article-badge">Article 179</div>
+            <div class="article-subheading">Retiring age</div>
+            <div class="article-content">
+                <p><b>[179. A Judge of the Supreme Court shall hold office until he attains the age of sixty-five years, unless he sooner resigns or is removed from office in accordance with the Constitution]</b></p>
+                <p><b>Provided that the term of the Chief Justice of [Supreme Court] shall be three years or unless he sooner resigns or attains the age of sixty-five years or is removed from his office in accordance with the Constitution, whichever is earlier:</b></p>
+                <p><b>Provided further that the Chief Justice of [Supreme Court] on completion of his term of three years shall stand retired notwithstanding his age of superannuation.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 179 sets the retiring age for Supreme Court Judges at 65 years. The Chief Justice serves a term of three years, unless he resigns sooner or reaches age 65.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 180 — Acting Chief Justice of Supreme Court                     -->
+        <!-- ======================================================================= -->
+        <div id="article180" class="article-box">
+            <div class="article-badge">Article 180</div>
+            <div class="article-subheading">Acting Chief Justice</div>
+            <div class="article-content">
+                <p><b>180. At any time when</b></p>
+                <p><b>(a) the office of Chief Justice of [the Supreme Court] is vacant; or</b></p>
+                <p><b>(b) the Chief Justice of [the Supreme Court] is absent or is unable to perform the functions of his office due to any other cause,</b></p>
+                <p><b>the President shall appoint [one of the other Judges of the Supreme Court] to act as Chief Justice of [the Supreme Court].</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 180 provides that when the office of Chief Justice is vacant or the Chief Justice is unable to perform his functions, the President shall appoint one of the other Judges to act as Chief Justice.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 181 — Acting Judges of Supreme Court                            -->
+        <!-- ======================================================================= -->
+        <div id="article181" class="article-box">
+            <div class="article-badge">Article 181</div>
+            <div class="article-subheading">Acting Judges</div>
+            <div class="article-content">
+                <p><b>181. (1) At any time when—</b></p>
+                <p><b>(a) the office of a Judge of the Supreme Court is vacant; or</b></p>
+                <p><b>(b) a Judge of the Supreme Court is absent or is unable to perform the functions of his office due to any other cause,</b></p>
+                <p><b>the President may, in the manner provided in clause (1) of Article 177, appoint a Judge of a High Court who is qualified for appointment as a Judge of the Supreme Court to act temporarily as a Judge of the Supreme Court.</b></p>
+                <p><b>[Explanation.—In this clause, Judge of a High Court includes a person who has retired as a Judge of a High Court.]</b></p>
+                <p><b>(2) An appointment under this Article shall continue in force until it is revoked by the President.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 181 allows the President to appoint a Judge of a High Court (including retired Judges) to act temporarily as a Judge of the Supreme Court when there is a vacancy or a Judge is unable to perform functions.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 182 — Appointment of ad-hoc Judges                              -->
+        <!-- ======================================================================= -->
+        <div id="article182" class="article-box">
+            <div class="article-badge">Article 182</div>
+            <div class="article-subheading">Appointment of ad-hoc Judges</div>
+            <div class="article-content">
+                <p><b>182. If at any time it is not possible for want of quorum of Judges of the Supreme Court to hold or continue any sitting of the Court, or for any other reason it is necessary to increase temporarily the number of Judges of the Supreme Court, the Chief Justice of [Supreme Court] [in consultation with the Judicial Commission as provided in clause (2) of the Article 175A,] may, in writing,</b></p>
+                <p><b>(a) with the approval of the President, request any person who has held the office of a Judge of that Court and since whose ceasing to hold that office three years have not elapsed; or</b></p>
+                <p><b>(b) with the approval of the President and with the consent of the Chief Justice of a High Court, require a Judge of that Court qualified for appointment as a judge of the Supreme Court,</b></p>
+                <p><b>to attend sittings of the Supreme Court as an ad-hoc Judge for such period as may be necessary and while so attending an ad-hoc Judge shall have the same power and jurisdiction as a Judge of the Supreme Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 182 allows the Chief Justice of the Supreme Court to appoint ad-hoc Judges when necessary for quorum or to increase the number of Judges temporarily. This is done in consultation with the Judicial Commission.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 183 — Seat of the Supreme Court                                 -->
+        <!-- ======================================================================= -->
+        <div id="article183" class="article-box">
+            <div class="article-badge">Article 183</div>
+            <div class="article-subheading">Seat of the Supreme Court</div>
+            <div class="article-content">
+                <p><b>183. (1) The permanent seat of the Supreme Court shall, subject to clause (3), be at Islamabad.</b></p>
+                <p><b>(2) The Supreme Court may from time to time sit in such other places as the Chief Justice of [Supreme Court], with the approval of the President, may appoint.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 183 establishes the permanent seat of the Supreme Court at Islamabad. The Court can sit at other places with the approval of the President.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 184 — OMITTED (Original Jurisdiction)                           -->
+        <!-- ======================================================================= -->
+        <div id="article184" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 184</div>
+            <div class="article-subheading">[Original Jurisdiction of Supreme Court]</div>
+            <div class="article-content">
+                <p><b>184. [Omitted by the Constitution (Twenty-Seventh Amdt.) Act, 2025 (32 of 2025), s.29.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 184, which previously dealt with the Original Jurisdiction of the Supreme Court, was omitted by the 27th Amendment. This jurisdiction was transferred to the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 185 — Appellate jurisdiction of Supreme Court                   -->
+        <!-- ======================================================================= -->
+        <div id="article185" class="article-box">
+            <div class="article-badge">Article 185</div>
+            <div class="article-subheading">Appellate jurisdiction of the Supreme Court</div>
+            <div class="article-content">
+                <p><b>[185. (1) Subject to this Article and Article 175F, the Supreme Court shall have jurisdiction to hear and determine appeals from judgments, decrees, final orders or sentences of a High Court.</b></p>
+                <p><b>(2) An appeal shall lie to the Supreme Court from any judgment, decree, final order or sentence of a High Court</b></p>
+                <p><b>(a) if the High Court has on appeal reversed an order of acquittal of an accused person and sentenced him to death or to transportation for life or imprisonment for life; or, on revision, has enhanced a sentence to a sentence as aforesaid; or</b></p>
+                <p><b>(b) if the High Court has withdrawn for trial before itself any case from any court subordinate to it and has in such trial convicted the accused person and sentenced him as aforesaid; or</b></p>
+                <p><b>(c) if the High Court has imposed any punishment on any person for contempt of the High Court; or</b></p>
+                <p><b>(d) if the amount or value of the subject-matter of the dispute in the court of first instance was, and also in dispute in appeal is, not less than one million rupees or such other sum as may be specified in that behalf by Act of Majlis-e-Shoora (Parliament) and the judgment, decree or final order appealed from has varied or set aside the judgment, decree or final order of the court or tribunal immediately below; or</b></p>
+                <p><b>(e) if the judgment, decree or final order involves directly or indirectly some claim or question respecting property of the like amount or value and the judgment, decree or final order appealed from has varied or set aside the judgment, decree or final order of the court or tribunal immediately below.</b></p>
+                <p><b>(3) An appeal to the Supreme Court, from a judgment, decree, order or sentence of a High Court in case to which clause (2) does not apply shall lie only if the Supreme Court grants leave to appeal:</b></p>
+                <p><b>Provided that no appeal shall lie to the Supreme Court in cases to which clause (1) of Article 175F applies.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 185 defines the appellate jurisdiction of the Supreme Court. Appeals lie from High Court judgments in certain cases (reversal of acquittal, contempt, etc.) and in cases involving substantial amounts. In other cases, leave to appeal is required. No appeal lies to the Supreme Court in cases falling under the Federal Constitutional Court's appellate jurisdiction.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 186 — OMITTED (Advisory Jurisdiction)                           -->
+        <!-- ======================================================================= -->
+        <div id="article186" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 186</div>
+            <div class="article-subheading">[Advisory Jurisdiction]</div>
+            <div class="article-content">
+                <p><b>186. [Omitted by the Constitution (Twenty-Seventh Amdt.) Act, 2025 (32 of 2025), s.31.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 186, which previously dealt with the Advisory Jurisdiction of the Supreme Court, was omitted by the 27th Amendment. This jurisdiction was transferred to the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 186A — OMITTED (Power to transfer cases)                        -->
+        <!-- ======================================================================= -->
+        <div id="article186A" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 186A</div>
+            <div class="article-subheading">[Power of Supreme Court to transfer cases]</div>
+            <div class="article-content">
+                <p><b>186A. [Omitted by the Constitution (Twenty-Seventh Amdt.) Act, 2025 (32 of 2025), s.32, which was previously ins. by various enactments.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 186A, which previously dealt with the power of the Supreme Court to transfer cases, was omitted by the 27th Amendment.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 187 — Issue and execution of processes                          -->
+        <!-- ======================================================================= -->
+        <div id="article187" class="article-box">
+            <div class="article-badge">Article 187</div>
+            <div class="article-subheading">Issue and execution of processes of [Federal Constitutional Court and] Supreme Court</div>
+            <div class="article-content">
+                <p><b>187. (1) [Subject to clause (2) of Article 175, [the Federal Constitutional Court and] the Supreme Court shall have power to issue such directions, orders or decrees as may be necessary for doing complete justice in any case or matter pending before it, including an order for the purpose of securing the attendance of any person or the discovery or production of any document [: ]</b></p>
+                <p><b>[Provided that no order under this clause shall be passed otherwise than in pursuance of any jurisdiction vested in and exercised by [the Federal Constitutional Court and] the Supreme Court.]</b></p>
+                <p><b>(2) Any such direction, order or decree shall be enforceable throughout Pakistan and shall, where it is to be executed in a Province, or a territory or an area not forming part of a Province but within the jurisdiction of the High Court of the Province, be executed as if it had been issued by the High Court of that Province.</b></p>
+                <p><b>(3) If a question arises as to which High Court shall give effect to a direction, order or decree of the Supreme Court, the decision of the Supreme Court on the question shall be final.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 187 gives the Supreme Court and the Federal Constitutional Court the power to issue directions, orders, or decrees for doing complete justice in any case before them. Any such direction, order, or decree is enforceable throughout Pakistan.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 188 — Review of judgments by Supreme Court                      -->
+        <!-- ======================================================================= -->
+        <div id="article188" class="article-box">
+            <div class="article-badge">Article 188</div>
+            <div class="article-subheading">Review of judgments or orders by the Supreme Court</div>
+            <div class="article-content">
+                <p><b>188. The Supreme Court shall have power, subject to the provisions of any Act of [Majlis-e-Shoora (Parliament)] and of any rules made by the Supreme Court, to review any judgment pronounced or any order made by it.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 188 gives the Supreme Court the power to review its own judgments or orders, subject to Act of Parliament and rules made by the Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 189 — Binding nature of decisions                               -->
+        <!-- ======================================================================= -->
+        <div id="article189" class="article-box">
+            <div class="article-badge">Article 189</div>
+            <div class="article-subheading">Decisions of Federal Constitutional Court and Supreme Court binding on other Courts</div>
+            <div class="article-content">
+                <p><b>[189. (1) Any decision of the Federal Constitutional Court shall, to the extent that it decides a question of law or is based upon or enunciates a principle of law, be binding on all other courts in Pakistan including the Supreme Court.</b></p>
+                <p><b>(2) Any decision of the Supreme Court shall, to the extent that it decides a question of law or is based upon or enunciates a principle of law, be binding on all other courts in Pakistan except the Federal Constitutional Court.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 189 establishes the binding nature of decisions of the Federal Constitutional Court and the Supreme Court. Decisions of the Federal Constitutional Court are binding on all other courts, including the Supreme Court. Decisions of the Supreme Court are binding on all other courts except the Federal Constitutional Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 190 — Action in aid of courts                                   -->
+        <!-- ======================================================================= -->
+        <div id="article190" class="article-box">
+            <div class="article-badge">Article 190</div>
+            <div class="article-subheading">Action in aid of [Federal Constitutional Court and] Supreme Court</div>
+            <div class="article-content">
+                <p><b>190. All executive and judicial authorities throughout Pakistan shall act in aid of [the Federal Constitutional Court and] the Supreme Court.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 190 requires all executive and judicial authorities throughout Pakistan to act in aid of the Federal Constitutional Court and the Supreme Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 191 — Rules of procedure                                        -->
+        <!-- ======================================================================= -->
+        <div id="article191" class="article-box">
+            <div class="article-badge">Article 191</div>
+            <div class="article-subheading">Rules of procedure</div>
+            <div class="article-content">
+                <p><b>[191. Subject to the Constitution and any Act of Majlis-e-Shoora (Parliament), the Federal Constitutional Court and the Supreme Court may make rules regulating their respective practice and procedure.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 191 allows the Federal Constitutional Court and the Supreme Court to make rules regulating their practice and procedure, subject to the Constitution and Act of Parliament.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 191A — OMITTED (Constitutional Benches)                         -->
+        <!-- ======================================================================= -->
+        <div id="article191A" class="article-box">
+            <div class="article-badge" style="background: #ff4444;">Article 191A</div>
+            <div class="article-subheading">[Constitutional Benches of the Supreme Court]</div>
+            <div class="article-content">
+                <p><b>191A. [Omitted by the Constitution (Twenty-Seventh Amdt.) Act, 2025 (32 of 2025), s.37.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 191A, which previously dealt with Constitutional Benches of the Supreme Court, was omitted by the 27th Amendment.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 192 — Constitution of High Court                                -->
+        <!-- ======================================================================= -->
+        <div id="article192" class="article-box">
+            <div class="article-badge">Article 192</div>
+            <div class="article-subheading">Constitution of High Court</div>
+            <div class="article-content">
+                <p><b>192. (1) A High Court shall consist of a Chief Justice and so many other Judges as may be determined by law or, until so determined, as may be fixed by the President.</b></p>
+                <p><b>[(2) The Sindh and Balochistan High Court shall cease to function as a common High Court for the Provinces of Balochistan and Sindh.]</b></p>
+                <p><b>[(3) The President shall, by Order, establish a High Court for each of the Provinces of Balochistan and Sindh and may make such provision in the Order for the principal seats of the two High Courts, transfer of the Judges of the common High Court, transfer of cases pending in the common High Court immediately before the establishment of two High Courts and, generally, for matters consequential or ancillary to the common High Court ceasing to function and the establishment of the two High Courts as he may deem fit.]</b></p>
+                <p><b>[(4) The jurisdiction of a High Court may, by Act of [Majlis-e-Shoora (Parliament)], be extended to any area in Pakistan not forming part of a Province.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 192 establishes that a High Court consists of a Chief Justice and so many other Judges as determined by law. The Sindh and Balochistan High Court ceased to function as a common High Court, and separate High Courts were established for each Province. The jurisdiction of a High Court can be extended to any area not forming part of a Province by Act of Parliament.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 193 — Appointment of High Court Judges                          -->
+        <!-- ======================================================================= -->
+        <div id="article193" class="article-box">
+            <div class="article-badge">Article 193</div>
+            <div class="article-subheading">Appointment of High Court Judges</div>
+            <div class="article-content">
+                <p><b>[193. (1) The Chief Justice and each of other Judges of a High Court shall be appointed by the President in accordance with Article 175A.]</b></p>
+                <p><b>[(2) A person shall not be appointed as a Judge of a High Court unless he is a citizen of Pakistan, is not less than forty years of age, and</b></p>
+                <p><b>(a) he has, for a period of not less than ten years, been an advocate of a High Court; or</b></p>
+                <p><b>(b) he has, for a period of not less than ten years, held a judicial office in Pakistan.</b></p>
+                <p><b>Explanation.- In computing the period during which a person has been an advocate of a High Court or has held judicial office, there shall be included any period during which he has held judicial office after he became an advocate or, as the case may be, the period during which he has been an advocate after having held judicial office.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 193 provides for the appointment of High Court Judges by the President in accordance with Article 175A. A person must be a citizen of Pakistan, at least 40 years old, and have been an advocate of a High Court for at least ten years or held judicial office for at least ten years.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 194 — Oath of Office of High Court Judges                       -->
+        <!-- ======================================================================= -->
+        <div id="article194" class="article-box">
+            <div class="article-badge">Article 194</div>
+            <div class="article-subheading">Oath of Office</div>
+            <div class="article-content">
+                <p><b>194. Before entering upon office, the Chief Justice of a High Court shall make before the Governor, and any other Judge of the Court shall make before the Chief Justice, oath in the form set out in the Third Schedule</b></p>
+                <p><b>Provided that the Chief Justice of the Islamabad High Court shall make oath before the President and other Judges of that Court shall make oath before the Chief Justice of the Islamabad High Court.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 194 requires the Chief Justice of a High Court to take an oath before the Governor, and other Judges to take an oath before the Chief Justice, in the form set out in the Third Schedule. For the Islamabad High Court, the Chief Justice takes oath before the President.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 195 — Retiring age of High Court Judges                         -->
+        <!-- ======================================================================= -->
+        <div id="article195" class="article-box">
+            <div class="article-badge">Article 195</div>
+            <div class="article-subheading">Retiring age</div>
+            <div class="article-content">
+                <p><b>[195. A Judge of a High Court shall hold office until he attains the age of sixty-two years, unless he sooner resigns or is removed from office in accordance with the Constitution.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 195 sets the retiring age for High Court Judges at 62 years.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 196 — Acting Chief Justice of High Court                        -->
+        <!-- ======================================================================= -->
+        <div id="article196" class="article-box">
+            <div class="article-badge">Article 196</div>
+            <div class="article-subheading">Acting Chief Justice</div>
+            <div class="article-content">
+                <p><b>196. At any time when</b></p>
+                <p><b>(a) the office of Chief Justice of a High Court is vacant, or</b></p>
+                <p><b>(b) the Chief Justice of a High Court is absent or is unable to perform the functions of his office due to any other cause,</b></p>
+                <p><b>the President shall appoint [one of the other Judges of the High Court, or may request one of the Judges of the Supreme Court], to act as Chief Justice.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 196 provides that when the office of Chief Justice of a High Court is vacant or the Chief Justice is unable to perform his functions, the President shall appoint one of the other Judges of the High Court or may request one of the Judges of the Supreme Court to act as Chief Justice.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 197 — Additional Judges                                         -->
+        <!-- ======================================================================= -->
+        <div id="article197" class="article-box">
+            <div class="article-badge">Article 197</div>
+            <div class="article-subheading">Additional Judges</div>
+            <div class="article-content">
+                <p><b>197. At any time when</b></p>
+                <p><b>(a) the office of a High Court is vacant; or</b></p>
+                <p><b>(b) a Judge of a High Court is absent or is unable to perform the functions of his office due to any other cause; or</b></p>
+                <p><b>(c) for any reason it is necessary to increase the number of Judges of a High Court,</b></p>
+                <p><b>the President may, in the manner provided in clause (1) of Article 193, appoint a person qualified for appointment as a Judge of the High Court to be Additional Judge of the Court for such period as the President may determine, being a period not exceeding such period, if any, as may be prescribed by law.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 197 allows the President to appoint Additional Judges of a High Court when there is a vacancy, a Judge is absent, or it is necessary to increase the number of Judges.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 198 — Seat of the High Court                                    -->
+        <!-- ======================================================================= -->
+        <div id="article198" class="article-box">
+            <div class="article-badge">Article 198</div>
+            <div class="article-subheading">Seat of the High Court</div>
+            <div class="article-content">
+                <p><b>198. [(1) Each High Court in existence immediately before the commencing day shall continue to have its principal seat at the place where it had such seat before that day.]</b></p>
+                <p><b>[(1A) The High Court for Islamabad Capital Territory shall have its principal seat at Islamabad.]</b></p>
+                <p><b>[(2) Each High Court and the Judges and divisional courts thereof shall sit at its principal seat and the seats of its Benches and may hold, at any place within its territorial jurisdiction, circuit courts consisting of such of the Judges as may be nominated by the Chief Justice.]</b></p>
+                <p><b>(3) The Lahore High Court shall have a Bench each at Bahawalpur, Multan and Rawalpindi; the High Court of Sindh shall have a Bench at Sukkur; the Peshawar High Court shall have a Bench each at Abbottabad, Mingora and Dera Ismail Khan and the High Court of Balochistan shall have a Bench at Sibi [and Turbat.]</b></p>
+                <p><b>(4) Each of the High Courts may have Benches at such other places as the Governor may determine on the advice of the Cabinet and in consultation with the Chief Justice of the High Court.</b></p>
+                <p><b>(5) A Bench referred to in clause (3), or established under clause (4), shall consist of such of the Judges of the High Court as may be nominated by the Chief Justice from time to time for a period of not less than one year.</b></p>
+                <p><b>(6) The Governor in consultation with the Chief Justice of the High Court shall make rules to provide the following matters, that is to say,</b></p>
+                <p><b>(a) assigning the area in relation to which each Bench shall exercise jurisdiction vested in the High Court; and</b></p>
+                <p><b>(b) for all incidental, supplemental or consequential matters.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 198 establishes the seats and Benches of High Courts. Each High Court has its principal seat at a specified location. The Lahore High Court has Benches at Bahawalpur, Multan, and Rawalpindi; the High Court of Sindh has a Bench at Sukkur; the Peshawar High Court has Benches at Abbottabad, Mingora, and Dera Ismail Khan; and the High Court of Balochistan has Benches at Sibi and Turbat.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 199 — Jurisdiction of High Court                                -->
+        <!-- ======================================================================= -->
+        <div id="article199" class="article-box">
+            <div class="article-badge">Article 199</div>
+            <div class="article-subheading">Jurisdiction of High Court</div>
+            <div class="article-content">
+                <p><b>199. (1) Subject to the Constitution, a High Court may, if it is satisfied that no other adequate remedy is provided by law,</b></p>
+                <p><b>(a) on the application of any aggrieved party, make an order</b></p>
+                <p><b>(i) directing a person performing, within the territorial jurisdiction of the Court, functions in connection with the affairs of the Federation, a Province or a local authority, to refrain from doing anything he is not permitted by law to do, or to do anything he is required by law to do; or</b></p>
+                <p><b>(ii) declaring that any act done or proceeding taken within the territorial jurisdiction of the Court by a person performing functions in connection with the affairs of the Federation, a Province or a local authority has been done or taken without lawful authority and is of no legal effect; or</b></p>
+                <p><b>(b) on the application of any person, make an order—</b></p>
+                <p><b>(i) directing that a person in custody within the territorial jurisdiction of the Court be brought before it so that the Court may satisfy itself that he is not being held in custody without lawful authority or in an unlawful manner; or</b></p>
+                <p><b>(ii) requiring a person within the territorial jurisdiction of the Court holding or purporting to hold a public office to show under what authority of law he claims to hold that office; or</b></p>
+                <p><b>(c) on the application of any aggrieved person, make an order giving such directions to any person or authority, including any Government exercising any power or performing any function in, or in relation to, any territory within the jurisdiction of that Court as may be appropriate for the enforcement of any of the Fundamental Rights conferred by Chapter 1 of Part II.</b></p>
+                <p><b>[(1A) For removal of doubt, the High Court shall not make an order or give direction or make a declaration on its own or in the nature of suo motu exercise of jurisdiction beyond the contents of any application filed under clause (1).]</b></p>
+                <p><b>(2) Subject to the Constitution, the right to move a High Court for the enforcement of any of the Fundamental Rights conferred by Chapter 1 of Part II shall not be abridged.</b></p>
+                <p><b>[(3) An order shall not be made under clause (1) on application made by or in relation to a person who is a member of the Armed Forces of Pakistan, or who is for the time being subject to any law relating to any of those Forces, in respect of his terms and conditions of service, in respect of any matter arising out of his service, or in respect of any action taken in relation to him as a member of the Armed Forces of Pakistan or as a person subject to such law.]</b></p>
+                <p><b>(4) Where</b></p>
+                <p><b>(a) an application is made to a High Court for an order under paragraph (a) or paragraph (c) of clause (1), and</b></p>
+                <p><b>(b) the making of an interim order would have the effect of prejudicing or interfering with the carrying out of a public work or of otherwise being harmful to public interest [or State property] or of impeding the assessment or collection of public revenues,</b></p>
+                <p><b>the Court shall not make an interim order unless the prescribed law officer has been given notice of the application and he or any person authorized by him in that behalf has had an opportunity of being heard and the Court, for reasons to be recorded in writing, is satisfied that the interim order</b></p>
+                <p><b>(i) would not have such affect as aforesaid; or</b></p>
+                <p><b>(ii) would have the effect of suspending an order or proceeding which on the face of the record is without jurisdiction.</b></p>
+                <p><b>[(4A) An interim order made by a High Court on an application made to it to question the validity or legal effect of any order made, proceeding taken or act done by any authority or person, which has been made, taken or done or purports to have been made, taken or done under any law which is specified in Part I of the First Schedule or relates to, or is connected with, State property or assessment or collection of public revenues shall cease to have effect on the expiration of a period of six months following the day on which it is made:</b></p>
+                <p><b>Provided that, for reasons to be recorded, an interim order may be extended only for a period upto six months.]]</b></p>
+                <p><b>[(4B) Every case in which, on an application under clause (1), the High Court has made an interim order shall be disposed of by the High Court on merits within six months from the day on which it is made, unless the High Court is prevented from doing so for sufficient cause to be recorded.]</b></p>
+                <p><b>In this Article, unless the context otherwise requires,</b></p>
+                <p><b>"person" includes any body politic or corporate, any authority of or under the control of the Federal Government or of a Provincial Government, and any Court or tribunal, other than the [Federal Constitutional Court or the] Supreme Court, a High Court or a Court or tribunal established under a law relating to the Armed Forces of Pakistan; and</b></p>
+                <p><b>"prescribed law officer" means</b></p>
+                <p><b>(a) in relation to an application affecting the Federal Government or an authority of or under the control of the Federal Government, the Attorney-General, and</b></p>
+                <p><b>(b) in any other case, the Advocate-General for the Province in which the application is made.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 199 defines the jurisdiction of High Courts. High Courts can issue writs for the enforcement of Fundamental Rights and for other legal purposes. They can direct public authorities to refrain from doing anything they are not permitted to do, or to do anything they are required to do. The 27th Amendment added "Federal Constitutional Court" and limited suo motu exercise of jurisdiction.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 200 — Transfer of High Court Judges                             -->
+        <!-- ======================================================================= -->
+        <div id="article200" class="article-box">
+            <div class="article-badge">Article 200</div>
+            <div class="article-subheading">Transfer of High Court Judges</div>
+            <div class="article-content">
+                <p><b>200. (1) The President may transfer a Judge of a High Court from one High Court to another High Court on the recommendation of and on such terms and conditions as may be determined by the Judicial Commission of Pakistan as mentioned in clause (2) of Article 175A:</b></p>
+                <p><b>Provided that the Chief Justices of both High Courts shall also be members of the Judicial Commission of Pakistan for the purposes of this clause:</b></p>
+                <p><b>Provided further that the Judicial Commission of Pakistan before making recommendation under this clause may hear the Judge.</b></p>
+                <p><b>Explanation. In this Article, Judge does not include a Chief Justice but includes a Judge for the time being acting as Chief Justice of a High Court other than a Judge of the Supreme Court acting as such in pursuance of a request made under paragraph (b) of Article 196.</b></p>
+                <p><b>(2) The seniority of a Judge of a High Court transferred under clause (1) shall be reckoned from the date of his initial appointment as a Judge of the High Court:</b></p>
+                <p><b>Provided that no Judge shall be transferred to a High Court where on transfer he becomes senior to the Chief Justice of such High Court.</b></p>
+                <p><b>(3) Where a Judge is so transferred, he shall be entitled to such additional allowances and privileges, in addition to his salary and allowances, as the President may, by Order, determine.</b></p>
+                <p><b>(4) A Judge of a High Court who does not accept a transfer under this Article shall be proceeded against under Article 209 within a period of thirty days. Such Judge shall not perform his functions till such time the Council under Article 209 renders its decision.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 200 allows the President to transfer a Judge from one High Court to another on the recommendation of the Judicial Commission. The Chief Justices of both High Courts are members of the Commission for this purpose. Seniority is reckoned from the date of initial appointment. A Judge who does not accept a transfer is proceeded against under Article 209.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 201 — Decision of High Court binding on subordinate courts      -->
+        <!-- ======================================================================= -->
+        <div id="article201" class="article-box">
+            <div class="article-badge">Article 201</div>
+            <div class="article-subheading">Decision of High Court binding on subordinate courts</div>
+            <div class="article-content">
+                <p><b>201. Subject to Article 189, any decision of a High Court shall, to the extent that it decides a question of law or is based upon or enunciates a principle of law, be binding on all courts subordinate to it.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 201 provides that decisions of a High Court are binding on all courts subordinate to it, subject to the decisions of the Federal Constitutional Court and the Supreme Court.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 202 — Rules of procedure                                        -->
+        <!-- ======================================================================= -->
+        <div id="article202" class="article-box">
+            <div class="article-badge">Article 202</div>
+            <div class="article-subheading">Rules of procedure</div>
+            <div class="article-content">
+                <p><b>202. Subject to the Constitution and law, a High Court may make rules regulating the practice and procedure of the Court or of any court subordinate to it.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 202 allows a High Court to make rules regulating its practice and procedure, as well as the practice and procedure of courts subordinate to it, subject to the Constitution and law.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 202A — Constitutional Benches of High Courts                    -->
+        <!-- ======================================================================= -->
+        <div id="article202A" class="article-box">
+            <div class="article-badge">Article 202A</div>
+            <div class="article-subheading">Constitutional Benches of High Courts</div>
+            <div class="article-content">
+                <p><b>202A. (1) There shall be Constitutional Benches of a High Court comprising such Judges of a High Court and for such term as may be nominated and determined by the Judicial Commission of Pakistan as constituted under clause (5) of Article 175A, from time to time.</b></p>
+                <p><b>(2) The most senior Judge amongst Judges nominated under clause (1) shall be the Head of the Constitutional Benches.</b></p>
+                <p><b>[(3) No Bench of a High Court other than a Constitutional Bench shall exercise jurisdiction vested in the High Court under Article 199.]</b></p>
+                <p><b>(4) For the purposes of clause (1), a Bench, to be nominated by a committee comprising the Head of the Constitutional Benches and next two most senior Judges from amongst the Judges nominated under clause (1), shall hear and dispose of such matters.</b></p>
+                <p><b>(5) All petitions under sub-paragraph (i) of paragraph (a) and paragraph (c) of clause (1) of Article 199 or appeals therefrom, pending or filed in a High Court prior to commencement of the Constitution (Twenty-sixth Amendment) Act, 2024 (XXVI of 2024), subject to clause (7), forthwith stand transferred to the Constitutional Benches and shall only be heard and decided by Benches constituted under clause (4).</b></p>
+                <p><b>(6) Notwithstanding anything contained in the Constitution but subject to an Act of Majlis-e-Shoora (Parliament) in respect of the Islamabad High Court and an Act of Provincial Assembly in respect of other respective High Courts, a High Court may make rules regulating the practice and procedure of the Constitutional Benches.</b></p>
+                <p><b>(7) This Article shall come into force, if in respect of</b></p>
+                <p><b>(a) the Islamabad High Court, both Houses of Majlis-e-Shoora (Parliament) in the joint sitting; and</b></p>
+                <p><b>(b) a High Court, the respective Provincial Assembly, through a resolution passed by majority of the total membership of the joint sitting or the respective Provincial Assembly, as the case may be, give effect to the provisions of this Article.]</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 202A provides for Constitutional Benches of High Courts. These Benches are nominated by the Judicial Commission. Only Constitutional Benches can exercise jurisdiction under Article 199. This article comes into force through resolutions by Parliament or Provincial Assemblies.</p>
+            </div>
+        </div>
+
+        <!-- ======================================================================= -->
+        <!-- ARTICLE 203 — High Court to superintend subordinate courts              -->
+        <!-- ======================================================================= -->
+        <div id="article203" class="article-box">
+            <div class="article-badge">Article 203</div>
+            <div class="article-subheading">High Court to superintend subordinate courts</div>
+            <div class="article-content">
+                <p><b>203. Each High Court shall supervise and control all courts subordinate to it.</b></p>
+            </div>
+            <div class="explanation-box">
+                <h4>📖 Explanation:</h4>
+                <p>Article 203 requires each High Court to supervise and control all courts subordinate to it.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prevBtn" class="nav-btn" onclick="changeArticle(-1)">◀ Previous</button>
+            <button id="nextBtn" class="nav-btn" onclick="changeArticle(1)">Next ▶</button>
+        </div>
+        <a href="index.html" class="back-main-btn">🏠 Go Back to Main Page</a>
+    </div>
+</div>
+
+<script>
+    function startReading() {
+        document.getElementById('disclaimerPage').style.display = 'none';
+        document.getElementById('articlesPage').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Complete article sequence for Part 8 (175 to 203)
+    const articleSequence = [
+        '175', '175A', '175B', '175C', '175D', '175E', '175F', '175G', '175H', '175I', '175J', '175K', '175L',
+        '176', '177', '178', '179', '180', '181', '182', '183',
+        '184', '185', '186', '186A', '187', '188', '189', '190',
+        '191', '191A', '192', '193', '194', '195', '196', '197',
+        '198', '199', '200', '201', '202', '202A', '203'
+    ];
+    let currentIndex = 0;
+    const totalArticles = articleSequence.length;
+
+    function changeArticle(direction) {
+        document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+        currentIndex += direction;
+        document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+        document.getElementById('prevBtn').disabled = (currentIndex === 0);
+        document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+        document.getElementById('searchResult').innerHTML = '';
+    }
+
+    function searchArticle() {
+        let input = document.getElementById('articleInput').value.trim();
+        let resultDiv = document.getElementById('searchResult');
+
+        if (input === '') {
+            resultDiv.innerHTML = '⚠️ Please enter an article number (175, 175A-175L, 176-203, 186A, 191A, 202A).';
+            return;
+        }
+
+        let num = input.toUpperCase();
+        let targetId = null;
+
+        // Check for exact matches
+        const validArticles = [
+            '175', '175A', '175B', '175C', '175D', '175E', '175F', '175G', '175H', '175I', '175J', '175K', '175L',
+            '176', '177', '178', '179', '180', '181', '182', '183',
+            '184', '185', '186', '186A', '187', '188', '189', '190',
+            '191', '191A', '192', '193', '194', '195', '196', '197',
+            '198', '199', '200', '201', '202', '202A', '203'
+        ];
+
+        if (validArticles.includes(num)) {
+            targetId = num;
+        } else {
+            // Check for numeric range
+            let intNum = parseInt(num);
+            if (!isNaN(intNum) && intNum >= 175 && intNum <= 203) {
+                targetId = String(intNum);
+            }
+        }
+
+        if (targetId === null) {
+            resultDiv.innerHTML = '❌ Invalid! This chapter contains Articles 175, 175A-175L, and 176-203.';
+            return;
+        }
+
+        let targetIndex = articleSequence.indexOf(targetId);
+        
+        if (targetIndex !== -1) {
+            document.getElementById('article' + articleSequence[currentIndex]).classList.remove('active');
+            currentIndex = targetIndex;
+            document.getElementById('article' + articleSequence[currentIndex]).classList.add('active');
+            document.getElementById('prevBtn').disabled = (currentIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentIndex === totalArticles - 1);
+
+            let element = document.getElementById('article' + targetId);
+            element.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.innerHTML = `✅ Jumped to Article ${targetId}`;
+            element.style.border = "3px solid #ffeb3b";
+            setTimeout(() => { element.style.border = "1px solid #4a3a6a"; }, 2500);
+        }
+    }
+
+    document.getElementById('articleInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') searchArticle();
+    });
+</script>
+</body>
+</html>
