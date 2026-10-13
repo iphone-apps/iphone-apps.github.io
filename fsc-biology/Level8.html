@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Biology Part-2 (Level-3 - Medium) MCQs Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; margin: 15px 0 20px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 15px; font-size: 24px; }
+        .instructions-box p { margin: 10px 0; font-size: 17px; }
+        .instructions-box b { color: #bb86fc; }
+        .startBtn,.restartBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 22px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; margin-bottom: 60px; transition: 0.3s; }
+        .startBtn:hover,.restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.4); padding: 12px 15px; border-radius: 12px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .timer { font-size: 20px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 20px; font-weight: bold; background: #7f00ff; padding: 5px 15px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0, 0, 0, 0.3); padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; font-weight: bold; gap: 15px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 15px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0, 0, 0, 0.3); padding: 3px 12px; border-radius: 20px; font-size: 16px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 18px; margin-bottom: 15px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 8px 0; padding: 14px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; background: rgba(0, 0, 0, 0.4); border-radius: 10px; overflow: hidden; font-size: 14px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 12px; font-size: 15px; }
+        td { padding: 10px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 70px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 12px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 12px; } .score-bar { font-size: 12px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧬 FSc Biology Part-2</h1>
+        <h2>Level-3 (Medium) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <p style="color: #FFD700; font-weight: bold; font-size: 16px; margin-top: 10px;">💡 Note: (Save for Later) option is available if you want to solve that question at the end</p>
+            <p style="color: #00FF00; font-weight: bold; margin-top: 5px;">📖 Complete review with correct answers at the end.</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    const mcqs = [
+        { id: 1, q: "Which type of reproduction involves a single parent?", a: shuffleArray(["Asexual", "Sexual", "Budding", "Fragmentation"]), correct: 0 },
+        { id: 2, q: "In asexual reproduction, offspring are genetically identical to the parent. This is called?", a: shuffleArray(["Clone", "Hybrid", "Mutant", "Zygote"]), correct: 0 },
+        { id: 3, q: "The male gonads are called?", a: shuffleArray(["Testes", "Ovaries", "Pituitary", "Adrenal"]), correct: 0 },
+        { id: 4, q: "The female gonads are called?", a: shuffleArray(["Ovaries", "Testes", "Pituitary", "Thyroid"]), correct: 0 },
+        { id: 5, q: "Spermatogenesis occurs in the?", a: shuffleArray(["Seminiferous tubules", "Epididymis", "Vas deferens", "Prostate"]), correct: 0 },
+        { id: 6, q: "Oogenesis occurs in the?", a: shuffleArray(["Ovaries", "Uterus", "Fallopian tubes", "Cervix"]), correct: 0 },
+        { id: 7, q: "The process of sperm formation is called?", a: shuffleArray(["Spermatogenesis", "Oogenesis", "Gametogenesis", "Fertilization"]), correct: 0 },
+        { id: 8, q: "The process of egg formation is called?", a: shuffleArray(["Oogenesis", "Spermatogenesis", "Gametogenesis", "Fertilization"]), correct: 0 },
+        { id: 9, q: "The hormone responsible for male secondary sex characteristics is?", a: shuffleArray(["Testosterone", "Estrogen", "Progesterone", "LH"]), correct: 0 },
+        { id: 10, q: "The hormone responsible for female secondary sex characteristics is?", a: shuffleArray(["Estrogen", "Testosterone", "Progesterone", "FSH"]), correct: 0 },
+        { id: 11, q: "The menstrual cycle is regulated by hormones from the hypothalamus, pituitary, and?", a: shuffleArray(["Ovaries", "Testes", "Adrenal", "Thyroid"]), correct: 0 },
+        { id: 12, q: "The peak of LH causes?", a: shuffleArray(["Ovulation", "Menstruation", "Fertilization", "Implantation"]), correct: 0 },
+        { id: 13, q: "The release of an egg from the ovary is called?", a: shuffleArray(["Ovulation", "Menstruation", "Fertilization", "Implantation"]), correct: 0 },
+        { id: 14, q: "Fertilization occurs in the?", a: shuffleArray(["Fallopian tube", "Uterus", "Ovary", "Cervix"]), correct: 0 },
+        { id: 15, q: "The fertilized egg is called?", a: shuffleArray(["Zygote", "Embryo", "Fetus", "Blastocyst"]), correct: 0 },
+        { id: 16, q: "The implantation of the embryo occurs in the?", a: shuffleArray(["Uterus", "Fallopian tube", "Ovary", "Cervix"]), correct: 0 },
+        { id: 17, q: "The placenta is formed by the fusion of embryonic and maternal tissues. It is the site of?", a: shuffleArray(["Nutrient and gas exchange", "Fertilization", "Ovulation", "Menstruation"]), correct: 0 },
+        { id: 18, q: "Human gestation period is approximately?", a: shuffleArray(["9 months", "7 months", "10 months", "12 months"]), correct: 0 },
+        { id: 19, q: "The hormone detected in pregnancy tests is?", a: shuffleArray(["hCG", "Estrogen", "Progesterone", "LH"]), correct: 0 },
+        { id: 20, q: "Lactation is stimulated by the hormone?", a: shuffleArray(["Prolactin", "Oxytocin", "Estrogen", "Progesterone"]), correct: 0 },
+        { id: 21, q: "The ejection of milk is stimulated by?", a: shuffleArray(["Oxytocin", "Prolactin", "Estrogen", "Progesterone"]), correct: 0 },
+        { id: 22, q: "The period of rapid cell division after fertilization is called?", a: shuffleArray(["Cleavage", "Gastrulation", "Organogenesis", "Differentiation"]), correct: 0 },
+        { id: 23, q: "The formation of three germ layers (ectoderm, mesoderm, endoderm) occurs during?", a: shuffleArray(["Gastrulation", "Cleavage", "Organogenesis", "Fertilization"]), correct: 0 },
+        { id: 24, q: "The ectoderm gives rise to the nervous system and?", a: shuffleArray(["Skin", "Muscles", "Gut", "Bones"]), correct: 0 },
+        { id: 25, q: "The mesoderm gives rise to muscles, bones, and?", a: shuffleArray(["Circulatory system", "Nervous system", "Digestive tract", "Lungs"]), correct: 0 },
+        { id: 26, q: "The endoderm gives rise to the digestive tract and?", a: shuffleArray(["Lungs", "Muscles", "Skin", "Bones"]), correct: 0 },
+        { id: 27, q: "The extraembryonic membranes in humans include the amnion, chorion, allantois, and yolk sac. Which of these is involved in gas exchange?", a: shuffleArray(["Chorion", "Amnion", "Allantois", "Yolk sac"]), correct: 0 },
+        { id: 28, q: "Amniocentesis is a prenatal test used to detect?", a: shuffleArray(["Chromosomal abnormalities", "Infections", "Diabetes", "Hypertension"]), correct: 0 },
+        { id: 29, q: "The menopause is the cessation of menstruation due to the decline of?", a: shuffleArray(["Estrogen and progesterone", "Testosterone", "Insulin", "Thyroxine"]), correct: 0 },
+        { id: 30, q: "In vitro fertilization (IVF) involves the fertilization of the egg outside the body. This is used to treat?", a: shuffleArray(["Infertility", "Cancer", "Diabetes", "Heart disease"]), correct: 0 },
+        { id: 31, q: "Contraceptive methods that prevent fertilization include barrier methods, hormonal methods, and intrauterine devices (IUDs). Which hormone is used in oral contraceptive pills?", a: shuffleArray(["Estrogen and progesterone", "Testosterone", "ADH", "Insulin"]), correct: 0 },
+        { id: 32, q: "The procedure where the fallopian tubes are blocked to prevent fertilization is called?", a: shuffleArray(["Tubal ligation", "Vasectomy", "Hysterectomy", "C-section"]), correct: 0 },
+        { id: 33, q: "The procedure where the vas deferens is cut to prevent sperm transport is called?", a: shuffleArray(["Vasectomy", "Tubal ligation", "Hysterectomy", "C-section"]), correct: 0 },
+        { id: 34, q: "Sexually transmitted diseases (STDs) are caused by bacteria, viruses, or parasites. Which of the following is a bacterial STD?", a: shuffleArray(["Chlamydia", "HIV", "Herpes", "Hepatitis B"]), correct: 0 },
+        { id: 35, q: "HIV is a virus that attacks the immune system. It is transmitted through body fluids. The full form of HIV is?", a: shuffleArray(["Human Immunodeficiency Virus", "Human Immune Virus", "Human Infection Virus", "Hepatitis Virus"]), correct: 0 },
+        { id: 36, q: "The primary sex organs (gonads) produce gametes and hormones. The accessory sex organs include ducts and glands. The prostate gland is an accessory gland in males. Its function is?", a: shuffleArray(["Secrete seminal fluid", "Store sperm", "Produce testosterone", "Produce sperm"]), correct: 0 },
+        { id: 37, q: "The Cowper's gland is an accessory gland in males. It secretes a fluid that lubricates the urethra. This fluid is released before ejaculation and may contain?", a: shuffleArray(["Sperm", "No sperm", "Hormones", "Enzymes"]), correct: 0 },
+        { id: 38, q: "The acrosome is a cap-like structure on the sperm head. It contains enzymes that help in?", a: shuffleArray(["Penetrating the egg", "Swimming", "Fertilizing the egg", "Attaching to the egg"]), correct: 0 },
+        { id: 39, q: "The process of capacitation involves changes in the sperm that enable it to fertilize the egg. This occurs in the?", a: shuffleArray(["Female reproductive tract", "Testes", "Epididymis", "Vas deferens"]), correct: 0 },
+        { id: 40, q: "The fusion of the sperm and egg nuclei is called?", a: shuffleArray(["Syngamy", "Fertilization", "Conjugation", "Copulation"]), correct: 0 },
+        { id: 41, q: "The cells that surround and nourish the developing egg in the ovary are called?", a: shuffleArray(["Follicle cells", "Sertoli cells", "Leydig cells", "Interstitial cells"]), correct: 0 },
+        { id: 42, q: "The cells that support and nourish developing sperm in the testes are called?", a: shuffleArray(["Sertoli cells", "Leydig cells", "Follicle cells", "Interstitial cells"]), correct: 0 },
+        { id: 43, q: "Leydig cells in the testes produce?", a: shuffleArray(["Testosterone", "Estrogen", "Progesterone", "FSH"]), correct: 0 },
+        { id: 44, q: "The corpus luteum is formed from the ruptured follicle after ovulation. It produces?", a: shuffleArray(["Progesterone", "Estrogen", "FSH", "LH"]), correct: 0 },
+        { id: 45, q: "If fertilization does not occur, the corpus luteum degenerates and the levels of progesterone and estrogen drop, leading to?", a: shuffleArray(["Menstruation", "Ovulation", "Pregnancy", "Lactation"]), correct: 0 },
+        { id: 46, q: "The menstrual cycle is divided into the follicular phase, ovulation, and the luteal phase. The follicular phase is dominated by?", a: shuffleArray(["Estrogen", "Progesterone", "FSH", "LH"]), correct: 0 },
+        { id: 47, q: "The luteal phase is dominated by?", a: shuffleArray(["Progesterone", "Estrogen", "FSH", "LH"]), correct: 0 },
+        { id: 48, q: "The endometrium is the lining of the uterus. It thickens during the menstrual cycle in preparation for?", a: shuffleArray(["Implantation", "Ovulation", "Fertilization", "Menstruation"]), correct: 0 },
+        { id: 49, q: "The process of childbirth is called?", a: shuffleArray(["Parturition", "Gestation", "Lactation", "Ovulation"]), correct: 0 },
+        { id: 50, q: "The hormone that stimulates uterine contractions during childbirth is?", a: shuffleArray(["Oxytocin", "Prolactin", "Estrogen", "Progesterone"]), correct: 0 },
+        { id: 51, q: "Gametogenesis in males is called spermatogenesis, and it produces four functional sperm cells. Gametogenesis in females is called oogenesis, and it produces?", a: shuffleArray(["One functional ovum", "Two functional ova", "Four functional ova", "No ova"]), correct: 0 },
+        { id: 52, q: "The polar bodies are produced during oogenesis. They are non-functional and eventually degenerate. Their main function is to discard extra chromosomes.", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0 },
+        { id: 53, q: "Sexual reproduction leads to genetic diversity because it involves the fusion of gametes from two different parents, resulting in combinations of genes. This is a key advantage of sexual reproduction over asexual reproduction.", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0 },
+        { id: 54, q: "Asexual reproduction produces offspring that are genetically identical to the parent. This is a disadvantage in a changing environment because there is no genetic variation to adapt to new conditions.", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0 },
+        { id: 55, q: "The testes are located in the scrotum, which is outside the body cavity. This is because sperm production requires a temperature lower than the body temperature. This is an example of?", a: shuffleArray(["Temperature regulation", "Hormonal regulation", "Genetic regulation", "Neural regulation"]), correct: 0 },
+        { id: 56, q: "The cremaster muscle contracts to pull the testes closer to the body when it is cold, and relaxes to lower them when it is warm. This helps in?", a: shuffleArray(["Temperature regulation", "Sperm production", "Hormone production", "Ejaculation"]), correct: 0 },
+        { id: 57, q: "The epididymis is a coiled tube where sperm mature and are stored. The sperm are transported from the epididymis to the vas deferens during?", a: shuffleArray(["Ejaculation", "Spermatogenesis", "Fertilization", "Ovulation"]), correct: 0 },
+        { id: 58, q: "The seminal vesicles and the prostate gland contribute to the seminal fluid. The seminal fluid provides nutrients and protection for the sperm. This is an example of?", a: shuffleArray(["Accessory gland function", "Gonad function", "Hormonal function", "Neural function"]), correct: 0 },
+        { id: 59, q: "The pH of the seminal fluid is slightly alkaline, which helps to neutralize the acidic environment of the female reproductive tract and protect the sperm. This is an example of?", a: shuffleArray(["Protective function", "Nutritive function", "Enzymatic function", "None"]), correct: 0 },
+        { id: 60, q: "The process of spermatogenesis involves mitosis, meiosis, and differentiation. The primary spermatocyte is a diploid cell that undergoes meiosis I to form secondary spermatocytes, which are haploid. This is an example of?", a: shuffleArray(["Cell division", "Cell growth", "Cell death", "Cell differentiation"]), correct: 0 },
+        { id: 61, q: "Growth is an increase in size, and development is an increase in complexity. The term for the process of becoming a specialized cell is?", a: shuffleArray(["Differentiation", "Cleavage", "Gastrulation", "Organogenesis"]), correct: 0 },
+        { id: 62, q: "The process of morphogenesis is the development of form and structure. It involves cell movement and organization. This is an example of?", a: shuffleArray(["Developmental biology", "Cell biology", "Genetics", "Physiology"]), correct: 0 },
+        { id: 63, q: "The embryonic development of vertebrates is similar in early stages, reflecting common ancestry. This is an example of?", a: shuffleArray(["Recapitulation", "Evolution", "Adaptation", "Mutation"]), correct: 0 },
+        { id: 64, q: "The neural tube is the precursor to the central nervous system. It forms during the process of?", a: shuffleArray(["Neurulation", "Gastrulation", "Cleavage", "Organogenesis"]), correct: 0 },
+        { id: 65, q: "The somites are blocks of mesoderm that give rise to the vertebrae, ribs, and skeletal muscles. They form during?", a: shuffleArray(["Organogenesis", "Cleavage", "Gastrulation", "Neurulation"]), correct: 0 },
+        { id: 66, q: "The heart is the first functional organ to develop in the embryo. This is because it is essential for the transport of nutrients and oxygen to the developing tissues. This is an example of?", a: shuffleArray(["Organogenesis", "Cleavage", "Gastrulation", "Neurulation"]), correct: 0 },
+        { id: 67, q: "The process of aging is called senescence. It involves a progressive decline in the function of organs and tissues. This is an example of?", a: shuffleArray(["Aging", "Growth", "Development", "Reproduction"]), correct: 0 },
+        { id: 68, q: "The Hayflick limit is the number of times a cell can divide before it stops. This is related to the shortening of telomeres. This is an example of?", a: shuffleArray(["Cellular senescence", "Apoptosis", "Cancer", "Differentiation"]), correct: 0 },
+        { id: 69, q: "Stem cells are undifferentiated cells that have the potential to differentiate into various cell types. Adult stem cells are multipotent, while embryonic stem cells are pluripotent. This is an example of?", a: shuffleArray(["Stem cell biology", "Developmental biology", "Genetics", "Pathology"]), correct: 0 },
+        { id: 70, q: "The process of apoptosis is programmed cell death. It is important for normal development and for the removal of damaged cells. This is an example of?", a: shuffleArray(["Cell death", "Cell division", "Cell growth", "Cell differentiation"]), correct: 0 },
+        { id: 71, q: "The growth of an organism is influenced by both genetic and environmental factors. Genetics provides the potential, and the environment determines the expression of that potential. This is an example of?", a: shuffleArray(["Genotype-environment interaction", "Only genetics", "Only environment", "No interaction"]), correct: 0 },
+        { id: 72, q: "The growth hormone (GH) stimulates growth in children. Deficiency of GH leads to dwarfism. This is an example of?", a: shuffleArray(["Hormonal control of growth", "Genetic control of growth", "Environmental control of growth", "Neural control of growth"]), correct: 0 },
+        { id: 73, q: "Thyroid hormones are also essential for normal growth and development. Hypothyroidism in children leads to?", a: shuffleArray(["Cretinism", "Gigantism", "Acromegaly", "Dwarfism"]), correct: 0 },
+        { id: 74, q: "The process of tissue repair involves the proliferation of cells to replace damaged tissue. This is an example of?", a: shuffleArray(["Regeneration", "Hypertrophy", "Hyperplasia", "Atrophy"]), correct: 0 },
+        { id: 75, q: "The phenomenon of hypertrophy is the increase in cell size. An example is the enlargement of muscles during exercise. Hyperplasia is the increase in cell number. This is an example of?", a: shuffleArray(["Cell growth responses", "Cell death responses", "No response", "Differentiation"]), correct: 0 },
+        { id: 76, q: "The process of organogenesis is the formation of organs. It involves the interaction of multiple tissues and cell types. This is an example of?", a: shuffleArray(["Developmental biology", "Cell biology", "Genetics", "Physiology"]), correct: 0 },
+        { id: 77, q: "The concept of the critical period in development is a window of time when the organism is particularly sensitive to environmental stimuli. For example, the formation of the visual system has a critical period. This is an example of?", a: shuffleArray(["Sensitive periods in development", "No sensitive periods", "Genetic determinism", "Environmental determinism"]), correct: 0 },
+        { id: 78, q: "The process of sexual maturation is called puberty. It is initiated by the release of hormones from the hypothalamus and pituitary. This is an example of?", a: shuffleArray(["Endocrine regulation of development", "Neural regulation of development", "Genetic regulation of development", "Environmental regulation of development"]), correct: 0 },
+        { id: 79, q: "The changes that occur during puberty, such as the development of secondary sexual characteristics, are caused by the sex hormones testosterone and estrogen. This is an example of?", a: shuffleArray(["Hormonal regulation", "Neural regulation", "Genetic regulation", "Environmental regulation"]), correct: 0 },
+        { id: 80, q: "The process of embryogenesis is the formation of the embryo. It involves the fertilization, cleavage, gastrulation, and organogenesis. This is an example of?", a: shuffleArray(["Developmental biology", "Cell biology", "Genetics", "Physiology"]), correct: 0 },
+        { id: 81, q: "The concept of the stem cell niche is the microenvironment that supports and regulates stem cells. This is important for maintaining the stem cell population and controlling their differentiation. This is an example of?", a: shuffleArray(["Stem cell biology", "Developmental biology", "Genetics", "Pathology"]), correct: 0 },
+        { id: 82, q: "The process of wound healing involves inflammation, proliferation, and remodeling. The formation of new blood vessels is called angiogenesis. This is an example of?", a: shuffleArray(["Regenerative medicine", "Infectious disease", "Cancer", "Aging"]), correct: 0 },
+        { id: 83, q: "The process of carcinogenesis is the formation of cancer. It is a multi-step process involving mutations in oncogenes and tumor suppressor genes. This is an example of?", a: shuffleArray(["Pathology", "Developmental biology", "Cell biology", "Genetics"]), correct: 0 },
+        { id: 84, q: "The concept of the cell cycle is the series of events that lead to cell division. The cell cycle is regulated by cyclins and CDKs. Dysregulation of the cell cycle can lead to cancer. This is an example of?", a: shuffleArray(["Cell cycle regulation", "Gene regulation", "Protein regulation", "Lipid regulation"]), correct: 0 },
+        { id: 85, q: "The concept of the p53 protein is a tumor suppressor that regulates the cell cycle. It is often mutated in cancer. This is an example of?", a: shuffleArray(["Tumor suppressor gene", "Oncogene", "DNA repair gene", "Transcription factor"]), correct: 0 },
+        { id: 86, q: "The concept of the oncogene is a mutated gene that promotes cell division. An example is Ras. This is an example of?", a: shuffleArray(["Oncogene", "Tumor suppressor gene", "DNA repair gene", "Transcription factor"]), correct: 0 },
+        { id: 87, q: "The process of metastasis is the spread of cancer cells to other parts of the body. This is a characteristic of malignant tumors. This is an example of?", a: shuffleArray(["Cancer progression", "Benign growth", "Inflammation", "Infection"]), correct: 0 },
+        { id: 88, q: "The concept of the immune surveillance is the ability of the immune system to detect and destroy cancer cells. This is an example of?", a: shuffleArray(["Immunology", "Pathology", "Genetics", "Microbiology"]), correct: 0 },
+        { id: 89, q: "The concept of the chemotherapy is the use of drugs to kill cancer cells. This is an example of?", a: shuffleArray(["Cancer treatment", "Cancer prevention", "Cancer diagnosis", "None"]), correct: 0 },
+        { id: 90, q: "The concept of the radiation therapy is the use of radiation to kill cancer cells. This is an example of?", a: shuffleArray(["Cancer treatment", "Cancer prevention", "Cancer diagnosis", "None"]), correct: 0 },
+        { id: 91, q: "The concept of the immunotherapy is the use of the immune system to fight cancer. This is an example of?", a: shuffleArray(["Cancer treatment", "Cancer prevention", "Cancer diagnosis", "None"]), correct: 0 },
+        { id: 92, q: "The concept of the targeted therapy is the use of drugs that specifically target cancer cells without harming normal cells. This is an example of?", a: shuffleArray(["Cancer treatment", "Cancer prevention", "Cancer diagnosis", "None"]), correct: 0 },
+        { id: 93, q: "The process of aging is associated with a decline in the function of the immune system. This is called immunosenescence. This is an example of?", a: shuffleArray(["Aging", "Growth", "Development", "Reproduction"]), correct: 0 },
+        { id: 94, q: "The concept of the free radical theory of aging suggests that aging is caused by the accumulation of free radicals that damage cells. This is an example of?", a: shuffleArray(["Theory of aging", "Theory of growth", "Theory of development", "Theory of reproduction"]), correct: 0 },
+        { id: 95, q: "The concept of the telomere theory of aging suggests that aging is caused by the shortening of telomeres. This is an example of?", a: shuffleArray(["Theory of aging", "Theory of growth", "Theory of development", "Theory of reproduction"]), correct: 0 },
+        { id: 96, q: "The process of apoptosis is distinct from necrosis. Apoptosis is programmed cell death, while necrosis is accidental cell death caused by injury. This is an example of?", a: shuffleArray(["Cell death mechanisms", "Cell division mechanisms", "Cell growth mechanisms", "None"]), correct: 0 },
+        { id: 97, q: "The process of autophagy is the breakdown of cellular components by the cell's own lysosomes. This is important for recycling nutrients and removing damaged organelles. This is an example of?", a: shuffleArray(["Cellular recycling", "Cell growth", "Cell division", "Cell death"]), correct: 0 },
+        { id: 98, q: "The concept of the stem cell therapy is the use of stem cells to treat diseases. For example, stem cells can be used to treat leukemia. This is an example of?", a: shuffleArray(["Regenerative medicine", "Infectious disease", "Cancer treatment", "None"]), correct: 0 },
+        { id: 99, q: "The concept of the organ transplant is the transfer of an organ from a donor to a recipient. This is a treatment for organ failure. This is an example of?", a: shuffleArray(["Organ transplantation", "Stem cell therapy", "Gene therapy", "None"]), correct: 0 },
+        { id: 100, q: "The concept of the artificial organ is a device that replaces the function of an organ. This is an example of?", a: shuffleArray(["Biomedical engineering", "Surgery", "Medicine", "None"]), correct: 0 },
+        { id: 101, q: "In a dihybrid cross, if genes are linked, the phenotypic ratio deviates from?", a: shuffleArray(["9:3:3:1", "3:1", "1:2:1", "1:1"]), correct: 0 },
+        { id: 102, q: "The recombination frequency is the percentage of recombinant offspring. It is used to determine the distance between genes. A recombination frequency of 25% means the genes are how many map units apart?", a: shuffleArray(["25", "12.5", "50", "75"]), correct: 0 },
+        { id: 103, q: "A three-point test cross is used to determine the gene order and the distances between three linked genes. This is an example of?", a: shuffleArray(["Genetic mapping", "Pedigree analysis", "DNA sequencing", "PCR"]), correct: 0 },
+        { id: 104, q: "The coefficient of coincidence is the ratio of observed double crossovers to expected double crossovers. A coefficient of 1 indicates?", a: shuffleArray(["No interference", "Complete interference", "No crossing over", "100% crossing over"]), correct: 0 },
+        { id: 105, q: "Pedigree analysis is used to study the inheritance of traits in families. A circle represents a female, and a square represents a male. A shaded symbol indicates an affected individual. A trait that appears in both sexes and in every generation is likely to be?", a: shuffleArray(["Autosomal dominant", "Autosomal recessive", "X-linked recessive", "Y-linked"]), correct: 0 },
+        { id: 106, q: "A trait that appears in both sexes but skips generations is likely to be?", a: shuffleArray(["Autosomal recessive", "Autosomal dominant", "X-linked dominant", "Y-linked"]), correct: 0 },
+        { id: 107, q: "A trait that is more common in males and is passed from an affected father to all his daughters is likely to be?", a: shuffleArray(["X-linked dominant", "X-linked recessive", "Autosomal dominant", "Y-linked"]), correct: 0 },
+        { id: 108, q: "A trait that is passed from father to son only is likely to be?", a: shuffleArray(["Y-linked", "X-linked", "Autosomal", "Mitochondrial"]), correct: 0 },
+        { id: 109, q: "The mitochondrial DNA is inherited from the mother. A trait that is inherited via mitochondrial DNA will be passed from mother to all her children. This is an example of?", a: shuffleArray(["Maternal inheritance", "Paternal inheritance", "Autosomal inheritance", "X-linked inheritance"]), correct: 0 },
+        { id: 110, q: "A point mutation that results in the substitution of one amino acid for another is called a missense mutation. This is the cause of?", a: shuffleArray(["Sickle cell anemia", "Hemophilia", "Cystic fibrosis", "Huntington's"]), correct: 0 },
+        { id: 111, q: "A point mutation that results in the formation of a stop codon is called a nonsense mutation. This leads to a truncated protein. This is the cause of some cases of?", a: shuffleArray(["Cystic fibrosis", "Sickle cell anemia", "Hemophilia", "Down syndrome"]), correct: 0 },
+        { id: 112, q: "The insertion or deletion of a nucleotide that is not a multiple of three causes a frameshift mutation. This results in a completely altered protein sequence. This is the cause of some forms of?", a: shuffleArray(["Cancer", "Cystic fibrosis", "Sickle cell anemia", "Hemophilia"]), correct: 0 },
+        { id: 113, q: "Chromosomal mutations include deletions, duplications, inversions, and translocations. A translocation involves the transfer of a segment of a chromosome to a non-homologous chromosome. This is the cause of?", a: shuffleArray(["Philadelphia chromosome", "Down syndrome", "Turner syndrome", "Klinefelter syndrome"]), correct: 0 },
+        { id: 114, q: "Down syndrome is caused by trisomy of chromosome 21. The incidence increases with maternal age. This is an example of?", a: shuffleArray(["Aneuploidy", "Polyploidy", "Euploidy", "Haploidy"]), correct: 0 },
+        { id: 115, q: "Turner syndrome (XO) is a monosomy of the sex chromosomes. This results in a female with underdeveloped ovaries. This is an example of?", a: shuffleArray(["Monosomy", "Trisomy", "Tetrasomy", "Nullisomy"]), correct: 0 },
+        { id: 116, q: "Klinefelter syndrome (XXY) is a trisomy of the sex chromosomes. This results in a male with small testes and infertility. This is an example of?", a: shuffleArray(["Trisomy", "Monosomy", "Tetrasomy", "Nullisomy"]), correct: 0 },
+        { id: 117, q: "The concept of epistasis involves the interaction of genes where one gene masks the expression of another gene. In the classic example of coat color in Labrador retrievers, the 'E' gene is epistatic to the 'B' gene. The 'ee' genotype results in a yellow coat regardless of the 'B' gene. This is an example of?", a: shuffleArray(["Recessive epistasis", "Dominant epistasis", "Duplicate epistasis", "Complementary epistasis"]), correct: 0 },
+        { id: 118, q: "The concept of polygenic inheritance involves the additive effects of multiple genes on a single trait. This results in continuous variation. An example of polygenic inheritance is?", a: shuffleArray(["Human height", "ABO blood group", "Flower color in peas", "Sickle cell anemia"]), correct: 0 },
+        { id: 119, q: "The concept of pleiotropy refers to a single gene affecting multiple traits. An example is the gene that causes sickle cell anemia. This gene also provides resistance to malaria. This is an example of?", a: shuffleArray(["Pleiotropy", "Epistasis", "Polygenic inheritance", "Codominance"]), correct: 0 },
+        { id: 120, q: "The concept of quantitative trait loci (QTL) mapping is used to identify regions of the genome that contribute to quantitative traits. This is an example of?", a: shuffleArray(["Genetics", "Genomics", "Proteomics", "Bioinformatics"]), correct: 0 },
+        { id: 121, q: "The concept of genome-wide association studies (GWAS) is used to identify genetic variants associated with diseases. This involves scanning the genome for SNPs. This is an example of?", a: shuffleArray(["Genetics", "Genomics", "Proteomics", "Bioinformatics"]), correct: 0 },
+        { id: 122, q: "The concept of the single nucleotide polymorphism (SNP) is a variation at a single nucleotide position in the DNA sequence. SNPs are used as genetic markers. This is an example of?", a: shuffleArray(["Genetic variation", "Mutation", "Recombination", "Transposition"]), correct: 0 },
+        { id: 123, q: "The concept of the genetic marker is a DNA sequence with a known location on a chromosome. It can be used to identify individuals or to track inheritance. This is an example of?", a: shuffleArray(["Genetics", "Genomics", "Proteomics", "Bioinformatics"]), correct: 0 },
+        { id: 124, q: "The concept of the DNA fingerprinting is a technique used to identify individuals based on their unique DNA sequences. This is used in forensics and paternity testing. This is an example of?", a: shuffleArray(["Forensic genetics", "Medical genetics", "Population genetics", "None"]), correct: 0 },
+        { id: 125, q: "The concept of the population genetics is the study of the distribution and change in allele frequencies in populations. This is the basis for understanding evolution. This is an example of?", a: shuffleArray(["Population genetics", "Molecular genetics", "Classical genetics", "Quantitative genetics"]), correct: 0 },
+        { id: 126, q: "The concept of the Hardy-Weinberg principle provides a baseline to detect evolution. If a population is in Hardy-Weinberg equilibrium, the allele and genotype frequencies remain constant. This is an example of?", a: shuffleArray(["Null hypothesis", "Theory", "Law", "Prediction"]), correct: 0 },
+        { id: 127, q: "The concept of the gene flow is the movement of alleles between populations. This can reduce genetic differences between populations. This is an example of?", a: shuffleArray(["Evolutionary force", "Genetic drift", "Mutation", "Natural selection"]), correct: 0 },
+        { id: 128, q: "The concept of the genetic drift is the random change in allele frequencies, especially in small populations. The bottleneck effect and the founder effect are examples of genetic drift. This is an example of?", a: shuffleArray(["Evolutionary force", "Gene flow", "Mutation", "Natural selection"]), correct: 0 },
+        { id: 129, q: "The concept of the natural selection is the differential survival and reproduction of individuals with different genotypes. This is the main mechanism of evolution. This is an example of?", a: shuffleArray(["Evolutionary force", "Genetic drift", "Gene flow", "Mutation"]), correct: 0 },
+        { id: 130, q: "The concept of the mutation is the ultimate source of new alleles. Mutations are random changes in DNA. This is an example of?", a: shuffleArray(["Evolutionary force", "Genetic drift", "Gene flow", "Natural selection"]), correct: 0 },
+        { id: 131, q: "The concept of the inbreeding is the mating between closely related individuals. This increases the frequency of homozygous genotypes and can lead to inbreeding depression. This is an example of?", a: shuffleArray(["Non-random mating", "Random mating", "Natural selection", "Mutation"]), correct: 0 },
+        { id: 132, q: "The concept of the outcrossing is the mating between unrelated individuals. This increases heterozygosity and genetic diversity. This is an example of?", a: shuffleArray(["Random mating", "Non-random mating", "Natural selection", "Mutation"]), correct: 0 },
+        { id: 133, q: "The concept of the sex-linked inheritance involves genes located on the sex chromosomes. In humans, X-linked recessive disorders are more common in males. This is an example of?", a: shuffleArray(["Sex-linked inheritance", "Autosomal inheritance", "Mitochondrial inheritance", "Y-linked inheritance"]), correct: 0 },
+        { id: 134, q: "The concept of the linked genes are genes on the same chromosome. They tend to be inherited together. This is an example of?", a: shuffleArray(["Linkage", "Independent assortment", "Crossing over", "Recombination"]), correct: 0 },
+        { id: 135, q: "The concept of the crossing over is the exchange of genetic material between homologous chromosomes during meiosis. This generates genetic variation. This is an example of?", a: shuffleArray(["Recombination", "Linkage", "Independent assortment", "Mutation"]), correct: 0 },
+        { id: 136, q: "The concept of the genetic map is a representation of the linear order of genes on a chromosome. It is based on recombination frequencies. This is an example of?", a: shuffleArray(["Genetic mapping", "Physical mapping", "Sequence mapping", "None"]), correct: 0 },
+        { id: 137, q: "The concept of the physical map is a map based on the actual physical distance between genes. This is measured in base pairs. This is an example of?", a: shuffleArray(["Physical mapping", "Genetic mapping", "Sequence mapping", "None"]), correct: 0 },
+        { id: 138, q: "The concept of the genome is the entire set of genetic material in an organism. The human genome consists of about 3.2 billion base pairs. This is an example of?", a: shuffleArray(["Genomics", "Genetics", "Proteomics", "Bioinformatics"]), correct: 0 },
+        { id: 139, q: "The concept of the transcriptome is the entire set of RNA transcripts in a cell. This is an example of?", a: shuffleArray(["Transcriptomics", "Genomics", "Proteomics", "Metabolomics"]), correct: 0 },
+        { id: 140, q: "The concept of the proteome is the entire set of proteins in a cell. This is an example of?", a: shuffleArray(["Proteomics", "Genomics", "Transcriptomics", "Metabolomics"]), correct: 0 },
+        { id: 141, q: "The concept of the metabolome is the entire set of metabolites in a cell. This is an example of?", a: shuffleArray(["Metabolomics", "Genomics", "Transcriptomics", "Proteomics"]), correct: 0 },
+        { id: 142, q: "The concept of the bioinformatics is the use of computers to analyze biological data. This is an example of?", a: shuffleArray(["Bioinformatics", "Genomics", "Proteomics", "Systems biology"]), correct: 0 },
+        { id: 143, q: "The concept of the systems biology is the study of biological systems as a whole. This integrates data from multiple levels. This is an example of?", a: shuffleArray(["Systems biology", "Genomics", "Proteomics", "Bioinformatics"]), correct: 0 },
+        { id: 144, q: "The concept of the synthetic biology is the design and construction of new biological systems. This is an example of?", a: shuffleArray(["Synthetic biology", "Systems biology", "Genomics", "Proteomics"]), correct: 0 },
+        { id: 145, q: "The concept of the CRISPR-Cas9 is a gene-editing tool. It uses a guide RNA to target a specific DNA sequence. This is an example of?", a: shuffleArray(["Gene editing", "Gene therapy", "Gene cloning", "Gene expression"]), correct: 0 },
+        { id: 146, q: "The concept of the gene therapy is the introduction of a normal gene to replace a defective gene. This is an example of?", a: shuffleArray(["Gene therapy", "Gene editing", "Gene cloning", "Gene expression"]), correct: 0 },
+        { id: 147, q: "The concept of the transgenic organisms are organisms that have been genetically modified. This is an example of?", a: shuffleArray(["Genetic engineering", "Gene therapy", "Gene editing", "None"]), correct: 0 },
+        { id: 148, q: "The concept of the GMO (genetically modified organism) is an organism whose DNA has been altered by genetic engineering. This is an example of?", a: shuffleArray(["Genetic engineering", "Gene therapy", "Gene editing", "None"]), correct: 0 },
+        { id: 149, q: "The concept of the DNA cloning is the production of multiple copies of a DNA fragment. This is an example of?", a: shuffleArray(["Molecular cloning", "Gene therapy", "Gene editing", "Genomics"]), correct: 0 },
+        { id: 150, q: "The concept of the PCR (polymerase chain reaction) is a technique used to amplify DNA. This is an example of?", a: shuffleArray(["Molecular biology technique", "Cell biology technique", "Genetics technique", "None"]), correct: 0 },
+        { id: 151, q: "The concept of the gel electrophoresis is a technique used to separate DNA fragments based on size. This is an example of?", a: shuffleArray(["Molecular biology technique", "Cell biology technique", "Genetics technique", "None"]), correct: 0 },
+        { id: 152, q: "The concept of the DNA sequencing is a technique used to determine the order of nucleotides in DNA. This is an example of?", a: shuffleArray(["Molecular biology technique", "Cell biology technique", "Genetics technique", "None"]), correct: 0 },
+        { id: 153, q: "The concept of the restriction enzymes are enzymes that cut DNA at specific recognition sequences. This is an example of?", a: shuffleArray(["Molecular biology tool", "Cell biology tool", "Genetics tool", "None"]), correct: 0 },
+        { id: 154, q: "The concept of the plasmids are small circular DNA molecules used as vectors in cloning. This is an example of?", a: shuffleArray(["Molecular biology tool", "Cell biology tool", "Genetics tool", "None"]), correct: 0 },
+        { id: 155, q: "The concept of the RNA interference (RNAi) is a mechanism of gene silencing. This is an example of?", a: shuffleArray(["Gene regulation", "Gene expression", "Gene cloning", "Gene editing"]), correct: 0 },
+        { id: 156, q: "The concept of the microRNA (miRNA) is a small RNA molecule that regulates gene expression. This is an example of?", a: shuffleArray(["Gene regulation", "Gene expression", "Gene cloning", "Gene editing"]), correct: 0 },
+        { id: 157, q: "The concept of the epigenetics is heritable changes in gene expression that do not involve changes in the DNA sequence. This is an example of?", a: shuffleArray(["Epigenetics", "Genetics", "Genomics", "Proteomics"]), correct: 0 },
+        { id: 158, q: "The concept of the DNA methylation is an epigenetic modification that silences genes. This is an example of?", a: shuffleArray(["Epigenetics", "Genetics", "Genomics", "Proteomics"]), correct: 0 },
+        { id: 159, q: "The concept of the histone acetylation is an epigenetic modification that activates genes. This is an example of?", a: shuffleArray(["Epigenetics", "Genetics", "Genomics", "Proteomics"]), correct: 0 },
+        { id: 160, q: "The concept of the genomic imprinting is an epigenetic phenomenon where genes are expressed in a parent-of-origin-specific manner. This is an example of?", a: shuffleArray(["Epigenetics", "Genetics", "Genomics", "Proteomics"]), correct: 0 },
+        { id: 161, q: "The theory of evolution by natural selection was proposed by?", a: shuffleArray(["Darwin and Wallace", "Lamarck", "Mendel", "Linnaeus"]), correct: 0 },
+        { id: 162, q: "The fossil record provides evidence for evolution. This is an example of?", a: shuffleArray(["Evidence for evolution", "Evidence for creationism", "Evidence for Lamarckism", "None"]), correct: 0 },
+        { id: 163, q: "Homologous organs have similar origin but different functions. This is evidence for?", a: shuffleArray(["Divergent evolution", "Convergent evolution", "Parallel evolution", "Coevolution"]), correct: 0 },
+        { id: 164, q: "Analogous organs have different origin but similar functions. This is evidence for?", a: shuffleArray(["Convergent evolution", "Divergent evolution", "Parallel evolution", "Coevolution"]), correct: 0 },
+        { id: 165, q: "The presence of vestigial organs, such as the appendix, is evidence for evolution. This is an example of?", a: shuffleArray(["Vestigial organs", "Homologous organs", "Analogous organs", "None"]), correct: 0 },
+        { id: 166, q: "The molecular clock uses the rate of mutation in DNA to estimate the time of divergence between species. This is an example of?", a: shuffleArray(["Molecular evolution", "Morphological evolution", "Fossil evolution", "None"]), correct: 0 },
+        { id: 167, q: "The concept of the species is a group of organisms that can interbreed and produce fertile offspring. This is the biological species concept. This is an example of?", a: shuffleArray(["Species concept", "Evolution concept", "Genetics concept", "None"]), correct: 0 },
+        { id: 168, q: "Allopatric speciation occurs when populations are geographically separated. This is an example of?", a: shuffleArray(["Speciation", "Adaptation", "Mutation", "Migration"]), correct: 0 },
+        { id: 169, q: "Sympatric speciation occurs when populations are in the same geographic area but become reproductively isolated. This is an example of?", a: shuffleArray(["Speciation", "Adaptation", "Mutation", "Migration"]), correct: 0 },
+        { id: 170, q: "Adaptive radiation is the rapid evolution of many species from a single ancestor. The finches of the Galapagos Islands are a classic example. This is an example of?", a: shuffleArray(["Adaptive radiation", "Convergent evolution", "Divergent evolution", "Coevolution"]), correct: 0 },
+        { id: 171, q: "The concept of the coevolution is the evolution of two species in response to each other. An example is the relationship between flowers and pollinators. This is an example of?", a: shuffleArray(["Coevolution", "Adaptive radiation", "Convergent evolution", "Divergent evolution"]), correct: 0 },
+        { id: 172, q: "The concept of the genetic code is universal, which supports the theory of a common ancestor. This is an example of?", a: shuffleArray(["Evidence for common descent", "Evidence for divergence", "Evidence for convergence", "None"]), correct: 0 },
+        { id: 173, q: "The concept of the phylogeny is the evolutionary history of a species or group. This is often represented by a phylogenetic tree. This is an example of?", a: shuffleArray(["Phylogeny", "Taxonomy", "Genetics", "None"]), correct: 0 },
+        { id: 174, q: "The concept of the taxonomy is the science of classification. This is an example of?", a: shuffleArray(["Taxonomy", "Phylogeny", "Genetics", "None"]), correct: 0 },
+        { id: 175, q: "The concept of the binomial nomenclature is the system of naming species with two parts. This was developed by?", a: shuffleArray(["Linnaeus", "Darwin", "Mendel", "Wallace"]), correct: 0 },
+        { id: 176, q: "The concept of the biological classification involves a hierarchy of taxa: domain, kingdom, phylum, class, order, family, genus, species. This is an example of?", a: shuffleArray(["Taxonomy", "Phylogeny", "Genetics", "None"]), correct: 0 },
+        { id: 177, q: "The concept of the three-domain system includes Bacteria, Archaea, and Eukarya. This was proposed by?", a: shuffleArray(["Carl Woese", "Linnaeus", "Darwin", "Mendel"]), correct: 0 },
+        { id: 178, q: "Biotechnology is the use of living organisms to produce useful products. This is an example of?", a: shuffleArray(["Biotechnology", "Genetics", "Evolution", "None"]), correct: 0 },
+        { id: 179, q: "The production of insulin using recombinant DNA technology is an example of?", a: shuffleArray(["Biotechnology", "Gene therapy", "Gene editing", "None"]), correct: 0 },
+        { id: 180, q: "The production of antibiotics by microorganisms is an example of?", a: shuffleArray(["Biotechnology", "Gene therapy", "Gene editing", "None"]), correct: 0 },
+        { id: 181, q: "The production of vaccines using biotechnology is an example of?", a: shuffleArray(["Biotechnology", "Gene therapy", "Gene editing", "None"]), correct: 0 },
+        { id: 182, q: "The process of fermentation is used in biotechnology to produce food and beverages. This is an example of?", a: shuffleArray(["Biotechnology", "Gene therapy", "Gene editing", "None"]), correct: 0 },
+        { id: 183, q: "The concept of the bioremediation is the use of microorganisms to clean up pollutants. This is an example of?", a: shuffleArray(["Bioremediation", "Biotechnology", "Gene therapy", "None"]), correct: 0 },
+        { id: 184, q: "The concept of the biofuels is the production of fuels from biological sources. This is an example of?", a: shuffleArray(["Biotechnology", "Bioremediation", "Gene therapy", "None"]), correct: 0 },
+        { id: 185, q: "The concept of the agriculture is the cultivation of plants and animals for food. This is an example of?", a: shuffleArray(["Biotechnology", "Agriculture", "Evolution", "Genetics"]), correct: 0 },
+        { id: 186, q: "The concept of the green revolution involved the development of high-yielding crop varieties. This is an example of?", a: shuffleArray(["Agriculture", "Biotechnology", "Evolution", "Genetics"]), correct: 0 },
+        { id: 187, q: "The concept of the pest resistance is the ability of a plant to resist pests. This can be achieved through genetic engineering. This is an example of?", a: shuffleArray(["Genetic engineering", "Biotechnology", "Agriculture", "None"]), correct: 0 },
+        { id: 188, q: "The concept of the herbicide resistance is the ability of a plant to resist herbicides. This is an example of?", a: shuffleArray(["Genetic engineering", "Biotechnology", "Agriculture", "None"]), correct: 0 },
+        { id: 189, q: "The concept of the food security is the availability of food. Biotechnology can help improve food security by increasing crop yields. This is an example of?", a: shuffleArray(["Biotechnology", "Agriculture", "Evolution", "Genetics"]), correct: 0 },
+        { id: 190, q: "The concept of the ethical issues in biotechnology include concerns about safety, environmental impact, and privacy. This is an example of?", a: shuffleArray(["Bioethics", "Biotechnology", "Agriculture", "Genetics"]), correct: 0 },
+        { id: 191, q: "The concept of the biosafety is the safe handling of biological materials. This is an example of?", a: shuffleArray(["Bioethics", "Biotechnology", "Agriculture", "Genetics"]), correct: 0 },
+        { id: 192, q: "The concept of the intellectual property refers to patents and copyrights for inventions. This is an example of?", a: shuffleArray(["Bioethics", "Biotechnology", "Agriculture", "Genetics"]), correct: 0 },
+        { id: 193, q: "The concept of the personalized medicine is the use of genetic information to tailor medical treatment. This is an example of?", a: shuffleArray(["Personalized medicine", "Biotechnology", "Agriculture", "Genetics"]), correct: 0 },
+        { id: 194, q: "The concept of the pharmacogenomics is the study of how genes affect a person's response to drugs. This is an example of?", a: shuffleArray(["Pharmacogenomics", "Personalized medicine", "Biotechnology", "Genetics"]), correct: 0 },
+        { id: 195, q: "The concept of the gene expression profiling is the measurement of the expression of thousands of genes simultaneously. This is an example of?", a: shuffleArray(["Genomics", "Transcriptomics", "Proteomics", "None"]), correct: 0 },
+        { id: 196, q: "The concept of the protein engineering is the design and synthesis of new proteins. This is an example of?", a: shuffleArray(["Protein engineering", "Biotechnology", "Genetics", "None"]), correct: 0 },
+        { id: 197, q: "The concept of the tissue engineering is the creation of tissues for transplantation. This is an example of?", a: shuffleArray(["Tissue engineering", "Biotechnology", "Genetics", "None"]), correct: 0 },
+        { id: 198, q: "The concept of the stem cell research is the study of stem cells for therapeutic purposes. This is an example of?", a: shuffleArray(["Stem cell research", "Biotechnology", "Genetics", "None"]), correct: 0 },
+        { id: 199, q: "The concept of the cloning is the creation of a genetically identical copy of an organism. This is an example of?", a: shuffleArray(["Cloning", "Biotechnology", "Genetics", "None"]), correct: 0 },
+        { id: 200, q: "The concept of the evolution of antibiotic resistance is a modern example of natural selection. This is an example of?", a: shuffleArray(["Natural selection", "Evolution", "Genetics", "None"]), correct: 0 }
+    ];
+
+    const correctValues = {
+        1: "Asexual", 2: "Clone", 3: "Testes", 4: "Ovaries", 5: "Seminiferous tubules",
+        6: "Ovaries", 7: "Spermatogenesis", 8: "Oogenesis", 9: "Testosterone", 10: "Estrogen",
+        11: "Ovaries", 12: "Ovulation", 13: "Ovulation", 14: "Fallopian tube", 15: "Zygote",
+        16: "Uterus", 17: "Nutrient and gas exchange", 18: "9 months", 19: "hCG", 20: "Prolactin",
+        21: "Oxytocin", 22: "Cleavage", 23: "Gastrulation", 24: "Skin", 25: "Circulatory system",
+        26: "Lungs", 27: "Chorion", 28: "Chromosomal abnormalities",
+        29: "Estrogen and progesterone", 30: "Infertility",
+        31: "Estrogen and progesterone", 32: "Tubal ligation", 33: "Vasectomy",
+        34: "Chlamydia", 35: "Human Immunodeficiency Virus",
+        36: "Secrete seminal fluid", 37: "Sperm", 38: "Penetrating the egg",
+        39: "Female reproductive tract", 40: "Syngamy",
+        41: "Follicle cells", 42: "Sertoli cells", 43: "Testosterone", 44: "Progesterone",
+        45: "Menstruation", 46: "Estrogen", 47: "Progesterone", 48: "Implantation",
+        49: "Parturition", 50: "Oxytocin",
+        51: "One functional ovum", 52: "True", 53: "True", 54: "True",
+        55: "Temperature regulation", 56: "Temperature regulation", 57: "Ejaculation",
+        58: "Accessory gland function", 59: "Protective function", 60: "Cell division",
+        61: "Differentiation", 62: "Developmental biology", 63: "Recapitulation",
+        64: "Neurulation", 65: "Organogenesis", 66: "Organogenesis", 67: "Aging",
+        68: "Cellular senescence", 69: "Stem cell biology", 70: "Cell death",
+        71: "Genotype-environment interaction", 72: "Hormonal control of growth",
+        73: "Cretinism", 74: "Regeneration", 75: "Cell growth responses",
+        76: "Developmental biology", 77: "Sensitive periods in development",
+        78: "Endocrine regulation of development", 79: "Hormonal regulation",
+        80: "Developmental biology", 81: "Stem cell biology", 82: "Regenerative medicine",
+        83: "Pathology", 84: "Cell cycle regulation", 85: "Tumor suppressor gene",
+        86: "Oncogene", 87: "Cancer progression", 88: "Immunology",
+        89: "Cancer treatment", 90: "Cancer treatment", 91: "Cancer treatment",
+        92: "Cancer treatment", 93: "Aging", 94: "Theory of aging", 95: "Theory of aging",
+        96: "Cell death mechanisms", 97: "Cellular recycling", 98: "Regenerative medicine",
+        99: "Organ transplantation", 100: "Biomedical engineering",
+        101: "9:3:3:1", 102: "25", 103: "Genetic mapping", 104: "No interference",
+        105: "Autosomal dominant", 106: "Autosomal recessive", 107: "X-linked dominant",
+        108: "Y-linked", 109: "Maternal inheritance", 110: "Sickle cell anemia",
+        111: "Cystic fibrosis", 112: "Cancer", 113: "Philadelphia chromosome",
+        114: "Aneuploidy", 115: "Monosomy", 116: "Trisomy", 117: "Recessive epistasis",
+        118: "Human height", 119: "Pleiotropy", 120: "Genetics",
+        121: "Genetics", 122: "Genetic variation", 123: "Genetics",
+        124: "Forensic genetics", 125: "Population genetics", 126: "Null hypothesis",
+        127: "Evolutionary force", 128: "Evolutionary force", 129: "Evolutionary force",
+        130: "Evolutionary force", 131: "Non-random mating", 132: "Random mating",
+        133: "Sex-linked inheritance", 134: "Linkage", 135: "Recombination",
+        136: "Genetic mapping", 137: "Physical mapping", 138: "Genomics",
+        139: "Transcriptomics", 140: "Proteomics", 141: "Metabolomics",
+        142: "Bioinformatics", 143: "Systems biology", 144: "Synthetic biology",
+        145: "Gene editing", 146: "Gene therapy", 147: "Genetic engineering",
+        148: "Genetic engineering", 149: "Molecular cloning",
+        150: "Molecular biology technique", 151: "Molecular biology technique",
+        152: "Molecular biology technique", 153: "Molecular biology tool",
+        154: "Molecular biology tool", 155: "Gene regulation", 156: "Gene regulation",
+        157: "Epigenetics", 158: "Epigenetics", 159: "Epigenetics", 160: "Epigenetics",
+        161: "Darwin and Wallace", 162: "Evidence for evolution", 163: "Divergent evolution",
+        164: "Convergent evolution", 165: "Vestigial organs", 166: "Molecular evolution",
+        167: "Species concept", 168: "Speciation", 169: "Speciation",
+        170: "Adaptive radiation", 171: "Coevolution", 172: "Evidence for common descent",
+        173: "Phylogeny", 174: "Taxonomy", 175: "Linnaeus", 176: "Taxonomy",
+        177: "Carl Woese", 178: "Biotechnology", 179: "Biotechnology",
+        180: "Biotechnology", 181: "Biotechnology", 182: "Biotechnology",
+        183: "Bioremediation", 184: "Biotechnology", 185: "Agriculture",
+        186: "Agriculture", 187: "Genetic engineering", 188: "Genetic engineering",
+        189: "Biotechnology", 190: "Bioethics", 191: "Bioethics", 192: "Bioethics",
+        193: "Personalized medicine", 194: "Pharmacogenomics", 195: "Genomics",
+        196: "Protein engineering", 197: "Tissue engineering",
+        198: "Stem cell research", 199: "Cloning", 200: "Natural selection"
+    };
+
+    mcqs.forEach(q => {
+        if (q.id && correctValues[q.id]) {
+            const correctAns = correctValues[q.id];
+            const correctIndex = q.a.indexOf(correctAns);
+            if (correctIndex !== -1) {
+                q.correct = correctIndex;
+            }
+        }
+    });
+
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200;
+    let timerInterval;
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    function startTest() {
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval);
+                showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table =
+            "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>Q-${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>
