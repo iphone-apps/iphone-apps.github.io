@@ -1,45 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>12 Apps by Akbar Ali</title>
+<title>12 Educational Apps - Nakhat Tarin</title>
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <style>
-body{margin:0;font-family:Arial;background:#1e1b4b;display:flex;justify-content:center;min-height:100vh}
-.phone{width:360px;background:#7c7cff;border-radius:30px;padding:20px;margin:20px}
-h1{color:white;text-align:center;font-size:22px}
-.sub{color:#e0e0ff;text-align:center;font-size:12px;margin-bottom:15px}
-.section{background:rgba(255,255,255,0.15);border-radius:20px;padding:12px;margin-bottom:10px}
-.sec-title{color:#ffe082;text-align:center;font-size:11px;font-weight:bold;margin-bottom:10px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
-a.card{background:white;border-radius:15px;padding:8px 2px;text-align:center;text-decoration:none;color:#333;display:block}
-.icon{font-size:24px}
-.label{font-size:9px;font-weight:bold;margin-top:4px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#eef2ff;padding:16px}
+.header{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;text-align:center;margin-bottom:20px}
+.header h1{margin:0;font-size:22px}
+.header p{margin:5px 0 0;opacity:0.9;font-size:14px}
+.section{background:white;border-radius:20px;padding:16px;margin-bottom:16px;box-shadow:0 4px 15px rgba(0,0,0,0.05)}
+.section-title{font-weight:700;margin-bottom:12px;font-size:16px;color:#333}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.app{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:#333;background:#f8f9ff;border-radius:16px;padding:12px 6px;transition:0.2s}
+.app:active{transform:scale(0.95)}
+.app-icon{width:48px;height:48px;background:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:6px}
+.app-name{font-size:11px;font-weight:600;line-height:1.2}
+.app-count{font-size:9px;color:#888;margin-top:2px}
+.badge{background:#667eea;color:white;font-size:9px;padding:2px 6px;border-radius:20px;margin-bottom:5px}
 </style>
 </head>
 <body>
-<div class="phone">
-<h1>12 Apps Portfolio</h1>
-<div class="sub">by Akbar Ali - Educational Apps</div>
-<div class="section">
-<div class="sec-title">⭐ TOP ENTRY TESTS</div>
-<div class="grid">
-<a class="card" href="./mdcat/"><div class="icon">🩺</div><div class="label">MDCAT<br>10 Tests</div></a>
-<a class="card" href="./ecat/"><div class="icon">⚙️</div><div class="label">ECAT<br>10 Tests</div></a>
-<a class="card" href="./lat/"><div class="icon">⚖️</div><div class="label">LAT<br>10 Tests</div></a>
-<a class="card" href="./logical/"><div class="icon">🧠</div><div class="label">Logical<br>1000 MCQs</div></a>
-</div></div>
-<div class="section">
-<div class="grid">
-<a class="card" href="./fsc-biology/"><div class="icon">🧬</div><div class="label">FSc Biology<br>2000 MCQs</div></a>
-<a class="card" href="./fsc-chemistry/"><div class="icon">🧪</div><div class="label">FSc Chemistry<br>2000 MCQs</div></a>
-<a class="card" href="./fsc-physics/"><div class="icon">🚀</div><div class="label">FSc Physics<br>2000 MCQs</div></a>
-<a class="card" href="./fsc-maths/"><div class="icon">🔢</div><div class="label">FSc Maths<br>2000 MCQs</div></a>
-<a class="card" href="./hssc-english/"><div class="icon">📝</div><div class="label">HSSC English<br>2000 MCQs</div></a>
-<a class="card" href="./constitution/"><div class="icon">🇵🇰</div><div class="label">Constitution<br>Pakistan</div></a>
-<a class="card" href="./translator/"><div class="icon">🌍</div><div class="label">Global<br>Translator</div></a>
-<a class="card" href="./translator/"><div class="icon">🔄</div><div class="label">Unit<br>Converter</div></a>
-</div></div>
+
+<div class="header">
+<h1>⭐ 12 Educational Apps</h1>
+<p>By Nakhat Tarin - All Entry Tests Preparation</p>
 </div>
+
+<div class="section">
+<div class="section-title">⭐ TOP ENTRY TESTS</div>
+<div class="grid">
+<a class="app" href="./mdcat/"><div class="app-icon">🩺</div><div class="app-name">MDCAT</div><div class="app-count">10 Tests</div></a>
+<a class="app" href="./ecat/"><div class="app-icon">⚙️</div><div class="app-name">ECAT</div><div class="app-count">10 Tests</div></a>
+<a class="app" href="./lat/"><div class="app-icon">⚖️</div><div class="app-name">LAT</div><div class="app-count">10 Tests</div></a>
+<a class="app" href="./logical/"><div class="app-icon">🧠</div><div class="app-name">Logical</div><div class="app-count">1000 MCQs</div></a>
+</div>
+</div>
+
+<div class="section">
+<div class="grid">
+<a class="app" href="./fsc-biology/"><div class="app-icon">🧬</div><div class="app-name">FSc Biology</div><div class="app-count">2000 MCQs</div></a>
+<a class="app" href="./fsc-chemistry/"><div class="app-icon">🧪</div><div class="app-name">FSc Chemistry</div><div class="app-count">2000 MCQs</div></a>
+<a class="app" href="./fsc-physics/"><div class="app-icon">🚀</div><div class="app-name">FSc Physics</div><div class="app-count">2000 MCQs</div></a>
+<a class="app" href="./fsc-maths/"><div class="app-icon">🔢</div><div class="app-name">FSc Maths</div><div class="app-count">2000 MCQs</div></a>
+
+<a class="app" href="./hssc-english/"><div class="app-icon">📝</div><div class="app-name">HSSC English</div><div class="app-count">2000 MCQs</div></a>
+<a class="app" href="./constitution/"><div class="app-icon">🇵🇰</div><div class="app-name">Constitution Pakistan</div><div class="app-count"></div></a>
+<a class="app" href="./translator/"><div class="app-icon">🌍</div><div class="app-name">Global Translator</div><div class="app-count"></div></a>
+<a class="app" href="./converter/"><div class="app-icon">🔄</div><div class="app-name">Unit Converter</div><div class="app-count"></div></a>
+</div>
+</div>
+
 </body>
 </html>
