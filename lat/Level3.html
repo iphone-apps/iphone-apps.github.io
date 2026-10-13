@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAT Practice Test-3 (HEC Level)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            font-family: 'Segoe UI', Arial;
+            text-align: center;
+            padding: 8px 10px;
+            min-height: 100vh;
+        }
+        .container { max-width: 700px; margin: 0 auto; }
+        .main-title { font-size: 28px; color: #ffeb3b; font-weight: bold; text-shadow: 0 0 15px #ffeb3b; }
+        .main-subtitle { font-size: 17px; color: #d1c5e8; margin-bottom: 12px; }
+        .box {
+            background: linear-gradient(135deg, #1a0033, #3d0099);
+            border: 2px solid #bb86fc;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 8px auto;
+            width: 100%;
+            max-width: 600px;
+        }
+        .box h2 { font-size: 22px; color: #ffeb3b; }
+        .box p { font-size: 17px; color: #d1c5e8; margin: 3px 0; }
+        .box b { color: #bb86fc; }
+        .note-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 2px solid #ffeb3b;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .note-box p {
+            font-size: 15px;
+            color: #ffeb3b;
+            margin: 2px 0;
+        }
+        .warning-box {
+            background: rgba(255,0,0,0.1);
+            border: 2px solid #ff4444;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 8px 0;
+        }
+        .warning-box p { color: #ff4444; font-weight: bold; font-size: 16px; }
+        .btn {
+            display: block;
+            background: linear-gradient(135deg, #7f00ff, #e100ff);
+            color: white;
+            border: none;
+            padding: 16px;
+            margin: 10px auto;
+            border-radius: 10px;
+            font-size: 20px;
+            width: 100%;
+            max-width: 600px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover { transform: scale(1.03); box-shadow: 0 0 20px #7f00ff; }
+        .hidden { display: none; }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.4);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .timer { font-size: 20px; color: #ffeb3b; font-weight: bold; }
+        .qno { font-size: 18px; background: #7f00ff; padding: 5px 15px; border-radius: 30px; }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .score-bar span { color: #bb86fc; }
+        .q-box {
+            background: rgba(187,134,252,0.1);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(187,134,252,0.3);
+            margin: 10px 0;
+            word-wrap: break-word;
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .q-id { color: #ffeb3b; background: rgba(0,0,0,0.3); padding: 3px 12px; border-radius: 20px; }
+        .section-tag { background: #e100ff; padding: 3px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; }
+        .question { font-size: 20px; margin-bottom: 14px; text-align: left; line-height: 1.5; word-wrap: break-word; }
+        .urdu-q { font-size: 20px; margin-bottom: 14px; text-align: right; direction: rtl; font-family: 'Noto Nastaliq Urdu', 'Arial'; line-height: 1.5; word-wrap: break-word; }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 6px 0;
+            padding: 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(187,134,252,0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            text-align: left;
+            transition: 0.2s;
+            word-wrap: break-word;
+        }
+        .options button:hover { background: #2e0059; }
+        .options .urdu-opt { text-align: right; direction: rtl; font-size: 18px; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .nav button {
+            flex: 1;
+            padding: 14px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .nav button:hover { background: #7f00ff; }
+        .subjective-section {
+            background: rgba(255,215,0,0.08);
+            border: 2px solid #ffeb3b;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 10px 0;
+        }
+        .subjective-section textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(187,134,252,0.3);
+            background: rgba(0,0,0,0.4);
+            color: white;
+            font-size: 17px;
+            min-height: 100px;
+            resize: vertical;
+            font-family: 'Segoe UI', Arial;
+        }
+        .word-count { text-align: right; font-size: 14px; color: #888; margin-top: 4px; }
+        .total-score-box {
+            background: rgba(255,215,0,0.15);
+            border: 2px solid #ffeb3b;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .total-score-box h3 { color: #ffeb3b; font-size: 22px; }
+        .sample-box {
+            background: rgba(0,230,118,0.08);
+            border: 2px solid #00e676;
+            border-radius: 12px;
+            padding: 18px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        .sample-box h3 { color: #00e676; text-align: center; font-size: 20px; }
+        .sample-text {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 8px 0;
+            white-space: pre-line;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        .student-answer-box {
+            background: rgba(255,215,0,0.1);
+            border: 2px solid #ffeb3b;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        .student-answer-box p { color: #ffeb3b; font-weight: bold; font-size: 16px; }
+        .student-answer-box .student-text { white-space: pre-line; line-height: 1.6; font-size: 15px; color: #d1c5e8; }
+        .checklist { background: rgba(255,215,0,0.08); padding: 12px; border-radius: 10px; margin: 8px 0; }
+        .checklist label { display: block; margin: 4px 0; font-size: 16px; }
+        .checklist input[type="number"] { width: 50px; padding: 4px; border-radius: 5px; border: 1px solid #bb86fc; background: rgba(0,0,0,0.4); color: white; font-size: 16px; }
+        table {
+            width: 100%;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 13px;
+            border-collapse: collapse;
+        }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 8px; font-size: 14px; }
+        td { padding: 6px; border-bottom: 1px solid rgba(187,134,252,0.2); text-align: left; font-size: 13px; word-wrap: break-word; }
+        .qno-col { width: 50px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            z-index: 9999;
+            opacity: 0;
+            transition: 0.4s;
+            font-size: 16px;
+        }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        #warningPopup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a0033;
+            border: 3px solid #ff4444;
+            border-radius: 15px;
+            padding: 30px;
+            z-index: 99999;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(255,0,0,0.3);
+            display: none;
+        }
+        #warningPopup h2 { color: #ff4444; margin-bottom: 15px; }
+        #warningPopup p { color: #d1c5e8; font-size: 17px; margin-bottom: 20px; }
+        #warningPopup .btn {
+            display: inline-block;
+            width: auto;
+            padding: 12px 30px;
+            margin: 5px;
+        }
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 99998;
+            display: none;
+        }
+        @media (max-width: 500px) {
+            .main-title { font-size: 24px; }
+            .box { padding: 12px; }
+            .box p { font-size: 15px; }
+            .btn { font-size: 18px; padding: 14px; }
+            .question { font-size: 18px; }
+            .urdu-q { font-size: 18px; }
+            .options button { font-size: 16px; padding: 12px; }
+            .options .urdu-opt { font-size: 16px; }
+            .timer { font-size: 17px; }
+            .qno { font-size: 15px; }
+            .score-bar { font-size: 13px; }
+            .nav button { font-size: 15px; padding: 12px; }
+            .subjective-section textarea { font-size: 15px; min-height: 80px; }
+            .sample-text { font-size: 15px; }
+            .student-text { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- PAGE 1: MCQs Instructions -->
+    <div id="page1">
+        <h1 class="main-title">🧑‍⚖️ LAT Practice Test-3</h1>
+        <p class="main-subtitle">75 MCQs + 2 Subjective · HEC Pattern</p>
+        <div class="box">
+            <h2>📋 MCQs SECTION (75 Marks)</h2>
+            <p><b>⏱ Time:</b> 90 minutes</p>
+            <p><b>📝 Total MCQs:</b> 75</p>
+            <p><b>✅ Marking:</b> +1 each (No negative)</p>
+            <p><b>📚 Sections:</b> English (20), GK (20), Islamic Studies (10), Pakistan Studies (10), Urdu (10), Math (5)</p>
+
+            <!-- ===== SAVE FOR LATER NOTE ===== -->
+            <div class="note-box">
+                <p><b>💡 "Save for Later" Option:</b></p>
+                <p>If any MCQ is difficult or taking too much time, click <b>"Save for Later"</b> — it will be saved and will automatically appear <b>before the subjective section</b>, so you can solve easy questions first and return to difficult ones later.</p>
+            </div>
+            <!-- ============================== -->
+
+        </div>
+        <button class="btn" onclick="showPage2()">➡️ NEXT</button>
+    </div>
+
+    <!-- PAGE 2: Subjective Instructions -->
+    <div id="page2" class="hidden">
+        <h1 class="main-title">🧑‍⚖️ LAT Practice Test-3</h1>
+        <p class="main-subtitle">Total: 100 Marks (MCQs 75 + Subjective 25)</p>
+        <div class="box">
+            <h2>📝 SUBJECTIVE SECTION (25 Marks)</h2>
+            <p><b>Essay:</b> 15 Marks</p>
+            <p><b>Personal Statement:</b> 10 Marks</p>
+            <p><b>✍️ Type your answers after MCQs.</b></p>
+            <div class="warning-box">
+                <p>⚠️ Subjective marks may vary. Never depend on the system as MCQs.</p>
+            </div>
+        </div>
+        <button class="btn" onclick="startMCQs()">🚀 START MCQs</button>
+    </div>
+
+    <!-- PAGE 3: MCQs Quiz -->
+    <div id="quiz" class="hidden">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno">📌 Q: <span id="qno">1</span> / <span id="totalQ">75</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span> / 75</div>
+        </div>
+        <div class="q-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">1</span></span>
+                <span class="section-tag" id="sectionTag">English</span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <!-- PAGE 4: Subjective Section -->
+    <div id="subjectivePage" class="hidden">
+        <div class="subjective-section">
+            <h2 style="color:#ffeb3b; font-size:24px;">📝 SUBJECTIVE SECTION (25 Marks)</h2>
+            <div class="warning-box">
+                <p>⚠️ Subjective marks may vary. Never depend on the system as MCQs.</p>
+            </div>
+            <p style="font-weight:bold; color:#bb86fc; margin-top:10px; font-size:18px;">Q76: Essay (15 Marks) — 200 words</p>
+            <p style="font-size:17px;">Topic: <b>"The Importance of Justice in Society"</b></p>
+            <textarea spellcheck="false" placeholder="Type your essay here..." id="essayInput"></textarea>
+            <div class="word-count">Words: <span id="essayCount">0</span> / 200</div>
+
+            <p style="font-weight:bold; color:#bb86fc; margin-top:15px; font-size:18px;">Q77: Personal Statement (10 Marks) — 200 words</p>
+            <p style="font-size:17px;">Topic: <b>"What qualities make a good lawyer?"</b></p>
+            <textarea spellcheck="false" placeholder="Type your personal statement here..." id="statementInput"></textarea>
+            <div class="word-count">Words: <span id="statementCount">0</span> / 200</div>
+
+            <button class="btn" onclick="validateAndShowResult()">📊 SUBMIT & SHOW RESULT</button>
+        </div>
+    </div>
+
+    <!-- PAGE 5: Result -->
+    <div id="resultPage" class="hidden">
+        <div class="box" style="border-color:#ffeb3b;">
+            <h2 style="color:#ffeb3b;">🏁 Test Result</h2>
+            <p id="score" style="font-size:20px; margin:10px 0;"></p>
+            <button class="btn" onclick="location.reload()" style="margin-bottom:5px;">🔄 START AGAIN</button>
+        </div>
+
+        <div class="total-score-box">
+            <h3>📊 TOTAL SCORE</h3>
+            <p style="font-size:22px; font-weight:bold; color:#ffeb3b;">
+                MCQs: <span id="totalMcqScore">0</span> / 75 &nbsp;|&nbsp; Subjective: <span id="totalSubjectiveScore">0</span> / 25
+            </p>
+            <p style="font-size:28px; font-weight:bold; color:#ffeb3b; background:rgba(0,0,0,0.3); padding:10px; border-radius:10px;">
+                GRAND TOTAL: <span id="grandTotal">0</span> / 100
+            </p>
+        </div>
+
+        <div class="sample-box">
+            <h3>📋 SAMPLE ANSWERS & SELF-ASSESSMENT</h3>
+            <div class="warning-box">
+                <p>⚠️ Subjective marks may vary. Never depend on the system as MCQs.</p>
+                <p style="color:#ffeb3b; font-weight:normal; font-size:15px;">Compare your answer (below) with the sample answer.</p>
+            </div>
+
+            <!-- ESSAY -->
+            <h4 style="color:#ffeb3b; font-size:20px;">📝 ESSAY (15 Marks)</h4>
+            <p style="font-size:16px;"><b>Topic:</b> "The Importance of Justice in Society"</p>
+            <div class="student-answer-box">
+                <p>✍️ YOUR ANSWER:</p>
+                <div class="student-text" id="studentEssayDisplay">(No answer typed yet)</div>
+            </div>
+            <div class="sample-text">
+                <b style="color:#00e676;">📖 SAMPLE ANSWER:</b><br><br>
+Justice is the foundation of any civilized society. It ensures that every individual is treated fairly and equally under the law. Without justice, there would be chaos, oppression, and discrimination.
+
+A just society protects the rights of its citizens, punishes wrongdoers, and provides remedies to those who have been wronged. It promotes peace, stability, and social harmony. Justice also acts as a deterrent against crime and corruption.
+
+In Pakistan, the pursuit of justice is a fundamental right guaranteed by the Constitution. However, achieving true justice requires an independent judiciary, transparent legal processes, and a commitment to upholding the rule of law. When justice prevails, society thrives.
+            </div>
+            <div class="checklist">
+                <h4 style="color:#ffeb3b;">📊 Self-Assessment Checklist (Essay):</h4>
+                <label>✓ Content & Ideas (max 5): <input type="number" min="0" max="5" value="0" class="essayCheck" /> / 5</label>
+                <label>✓ Structure & Organization (max 4): <input type="number" min="0" max="4" value="0" class="essayCheck" /> / 4</label>
+                <label>✓ Grammar & Vocabulary (max 3): <input type="number" min="0" max="3" value="0" class="essayCheck" /> / 3</label>
+                <label>✓ Relevance to Topic (max 2): <input type="number" min="0" max="2" value="0" class="essayCheck" /> / 2</label>
+                <label>✓ Spelling Mistakes (max 1): <input type="number" min="0" max="1" value="0" class="essayCheck" /> / 1</label>
+                <p style="font-weight:bold; color:#ffeb3b; font-size:17px;">Total: <span id="essayTotal">0</span> / 15</p>
+            </div>
+
+            <!-- PERSONAL STATEMENT -->
+            <h4 style="color:#ffeb3b; font-size:20px; margin-top:20px;">📝 PERSONAL STATEMENT (10 Marks)</h4>
+            <p style="font-size:16px;"><b>Topic:</b> "What qualities make a good lawyer?"</p>
+            <div class="student-answer-box">
+                <p>✍️ YOUR ANSWER:</p>
+                <div class="student-text" id="studentStatementDisplay">(No answer typed yet)</div>
+            </div>
+            <div class="sample-text">
+                <b style="color:#00e676;">📖 SAMPLE ANSWER:</b><br><br>
+A good lawyer must possess a strong sense of justice, integrity, and empathy. They should be able to listen to their clients, understand their concerns, and advocate for their rights with passion and dedication.
+
+Effective communication skills are also essential — a lawyer must be able to present arguments clearly and persuasively, both in writing and in oral advocacy. They should also have strong analytical and problem-solving abilities to navigate complex legal issues.
+
+Furthermore, a good lawyer must be patient, persistent, and resilient. The legal profession can be challenging, but those who remain committed to their clients and the pursuit of justice can make a significant difference in the lives of individuals and society as a whole.
+            </div>
+            <div class="checklist">
+                <h4 style="color:#ffeb3b;">📊 Self-Assessment Checklist (Personal Statement):</h4>
+                <label>✓ Clarity of purpose (max 4): <input type="number" min="0" max="4" value="0" class="statementCheck" /> / 4</label>
+                <label>✓ Personal experience & reflection (max 3): <input type="number" min="0" max="3" value="0" class="statementCheck" /> / 3</label>
+                <label>✓ Language & expression (max 3): <input type="number" min="0" max="3" value="0" class="statementCheck" /> / 3</label>
+                <p style="font-weight:bold; color:#ffeb3b; font-size:17px;">Total: <span id="statementTotal">0</span> / 10</p>
+            </div>
+            <p style="text-align:center; font-size:20px; color:#ffeb3b; font-weight:bold; margin-top:15px;">
+                SUBJECTIVE TOTAL: <span id="subjectiveTotal">0</span> / 25
+            </p>
+        </div>
+
+        <h3 style="color:#ffeb3b; margin-top:15px; font-size:22px;">📊 MCQs Review</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<!-- Warning Popup -->
+<div id="overlay" onclick="closeWarning()"></div>
+<div id="warningPopup">
+    <h2>⚠️ WARNING</h2>
+    <p>You have not typed anything in the subjective section!<br><br>Please go back and write your answers before submitting.</p>
+    <button class="btn" onclick="closeWarning()" style="background:linear-gradient(135deg,#ff8c00,#ff4500);">🔙 Go Back to Subject</button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper functions
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => t.classList.remove("show"), 1500);
+    }
+
+    // Warning Popup Functions
+    function showWarning() {
+        document.getElementById("overlay").style.display = "block";
+        document.getElementById("warningPopup").style.display = "block";
+    }
+    function closeWarning() {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("warningPopup").style.display = "none";
+        document.getElementById("resultPage").style.display = "none";
+        document.getElementById("subjectivePage").style.display = "block";
+    }
+
+    // Navigation
+    function showPage2() {
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "block";
+    }
+
+    // ============================================================
+    // MCQs Data (75 Questions) — HEC LAT Level (Test-3)
+    // ============================================================
+    const mcqs = [
+        // ENGLISH (1-20)
+        {id:1, sec:"English", q:"Synonym of 'Acumen' is?", a:shuffleArray(["Keenness", "Dullness", "Stupidity", "Ignorance"]), correct:0},
+        {id:2, sec:"English", q:"Antonym of 'Brusque' is?", a:shuffleArray(["Polite", "Rude", "Blunt", "Harsh"]), correct:0},
+        {id:3, sec:"English", q:"Correct sentence: 'Neither the manager nor his staff ___ responsible.'", a:shuffleArray(["is", "are", "was", "were"]), correct:0},
+        {id:4, sec:"English", q:"Synonym of 'Debacle' is?", a:shuffleArray(["Disaster", "Success", "Triumph", "Victory"]), correct:0},
+        {id:5, sec:"English", q:"Antonym of 'Ebullient' is?", a:shuffleArray(["Apathetic", "Enthusiastic", "Energetic", "Vibrant"]), correct:0},
+        {id:6, sec:"English", q:"Correct preposition: 'He is conscious ___ his duties.'", a:shuffleArray(["of", "from", "with", "at"]), correct:0},
+        {id:7, sec:"English", q:"Synonym of 'Furtive' is?", a:shuffleArray(["Sly", "Open", "Frank", "Honest"]), correct:0},
+        {id:8, sec:"English", q:"Antonym of 'Gaudy' is?", a:shuffleArray(["Subtle", "Flashy", "Showy", "Loud"]), correct:0},
+        {id:9, sec:"English", q:"Correct tense: 'She ___ writing a novel for two years.'", a:shuffleArray(["has been", "is", "was", "will be"]), correct:0},
+        {id:10, sec:"English", q:"Synonym of 'Haphazard' is?", a:shuffleArray(["Random", "Systematic", "Organized", "Methodical"]), correct:0},
+        {id:11, sec:"English", q:"Antonym of 'Inexorable' is?", a:shuffleArray(["Yielding", "Unstoppable", "Relentless", "Determined"]), correct:0},
+        {id:12, sec:"English", q:"Correct sentence: 'The jury ___ unanimous in its decision.'", a:shuffleArray(["was", "were", "are", "is"]), correct:0},
+        {id:13, sec:"English", q:"Synonym of 'Laconic' is?", a:shuffleArray(["Concise", "Verbose", "Wordy", "Long-winded"]), correct:0},
+        {id:14, sec:"English", q:"Antonym of 'Munificent' is?", a:shuffleArray(["Stingy", "Generous", "Bountiful", "Liberal"]), correct:0},
+        {id:15, sec:"English", q:"Correct preposition: 'He is devoid ___ sense.'", a:shuffleArray(["of", "from", "with", "at"]), correct:0},
+        {id:16, sec:"English", q:"Synonym of 'Ostentatious' is?", a:shuffleArray(["Showy", "Modest", "Unassuming", "Humble"]), correct:0},
+        {id:17, sec:"English", q:"Antonym of 'Perfunctory' is?", a:shuffleArray(["Thorough", "Superficial", "Careless", "Negligent"]), correct:0},
+        {id:18, sec:"English", q:"Correct tense: 'I ___ never seen such a beautiful sunset.'", a:shuffleArray(["have", "had", "will have", "has"]), correct:0},
+        {id:19, sec:"English", q:"Synonym of 'Quixotic' is?", a:shuffleArray(["Idealistic", "Pragmatic", "Realistic", "Practical"]), correct:0},
+        {id:20, sec:"English", q:"Antonym of 'Rancorous' is?", a:shuffleArray(["Friendly", "Bitter", "Hostile", "Malicious"]), correct:0},
+
+        // GK (21-40)
+        {id:21, sec:"GK", q:"Which country is NOT a member of BRICS?", a:shuffleArray(["Japan", "Brazil", "Russia", "India"]), correct:0},
+        {id:22, sec:"GK", q:"The Berlin Wall fell in which year?", a:shuffleArray(["1989", "1990", "1991", "1988"]), correct:0},
+        {id:23, sec:"GK", q:"Which country has the largest economy in the world?", a:shuffleArray(["USA", "China", "Japan", "Germany"]), correct:0},
+        {id:24, sec:"GK", q:"The 'Theory of Relativity' was proposed by which scientist?", a:shuffleArray(["Einstein", "Newton", "Galileo", "Hawking"]), correct:0},
+        {id:25, sec:"GK", q:"Which of the following is NOT a renewable source of energy?", a:shuffleArray(["Coal", "Solar", "Wind", "Hydro"]), correct:0},
+        {id:26, sec:"GK", q:"The 'Great Wall of China' was built primarily to protect against which group?", a:shuffleArray(["Mongols", "Japanese", "Russian", "Indians"]), correct:0},
+        {id:27, sec:"GK", q:"Which country is the largest producer of tea?", a:shuffleArray(["China", "India", "Kenya", "Sri Lanka"]), correct:0},
+        {id:28, sec:"GK", q:"The 'Treaty of Versailles' was signed in which year?", a:shuffleArray(["1919", "1918", "1920", "1921"]), correct:0},
+        {id:29, sec:"GK", q:"Which of the following is the smallest continent?", a:shuffleArray(["Australia", "Europe", "Antarctica", "South America"]), correct:0},
+        {id:30, sec:"GK", q:"The 'Suez Canal' connects which two seas?", a:shuffleArray(["Mediterranean and Red", "Pacific and Atlantic", "Indian and Pacific", "Black and Caspian"]), correct:0},
+        {id:31, sec:"GK", q:"Which country is the largest exporter of natural gas?", a:shuffleArray(["Russia", "USA", "Canada", "Qatar"]), correct:0},
+        {id:32, sec:"GK", q:"The 'Marshall Plan' was designed to rebuild which region after WWII?", a:shuffleArray(["Europe", "Asia", "Africa", "South America"]), correct:0},
+        {id:33, sec:"GK", q:"Which of the following is the highest mountain peak in Africa?", a:shuffleArray(["Kilimanjaro", "Mount Kenya", "Mount Everest", "K2"]), correct:0},
+        {id:34, sec:"GK", q:"The 'Roman Empire' fell in which year?", a:shuffleArray(["476 AD", "476 BC", "476 AD", "476 BC"]), correct:0},
+        {id:35, sec:"GK", q:"Which country is the largest producer of cotton?", a:shuffleArray(["China", "India", "USA", "Brazil"]), correct:0},
+        {id:36, sec:"GK", q:"The 'French Revolution' began in which year?", a:shuffleArray(["1789", "1790", "1791", "1788"]), correct:0},
+        {id:37, sec:"GK", q:"Which of the following is the largest lake in Africa?", a:shuffleArray(["Victoria", "Tanganyika", "Malawi", "Chad"]), correct:0},
+        {id:38, sec:"GK", q:"The 'Nuclear Non-Proliferation Treaty' was signed in which year?", a:shuffleArray(["1968", "1967", "1969", "1970"]), correct:0},
+        {id:39, sec:"GK", q:"Which country is the largest producer of sugar?", a:shuffleArray(["Brazil", "India", "China", "USA"]), correct:0},
+        {id:40, sec:"GK", q:"The 'Gulf War' began in which year?", a:shuffleArray(["1991", "1990", "1992", "1993"]), correct:0},
+
+        // Islamic Studies (41-50)
+        {id:41, sec:"Islamic Studies", q:"How many Surahs in the Quran are named after prophets?", a:shuffleArray(["5", "6", "7", "8"]), correct:0},
+        {id:42, sec:"Islamic Studies", q:"The first migration (Hijrah) of Muslims was to which country?", a:shuffleArray(["Abyssinia", "Medina", "Mecca", "Jerusalem"]), correct:0},
+        {id:43, sec:"Islamic Studies", q:"Which companion is known as 'The Trustworthy' (Al-Amin)?", a:shuffleArray(["Abu Bakr (RA)", "Umar (RA)", "Uthman (RA)", "Ali (RA)"]), correct:0},
+        {id:44, sec:"Islamic Studies", q:"The Battle of Trench was fought in which year?", a:shuffleArray(["627 AD", "624 AD", "625 AD", "630 AD"]), correct:0},
+        {id:45, sec:"Islamic Studies", q:"Which of the following is NOT one of the six articles of faith?", a:shuffleArray(["Predestination", "Prophethood", "Angels", "Salah"]), correct:0},
+        {id:46, sec:"Islamic Studies", q:"The first mosque built in Islam is?", a:shuffleArray(["Quba", "Masjid-e-Nabawi", "Masjid-e-Aqsa", "Masjid-e-Haram"]), correct:0},
+        {id:47, sec:"Islamic Studies", q:"How many Rakats are in Zuhr prayer?", a:shuffleArray(["12", "10", "8", "14"]), correct:0},
+        {id:48, sec:"Islamic Studies", q:"Which Surah is called the 'Mother of the Quran'?", a:shuffleArray(["Surah Fatiha", "Surah Ikhlas", "Surah Yaseen", "Surah Rehman"]), correct:0},
+        {id:49, sec:"Islamic Studies", q:"The Quran was revealed in which cave?", a:shuffleArray(["Hira", "Thawr", "Uhud", "Badr"]), correct:0},
+        {id:50, sec:"Islamic Studies", q:"Who was the first Caliph of Islam?", a:shuffleArray(["Abu Bakr (RA)", "Umar (RA)", "Uthman (RA)", "Ali (RA)"]), correct:0},
+
+        // Pakistan Studies (51-60)
+        {id:51, sec:"Pakistan Studies", q:"Which of the following is the largest district in Pakistan by area?", a:shuffleArray(["Chagai", "Khuzdar", "Gwadar", "Kharan"]), correct:0},
+        {id:52, sec:"Pakistan Studies", q:"The 'Pakistan Resolution' was passed in which year?", a:shuffleArray(["1940", "1947", "1939", "1941"]), correct:0},
+        {id:53, sec:"Pakistan Studies", q:"Which of the following is the largest river in Pakistan?", a:shuffleArray(["Indus", "Chenab", "Jhelum", "Ravi"]), correct:0},
+        {id:54, sec:"Pakistan Studies", q:"Pakistan's largest dam by storage capacity is?", a:shuffleArray(["Tarbela", "Mangla", "Warsak", "Ghazi-Barotha"]), correct:0},
+        {id:55, sec:"Pakistan Studies", q:"Which of the following is the largest province of Pakistan by population?", a:shuffleArray(["Punjab", "Sindh", "Khyber Pakhtunkhwa", "Balochistan"]), correct:0},
+        {id:56, sec:"Pakistan Studies", q:"Pakistan's national fruit is?", a:shuffleArray(["Mango", "Apple", "Banana", "Orange"]), correct:0},
+        {id:57, sec:"Pakistan Studies", q:"The first President of Pakistan was?", a:shuffleArray(["Iskander Mirza", "Ayub Khan", "Muhammad Ali Jinnah", "Liaquat Ali Khan"]), correct:0},
+        {id:58, sec:"Pakistan Studies", q:"Pakistan's national game is?", a:shuffleArray(["Hockey", "Cricket", "Football", "Squash"]), correct:0},
+        {id:59, sec:"Pakistan Studies", q:"The 'Indus Valley Civilization' is located in which region?", a:shuffleArray(["Pakistan", "India", "Afghanistan", "Iran"]), correct:0},
+        {id:60, sec:"Pakistan Studies", q:"Who was the first woman Governor of Pakistan?", a:shuffleArray(["Ra'ana Liaquat Ali Khan", "Begum Jahanara", "Fatima Jinnah", "Benazir Bhutto"]), correct:0},
+
+        // URDU (61-70)
+        {id:61, sec:"Urdu", q:"لفظ 'سحر' کا متضاد ہے؟", a:shuffleArray(["شام", "صبح", "دوپہر", "رات"]), correct:0, isUrdu:true},
+        {id:62, sec:"Urdu", q:"لفظ 'فلک' کا متضاد ہے؟", a:shuffleArray(["زمین", "چاند", "سورج", "ستارہ"]), correct:0, isUrdu:true},
+        {id:63, sec:"Urdu", q:"لفظ 'غیر' کا مترادف ہے؟", a:shuffleArray(["دوسرا", "حریف", "مخالف", "دشمن"]), correct:0, isUrdu:true},
+        {id:64, sec:"Urdu", q:"لفظ 'قہقہہ' کا متضاد ہے؟", a:shuffleArray(["رونا", "مسکرانا", "ہنسنا", "کھلنا"]), correct:0, isUrdu:true},
+        {id:65, sec:"Urdu", q:"لفظ 'فساد' کا مترادف ہے؟", a:shuffleArray(["فتنہ", "جنگ", "لڑائی", "جھگڑا"]), correct:0, isUrdu:true},
+        {id:66, sec:"Urdu", q:"لفظ 'صدق' کا متضاد ہے؟", a:shuffleArray(["کذب", "جھوٹ", "باطل", "افترا"]), correct:0, isUrdu:true},
+        {id:67, sec:"Urdu", q:"لفظ 'شاد' کا مترادف ہے؟", a:shuffleArray(["خوش", "مسرور", "خرم", "فرح"]), correct:0, isUrdu:true},
+        {id:68, sec:"Urdu", q:"لفظ 'دانش' کا مترادف ہے؟", a:shuffleArray(["علم", "معرفت", "عرفان", "حکمت"]), correct:0, isUrdu:true},
+        {id:69, sec:"Urdu", q:"لفظ 'بزدل' کا متضاد ہے؟", a:shuffleArray(["دلیر", "ڈرپوک", "کمزور", "نامرد"]), correct:0, isUrdu:true},
+        {id:70, sec:"Urdu", q:"لفظ 'الم' کا مترادف ہے؟", a:shuffleArray(["درد", "غم", "رنج", "اندوہ"]), correct:0, isUrdu:true},
+
+        // Math (71-75)
+        {id:71, sec:"Math", q:"If 5x - 3 = 2x + 9, what is the value of x?", a:shuffleArray(["4", "5", "6", "7"]), correct:0},
+        {id:72, sec:"Math", q:"A man buys a watch for Rs. 500 and sells it for Rs. 600. What is his profit percentage?", a:shuffleArray(["20%", "25%", "30%", "15%"]), correct:0},
+        {id:73, sec:"Math", q:"What is the average of the first 20 natural numbers?", a:shuffleArray(["10.5", "11", "10", "9.5"]), correct:0},
+        {id:74, sec:"Math", q:"If 30% of a number is 90, what is the number?", a:shuffleArray(["300", "200", "250", "400"]), correct:0},
+        {id:75, sec:"Math", q:"What is the square of 15?", a:shuffleArray(["225", "215", "235", "245"]), correct:0}
+    ];
+
+    // ============================================================
+    // Correct Answers Mapping
+    // ============================================================
+    const correctValues = {
+        1:"Keenness",2:"Polite",3:"is",4:"Disaster",5:"Apathetic",6:"of",7:"Sly",8:"Subtle",9:"has been",10:"Random",
+        11:"Yielding",12:"was",13:"Concise",14:"Stingy",15:"of",16:"Showy",17:"Thorough",18:"have",19:"Idealistic",20:"Friendly",
+        21:"Japan",22:"1989",23:"USA",24:"Einstein",25:"Coal",26:"Mongols",27:"China",28:"1919",29:"Australia",30:"Mediterranean and Red",
+        31:"Russia",32:"Europe",33:"Kilimanjaro",34:"476 AD",35:"China",36:"1789",37:"Victoria",38:"1968",39:"Brazil",40:"1991",
+        41:"5",42:"Abyssinia",43:"Abu Bakr (RA)",44:"627 AD",45:"Salah",46:"Quba",47:"12",48:"Surah Fatiha",49:"Hira",50:"Abu Bakr (RA)",
+        51:"Chagai",52:"1940",53:"Indus",54:"Tarbela",55:"Punjab",56:"Mango",57:"Iskander Mirza",58:"Hockey",59:"Pakistan",60:"Ra'ana Liaquat Ali Khan",
+        61:"شام",62:"زمین",63:"دوسرا",64:"رونا",65:"فتنہ",66:"کذب",67:"خوش",68:"علم",69:"دلیر",70:"درد",
+        71:"4",72:"20%",73:"10.5",74:"300",75:"225"
+    };
+
+    mcqs.forEach(q => {
+        if (correctValues[q.id]) {
+            let idx = q.a.indexOf(correctValues[q.id]);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // Test Engine (UPDATED: Subjective se pehlay Saved MCQs forcefully show)
+    // ============================================================
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 5400, timerInterval;
+    let savedSubjectiveAnswers = { essay: "", statement: "" };
+    let allMCQsDone = false;
+
+    function startMCQs() {
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 5400; allMCQsDone = false;
+        loadQ(); timer();
+    }
+
+    function loadQ() {
+        // Check if all MCQs are done and no saved questions left
+        if (current >= mcqs.length && laterList.length === 0) {
+            allMCQsDone = true;
+            showToast("🎉 All MCQs done! Now go to Subjective.");
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("subjectivePage").style.display = "block";
+            updateScore();
+            // Word count listeners
+            document.getElementById('essayInput').addEventListener('input', function() {
+                let words = this.value.trim().split(/\s+/).length;
+                if (this.value.trim() === '') words = 0;
+                document.getElementById('essayCount').innerText = words;
+                savedSubjectiveAnswers.essay = this.value;
+            });
+            document.getElementById('statementInput').addEventListener('input', function() {
+                let words = this.value.trim().split(/\s+/).length;
+                if (this.value.trim() === '') words = 0;
+                document.getElementById('statementCount').innerText = words;
+                savedSubjectiveAnswers.statement = this.value;
+            });
+            return;
+        }
+
+        // If all MCQs are done but there are saved questions, show them first
+        if (current >= mcqs.length && laterList.length > 0) {
+            // Force review saved questions before subjective
+            isReviewing = true;
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+            return;
+        }
+
+        updateScore();
+        let q = mcqs[current];
+        document.getElementById("qno").innerText = current + 1;
+        document.getElementById("qNumber").innerText = q.id;
+        document.getElementById("sectionTag").innerText = q.sec;
+
+        let qEl = document.getElementById("question");
+        let optEl = document.getElementById("options");
+        if (q.isUrdu) {
+            qEl.className = "urdu-q";
+            qEl.innerText = q.q;
+        } else {
+            qEl.className = "question";
+            qEl.innerText = q.q;
+        }
+
+        // Check if this is a reviewed question
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span style="background:#ff8c00;padding:3px 12px;border-radius:20px;font-size:13px;">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        let opts = "";
+        q.a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    cls = (i === q.correct) ? "correct" : "wrong";
+                }
+            }
+            let optClass = q.isUrdu ? "urdu-opt" : "";
+            opts += `<button class="${cls} ${optClass}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        optEl.innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = attempted - correct;
+        document.getElementById("liveScore").innerText = correct;
+    }
+
+    function nextQ() {
+        // If currently reviewing saved questions
+        if (isReviewing) {
+            // Check if more saved questions exist
+            if (laterList.length > 0) {
+                current = laterList.shift();
+                reviewedLater.push(current);
+                loadQ();
+            } else {
+                // All saved questions reviewed, go to subjective
+                isReviewing = false;
+                showToast("🎉 All saved questions reviewed! Now go to Subjective.");
+                document.getElementById("quiz").style.display = "none";
+                document.getElementById("subjectivePage").style.display = "block";
+            }
+            return;
+        }
+
+        // Normal flow
+        if (current < mcqs.length - 1) {
+            current++;
+            loadQ();
+        } else {
+            // Last MCQ - check for saved questions
+            current++;
+            if (laterList.length > 0) {
+                // Force review saved questions first
+                isReviewing = true;
+                current = laterList.shift();
+                reviewedLater.push(current);
+                loadQ();
+            } else {
+                // No saved questions, go to subjective
+                showToast("🎉 All MCQs done! Now go to Subjective.");
+                document.getElementById("quiz").style.display = "none";
+                document.getElementById("subjectivePage").style.display = "block";
+            }
+        }
+    }
+
+    function saveLater() {
+        if (current < mcqs.length) {
+            if (!laterList.includes(current) && answers[current] === undefined) {
+                laterList.push(current);
+                showToast("✅ Saved for later review!");
+            } else if (answers[current] !== undefined) {
+                showToast("⚠️ Already answered!");
+            } else {
+                showToast("ℹ️ Already saved!");
+            }
+            // Move to next question after saving
+            if (current < mcqs.length - 1) {
+                current++;
+                loadQ();
+            } else {
+                current++;
+                if (laterList.length > 0) {
+                    isReviewing = true;
+                    current = laterList.shift();
+                    reviewedLater.push(current);
+                    loadQ();
+                } else {
+                    showToast("🎉 All MCQs done! Now go to Subjective.");
+                    document.getElementById("quiz").style.display = "none";
+                    document.getElementById("subjectivePage").style.display = "block";
+                }
+            }
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time/3600);
+            let m = Math.floor((time%3600)/60);
+            let s = time%60;
+            document.getElementById("time").innerText = 
+                `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showToast("⏰ Time is up!"); }
+        }, 1000);
+    }
+
+    function validateAndShowResult() {
+        let essay = document.getElementById('essayInput').value.trim();
+        let statement = document.getElementById('statementInput').value.trim();
+        if (essay === "" && statement === "") {
+            showWarning();
+            return;
+        }
+        showResult();
+    }
+
+    // ============================================================
+    // Result
+    // ============================================================
+    function showResult() {
+        clearInterval(timerInterval);
+        let essayText = document.getElementById('essayInput').value || savedSubjectiveAnswers.essay || "(No answer typed)";
+        let statementText = document.getElementById('statementInput').value || savedSubjectiveAnswers.statement || "(No answer typed)";
+        
+        document.getElementById("subjectivePage").style.display = "none";
+        document.getElementById("resultPage").style.display = "block";
+
+        document.getElementById('studentEssayDisplay').innerText = essayText;
+        document.getElementById('studentStatementDisplay').innerText = statementText;
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        document.getElementById("score").innerHTML = 
+            `MCQs Score: <strong>${correct}</strong> / 75 | ✅ Correct: ${correct} | ❌ Wrong: ${attempted - correct}`;
+        document.getElementById("totalMcqScore").innerText = correct;
+
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Section</th><th>Question</th><th>Status</th><th>Your Ans</th><th>Correct</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", ans = "", color = "";
+            let id = String(q.id).padStart(3,'0');
+            if (answers[i] === q.correct) {
+                status = "✅"; ans = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌"; ans = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭"; ans = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${id}</td><td>${q.sec}</td><td>${q.q}</td><td style="color:${color};text-align:center;font-weight:bold;">${status}</td><td style="color:${color};">${ans}</td><td style="color:#00e676;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+
+        document.querySelectorAll('.essayCheck').forEach(inp => {
+            inp.addEventListener('input', function() {
+                let total = 0;
+                document.querySelectorAll('.essayCheck').forEach(i => total += parseInt(i.value) || 0);
+                document.getElementById('essayTotal').innerText = total;
+                updateSubjectiveTotal();
+            });
+        });
+        document.querySelectorAll('.statementCheck').forEach(inp => {
+            inp.addEventListener('input', function() {
+                let total = 0;
+                document.querySelectorAll('.statementCheck').forEach(i => total += parseInt(i.value) || 0);
+                document.getElementById('statementTotal').innerText = total;
+                updateSubjectiveTotal();
+            });
+        });
+        function updateSubjectiveTotal() {
+            let e = parseInt(document.getElementById('essayTotal').innerText) || 0;
+            let s = parseInt(document.getElementById('statementTotal').innerText) || 0;
+            let sub = e + s;
+            document.getElementById('subjectiveTotal').innerText = sub;
+            document.getElementById('totalSubjectiveScore').innerText = sub;
+            let mcq = parseInt(document.getElementById('totalMcqScore').innerText) || 0;
+            document.getElementById('grandTotal').innerText = mcq + sub;
+        }
+        setTimeout(updateSubjectiveTotal, 100);
+    }
+</script>
+
+</body>
+</html>

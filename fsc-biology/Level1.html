@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Biology Part-1 (Level-1 - Basic) MCQs Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧬 FSc Biology Part-1</h1>
+        <h2>Level-1 (Basic) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <p style="color: #FFD700; font-weight: bold; font-size: 16px; margin-top: 10px;">
+                💡 Note: (Save for Later) option is available if you want to solve that question at the end
+            </p>
+            <p style="color: #00FF00; font-weight: bold; margin-top: 5px;">📖 Complete review with correct answers at the end.</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // ============================================================
+    // PART-1 LEVEL-1 (BASIC) - 200 MCQs (IDs 1-200)
+    // Topics: Intro, Bio Molecules, Enzymes, Cell, Division, Bioenergetics
+    // ============================================================
+    const mcqs = [
+        // ---- INTRODUCTION (1-20) ----
+        { id: 1, q: "The scientific study of living organisms is called?", a: shuffleArray(["Biology", "Zoology", "Botany", "Microbiology"]), correct: 0 },
+        { id: 2, q: "The word 'Biology' is derived from which language?", a: shuffleArray(["Greek", "Latin", "Arabic", "English"]), correct: 0 },
+        { id: 3, q: "Who is known as the 'Father of Biology'?", a: shuffleArray(["Aristotle", "Darwin", "Linnaeus", "Mendel"]), correct: 0 },
+        { id: 4, q: "The study of animals is called?", a: shuffleArray(["Zoology", "Botany", "Microbiology", "Ecology"]), correct: 0 },
+        { id: 5, q: "The study of plants is called?", a: shuffleArray(["Botany", "Zoology", "Anatomy", "Physiology"]), correct: 0 },
+        { id: 6, q: "The branch dealing with the structure of organisms is?", a: shuffleArray(["Anatomy", "Physiology", "Ecology", "Genetics"]), correct: 0 },
+        { id: 7, q: "The study of functions of different parts is?", a: shuffleArray(["Physiology", "Anatomy", "Histology", "Cytology"]), correct: 0 },
+        { id: 8, q: "The study of cells is known as?", a: shuffleArray(["Cytology", "Histology", "Anatomy", "Embryology"]), correct: 0 },
+        { id: 9, q: "The study of tissues is called?", a: shuffleArray(["Histology", "Cytology", "Anatomy", "Morphology"]), correct: 0 },
+        { id: 10, q: "The study of fossils is called?", a: shuffleArray(["Paleontology", "Ecology", "Genetics", "Taxonomy"]), correct: 0 },
+        { id: 11, q: "The study of distribution of organisms on Earth is?", a: shuffleArray(["Biogeography", "Ecology", "Evolution", "Taxonomy"]), correct: 0 },
+        { id: 12, q: "The study of inheritance and variations is?", a: shuffleArray(["Genetics", "Ecology", "Anatomy", "Physiology"]), correct: 0 },
+        { id: 13, q: "The study of environmental relationships of organisms is?", a: shuffleArray(["Ecology", "Genetics", "Taxonomy", "Evolution"]), correct: 0 },
+        { id: 14, q: "The branch dealing with classification is?", a: shuffleArray(["Taxonomy", "Ecology", "Genetics", "Embryology"]), correct: 0 },
+        { id: 15, q: "The study of embryo development is?", a: shuffleArray(["Embryology", "Histology", "Cytology", "Anatomy"]), correct: 0 },
+        { id: 16, q: "The study of viruses is known as?", a: shuffleArray(["Virology", "Bacteriology", "Mycology", "Parasitology"]), correct: 0 },
+        { id: 17, q: "The study of fungi is called?", a: shuffleArray(["Mycology", "Bacteriology", "Virology", "Phycology"]), correct: 0 },
+        { id: 18, q: "The study of algae is known as?", a: shuffleArray(["Phycology", "Mycology", "Bacteriology", "Protozoology"]), correct: 0 },
+        { id: 19, q: "The study of bacteria is called?", a: shuffleArray(["Bacteriology", "Virology", "Mycology", "Phycology"]), correct: 0 },
+        { id: 20, q: "The study of parasites is known as?", a: shuffleArray(["Parasitology", "Virology", "Bacteriology", "Mycology"]), correct: 0 },
+
+        // ---- BIOLOGICAL MOLECULES (21-60) ----
+        { id: 21, q: "The most abundant compound in living organisms is?", a: shuffleArray(["Water", "Protein", "Carbohydrate", "Lipid"]), correct: 0 },
+        { id: 22, q: "Percentage of water in human body is about?", a: shuffleArray(["70%", "50%", "30%", "90%"]), correct: 0 },
+        { id: 23, q: "General formula of carbohydrates is?", a: shuffleArray(["(CH2O)n", "(CHO)n", "(C6H12O6)", "(C12H22O11)"]), correct: 0 },
+        { id: 24, q: "Glucose is an example of?", a: shuffleArray(["Monosaccharide", "Disaccharide", "Oligosaccharide", "Polysaccharide"]), correct: 0 },
+        { id: 25, q: "Sucrose is composed of?", a: shuffleArray(["Glucose + Fructose", "Glucose + Galactose", "Glucose + Glucose", "Fructose + Fructose"]), correct: 0 },
+        { id: 26, q: "Maltose is composed of?", a: shuffleArray(["Glucose + Glucose", "Glucose + Fructose", "Glucose + Galactose", "Fructose + Fructose"]), correct: 0 },
+        { id: 27, q: "Lactose is composed of?", a: shuffleArray(["Glucose + Galactose", "Glucose + Fructose", "Glucose + Glucose", "Galactose + Fructose"]), correct: 0 },
+        { id: 28, q: "The most common polysaccharide in plants is?", a: shuffleArray(["Starch", "Cellulose", "Glycogen", "Chitin"]), correct: 0 },
+        { id: 29, q: "Cellulose is a polymer of?", a: shuffleArray(["Glucose", "Fructose", "Galactose", "Mannose"]), correct: 0 },
+        { id: 30, q: "Glycogen is stored form of glucose in?", a: shuffleArray(["Animals", "Plants", "Bacteria", "Fungi"]), correct: 0 },
+        { id: 31, q: "Proteins are polymers of?", a: shuffleArray(["Amino acids", "Nucleotides", "Monosaccharides", "Fatty acids"]), correct: 0 },
+        { id: 32, q: "The bond that joins amino acids is called?", a: shuffleArray(["Peptide bond", "Glycosidic bond", "Phosphodiester bond", "Hydrogen bond"]), correct: 0 },
+        { id: 33, q: "The sequence of amino acids is the ________ structure.", a: shuffleArray(["Primary", "Secondary", "Tertiary", "Quaternary"]), correct: 0 },
+        { id: 34, q: "Alpha helix and beta sheet are examples of ________ structure.", a: shuffleArray(["Secondary", "Primary", "Tertiary", "Quaternary"]), correct: 0 },
+        { id: 35, q: "The 3D structure of a protein is its ________ structure.", a: shuffleArray(["Tertiary", "Secondary", "Primary", "Quaternary"]), correct: 0 },
+        { id: 36, q: "Lipids are soluble in?", a: shuffleArray(["Non-polar solvents", "Water", "Alcohol only", "All solvents"]), correct: 0 },
+        { id: 37, q: "The basic unit of lipids is?", a: shuffleArray(["Fatty acid and glycerol", "Amino acid", "Glucose", "Nucleotide"]), correct: 0 },
+        { id: 38, q: "Phospholipids are major components of?", a: shuffleArray(["Cell membranes", "Cell walls", "Ribosomes", "Vacuoles"]), correct: 0 },
+        { id: 39, q: "Cholesterol is a type of?", a: shuffleArray(["Steroid", "Phospholipid", "Triglyceride", "Wax"]), correct: 0 },
+        { id: 40, q: "Nucleic acids are polymers of?", a: shuffleArray(["Nucleotides", "Amino acids", "Monosaccharides", "Fatty acids"]), correct: 0 },
+        { id: 41, q: "DNA contains which sugar?", a: shuffleArray(["Deoxyribose", "Ribose", "Glucose", "Fructose"]), correct: 0 },
+        { id: 42, q: "RNA contains which sugar?", a: shuffleArray(["Ribose", "Deoxyribose", "Glucose", "Fructose"]), correct: 0 },
+        { id: 43, q: "The nitrogenous bases in DNA are?", a: shuffleArray(["A, T, G, C", "A, U, G, C", "A, T, G, U", "A, T, C, U"]), correct: 0 },
+        { id: 44, q: "The nitrogenous bases in RNA are?", a: shuffleArray(["A, U, G, C", "A, T, G, C", "A, T, G, U", "T, U, G, C"]), correct: 0 },
+        { id: 45, q: "Adenine pairs with which base in DNA?", a: shuffleArray(["Thymine", "Cytosine", "Guanine", "Uracil"]), correct: 0 },
+        { id: 46, q: "Guanine pairs with which base in DNA?", a: shuffleArray(["Cytosine", "Thymine", "Adenine", "Uracil"]), correct: 0 },
+        { id: 47, q: "The double helix model was proposed by?", a: shuffleArray(["Watson and Crick", "Mendel", "Darwin", "Linnaeus"]), correct: 0 },
+        { id: 48, q: "mRNA stands for?", a: shuffleArray(["Messenger RNA", "Ribosomal RNA", "Transfer RNA", "Mitochondrial RNA"]), correct: 0 },
+        { id: 49, q: "tRNA stands for?", a: shuffleArray(["Transfer RNA", "Messenger RNA", "Ribosomal RNA", "Mitochondrial RNA"]), correct: 0 },
+        { id: 50, q: "rRNA stands for?", a: shuffleArray(["Ribosomal RNA", "Messenger RNA", "Transfer RNA", "Mitochondrial RNA"]), correct: 0 },
+
+        // ---- ENZYMES (51-80) ----
+        { id: 51, q: "Enzymes are biological ________.", a: shuffleArray(["Catalysts", "Inhibitors", "Substrates", "Products"]), correct: 0 },
+        { id: 52, q: "The active site of an enzyme binds with?", a: shuffleArray(["Substrate", "Product", "Coenzyme", "Inhibitor"]), correct: 0 },
+        { id: 53, q: "The substance on which enzyme acts is called?", a: shuffleArray(["Substrate", "Product", "Coenzyme", "Cofactor"]), correct: 0 },
+        { id: 54, q: "The 'Lock and Key' model was proposed by?", a: shuffleArray(["Emil Fischer", "Koshland", "Michaelis", "Menten"]), correct: 0 },
+        { id: 55, q: "The optimum temperature for most human enzymes is?", a: shuffleArray(["37°C", "25°C", "40°C", "50°C"]), correct: 0 },
+        { id: 56, q: "Optimum pH for pepsin is?", a: shuffleArray(["pH 2", "pH 7", "pH 8", "pH 10"]), correct: 0 },
+        { id: 57, q: "Optimum pH for amylase is?", a: shuffleArray(["pH 7", "pH 2", "pH 8", "pH 4"]), correct: 0 },
+        { id: 58, q: "The non-protein part of an enzyme is called?", a: shuffleArray(["Cofactor", "Coenzyme", "Substrate", "Product"]), correct: 0 },
+        { id: 59, q: "Coenzymes are derived from?", a: shuffleArray(["Vitamins", "Minerals", "Amino acids", "Carbohydrates"]), correct: 0 },
+        { id: 60, q: "An enzyme that catalyzes oxidation-reduction is called?", a: shuffleArray(["Oxidoreductase", "Transferase", "Hydrolase", "Lyase"]), correct: 0 },
+        { id: 61, q: "Competitive inhibitor competes for the?", a: shuffleArray(["Active site", "Allosteric site", "Coenzyme", "Cofactor"]), correct: 0 },
+        { id: 62, q: "Non-competitive inhibitor binds to?", a: shuffleArray(["Allosteric site", "Active site", "Substrate", "Coenzyme"]), correct: 0 },
+        { id: 63, q: "Rennin enzyme is found in?", a: shuffleArray(["Stomach of infants", "Saliva", "Pancreas", "Liver"]), correct: 0 },
+        { id: 64, q: "Zymogen is an inactive form of?", a: shuffleArray(["Enzyme", "Substrate", "Coenzyme", "Cofactor"]), correct: 0 },
+        { id: 65, q: "Pepsin is secreted as?", a: shuffleArray(["Pepsinogen", "Trypsinogen", "Chymotrypsinogen", "Prorennin"]), correct: 0 },
+        { id: 66, q: "Trypsin is secreted as?", a: shuffleArray(["Trypsinogen", "Pepsinogen", "Chymotrypsinogen", "Prorennin"]), correct: 0 },
+        { id: 67, q: "The first enzyme discovered was?", a: shuffleArray(["Diastase", "Pepsin", "Trypsin", "Amylase"]), correct: 0 },
+        { id: 68, q: "The term 'enzyme' was coined by?", a: shuffleArray(["Kühne", "Pasteur", "Buchner", "Fischer"]), correct: 0 },
+        { id: 69, q: "Enzymes increase rate by lowering?", a: shuffleArray(["Activation energy", "Temperature", "pH", "Concentration"]), correct: 0 },
+        { id: 70, q: "In competitive inhibition, Vmax ________ and Km ________.", a: shuffleArray(["Same, increases", "Decreases, same", "Increases, decreases", "Same, decreases"]), correct: 0 },
+
+        // ---- CELL STRUCTURE (71-110) ----
+        { id: 71, q: "The cell theory was presented by?", a: shuffleArray(["Schleiden and Schwann", "Watson and Crick", "Darwin and Wallace", "Mendel"]), correct: 0 },
+        { id: 72, q: "The cell was first discovered by?", a: shuffleArray(["Robert Hooke", "Leeuwenhoek", "Brown", "Pasteur"]), correct: 0 },
+        { id: 73, q: "The smallest cell is?", a: shuffleArray(["Mycoplasma", "Bacteria", "Virus", "Yeast"]), correct: 0 },
+        { id: 74, q: "Prokaryotic cells lack?", a: shuffleArray(["Nucleus", "Cell wall", "Ribosomes", "Cell membrane"]), correct: 0 },
+        { id: 75, q: "Power house of the cell is?", a: shuffleArray(["Mitochondria", "Chloroplast", "Nucleus", "Ribosome"]), correct: 0 },
+        { id: 76, q: "Kitchen of the cell is?", a: shuffleArray(["Chloroplast", "Mitochondria", "Golgi", "Lysosome"]), correct: 0 },
+        { id: 77, q: "Ribosomes are the site of?", a: shuffleArray(["Protein synthesis", "Lipid synthesis", "Carbohydrate synthesis", "DNA synthesis"]), correct: 0 },
+        { id: 78, q: "Rough ER has ________ attached to it.", a: shuffleArray(["Ribosomes", "Lysosomes", "Golgi", "Nucleus"]), correct: 0 },
+        { id: 79, q: "Smooth ER is involved in?", a: shuffleArray(["Lipid synthesis", "Protein synthesis", "DNA replication", "Cell division"]), correct: 0 },
+        { id: 80, q: "Golgi apparatus is responsible for?", a: shuffleArray(["Packaging and secretion", "Protein synthesis", "Energy production", "Photosynthesis"]), correct: 0 },
+        { id: 81, q: "Lysosomes are called the 'suicide bags' because they?", a: shuffleArray(["Digest their own cell", "Kill bacteria", "Help in secretion", "Produce energy"]), correct: 0 },
+        { id: 82, q: "Peroxisomes contain the enzyme?", a: shuffleArray(["Catalase", "Amylase", "Lipase", "Protease"]), correct: 0 },
+        { id: 83, q: "The fluid matrix of the nucleus is called?", a: shuffleArray(["Nucleoplasm", "Cytoplasm", "Stroma", "Matrix"]), correct: 0 },
+        { id: 84, q: "The nucleolus is the site of?", a: shuffleArray(["rRNA synthesis", "mRNA synthesis", "tRNA synthesis", "DNA replication"]), correct: 0 },
+        { id: 85, q: "Cell wall in plants is made of?", a: shuffleArray(["Cellulose", "Chitin", "Peptidoglycan", "Lignin"]), correct: 0 },
+        { id: 86, q: "Cell wall in fungi is made of?", a: shuffleArray(["Chitin", "Cellulose", "Peptidoglycan", "Lignin"]), correct: 0 },
+        { id: 87, q: "Cell wall in bacteria is made of?", a: shuffleArray(["Peptidoglycan", "Chitin", "Cellulose", "Murein"]), correct: 0 },
+        { id: 88, q: "Plasmodesmata are present in?", a: shuffleArray(["Plant cells", "Animal cells", "Bacteria", "Fungi"]), correct: 0 },
+        { id: 89, q: "Fluid mosaic model was proposed by?", a: shuffleArray(["Singer and Nicolson", "Watson and Crick", "Darwin", "Mendel"]), correct: 0 },
+        { id: 90, q: "Phagocytosis is the process of taking in?", a: shuffleArray(["Solid particles", "Liquid droplets", "Gases", "Ions"]), correct: 0 },
+        { id: 91, q: "Pinocytosis is the process of taking in?", a: shuffleArray(["Liquid droplets", "Solid particles", "Gases", "Ions"]), correct: 0 },
+        { id: 92, q: "Exocytosis is the process of releasing?", a: shuffleArray(["Substances from the cell", "Substances into the cell", "Energy", "DNA"]), correct: 0 },
+        { id: 93, q: "Centrioles are present in?", a: shuffleArray(["Animal cells", "Plant cells", "Both", "None"]), correct: 0 },
+        { id: 94, q: "Cilia and flagella are made of?", a: shuffleArray(["Microtubules", "Microfilaments", "Intermediate filaments", "Cellulose"]), correct: 0 },
+        { id: 95, q: "The cytoskeleton is composed of?", a: shuffleArray(["Microtubules, microfilaments, intermediate filaments", "Cellulose", "Chitin", "Peptidoglycan"]), correct: 0 },
+        { id: 96, q: "The plasma membrane is composed of a phospholipid?", a: shuffleArray(["Bilayer", "Monolayer", "Trilayer", "None"]), correct: 0 },
+        { id: 97, q: "Head of phospholipid is ________ and tail is ________.", a: shuffleArray(["Hydrophilic, hydrophobic", "Hydrophobic, hydrophilic", "Charged, uncharged", "Polar, non-polar"]), correct: 0 },
+        { id: 98, q: "Cholesterol in cell membrane provides?", a: shuffleArray(["Stability", "Permeability", "Energy", "Receptor sites"]), correct: 0 },
+        { id: 99, q: "Glycoproteins on cell membrane act as?", a: shuffleArray(["Receptors", "Channels", "Pumps", "Enzymes"]), correct: 0 },
+        { id: 100, q: "Peroxisomes detoxify harmful substances. They are also involved in breakdown of?", a: shuffleArray(["Fatty acids", "Proteins", "Carbohydrates", "Nucleic acids"]), correct: 0 },
+
+        // ---- CELL DIVISION (101-140) ----
+        { id: 101, q: "Mitosis results in two daughter cells, each with ________ chromosomes.", a: shuffleArray(["Same number", "Half number", "Double number", "Four times"]), correct: 0 },
+        { id: 102, q: "Meiosis results in four daughter cells, each with ________ chromosomes.", a: shuffleArray(["Half number", "Same number", "Double number", "Four times"]), correct: 0 },
+        { id: 103, q: "Mitosis is responsible for?", a: shuffleArray(["Growth and repair", "Sexual reproduction", "Genetic variation", "Gamete formation"]), correct: 0 },
+        { id: 104, q: "Meiosis is responsible for?", a: shuffleArray(["Gamete formation", "Growth", "Repair", "Asexual reproduction"]), correct: 0 },
+        { id: 105, q: "The first phase of mitosis is?", a: shuffleArray(["Prophase", "Metaphase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 106, q: "The second phase of mitosis is?", a: shuffleArray(["Metaphase", "Prophase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 107, q: "The third phase of mitosis is?", a: shuffleArray(["Anaphase", "Prophase", "Metaphase", "Telophase"]), correct: 0 },
+        { id: 108, q: "The fourth phase of mitosis is?", a: shuffleArray(["Telophase", "Anaphase", "Metaphase", "Prophase"]), correct: 0 },
+        { id: 109, q: "During prophase, the chromosomes become?", a: shuffleArray(["Condensed", "Decondensed", "Invisible", "Fragmented"]), correct: 0 },
+        { id: 110, q: "During metaphase, chromosomes align at the?", a: shuffleArray(["Equator", "Poles", "Cytoplasm", "Nuclear envelope"]), correct: 0 },
+        { id: 111, q: "During anaphase, sister chromatids move towards?", a: shuffleArray(["Poles", "Equator", "Center", "Nuclear envelope"]), correct: 0 },
+        { id: 112, q: "During telophase, the nuclear envelope?", a: shuffleArray(["Reappears", "Disappears", "Breaks", "Remains"]), correct: 0 },
+        { id: 113, q: "Cytokinesis is the division of?", a: shuffleArray(["Cytoplasm", "Nucleus", "Chromosomes", "Cell wall"]), correct: 0 },
+        { id: 114, q: "In animals, cytokinesis occurs by?", a: shuffleArray(["Cleavage furrow", "Cell plate", "Fragmentation", "Budding"]), correct: 0 },
+        { id: 115, q: "In plants, cytokinesis occurs by?", a: shuffleArray(["Cell plate", "Cleavage furrow", "Fragmentation", "Budding"]), correct: 0 },
+        { id: 116, q: "Meiosis consists of how many divisions?", a: shuffleArray(["Two", "One", "Three", "Four"]), correct: 0 },
+        { id: 117, q: "Meiosis-I is called ________ division.", a: shuffleArray(["Reductional", "Equational", "Mitotic", "Amitotic"]), correct: 0 },
+        { id: 118, q: "Meiosis-II is called ________ division.", a: shuffleArray(["Equational", "Reductional", "Mitotic", "Amitotic"]), correct: 0 },
+        { id: 119, q: "Crossing over occurs during which stage?", a: shuffleArray(["Prophase-I", "Metaphase-I", "Anaphase-I", "Telophase-I"]), correct: 0 },
+        { id: 120, q: "Synapsis is the pairing of ________ chromosomes.", a: shuffleArray(["Homologous", "Non-homologous", "Sister chromatids", "Non-sister chromatids"]), correct: 0 },
+        { id: 121, q: "Chiasmata are the sites of?", a: shuffleArray(["Crossing over", "Chromosome condensation", "Nuclear envelope breakdown", "Centromere division"]), correct: 0 },
+        { id: 122, q: "Human somatic cells have how many chromosomes?", a: shuffleArray(["46", "23", "44", "22"]), correct: 0 },
+        { id: 123, q: "Human gametes have how many chromosomes?", a: shuffleArray(["23", "46", "44", "22"]), correct: 0 },
+        { id: 124, q: "Bivalent is formed during?", a: shuffleArray(["Prophase-I", "Metaphase-I", "Anaphase-I", "Telophase-I"]), correct: 0 },
+        { id: 125, q: "Spindle fibers are made of?", a: shuffleArray(["Microtubules", "Microfilaments", "Intermediate filaments", "Cellulose"]), correct: 0 },
+        { id: 126, q: "Sister chromatids separate during which phase?", a: shuffleArray(["Anaphase", "Metaphase", "Prophase", "Telophase"]), correct: 0 },
+        { id: 127, q: "Crossing over results in?", a: shuffleArray(["Genetic variation", "Genetic cloning", "Cell death", "Chromosome condensation"]), correct: 0 },
+        { id: 128, q: "The term 'meiosis' was coined by?", a: shuffleArray(["Farmer and Moore", "Sutton", "Boveri", "Mendel"]), correct: 0 },
+        { id: 129, q: "The term 'mitosis' was coined by?", a: shuffleArray(["Flemming", "Waldeyer", "Farmer", "Darwin"]), correct: 0 },
+        { id: 130, q: "Reduction in chromosome number occurs during?", a: shuffleArray(["Meiosis-I", "Mitosis", "Meiosis-II", "Cytokinesis"]), correct: 0 },
+
+        // ---- BIOENERGETICS (131-170) ----
+        { id: 131, q: "Photosynthesis converts ________ energy into chemical energy.", a: shuffleArray(["Light", "Heat", "Mechanical", "Electrical"]), correct: 0 },
+        { id: 132, q: "The organelle in which photosynthesis occurs is?", a: shuffleArray(["Chloroplast", "Mitochondria", "Nucleus", "Ribosome"]), correct: 0 },
+        { id: 133, q: "The green pigment in chloroplasts is?", a: shuffleArray(["Chlorophyll", "Carotene", "Xanthophyll", "Phycobilin"]), correct: 0 },
+        { id: 134, q: "The fluid part of chloroplast is called?", a: shuffleArray(["Stroma", "Grana", "Matrix", "Cristae"]), correct: 0 },
+        { id: 135, q: "Light-dependent reactions occur in the?", a: shuffleArray(["Grana", "Stroma", "Nucleus", "Cytoplasm"]), correct: 0 },
+        { id: 136, q: "Calvin cycle occurs in the?", a: shuffleArray(["Stroma", "Grana", "Matrix", "Cristae"]), correct: 0 },
+        { id: 137, q: "The Calvin cycle was discovered by?", a: shuffleArray(["Melvin Calvin", "Hill", "Blackman", "Engelmann"]), correct: 0 },
+        { id: 138, q: "The first stable product of Calvin cycle is?", a: shuffleArray(["PGA", "PGAL", "RuBP", "Glucose"]), correct: 0 },
+        { id: 139, q: "RuBP is a ________ carbon compound.", a: shuffleArray(["5", "3", "6", "4"]), correct: 0 },
+        { id: 140, q: "C3 plants are named so because the first product is a ________ carbon compound.", a: shuffleArray(["3", "4", "5", "6"]), correct: 0 },
+        { id: 141, q: "C4 plants are named so because the first product is a ________ carbon compound.", a: shuffleArray(["4", "3", "5", "6"]), correct: 0 },
+        { id: 142, q: "Example of a C3 plant is?", a: shuffleArray(["Wheat", "Maize", "Sugarcane", "Sorghum"]), correct: 0 },
+        { id: 143, q: "Example of a C4 plant is?", a: shuffleArray(["Maize", "Wheat", "Rice", "Pea"]), correct: 0 },
+        { id: 144, q: "CAM plants open their stomata at?", a: shuffleArray(["Night", "Day", "Evening", "Morning"]), correct: 0 },
+        { id: 145, q: "Cellular respiration breaks down glucose to release?", a: shuffleArray(["Energy (ATP)", "Oxygen", "Carbon dioxide", "Water"]), correct: 0 },
+        { id: 146, q: "The first stage of cellular respiration is?", a: shuffleArray(["Glycolysis", "Krebs cycle", "ETC", "Oxidative phosphorylation"]), correct: 0 },
+        { id: 147, q: "Glycolysis occurs in the?", a: shuffleArray(["Cytoplasm", "Mitochondria", "Nucleus", "Chloroplast"]), correct: 0 },
+        { id: 148, q: "Krebs cycle occurs in the?", a: shuffleArray(["Matrix of mitochondria", "Cristae", "Cytoplasm", "Nucleus"]), correct: 0 },
+        { id: 149, q: "Electron transport chain occurs in the?", a: shuffleArray(["Cristae", "Matrix", "Cytoplasm", "Nucleus"]), correct: 0 },
+        { id: 150, q: "Net ATP yield from one glucose in aerobic respiration is about?", a: shuffleArray(["36-38 ATP", "2 ATP", "4 ATP", "10 ATP"]), correct: 0 },
+        { id: 151, q: "In anaerobic respiration (fermentation), net ATP yield is?", a: shuffleArray(["2 ATP", "36 ATP", "4 ATP", "10 ATP"]), correct: 0 },
+        { id: 152, q: "Alcoholic fermentation produces ethanol and?", a: shuffleArray(["CO2", "O2", "H2O", "ATP"]), correct: 0 },
+        { id: 153, q: "Lactic acid fermentation produces?", a: shuffleArray(["Lactic acid", "Ethanol", "CO2", "O2"]), correct: 0 },
+        { id: 154, q: "The final electron acceptor in ETC is?", a: shuffleArray(["Oxygen", "Carbon dioxide", "Water", "NADH"]), correct: 0 },
+        { id: 155, q: "The energy currency of the cell is?", a: shuffleArray(["ATP", "ADP", "AMP", "GTP"]), correct: 0 },
+        { id: 156, q: "ATP stands for?", a: shuffleArray(["Adenosine Triphosphate", "Adenosine Diphosphate", "Adenine Triphosphate", "Adenine Diphosphate"]), correct: 0 },
+        { id: 157, q: "Photorespiration occurs when rubisco fixes?", a: shuffleArray(["Oxygen", "Carbon dioxide", "Nitrogen", "Water"]), correct: 0 },
+        { id: 158, q: "CAM stands for?", a: shuffleArray(["Crassulacean Acid Metabolism", "Carbon Acid Metabolism", "Calvin Acid Metabolism", "C4 Acid Metabolism"]), correct: 0 },
+        { id: 159, q: "Light reaction produces ATP and NADPH which are used in the?", a: shuffleArray(["Calvin cycle", "Krebs cycle", "ETC", "Glycolysis"]), correct: 0 },
+        { id: 160, q: "Cyclic photophosphorylation produces only?", a: shuffleArray(["ATP", "NADPH", "Both", "Oxygen"]), correct: 0 },
+
+        // ---- MIXED & REMAINING (161-200) ----
+        { id: 161, q: "Which of the following is a prokaryotic organism?", a: shuffleArray(["Bacteria", "Fungus", "Algae", "Protozoa"]), correct: 0 },
+        { id: 162, q: "Eukaryotic organism example is?", a: shuffleArray(["Fungus", "Bacteria", "Virus", "Mycoplasma"]), correct: 0 },
+        { id: 163, q: "5 Kingdom classification was given by?", a: shuffleArray(["Whittaker", "Linnaeus", "Aristotle", "Darwin"]), correct: 0 },
+        { id: 164, q: "Binomial nomenclature was given by?", a: shuffleArray(["Linnaeus", "Aristotle", "Mendel", "Darwin"]), correct: 0 },
+        { id: 165, q: "Scientific name has how many parts?", a: shuffleArray(["2", "3", "4", "1"]), correct: 0 },
+        { id: 166, q: "Kingdom of bacteria is?", a: shuffleArray(["Monera", "Protista", "Fungi", "Plantae"]), correct: 0 },
+        { id: 167, q: "Kingdom of fungi is?", a: shuffleArray(["Fungi", "Monera", "Protista", "Plantae"]), correct: 0 },
+        { id: 168, q: "Viruses are placed in?", a: shuffleArray(["No kingdom", "Monera", "Protista", "Fungi"]), correct: 0 },
+        { id: 169, q: "Penicillin was discovered by?", a: shuffleArray(["Alexander Fleming", "Pasteur", "Koch", "Jenner"]), correct: 0 },
+        { id: 170, q: "Cyanobacteria are also called?", a: shuffleArray(["Blue green algae", "Green algae", "Red algae", "Brown algae"]), correct: 0 },
+        { id: 171, q: "Yeast is a?", a: shuffleArray(["Fungus", "Bacteria", "Algae", "Protozoa"]), correct: 0 },
+        { id: 172, q: "Mushroom is a?", a: shuffleArray(["Fungus", "Plant", "Algae", "Bacteria"]), correct: 0 },
+        { id: 173, q: "Mosses belong to?", a: shuffleArray(["Bryophyta", "Pteridophyta", "Gymnosperm", "Angiosperm"]), correct: 0 },
+        { id: 174, q: "Ferns belong to?", a: shuffleArray(["Pteridophyta", "Bryophyta", "Gymnosperm", "Angiosperm"]), correct: 0 },
+        { id: 175, q: "Pinus belongs to?", a: shuffleArray(["Gymnosperm", "Angiosperm", "Pteridophyta", "Bryophyta"]), correct: 0 },
+        { id: 176, q: "Mango belongs to?", a: shuffleArray(["Angiosperm", "Gymnosperm", "Pteridophyta", "Bryophyta"]), correct: 0 },
+        { id: 177, q: "Naked seed plants are?", a: shuffleArray(["Gymnosperms", "Angiosperms", "Pteridophytes", "Bryophytes"]), correct: 0 },
+        { id: 178, q: "Covered seed plants are?", a: shuffleArray(["Angiosperms", "Gymnosperms", "Pteridophytes", "Bryophytes"]), correct: 0 },
+        { id: 179, q: "Double fertilization occurs in?", a: shuffleArray(["Angiosperms", "Gymnosperms", "Pteridophytes", "Bryophytes"]), correct: 0 },
+        { id: 180, q: "Largest phylum of animal kingdom is?", a: shuffleArray(["Arthropoda", "Mollusca", "Chordata", "Annelida"]), correct: 0 },
+        { id: 181, q: "Pore bearing animals are?", a: shuffleArray(["Porifera", "Cnidaria", "Platyhelminthes", "Nematoda"]), correct: 0 },
+        { id: 182, q: "Diploblastic animals are?", a: shuffleArray(["Cnidaria", "Porifera", "Platyhelminthes", "Annelida"]), correct: 0 },
+        { id: 183, q: "Triploblastic animals are?", a: shuffleArray(["Platyhelminthes", "Porifera", "Cnidaria", "None"]), correct: 0 },
+        { id: 184, q: "Coelomate animals are?", a: shuffleArray(["Annelida", "Platyhelminthes", "Nematoda", "Porifera"]), correct: 0 },
+        { id: 185, q: "Book lungs are present in?", a: shuffleArray(["Spider", "Cockroach", "Butterfly", "Mosquito"]), correct: 0 },
+        { id: 186, q: "Trachea is present in?", a: shuffleArray(["Insects", "Fish", "Amphibians", "Birds"]), correct: 0 },
+        { id: 187, q: "Gills are present in?", a: shuffleArray(["Fish", "Frog", "Bird", "Mammal"]), correct: 0 },
+        { id: 188, q: "Lungs are present in?", a: shuffleArray(["Mammals", "Fish", "Insects", "Protozoa"]), correct: 0 },
+        { id: 189, q: "Cold blooded animals are?", a: shuffleArray(["Reptiles", "Birds", "Mammals", "None"]), correct: 0 },
+        { id: 190, q: "Warm blooded animals are?", a: shuffleArray(["Birds and Mammals", "Reptiles", "Amphibians", "Fish"]), correct: 0 },
+        { id: 191, q: "Egg laying mammals are?", a: shuffleArray(["Platypus", "Bat", "Whale", "Rat"]), correct: 0 },
+        { id: 192, q: "Largest mammal is?", a: shuffleArray(["Blue whale", "Elephant", "Giraffe", "Rhino"]), correct: 0 },
+        { id: 193, q: "Largest bird is?", a: shuffleArray(["Ostrich", "Eagle", "Peacock", "Penguin"]), correct: 0 },
+        { id: 194, q: "Fastest bird is?", a: shuffleArray(["Peregrine falcon", "Ostrich", "Eagle", "Sparrow"]), correct: 0 },
+        { id: 195, q: "Poisonous snake is?", a: shuffleArray(["Cobra", "Python", "Anaconda", "Rat snake"]), correct: 0 },
+        { id: 196, q: "Amphibian example is?", a: shuffleArray(["Frog", "Fish", "Lizard", "Bird"]), correct: 0 },
+        { id: 197, q: "Cartilaginous fish example is?", a: shuffleArray(["Shark", "Rohu", "Catla", "Salmon"]), correct: 0 },
+        { id: 198, q: "Bony fish example is?", a: shuffleArray(["Rohu", "Shark", "Ray", "Skate"]), correct: 0 },
+        { id: 199, q: "Notochord is present in?", a: shuffleArray(["Chordata", "Arthropoda", "Mollusca", "Annelida"]), correct: 0 },
+        { id: 200, q: "Four chambered heart is present in?", a: shuffleArray(["Birds and Mammals", "Reptiles", "Amphibians", "Fish"]), correct: 0 }
+    ];
+
+    // ============================================================
+    // CORRECT ANSWERS MAPPING (to fix index after shuffle)
+    // ============================================================
+    const correctValues = {
+        1: "Biology", 2: "Greek", 3: "Aristotle", 4: "Zoology", 5: "Botany",
+        6: "Anatomy", 7: "Physiology", 8: "Cytology", 9: "Histology", 10: "Paleontology",
+        11: "Biogeography", 12: "Genetics", 13: "Ecology", 14: "Taxonomy", 15: "Embryology",
+        16: "Virology", 17: "Mycology", 18: "Phycology", 19: "Bacteriology", 20: "Parasitology",
+        21: "Water", 22: "70%", 23: "(CH2O)n", 24: "Monosaccharide", 25: "Glucose + Fructose",
+        26: "Glucose + Glucose", 27: "Glucose + Galactose", 28: "Starch", 29: "Glucose",
+        30: "Animals", 31: "Amino acids", 32: "Peptide bond", 33: "Primary", 34: "Secondary",
+        35: "Tertiary", 36: "Non-polar solvents", 37: "Fatty acid and glycerol", 38: "Cell membranes",
+        39: "Steroid", 40: "Nucleotides", 41: "Deoxyribose", 42: "Ribose", 43: "A, T, G, C",
+        44: "A, U, G, C", 45: "Thymine", 46: "Cytosine", 47: "Watson and Crick", 48: "Messenger RNA",
+        49: "Transfer RNA", 50: "Ribosomal RNA", 51: "Catalysts", 52: "Substrate", 53: "Substrate",
+        54: "Emil Fischer", 55: "37°C", 56: "pH 2", 57: "pH 7", 58: "Cofactor", 59: "Vitamins",
+        60: "Oxidoreductase", 61: "Active site", 62: "Allosteric site", 63: "Stomach of infants",
+        64: "Enzyme", 65: "Pepsinogen", 66: "Trypsinogen", 67: "Diastase", 68: "Kühne",
+        69: "Activation energy", 70: "Same, increases",
+        71: "Schleiden and Schwann", 72: "Robert Hooke", 73: "Mycoplasma", 74: "Nucleus",
+        75: "Mitochondria", 76: "Chloroplast", 77: "Protein synthesis", 78: "Ribosomes",
+        79: "Lipid synthesis", 80: "Packaging and secretion", 81: "Digest their own cell",
+        82: "Catalase", 83: "Nucleoplasm", 84: "rRNA synthesis", 85: "Cellulose", 86: "Chitin",
+        87: "Peptidoglycan", 88: "Plant cells", 89: "Singer and Nicolson", 90: "Solid particles",
+        91: "Liquid droplets", 92: "Substances from the cell", 93: "Animal cells", 94: "Microtubules",
+        95: "Microtubules, microfilaments, intermediate filaments", 96: "Bilayer",
+        97: "Hydrophilic, hydrophobic", 98: "Stability", 99: "Receptors", 100: "Fatty acids",
+        101: "Same number", 102: "Half number", 103: "Growth and repair", 104: "Gamete formation",
+        105: "Prophase", 106: "Metaphase", 107: "Anaphase", 108: "Telophase", 109: "Condensed",
+        110: "Equator", 111: "Poles", 112: "Reappears", 113: "Cytoplasm", 114: "Cleavage furrow",
+        115: "Cell plate", 116: "Two", 117: "Reductional", 118: "Equational", 119: "Prophase-I",
+        120: "Homologous", 121: "Crossing over", 122: "46", 123: "23", 124: "Prophase-I",
+        125: "Microtubules", 126: "Anaphase", 127: "Genetic variation", 128: "Farmer and Moore",
+        129: "Flemming", 130: "Meiosis-I",
+        131: "Light", 132: "Chloroplast", 133: "Chlorophyll", 134: "Stroma", 135: "Grana",
+        136: "Stroma", 137: "Melvin Calvin", 138: "PGA", 139: "5", 140: "3", 141: "4",
+        142: "Wheat", 143: "Maize", 144: "Night", 145: "Energy (ATP)", 146: "Glycolysis",
+        147: "Cytoplasm", 148: "Matrix of mitochondria", 149: "Cristae", 150: "36-38 ATP",
+        151: "2 ATP", 152: "CO2", 153: "Lactic acid", 154: "Oxygen", 155: "ATP",
+        156: "Adenosine Triphosphate", 157: "Oxygen", 158: "Crassulacean Acid Metabolism",
+        159: "Calvin cycle", 160: "ATP",
+        161: "Bacteria", 162: "Fungus", 163: "Whittaker", 164: "Linnaeus", 165: "2",
+        166: "Monera", 167: "Fungi", 168: "No kingdom", 169: "Alexander Fleming",
+        170: "Blue green algae", 171: "Fungus", 172: "Fungus", 173: "Bryophyta",
+        174: "Pteridophyta", 175: "Gymnosperm", 176: "Angiosperm", 177: "Gymnosperms",
+        178: "Angiosperms", 179: "Angiosperms", 180: "Arthropoda", 181: "Porifera",
+        182: "Cnidaria", 183: "Platyhelminthes", 184: "Annelida", 185: "Spider",
+        186: "Insects", 187: "Fish", 188: "Mammals", 189: "Reptiles", 190: "Birds and Mammals",
+        191: "Platypus", 192: "Blue whale", 193: "Ostrich", 194: "Peregrine falcon",
+        195: "Cobra", 196: "Frog", 197: "Shark", 198: "Rohu", 199: "Chordata",
+        200: "Birds and Mammals"
+    };
+
+    // ============================================================
+    // FIX CORRECT INDEX AFTER SHUFFLE
+    // ============================================================
+    mcqs.forEach(q => {
+        if (q.id && correctValues[q.id]) {
+            const correctAns = correctValues[q.id];
+            const correctIndex = q.a.indexOf(correctAns);
+            if (correctIndex !== -1) {
+                q.correct = correctIndex;
+            }
+        }
+    });
+
+    // ------------------ TEST ENGINE ------------------
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200;
+    let timerInterval;
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    function startTest() {
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval);
+                showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table =
+            "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>Q-${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

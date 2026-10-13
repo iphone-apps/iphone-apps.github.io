@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MDCAT Test – 10</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 40px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 12px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧪 MDCAT Test – 10</h1>
+        <h2>Full Syllabus · 180 MCQs</h2>
+        <p class="subtitle">Biology 81 · Chemistry 45 · Physics 36 · English 9 · Logical 9</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 3 Hours (180 Minutes)</p>
+            <p><b>📝 Total Questions:</b> 180</p>
+            <p><b>🏆 Total Marks:</b> 180</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-green">0</span> (No Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p><b>📚 Subjects:</b> Biology (81) · Chemistry (45) · Physics (36) · English (9) · Logical (9)</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+            <p style="color: #FF6B6B; font-weight: bold; margin-top: 6px;">❌ Calculator Not Allowed</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">03:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">180</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All 180 Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // TEST-10: 180 UNIQUE MCQs (FINAL TEST)
+    // Biology: 1–81, Chemistry: 82–126, Physics: 127–162, English: 163–171, Logical: 172–180
+    // ================================================================
+    const mcqs = [];
+
+    // ----- BIOLOGY (ID 1–81) - SET 10 (FINAL) -----
+    const bio = [
+        {id: 1, q: "The process of glycolysis occurs in the:", a: ["Cytoplasm", "Mitochondria", "Nucleus", "Ribosome"], correct: 0},
+        {id: 2, q: "The Krebs cycle occurs in the:", a: ["Mitochondrial matrix", "Cytoplasm", "Nucleus", "Ribosome"], correct: 0},
+        {id: 3, q: "The electron transport chain occurs in the:", a: ["Inner mitochondrial membrane", "Outer mitochondrial membrane", "Cytoplasm", "Nucleus"], correct: 0},
+        {id: 4, q: "The final electron acceptor in the electron transport chain is:", a: ["Oxygen", "Carbon dioxide", "Water", "NADH"], correct: 0},
+        {id: 5, q: "The products of glycolysis include:", a: ["ATP, NADH, pyruvate", "ATP, FADH2, CO2", "ATP, NADPH, glucose", "ATP, GTP, lactate"], correct: 0},
+        {id: 6, q: "The products of the Krebs cycle include:", a: ["ATP, NADH, FADH2, CO2", "ATP, NADPH, glucose", "ATP, GTP, lactate", "ATP, NADH, pyruvate"], correct: 0},
+        {id: 7, q: "The products of the electron transport chain include:", a: ["Water and ATP", "CO2 and ATP", "NADH and ATP", "FADH2 and ATP"], correct: 0},
+        {id: 8, q: "The process of fermentation occurs in the:", a: ["Cytoplasm", "Mitochondria", "Nucleus", "Ribosome"], correct: 0},
+        {id: 9, q: "Lactic acid fermentation occurs in:", a: ["Muscle cells", "Yeast cells", "Plant cells", "Bacterial cells"], correct: 0},
+        {id: 10, q: "Alcoholic fermentation occurs in:", a: ["Yeast cells", "Muscle cells", "Plant cells", "Animal cells"], correct: 0},
+        {id: 11, q: "The process of photosynthesis produces:", a: ["Glucose and oxygen", "Glucose and carbon dioxide", "Oxygen and water", "Carbon dioxide and water"], correct: 0},
+        {id: 12, q: "The process of photosynthesis consumes:", a: ["Carbon dioxide and water", "Oxygen and glucose", "Carbon dioxide and glucose", "Oxygen and water"], correct: 0},
+        {id: 13, q: "The first stage of photosynthesis is:", a: ["Light-dependent reactions", "Calvin cycle", "C4 pathway", "CAM pathway"], correct: 0},
+        {id: 14, q: "The second stage of photosynthesis is:", a: ["Calvin cycle", "Light-dependent reactions", "C4 pathway", "CAM pathway"], correct: 0},
+        {id: 15, q: "The light-dependent reactions occur in:", a: ["Thylakoid membranes", "Stroma", "Outer membrane", "Inner membrane"], correct: 0},
+        {id: 16, q: "The Calvin cycle occurs in:", a: ["Stroma", "Thylakoid membranes", "Outer membrane", "Inner membrane"], correct: 0},
+        {id: 17, q: "The products of the light-dependent reactions are:", a: ["ATP and NADPH", "Glucose and oxygen", "CO2 and water", "FADH2 and NADH"], correct: 0},
+        {id: 18, q: "The products of the Calvin cycle are:", a: ["Glucose", "ATP and NADPH", "CO2 and water", "Oxygen"], correct: 0},
+        {id: 19, q: "The enzyme that fixes carbon dioxide in photosynthesis is:", a: ["RUBISCO", "Amylase", "Lipase", "Protease"], correct: 0},
+        {id: 20, q: "The C4 pathway is an adaptation for:", a: ["Hot and dry conditions", "Cold conditions", "Wet conditions", "Shady conditions"], correct: 0},
+        {id: 21, q: "The CAM pathway is an adaptation for:", a: ["Arid conditions", "Tropical conditions", "Temperate conditions", "Aquatic conditions"], correct: 0},
+        {id: 22, q: "The central nervous system consists of:", a: ["Brain and spinal cord", "Brain and nerves", "Spinal cord and nerves", "Brain, spinal cord, and nerves"], correct: 0},
+        {id: 23, q: "The peripheral nervous system consists of:", a: ["Nerves outside the CNS", "Brain and spinal cord", "Spinal cord only", "Brain only"], correct: 0},
+        {id: 24, q: "The brain is divided into how many main parts?", a: ["Three", "Two", "Four", "Five"], correct: 0},
+        {id: 25, q: "The largest part of the brain is:", a: ["Cerebrum", "Cerebellum", "Medulla", "Hypothalamus"], correct: 0},
+        {id: 26, q: "The cerebellum is responsible for:", a: ["Coordination and balance", "Thinking and reasoning", "Heartbeat and breathing", "Memory and emotion"], correct: 0},
+        {id: 27, q: "The medulla oblongata controls:", a: ["Heartbeat and breathing", "Coordination and balance", "Thinking and reasoning", "Memory and emotion"], correct: 0},
+        {id: 28, q: "The hypothalamus controls:", a: ["Homeostasis", "Coordination", "Thinking", "Memory"], correct: 0},
+        {id: 29, q: "The cerebrum is responsible for:", a: ["Thinking and reasoning", "Coordination and balance", "Heartbeat and breathing", "Homeostasis"], correct: 0},
+        {id: 30, q: "The neuron is the functional unit of the:", a: ["Nervous system", "Muscular system", "Digestive system", "Circulatory system"], correct: 0},
+        {id: 31, q: "The three types of neurons are:", a: ["Sensory, motor, interneuron", "Sensory, motor, effector", "Receptor, motor, interneuron", "Sensory, interneuron, effector"], correct: 0},
+        {id: 32, q: "The resting potential of a neuron is approximately:", a: ["-70 mV", "+70 mV", "-40 mV", "+40 mV"], correct: 0},
+        {id: 33, q: "The action potential involves:", a: ["Depolarization and repolarization", "Hyperpolarization only", "Depolarization only", "No change"], correct: 0},
+        {id: 34, q: "The neurotransmitter released at the neuromuscular junction is:", a: ["Acetylcholine", "Dopamine", "Serotonin", "Norepinephrine"], correct: 0},
+        {id: 35, q: "The skeletal system provides:", a: ["Support and protection", "Movement", "Protection only", "Support only"], correct: 0},
+        {id: 36, q: "The human skeleton has how many bones?", a: ["206", "208", "204", "210"], correct: 0},
+        {id: 37, q: "The axial skeleton includes:", a: ["Skull and vertebral column", "Limbs", "Pelvis", "Shoulders"], correct: 0},
+        {id: 38, q: "The appendicular skeleton includes:", a: ["Limbs and girdles", "Skull and vertebral column", "Ribs", "Sternum"], correct: 0},
+        {id: 39, q: "The joint between the skull bones is:", a: ["Sutures", "Hinge joint", "Ball and socket joint", "Pivot joint"], correct: 0},
+        {id: 40, q: "The joint at the shoulder is:", a: ["Ball and socket joint", "Hinge joint", "Pivot joint", "Sutures"], correct: 0},
+        {id: 41, q: "The joint at the elbow is:", a: ["Hinge joint", "Ball and socket joint", "Pivot joint", "Sutures"], correct: 0},
+        {id: 42, q: "The joint between the atlas and axis is:", a: ["Pivot joint", "Ball and socket joint", "Hinge joint", "Sutures"], correct: 0},
+        {id: 43, q: "The type of muscle found in the heart is:", a: ["Cardiac muscle", "Skeletal muscle", "Smooth muscle", "Striated muscle"], correct: 0},
+        {id: 44, q: "The type of muscle found in the walls of organs is:", a: ["Smooth muscle", "Skeletal muscle", "Cardiac muscle", "Striated muscle"], correct: 0},
+        {id: 45, q: "The type of muscle attached to bones is:", a: ["Skeletal muscle", "Smooth muscle", "Cardiac muscle", "Striated muscle"], correct: 0},
+        {id: 46, q: "The functional unit of muscle contraction is:", a: ["Sarcomere", "Myofibril", "Muscle fiber", "Myosin"], correct: 0},
+        {id: 47, q: "The protein that makes up thick filaments is:", a: ["Myosin", "Actin", "Tropomyosin", "Troponin"], correct: 0},
+        {id: 48, q: "The protein that makes up thin filaments is:", a: ["Actin", "Myosin", "Tropomyosin", "Troponin"], correct: 0},
+        {id: 49, q: "The sliding filament theory involves:", a: ["Actin and myosin filaments sliding", "Actin and myosin filaments contracting", "Actin and myosin filaments expanding", "Actin and myosin filaments breaking"], correct: 0},
+        {id: 50, q: "The respiratory system is responsible for:", a: ["Gas exchange", "Nutrient absorption", "Waste removal", "Hormone production"], correct: 0},
+        {id: 51, q: "The alveoli are the site of:", a: ["Gas exchange", "Nutrient absorption", "Waste removal", "Hormone production"], correct: 0},
+        {id: 52, q: "The diaphragm is a muscle involved in:", a: ["Breathing", "Digestion", "Circulation", "Excretion"], correct: 0},
+        {id: 53, q: "The trachea is also known as:", a: ["Windpipe", "Voice box", "Throat", "Esophagus"], correct: 0},
+        {id: 54, q: "The larynx is also known as:", a: ["Voice box", "Windpipe", "Throat", "Esophagus"], correct: 0},
+        {id: 55, q: "The breakdown of glucose without oxygen is called:", a: ["Anaerobic respiration", "Aerobic respiration", "Fermentation", "Glycolysis"], correct: 0},
+        {id: 56, q: "The breakdown of glucose with oxygen is called:", a: ["Aerobic respiration", "Anaerobic respiration", "Fermentation", "Glycolysis"], correct: 0},
+        {id: 57, q: "The plant hormone that promotes growth is:", a: ["Auxin", "Abscisic acid", "Ethylene", "Cytokinin"], correct: 0},
+        {id: 58, q: "The plant hormone that inhibits growth is:", a: ["Abscisic acid", "Auxin", "Gibberellin", "Cytokinin"], correct: 0},
+        {id: 59, q: "The plant hormone that promotes fruit ripening is:", a: ["Ethylene", "Auxin", "Gibberellin", "Cytokinin"], correct: 0},
+        {id: 60, q: "The plant hormone that promotes cell division is:", a: ["Cytokinin", "Auxin", "Gibberellin", "Abscisic acid"], correct: 0},
+        {id: 61, q: "The plant hormone that promotes stem elongation is:", a: ["Gibberellin", "Auxin", "Cytokinin", "Abscisic acid"], correct: 0},
+        {id: 62, q: "The response of plants to light is called:", a: ["Phototropism", "Geotropism", "Hydrotropism", "Thigmotropism"], correct: 0},
+        {id: 63, q: "The response of plants to gravity is called:", a: ["Geotropism", "Phototropism", "Hydrotropism", "Thigmotropism"], correct: 0},
+        {id: 64, q: "The response of plants to water is called:", a: ["Hydrotropism", "Phototropism", "Geotropism", "Thigmotropism"], correct: 0},
+        {id: 65, q: "The response of plants to touch is called:", a: ["Thigmotropism", "Phototropism", "Geotropism", "Hydrotropism"], correct: 0},
+        {id: 66, q: "The circulatory system is responsible for:", a: ["Transport of substances", "Gas exchange", "Digestion", "Excretion"], correct: 0},
+        {id: 67, q: "The blood consists of:", a: ["Plasma and blood cells", "Plasma only", "Blood cells only", "Lymph"], correct: 0},
+        {id: 68, q: "The red blood cells are responsible for:", a: ["Oxygen transport", "Immunity", "Blood clotting", "Nutrient transport"], correct: 0},
+        {id: 69, q: "The white blood cells are responsible for:", a: ["Immunity", "Oxygen transport", "Blood clotting", "Nutrient transport"], correct: 0},
+        {id: 70, q: "The platelets are responsible for:", a: ["Blood clotting", "Immunity", "Oxygen transport", "Nutrient transport"], correct: 0},
+        {id: 71, q: "The blood vessels that carry blood away from the heart are:", a: ["Arteries", "Veins", "Capillaries", "Venules"], correct: 0},
+        {id: 72, q: "The blood vessels that carry blood towards the heart are:", a: ["Veins", "Arteries", "Capillaries", "Arterioles"], correct: 0},
+        {id: 73, q: "The blood vessels that allow exchange of substances are:", a: ["Capillaries", "Arteries", "Veins", "Venules"], correct: 0},
+        {id: 74, q: "The left ventricle pumps blood to the:", a: ["Body", "Lungs", "Heart", "Brain"], correct: 0},
+        {id: 75, q: "The right ventricle pumps blood to the:", a: ["Lungs", "Body", "Heart", "Brain"], correct: 0},
+        {id: 76, q: "The left atrium receives blood from the:", a: ["Lungs", "Body", "Heart", "Brain"], correct: 0},
+        {id: 77, q: "The right atrium receives blood from the:", a: ["Body", "Lungs", "Heart", "Brain"], correct: 0},
+        {id: 78, q: "The pulse is felt in the:", a: ["Arteries", "Veins", "Capillaries", "Heart"], correct: 0},
+        {id: 79, q: "The blood pressure is measured in the:", a: ["Arteries", "Veins", "Capillaries", "Heart"], correct: 0},
+        {id: 80, q: "The respiratory system includes:", a: ["Lungs, trachea, bronchi", "Heart, blood vessels", "Stomach, intestines", "Kidneys, bladder"], correct: 0},
+        {id: 81, q: "The gas exchange occurs in the:", a: ["Alveoli", "Bronchi", "Trachea", "Nose"], correct: 0}
+    ];
+
+    // ----- CHEMISTRY (ID 82–126) - SET 10 (FINAL) -----
+    const chem = [
+        {id: 82, q: "The atomic number of nitrogen is:", a: ["7", "6", "8", "10"], correct: 0},
+        {id: 83, q: "The chemical formula of ammonia is:", a: ["NH3", "N2H4", "NH4", "N2H2"], correct: 0},
+        {id: 84, q: "The pH of a basic solution is:", a: ["Greater than 7", "Less than 7", "Equal to 7", "Between 0 and 7"], correct: 0},
+        {id: 85, q: "Which gas is used in the welding of metals?", a: ["Acetylene", "Methane", "Propane", "Butane"], correct: 0},
+        {id: 86, q: "The atomic number of phosphorus is:", a: ["15", "14", "16", "13"], correct: 0},
+        {id: 87, q: "The chemical formula of phosphoric acid is:", a: ["H3PO4", "H3PO3", "H4PO4", "H2PO4"], correct: 0},
+        {id: 88, q: "Which acid is used in the manufacture of fertilizers?", a: ["Nitric acid", "Sulfuric acid", "Hydrochloric acid", "Acetic acid"], correct: 0},
+        {id: 89, q: "The atomic number of aluminum is:", a: ["13", "12", "14", "11"], correct: 0},
+        {id: 90, q: "The chemical formula of aluminum oxide is:", a: ["Al2O3", "AlO", "Al2O", "AlO2"], correct: 0},
+        {id: 91, q: "Which gas is used in the production of ammonia?", a: ["Nitrogen and Hydrogen", "Oxygen and Hydrogen", "Nitrogen and Oxygen", "Carbon dioxide"], correct: 0},
+        {id: 92, q: "The atomic number of chlorine is:", a: ["17", "15", "16", "18"], correct: 0},
+        {id: 93, q: "The chemical formula of hydrochloric acid is:", a: ["HCl", "HClO4", "HClO3", "HClO2"], correct: 0},
+        {id: 94, q: "Which acid is found in the stomach?", a: ["Hydrochloric acid", "Sulfuric acid", "Nitric acid", "Acetic acid"], correct: 0},
+        {id: 95, q: "The atomic number of calcium is:", a: ["20", "19", "21", "18"], correct: 0},
+        {id: 96, q: "The chemical formula of calcium sulfate is:", a: ["CaSO4", "CaS", "CaO", "CaCl2"], correct: 0},
+        {id: 97, q: "Which acid is present in vinegar?", a: ["Acetic acid", "Hydrochloric acid", "Sulfuric acid", "Nitric acid"], correct: 0},
+        {id: 98, q: "The atomic number of potassium is:", a: ["19", "18", "20", "17"], correct: 0},
+        {id: 99, q: "The chemical formula of potassium nitrate is:", a: ["KNO3", "KNO2", "K2NO3", "KNO"], correct: 0},
+        {id: 100, q: "Which element is most abundant in the atmosphere?", a: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"], correct: 0},
+        {id: 101, q: "The atomic number of sodium is:", a: ["11", "10", "12", "9"], correct: 0},
+        {id: 102, q: "The chemical formula of sodium nitrate is:", a: ["NaNO3", "NaNO2", "Na2NO3", "NaNO"], correct: 0},
+        {id: 103, q: "Which gas is known as laughing gas?", a: ["Nitrous oxide", "Oxygen", "Carbon dioxide", "Nitrogen"], correct: 0},
+        {id: 104, q: "The atomic number of iron is:", a: ["26", "25", "27", "28"], correct: 0},
+        {id: 105, q: "The chemical formula of iron(III) oxide is:", a: ["Fe2O3", "FeO", "Fe3O4", "Fe2O"], correct: 0},
+        {id: 106, q: "Which gas is used in fire extinguishers?", a: ["Carbon dioxide", "Oxygen", "Nitrogen", "Helium"], correct: 0},
+        {id: 107, q: "The atomic number of copper is:", a: ["29", "28", "30", "27"], correct: 0},
+        {id: 108, q: "The chemical formula of copper sulfate is:", a: ["CuSO4", "CuS", "CuO", "CuCl2"], correct: 0},
+        {id: 109, q: "Which acid is used in car batteries?", a: ["Sulfuric acid", "Hydrochloric acid", "Nitric acid", "Acetic acid"], correct: 0},
+        {id: 110, q: "The atomic number of zinc is:", a: ["30", "29", "31", "28"], correct: 0},
+        {id: 111, q: "The chemical formula of zinc oxide is:", a: ["ZnO", "ZnSO4", "ZnS", "ZnCl2"], correct: 0},
+        {id: 112, q: "Which element is used in the treatment of cancer?", a: ["Radium", "Uranium", "Plutonium", "Thorium"], correct: 0},
+        {id: 113, q: "The atomic number of silver is:", a: ["47", "46", "48", "45"], correct: 0},
+        {id: 114, q: "The chemical formula of silver chloride is:", a: ["AgCl", "AgNO3", "Ag2O", "Ag2SO4"], correct: 0},
+        {id: 115, q: "Which gas is used in the manufacture of plastics?", a: ["Ethene", "Methane", "Propane", "Butane"], correct: 0},
+        {id: 116, q: "The atomic number of gold is:", a: ["79", "78", "80", "77"], correct: 0},
+        {id: 117, q: "The chemical formula of gold chloride is:", a: ["AuCl3", "AuCl", "AuCl2", "Au2Cl"], correct: 0},
+        {id: 118, q: "Which acid is used in the manufacture of fertilizers?", a: ["Sulfuric acid", "Hydrochloric acid", "Nitric acid", "Acetic acid"], correct: 0},
+        {id: 119, q: "The atomic number of mercury is:", a: ["80", "79", "81", "78"], correct: 0},
+        {id: 120, q: "The chemical formula of mercuric chloride is:", a: ["HgCl2", "HgCl", "Hg2Cl2", "HgCl3"], correct: 0},
+        {id: 121, q: "Which gas is used in the Haber process?", a: ["Nitrogen and Hydrogen", "Oxygen and Hydrogen", "Nitrogen and Oxygen", "Carbon dioxide"], correct: 0},
+        {id: 122, q: "The atomic number of lead is:", a: ["82", "81", "83", "80"], correct: 0},
+        {id: 123, q: "The chemical formula of lead oxide is:", a: ["PbO", "PbO2", "Pb2O", "Pb3O4"], correct: 0},
+        {id: 124, q: "Which element is used in the production of nuclear energy?", a: ["Uranium", "Radium", "Plutonium", "Thorium"], correct: 0},
+        {id: 125, q: "The atomic number of neon is:", a: ["10", "9", "11", "8"], correct: 0},
+        {id: 126, q: "The chemical formula of neon gas is:", a: ["Ne", "Ne2", "NeO", "NeH"], correct: 0}
+    ];
+
+    // ----- PHYSICS (ID 127–162) - SET 10 (FINAL) -----
+    const phys = [
+        {id: 127, q: "The SI unit of power is:", a: ["Watt", "Joule", "Newton", "Pascal"], correct: 0},
+        {id: 128, q: "The SI unit of pressure is:", a: ["Pascal", "Newton", "Joule", "Watt"], correct: 0},
+        {id: 129, q: "The SI unit of frequency is:", a: ["Hertz", "Newton", "Joule", "Watt"], correct: 0},
+        {id: 130, q: "The SI unit of wavelength is:", a: ["Meter", "Second", "Kilogram", "Ampere"], correct: 0},
+        {id: 131, q: "The SI unit of speed is:", a: ["m/s", "km/h", "m/s²", "cm/s"], correct: 0},
+        {id: 132, q: "The SI unit of acceleration is:", a: ["m/s²", "m/s", "km/h²", "cm/s²"], correct: 0},
+        {id: 133, q: "The SI unit of mass is:", a: ["Kilogram", "Gram", "Pound", "Ounce"], correct: 0},
+        {id: 134, q: "The SI unit of time is:", a: ["Second", "Minute", "Hour", "Day"], correct: 0},
+        {id: 135, q: "The SI unit of length is:", a: ["Meter", "Kilometer", "Centimeter", "Millimeter"], correct: 0},
+        {id: 136, q: "1 km = ? m:", a: ["1000", "100", "10", "1"], correct: 0},
+        {id: 137, q: "1 kg = ? g:", a: ["1000", "100", "10", "1"], correct: 0},
+        {id: 138, q: "The acceleration due to gravity on Earth is approximately:", a: ["9.8 m/s²", "10 m/s", "9.8 m/s", "10 m/s²"], correct: 0},
+        {id: 139, q: "Newton's first law is also known as:", a: ["Law of inertia", "Law of acceleration", "Action-reaction", "Gravitation"], correct: 0},
+        {id: 140, q: "Newton's second law: F = ?", a: ["ma", "mv", "mgh", "m/t"], correct: 0},
+        {id: 141, q: "Newton's third law states:", a: ["Action=reaction", "F=ma", "Every body attracts", "Energy conserved"], correct: 0},
+        {id: 142, q: "Momentum = ?", a: ["mass×velocity", "mass×accel", "force×time", "force×dist"], correct: 0},
+        {id: 143, q: "Momentum unit is:", a: ["kg m/s", "N", "J", "W"], correct: 0},
+        {id: 144, q: "Impulse = ?", a: ["force×time", "mass×vel", "force×dist", "mass×accel"], correct: 0},
+        {id: 145, q: "Friction opposes:", a: ["Motion", "Force", "Mass", "Velocity"], correct: 0},
+        {id: 146, q: "Static friction is ________ kinetic friction:", a: ["Greater than", "Less than", "Equal to", "Zero"], correct: 0},
+        {id: 147, q: "The slope of velocity-time graph gives:", a: ["Acceleration", "Speed", "Distance", "Displacement"], correct: 0},
+        {id: 148, q: "The area under velocity-time graph gives:", a: ["Displacement", "Acceleration", "Speed", "Distance"], correct: 0},
+        {id: 149, q: "Uniform velocity means acceleration is:", a: ["Zero", "Positive", "Negative", "Variable"], correct: 0},
+        {id: 150, q: "First equation of motion: v = ?", a: ["u+at", "ut+½at²", "u²+2as", "(u+v)t/2"], correct: 0},
+        {id: 151, q: "Second equation of motion: s = ?", a: ["ut+½at²", "u+at", "v²+u²+2as", "(u+v)t/2"], correct: 0},
+        {id: 152, q: "Third equation of motion: v² = ?", a: ["u²+2as", "u+at", "ut+½at²", "(u+v)t/2"], correct: 0},
+        {id: 153, q: "Work done when force and displacement are parallel is:", a: ["Maximum", "Zero", "Minimum", "Negative"], correct: 0},
+        {id: 154, q: "Work done when force and displacement are perpendicular is:", a: ["Zero", "Maximum", "Minimum", "Positive"], correct: 0},
+        {id: 155, q: "Kinetic energy formula:", a: ["½mv²", "mgh", "Fd", "P/t"], correct: 0},
+        {id: 156, q: "Potential energy formula:", a: ["mgh", "½mv²", "Fd", "P/t"], correct: 0},
+        {id: 157, q: "Power = rate of:", a: ["Doing work", "Displacement", "Velocity", "Acceleration"], correct: 0},
+        {id: 158, q: "1 horsepower = ? W:", a: ["746", "1000", "550", "750"], correct: 0},
+        {id: 159, q: "The law of conservation of energy states that energy can be:", a: ["Transformed", "Destroyed", "Created", "Ignored"], correct: 0},
+        {id: 160, q: "Centripetal acceleration direction is:", a: ["Towards center", "Away", "Tangential", "Radial outward"], correct: 0},
+        {id: 161, q: "Centripetal force formula:", a: ["mv²/r", "mv/r", "mvr", "v²/r"], correct: 0},
+        {id: 162, q: "The period of a pendulum depends on:", a: ["Length and g", "Mass", "Amplitude", "Material"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 163–171) - SET 10 (FINAL) -----
+    const eng = [
+        {id: 163, q: "The synonym of 'Abundant' is:", a: ["Plentiful", "Scarce", "Rare", "Empty"], correct: 0},
+        {id: 164, q: "The antonym of 'Abundant' is:", a: ["Scarce", "Plentiful", "Ample", "Copious"], correct: 0},
+        {id: 165, q: "The synonym of 'Bold' is:", a: ["Brave", "Timid", "Cowardly", "Fearful"], correct: 0},
+        {id: 166, q: "The antonym of 'Bold' is:", a: ["Timid", "Brave", "Courageous", "Daring"], correct: 0},
+        {id: 167, q: "The synonym of 'Comfortable' is:", a: ["Cozy", "Uncomfortable", "Uneasy", "Restless"], correct: 0},
+        {id: 168, q: "The antonym of 'Comfortable' is:", a: ["Uncomfortable", "Cozy", "Restful", "Relaxing"], correct: 0},
+        {id: 169, q: "The synonym of 'Dynamic' is:", a: ["Energetic", "Lethargic", "Passive", "Inactive"], correct: 0},
+        {id: 170, q: "The antonym of 'Dynamic' is:", a: ["Lethargic", "Energetic", "Active", "Vibrant"], correct: 0},
+        {id: 171, q: "The synonym of 'Eloquent' is:", a: ["Expressive", "Inarticulate", "Mumbling", "Stammering"], correct: 0}
+    ];
+
+    // ----- LOGICAL (ID 172–180) - SET 10 (FINAL) -----
+    const log = [
+        {id: 172, q: "If A is the father of B, and B is the mother of C, then A is the ________ of C:", a: ["Grandfather", "Father", "Uncle", "Brother"], correct: 0},
+        {id: 173, q: "Which number comes next: 5, 11, 23, 47, ?", a: ["95", "91", "87", "83"], correct: 0},
+        {id: 174, q: "If all teachers are educated, and some educated are doctors, then:", a: ["Some teachers are doctors", "All teachers are doctors", "No teachers are doctors", "Cannot determine"], correct: 3},
+        {id: 175, q: "Which number is odd one out: 2, 3, 5, 7, 11, 13, 17, 19, 21?", a: ["21", "2", "3", "5"], correct: 0},
+        {id: 176, q: "If A is the brother of B, and B is the mother of C, then A is the ________ of C:", a: ["Uncle", "Father", "Grandfather", "Brother"], correct: 0},
+        {id: 177, q: "Which number comes next: 1, 4, 9, 16, 25, ?", a: ["36", "30", "32", "34"], correct: 0},
+        {id: 178, q: "If all fruits have seeds, and some seeds are poisonous, then:", a: ["Some fruits have poisonous seeds", "All fruits have poisonous seeds", "No fruits have poisonous seeds", "Cannot determine"], correct: 0},
+        {id: 179, q: "Which is the odd one out: Piano, Guitar, Flute, Violin, Table?", a: ["Table", "Piano", "Guitar", "Flute"], correct: 0},
+        {id: 180, q: "If A is the sister of B, and B is the father of C, then A is the ________ of C:", a: ["Aunt", "Mother", "Grandmother", "Sister"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...bio, ...chem, ...phys, ...eng, ...log].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 10800;
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 10800;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 10800;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] === undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<table>
+            <tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let correctAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

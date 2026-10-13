@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logical Reasoning (Level-2 - Easy) MCQs Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; margin: 15px 0 20px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 15px; font-size: 24px; }
+        .instructions-box p { margin: 10px 0; font-size: 17px; }
+        .instructions-box b { color: #bb86fc; }
+        .startBtn, .restartBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 22px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; margin-bottom: 60px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 15px; border-radius: 12px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .timer { font-size: 20px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 20px; font-weight: bold; background: #7f00ff; padding: 5px 15px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; font-weight: bold; gap: 15px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 15px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 3px 12px; border-radius: 20px; font-size: 16px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 18px; margin-bottom: 15px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 8px 0; padding: 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 14px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 12px; font-size: 15px; }
+        td { padding: 10px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 70px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 12px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 12px; } .score-bar { font-size: 12px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧠 Logical Reasoning</h1>
+        <h2>Level-2 (Easy) · 200 MCQs</h2>
+        <p class="subtitle">MDCAT / ETEA / NUST Pattern</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+            </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+</div>
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // LOGICAL REASONING LEVEL-2 (EASY) - 200 MCQs
+    // Topics: Analogy (40), Coding-Decoding (40), Series (40), Blood Relations (40), Direction Sense (40)
+    // ============================================================
+    const mcqs = [
+        // ===== ANALOGY (IDs 1-40) =====
+        {id: 1, q: "Doctor : Stethoscope :: Carpenter : ?", a: shuffleArray(["Hammer", "Knife", "Screwdriver", "Needle"]), correct: 0},
+        {id: 2, q: "12 : 144 :: 13 : ?", a: shuffleArray(["169", "196", "225", "256"]), correct: 0},
+        {id: 3, q: "Bread : Wheat :: Paper : ?", a: shuffleArray(["Wood", "Plastic", "Metal", "Glass"]), correct: 0},
+        {id: 4, q: "Square : Cube :: Circle : ?", a: shuffleArray(["Sphere", "Cone", "Cylinder", "Triangle"]), correct: 0},
+        {id: 5, q: "7 : 49 :: 8 : ?", a: shuffleArray(["64", "56", "72", "40"]), correct: 0},
+        {id: 6, q: "Cow : Herd :: Fish : ?", a: shuffleArray(["School", "Flock", "Pack", "Swarm"]), correct: 0},
+        {id: 7, q: "2 : 16 :: 3 : ?", a: shuffleArray(["81", "27", "64", "125"]), correct: 0},
+        {id: 8, q: "Lion : Den :: Horse : ?", a: shuffleArray(["Stable", "Shed", "Kennel", "Den"]), correct: 0},
+        {id: 9, q: "6 : 216 :: 7 : ?", a: shuffleArray(["343", "512", "729", "1000"]), correct: 0},
+        {id: 10, q: "Apple : Tree :: Rose : ?", a: shuffleArray(["Bush", "Branch", "Garden", "Flower"]), correct: 0},
+        {id: 11, q: "3 : 18 :: 4 : ?", a: shuffleArray(["24", "20", "28", "16"]), correct: 0},
+        {id: 12, q: "Nurse : Hospital :: Lawyer : ?", a: shuffleArray(["Court", "Office", "Bank", "School"]), correct: 0},
+        {id: 13, q: "5 : 125 :: 6 : ?", a: shuffleArray(["216", "180", "210", "240"]), correct: 0},
+        {id: 14, q: "Book : Author :: Painting : ?", a: shuffleArray(["Artist", "Photographer", "Sculptor", "Writer"]), correct: 0},
+        {id: 15, q: "4 : 64 :: 5 : ?", a: shuffleArray(["125", "100", "80", "160"]), correct: 0},
+        {id: 16, q: "Chef : Kitchen :: Pilot : ?", a: shuffleArray(["Cockpit", "Hospital", "School", "Bank"]), correct: 0},
+        {id: 17, q: "8 : 512 :: 9 : ?", a: shuffleArray(["729", "648", "810", "900"]), correct: 0},
+        {id: 18, q: "Clock : Time :: Thermometer : ?", a: shuffleArray(["Temperature", "Pressure", "Humidity", "Speed"]), correct: 0},
+        {id: 19, q: "2 : 12 :: 3 : ?", a: shuffleArray(["24", "18", "30", "36"]), correct: 0},
+        {id: 20, q: "Pilot : Aeroplane :: Captain : ?", a: shuffleArray(["Ship", "Car", "Train", "Boat"]), correct: 0},
+        {id: 21, q: "7 : 343 :: 8 : ?", a: shuffleArray(["512", "448", "640", "800"]), correct: 0},
+        {id: 22, q: "Horse : Stable :: Bird : ?", a: shuffleArray(["Nest", "Cage", "Tree", "Sky"]), correct: 0},
+        {id: 23, q: "3 : 27 :: 4 : ?", a: shuffleArray(["64", "48", "80", "100"]), correct: 0},
+        {id: 24, q: "Teacher : School :: Engineer : ?", a: shuffleArray(["Site", "Hospital", "Court", "Bank"]), correct: 0},
+        {id: 25, q: "9 : 729 :: 10 : ?", a: shuffleArray(["1000", "900", "1100", "1200"]), correct: 0},
+        {id: 26, q: "Cow : Calf :: Cat : ?", a: shuffleArray(["Kitten", "Puppy", "Foal", "Cub"]), correct: 0},
+        {id: 27, q: "4 : 80 :: 5 : ?", a: shuffleArray(["125", "100", "150", "200"]), correct: 0},
+        {id: 28, q: "Bank : Money :: Library : ?", a: shuffleArray(["Books", "Data", "Food", "Medicine"]), correct: 0},
+        {id: 29, q: "6 : 36 :: 7 : ?", a: shuffleArray(["49", "42", "56", "28"]), correct: 0},
+        {id: 30, q: "Tailor : Cloth :: Cobbler : ?", a: shuffleArray(["Leather", "Wood", "Metal", "Plastic"]), correct: 0},
+        {id: 31, q: "3 : 15 :: 5 : ?", a: shuffleArray(["35", "25", "45", "55"]), correct: 0},
+        {id: 32, q: "Student : Classroom :: Patient : ?", a: shuffleArray(["Ward", "Court", "Bank", "School"]), correct: 0},
+        {id: 33, q: "5 : 150 :: 6 : ?", a: shuffleArray(["216", "180", "240", "300"]), correct: 0},
+        {id: 34, q: "Priest : Temple :: Lawyer : ?", a: shuffleArray(["Court", "Hospital", "School", "Bank"]), correct: 0},
+        {id: 35, q: "8 : 576 :: 9 : ?", a: shuffleArray(["729", "648", "810", "900"]), correct: 0},
+        {id: 36, q: "Heart : Blood :: Pump : ?", a: shuffleArray(["Water", "Air", "Gas", "Oil"]), correct: 0},
+        {id: 37, q: "4 : 24 :: 6 : ?", a: shuffleArray(["48", "36", "60", "72"]), correct: 0},
+        {id: 38, q: "Farmer : Field :: Fisherman : ?", a: shuffleArray(["Sea", "Lake", "River", "Pond"]), correct: 0},
+        {id: 39, q: "7 : 280 :: 8 : ?", a: shuffleArray(["384", "448", "512", "640"]), correct: 0},
+        {id: 40, q: "Knife : Cut :: Pen : ?", a: shuffleArray(["Write", "Draw", "Paint", "Sketch"]), correct: 0},
+
+        // ===== CODING-DECODING (IDs 41-80) =====
+        {id: 41, q: "If CLOUD is coded as 3-12-15-21-4, how is RAIN coded?", a: shuffleArray(["18-1-9-14", "18-1-9-13", "17-1-9-14", "18-2-9-14"]), correct: 0},
+        {id: 42, q: "If APPLE is coded as 1-16-16-12-5, how is MANGO coded?", a: shuffleArray(["13-1-14-7-15", "13-1-14-7-14", "12-1-14-7-15", "13-2-14-7-15"]), correct: 0},
+        {id: 43, q: "If Z=26, Y=25, then A=?", a: shuffleArray(["1", "2", "3", "4"]), correct: 0},
+        {id: 44, q: "If MOON is coded as NPPO, how is SUN coded?", a: shuffleArray(["TVO", "TVN", "TWO", "TWN"]), correct: 0},
+        {id: 45, q: "If 7=49, 8=64, then 9=?", a: shuffleArray(["81", "72", "90", "45"]), correct: 0},
+        {id: 46, q: "If RED is coded as QDC, how is BLUE coded?", a: shuffleArray(["AKTD", "AKTC", "AKTD", "ALTD"]), correct: 0},
+        {id: 47, q: "If 2=8, 3=27, then 4=?", a: shuffleArray(["64", "48", "80", "100"]), correct: 0},
+        {id: 48, q: "If MOUSE is coded as 13-15-21-19-5, how is RAT coded?", a: shuffleArray(["18-1-20", "18-1-19", "17-1-20", "18-2-20"]), correct: 0},
+        {id: 49, q: "If A=1, B=2, then Z=?", a: shuffleArray(["26", "25", "24", "27"]), correct: 0},
+        {id: 50, q: "If GOLD is coded as 7-15-12-4, how is SILVER coded?", a: shuffleArray(["19-9-12-22-5-18", "19-9-11-22-5-18", "18-9-12-22-5-18", "19-9-12-22-6-18"]), correct: 0},
+        {id: 51, q: "If 5=10, 6=12, then 7=?", a: shuffleArray(["14", "15", "16", "17"]), correct: 0},
+        {id: 52, q: "If APPLE is coded as BQQMF, how is MANGO coded?", a: shuffleArray(["NBOHP", "NAOHP", "NBOHS", "MBOHS"]), correct: 0},
+        {id: 53, q: "If 1=26, 2=25, then 5=?", a: shuffleArray(["22", "21", "23", "24"]), correct: 0},
+        {id: 54, q: "If STAR is coded as SUTS, how is MOON coded?", a: shuffleArray(["MPPO", "MPNO", "MOPO", "MPNP"]), correct: 0},
+        {id: 55, q: "If 3=15, 4=20, then 5=?", a: shuffleArray(["25", "30", "35", "40"]), correct: 0},
+        {id: 56, q: "If DOG is coded as 4-15-7, how is CAT coded?", a: shuffleArray(["3-1-20", "24-1-20", "3-1-20", "3-2-20"]), correct: 0},
+        {id: 57, q: "If 6=18, 7=21, then 8=?", a: shuffleArray(["24", "27", "30", "33"]), correct: 0},
+        {id: 58, q: "If BOOK is coded as 2-15-15-11, how is PEN coded?", a: shuffleArray(["16-5-14", "16-4-14", "15-5-14", "16-5-13"]), correct: 0},
+        {id: 59, q: "If 4=16, 5=25, then 6=?", a: shuffleArray(["36", "30", "42", "18"]), correct: 0},
+        {id: 60, q: "If HAT is coded as IBU, how is CAP coded?", a: shuffleArray(["DBQ", "DBP", "DBQ", "CBP"]), correct: 0},
+        {id: 61, q: "If 2=6, 3=9, then 4=?", a: shuffleArray(["12", "15", "18", "21"]), correct: 0},
+        {id: 62, q: "If LION is coded as 12-9-15-14, how is TIGER coded?", a: shuffleArray(["20-9-7-5-18", "20-9-7-4-18", "19-9-7-5-18", "20-8-7-5-18"]), correct: 0},
+        {id: 63, q: "If 8=24, 9=27, then 10=?", a: shuffleArray(["30", "33", "36", "39"]), correct: 0},
+        {id: 64, q: "If WINTER is coded as 23-9-14-20-5-18, how is SUMMER coded?", a: shuffleArray(["19-21-13-13-5-18", "19-21-12-13-5-18", "19-20-13-13-5-18", "18-21-13-13-5-18"]), correct: 0},
+        {id: 65, q: "If 3=12, 4=16, then 5=?", a: shuffleArray(["20", "24", "28", "32"]), correct: 0},
+        {id: 66, q: "If FISH is coded as GJTI, how is BIRD coded?", a: shuffleArray(["CJSE", "CJSE", "CJSE", "BJSE"]), correct: 0},
+        {id: 67, q: "If 7=21, 8=24, then 9=?", a: shuffleArray(["27", "30", "33", "36"]), correct: 0},
+        {id: 68, q: "If ELEPHANT is coded as 5-12-5-16-8-1-14-20, how is GIRAFFE coded?", a: shuffleArray(["7-9-18-1-6-6-5", "7-9-17-1-6-6-5", "6-9-18-1-6-6-5", "7-9-18-1-6-5-5"]), correct: 0},
+        {id: 69, q: "If 4=20, 5=25, then 6=?", a: shuffleArray(["30", "35", "40", "45"]), correct: 0},
+        {id: 70, q: "If MOON is coded as LNNM, how is SUN coded?", a: shuffleArray(["RVM", "RUM", "RVM", "QVM"]), correct: 0},
+        {id: 71, q: "If 2=10, 3=15, then 4=?", a: shuffleArray(["20", "25", "30", "35"]), correct: 0},
+        {id: 72, q: "If KEY is coded as 11-5-25, how is LOCK coded?", a: shuffleArray(["12-15-3-11", "12-15-2-11", "11-15-3-11", "12-15-3-10"]), correct: 0},
+        {id: 73, q: "If 5=15, 6=18, then 7=?", a: shuffleArray(["21", "24", "27", "30"]), correct: 0},
+        {id: 74, q: "If TIGER is coded as 20-9-7-5-18, how is HORSE coded?", a: shuffleArray(["8-15-18-19-5", "8-15-17-19-5", "7-15-18-19-5", "8-15-18-20-5"]), correct: 0},
+        {id: 75, q: "If 1=2, 2=4, then 3=?", a: shuffleArray(["6", "8", "10", "12"]), correct: 0},
+        {id: 76, q: "If DOG is coded as HPK, how is CAT coded?", a: shuffleArray(["GEX", "GEW", "GEX", "FE X"]), correct: 0},
+        {id: 77, q: "If 6=30, 7=35, then 8=?", a: shuffleArray(["40", "45", "50", "55"]), correct: 0},
+        {id: 78, q: "If BIRD is coded as 2-9-18-4, how is FISH coded?", a: shuffleArray(["6-9-19-8", "6-9-18-8", "5-9-19-8", "6-8-19-8"]), correct: 0},
+        {id: 79, q: "If 3=18, 4=24, then 5=?", a: shuffleArray(["30", "36", "42", "48"]), correct: 0},
+        {id: 80, q: "If CLOUD is coded as XLFW, how is RAIN coded?", a: shuffleArray(["IZRM", "IZRN", "IZRM", "HYRM"]), correct: 0},
+
+        // ===== NUMBER/LETTER SERIES (IDs 81-120) =====
+        {id: 81, q: "11, 22, 33, 44, ?", a: shuffleArray(["55", "66", "77", "88"]), correct: 0},
+        {id: 82, q: "1, 8, 27, 64, ?", a: shuffleArray(["125", "216", "343", "512"]), correct: 0},
+        {id: 83, q: "2, 6, 18, 54, ?", a: shuffleArray(["162", "486", "1458", "4374"]), correct: 0},
+        {id: 84, q: "10, 20, 30, 40, ?", a: shuffleArray(["50", "60", "70", "80"]), correct: 0},
+        {id: 85, q: "2, 5, 10, 17, ?", a: shuffleArray(["26", "27", "28", "29"]), correct: 0},
+        {id: 86, q: "7, 14, 21, 28, ?", a: shuffleArray(["35", "42", "49", "56"]), correct: 0},
+        {id: 87, q: "1, 4, 9, 16, ?", a: shuffleArray(["25", "36", "49", "64"]), correct: 0},
+        {id: 88, q: "3, 6, 12, 24, ?", a: shuffleArray(["48", "96", "192", "384"]), correct: 0},
+        {id: 89, q: "5, 12, 19, 26, ?", a: shuffleArray(["33", "40", "47", "54"]), correct: 0},
+        {id: 90, q: "4, 8, 16, 32, ?", a: shuffleArray(["64", "128", "256", "512"]), correct: 0},
+        {id: 91, q: "1, 2, 4, 7, 11, ?", a: shuffleArray(["16", "22", "29", "37"]), correct: 0},
+        {id: 92, q: "9, 18, 27, 36, ?", a: shuffleArray(["45", "54", "63", "72"]), correct: 0},
+        {id: 93, q: "2, 4, 8, 16, ?", a: shuffleArray(["32", "64", "128", "256"]), correct: 0},
+        {id: 94, q: "6, 12, 18, 24, ?", a: shuffleArray(["30", "36", "42", "48"]), correct: 0},
+        {id: 95, q: "3, 9, 27, 81, ?", a: shuffleArray(["243", "729", "2187", "6561"]), correct: 0},
+        {id: 96, q: "5, 10, 15, 20, ?", a: shuffleArray(["25", "30", "35", "40"]), correct: 0},
+        {id: 97, q: "1, 3, 6, 10, ?", a: shuffleArray(["15", "21", "28", "36"]), correct: 0},
+        {id: 98, q: "8, 16, 24, 32, ?", a: shuffleArray(["40", "48", "56", "64"]), correct: 0},
+        {id: 99, q: "2, 6, 12, 20, ?", a: shuffleArray(["30", "42", "56", "72"]), correct: 0},
+        {id: 100, q: "7, 17, 27, 37, ?", a: shuffleArray(["47", "57", "67", "77"]), correct: 0},
+        {id: 101, q: "1, 5, 9, 13, ?", a: shuffleArray(["17", "21", "25", "29"]), correct: 0},
+        {id: 102, q: "4, 12, 36, 108, ?", a: shuffleArray(["324", "972", "2916", "8748"]), correct: 0},
+        {id: 103, q: "2, 3, 5, 8, ?", a: shuffleArray(["13", "21", "34", "55"]), correct: 0},
+        {id: 104, q: "10, 100, 1000, ?", a: shuffleArray(["10000", "100000", "1000000", "10000000"]), correct: 0},
+        {id: 105, q: "1, 2, 5, 10, ?", a: shuffleArray(["17", "26", "37", "50"]), correct: 0},
+        {id: 106, q: "6, 11, 16, 21, ?", a: shuffleArray(["26", "31", "36", "41"]), correct: 0},
+        {id: 107, q: "2, 8, 18, 32, ?", a: shuffleArray(["50", "72", "98", "128"]), correct: 0},
+        {id: 108, q: "3, 6, 18, 72, ?", a: shuffleArray(["360", "720", "1440", "2880"]), correct: 0},
+        {id: 109, q: "5, 25, 125, ?", a: shuffleArray(["625", "3125", "15625", "78125"]), correct: 0},
+        {id: 110, q: "1, 4, 7, 10, ?", a: shuffleArray(["13", "16", "19", "22"]), correct: 0},
+        {id: 111, q: "3, 8, 15, 24, ?", a: shuffleArray(["35", "48", "63", "80"]), correct: 0},
+        {id: 112, q: "4, 9, 14, 19, ?", a: shuffleArray(["24", "29", "34", "39"]), correct: 0},
+        {id: 113, q: "1, 3, 7, 15, ?", a: shuffleArray(["31", "63", "127", "255"]), correct: 0},
+        {id: 114, q: "2, 7, 12, 17, ?", a: shuffleArray(["22", "27", "32", "37"]), correct: 0},
+        {id: 115, q: "8, 24, 72, ?", a: shuffleArray(["216", "648", "1944", "5832"]), correct: 0},
+        {id: 116, q: "1, 2, 6, 24, ?", a: shuffleArray(["120", "720", "5040", "40320"]), correct: 0},
+        {id: 117, q: "5, 10, 20, 40, ?", a: shuffleArray(["80", "160", "320", "640"]), correct: 0},
+        {id: 118, q: "3, 4, 7, 11, ?", a: shuffleArray(["18", "29", "47", "76"]), correct: 0},
+        {id: 119, q: "7, 21, 63, ?", a: shuffleArray(["189", "567", "1701", "5103"]), correct: 0},
+        {id: 120, q: "2, 5, 8, 11, ?", a: shuffleArray(["14", "17", "20", "23"]), correct: 0},
+
+        // ===== BLOOD RELATIONS (IDs 121-160) =====
+        {id: 121, q: "A is the father of B. C is the mother of A. How is C related to B?", a: shuffleArray(["Grandmother", "Mother", "Aunt", "Sister"]), correct: 0},
+        {id: 122, q: "Ravi is the son of Raj. Raj is the brother of Sita. How is Sita related to Ravi?", a: shuffleArray(["Aunt", "Mother", "Sister", "Grandmother"]), correct: 0},
+        {id: 123, q: "A is the brother of B. B is the daughter of C. How is A related to C?", a: shuffleArray(["Son", "Daughter", "Brother", "Sister"]), correct: 0},
+        {id: 124, q: "Pointing to a man, a woman said, 'He is the brother of my father.' How is the man related to the woman?", a: shuffleArray(["Uncle", "Father", "Brother", "Cousin"]), correct: 0},
+        {id: 125, q: "A is the mother of B. C is the father of B. How is C related to A?", a: shuffleArray(["Husband", "Brother", "Father", "Son"]), correct: 0},
+        {id: 126, q: "Ravi is the father of Sita. Sita is the sister of Ram. How is Ram related to Ravi?", a: shuffleArray(["Son", "Daughter", "Brother", "Nephew"]), correct: 0},
+        {id: 127, q: "A is the daughter of B. B is the father of C. How is A related to C?", a: shuffleArray(["Sister", "Brother", "Aunt", "Niece"]), correct: 0},
+        {id: 128, q: "Pointing to a girl, a boy said, 'She is the daughter of my mother's only brother.' How is the girl related to the boy?", a: shuffleArray(["Cousin", "Sister", "Aunt", "Niece"]), correct: 0},
+        {id: 129, q: "A is the sister of B. B is the mother of C. How is A related to C?", a: shuffleArray(["Aunt", "Grandmother", "Sister", "Mother"]), correct: 0},
+        {id: 130, q: "Ravi is the son of Sita. Sita is the wife of Ram. How is Ram related to Ravi?", a: shuffleArray(["Father", "Grandfather", "Uncle", "Brother"]), correct: 0},
+        {id: 131, q: "A is the husband of B. C is the daughter of B. How is A related to C?", a: shuffleArray(["Father", "Mother", "Brother", "Sister"]), correct: 0},
+        {id: 132, q: "Pointing to a boy, a girl said, 'He is the brother of my mother.' How is the boy related to the girl?", a: shuffleArray(["Maternal Uncle", "Paternal Uncle", "Brother", "Cousin"]), correct: 0},
+        {id: 133, q: "A is the father of B. B is the sister of C. How is A related to C?", a: shuffleArray(["Father", "Mother", "Brother", "Sister"]), correct: 0},
+        {id: 134, q: "Ravi is the brother of Sita. Sita is the daughter of Ram. How is Ram related to Ravi?", a: shuffleArray(["Father", "Grandfather", "Uncle", "Brother"]), correct: 0},
+        {id: 135, q: "A is the mother of B. B is the son of C. How is A related to C?", a: shuffleArray(["Wife", "Sister", "Mother", "Daughter"]), correct: 0},
+        {id: 136, q: "Pointing to a woman, a man said, 'She is the mother of my daughter.' How is the woman related to the man?", a: shuffleArray(["Wife", "Sister", "Mother", "Daughter"]), correct: 0},
+        {id: 137, q: "A is the brother of B. B is the mother of C. How is A related to C?", a: shuffleArray(["Maternal Uncle", "Paternal Uncle", "Grandfather", "Father"]), correct: 0},
+        {id: 138, q: "Ravi is the son of Ram. Ram is the father of Sita. How is Ravi related to Sita?", a: shuffleArray(["Brother", "Sister", "Cousin", "Uncle"]), correct: 0},
+        {id: 139, q: "A is the wife of B. B is the brother of C. How is A related to C?", a: shuffleArray(["Sister-in-law", "Sister", "Aunt", "Mother"]), correct: 0},
+        {id: 140, q: "Pointing to a girl, a woman said, 'She is the daughter of my husband.' How is the girl related to the woman?", a: shuffleArray(["Daughter", "Sister", "Niece", "Cousin"]), correct: 0},
+        {id: 141, q: "A is the father of B. B is the husband of C. How is A related to C?", a: shuffleArray(["Father-in-law", "Father", "Grandfather", "Uncle"]), correct: 0},
+        {id: 142, q: "Ravi is the brother of Sita. Sita is the mother of Ram. How is Ravi related to Ram?", a: shuffleArray(["Maternal Uncle", "Paternal Uncle", "Grandfather", "Father"]), correct: 0},
+        {id: 143, q: "A is the daughter of B. B is the sister of C. How is A related to C?", a: shuffleArray(["Niece", "Daughter", "Sister", "Cousin"]), correct: 0},
+        {id: 144, q: "Pointing to a man, a woman said, 'He is the son of my mother.' How is the man related to the woman?", a: shuffleArray(["Brother", "Cousin", "Uncle", "Nephew"]), correct: 0},
+        {id: 145, q: "A is the husband of B. B is the sister of C. How is A related to C?", a: shuffleArray(["Brother-in-law", "Brother", "Sister", "Cousin"]), correct: 0},
+        {id: 146, q: "Ravi is the son of Ram. Ram is the brother of Sita. How is Sita related to Ravi?", a: shuffleArray(["Aunt", "Mother", "Sister", "Grandmother"]), correct: 0},
+        {id: 147, q: "A is the mother of B. B is the daughter of C. How is C related to A?", a: shuffleArray(["Husband", "Brother", "Father", "Son"]), correct: 0},
+        {id: 148, q: "Pointing to a boy, a man said, 'He is the son of my sister.' How is the boy related to the man?", a: shuffleArray(["Nephew", "Son", "Cousin", "Brother"]), correct: 0},
+        {id: 149, q: "A is the brother of B. B is the father of C. How is A related to C?", a: shuffleArray(["Paternal Uncle", "Maternal Uncle", "Grandfather", "Father"]), correct: 0},
+        {id: 150, q: "Ravi is the father of Sita. Sita is the mother of Ram. How is Ravi related to Ram?", a: shuffleArray(["Maternal Grandfather", "Paternal Grandfather", "Uncle", "Father"]), correct: 0},
+        {id: 151, q: "A is the sister of B. B is the husband of C. How is A related to C?", a: shuffleArray(["Sister-in-law", "Sister", "Aunt", "Mother"]), correct: 0},
+        {id: 152, q: "Pointing to a girl, a boy said, 'She is the daughter of my uncle.' How is the girl related to the boy?", a: shuffleArray(["Cousin", "Sister", "Aunt", "Niece"]), correct: 0},
+        {id: 153, q: "A is the father of B. B is the brother of C. How is A related to C?", a: shuffleArray(["Father", "Uncle", "Grandfather", "Brother"]), correct: 0},
+        {id: 154, q: "Ravi is the brother of Ram. Ram is the father of Sita. How is Ravi related to Sita?", a: shuffleArray(["Paternal Uncle", "Maternal Uncle", "Grandfather", "Father"]), correct: 0},
+        {id: 155, q: "A is the mother of B. B is the sister of C. How is A related to C?", a: shuffleArray(["Mother", "Aunt", "Grandmother", "Sister"]), correct: 0},
+        {id: 156, q: "Pointing to a man, a woman said, 'He is the father of my brother.' How is the man related to the woman?", a: shuffleArray(["Father", "Brother", "Uncle", "Grandfather"]), correct: 0},
+        {id: 157, q: "A is the brother of B. B is the wife of C. How is A related to C?", a: shuffleArray(["Brother-in-law", "Brother", "Sister", "Cousin"]), correct: 0},
+        {id: 158, q: "Ravi is the son of Ram. Ram is the father of Sita. How is Sita related to Ravi?", a: shuffleArray(["Sister", "Brother", "Cousin", "Aunt"]), correct: 0},
+        {id: 159, q: "A is the father of B. B is the mother of C. How is A related to C?", a: shuffleArray(["Maternal Grandfather", "Paternal Grandfather", "Uncle", "Father"]), correct: 0},
+        {id: 160, q: "Pointing to a girl, a boy said, 'She is the daughter of my father's sister.' How is the girl related to the boy?", a: shuffleArray(["Cousin", "Sister", "Aunt", "Niece"]), correct: 0},
+
+        // ===== DIRECTION SENSE (IDs 161-200) =====
+        {id: 161, q: "A person walks 6 km North, then 8 km East. How far is he from the starting point?", a: shuffleArray(["10 km", "14 km", "2 km", "48 km"]), correct: 0},
+        {id: 162, q: "A man walks 5 km South, then 5 km West. In which direction is he from the starting point?", a: shuffleArray(["South-West", "South-East", "North-West", "North-East"]), correct: 0},
+        {id: 163, q: "A person walks 4 km East, then 3 km North. What is the distance from the starting point?", a: shuffleArray(["5 km", "7 km", "1 km", "12 km"]), correct: 0},
+        {id: 164, q: "A man walks 2 km North, then 2 km East, then 2 km South. Where is he relative to the starting point?", a: shuffleArray(["East", "North", "West", "South"]), correct: 0},
+        {id: 165, q: "A person walks 8 km South, then 6 km West. How far is he from the starting point?", a: shuffleArray(["10 km", "14 km", "2 km", "48 km"]), correct: 0},
+        {id: 166, q: "A man walks 3 km East, then 4 km South, then 6 km West. How far is he from the starting point?", a: shuffleArray(["5 km", "13 km", "7 km", "11 km"]), correct: 0},
+        {id: 167, q: "A person walks 2 km North, then 2 km South, then 2 km East. Where is he relative to the starting point?", a: shuffleArray(["East", "North", "South", "West"]), correct: 0},
+        {id: 168, q: "A man walks 6 km West, then 8 km North. In which direction is he from the starting point?", a: shuffleArray(["North-West", "North-East", "South-West", "South-East"]), correct: 0},
+        {id: 169, q: "A person walks 5 km South, then 12 km East. How far is he from the starting point?", a: shuffleArray(["13 km", "17 km", "7 km", "60 km"]), correct: 0},
+        {id: 170, q: "A man walks 3 km North, then 4 km East, then 3 km South. Where is he relative to the starting point?", a: shuffleArray(["East", "North", "West", "South"]), correct: 0},
+        {id: 171, q: "A person walks 2 km West, then 2 km South, then 2 km East. How far is he from the starting point?", a: shuffleArray(["2 km", "4 km", "6 km", "0 km"]), correct: 0},
+        {id: 172, q: "A man walks 8 km North, then 6 km East. What is the shortest distance to the starting point?", a: shuffleArray(["10 km", "14 km", "2 km", "48 km"]), correct: 0},
+        {id: 173, q: "A person walks 4 km South, then 3 km West, then 4 km North. Where is he relative to the starting point?", a: shuffleArray(["West", "East", "North", "South"]), correct: 0},
+        {id: 174, q: "A man walks 5 km East, then 5 km South, then 5 km West. How far is he from the starting point?", a: shuffleArray(["5 km", "10 km", "15 km", "0 km"]), correct: 0},
+        {id: 175, q: "A person walks 6 km North, then 8 km East. In which direction is he from the starting point?", a: shuffleArray(["North-East", "North-West", "South-East", "South-West"]), correct: 0},
+        {id: 176, q: "A man walks 3 km West, then 4 km North. How far is he from the starting point?", a: shuffleArray(["5 km", "7 km", "1 km", "12 km"]), correct: 0},
+        {id: 177, q: "A person walks 9 km South, then 12 km East. What is the distance from the starting point?", a: shuffleArray(["15 km", "21 km", "3 km", "108 km"]), correct: 0},
+        {id: 178, q: "A man walks 2 km North, then 2 km West, then 2 km South. Where is he relative to the starting point?", a: shuffleArray(["West", "East", "North", "South"]), correct: 0},
+        {id: 179, q: "A person walks 7 km East, then 7 km North. How far is he from the starting point?", a: shuffleArray(["7√2 km", "14 km", "0 km", "7 km"]), correct: 0},
+        {id: 180, q: "A man walks 4 km South, then 3 km West, then 4 km North. How far is he from the starting point?", a: shuffleArray(["3 km", "4 km", "5 km", "7 km"]), correct: 0},
+        {id: 181, q: "A person walks 5 km North, then 5 km East, then 5 km South. How far is he from the starting point?", a: shuffleArray(["5 km", "10 km", "15 km", "0 km"]), correct: 0},
+        {id: 182, q: "A man walks 8 km West, then 6 km South. In which direction is he from the starting point?", a: shuffleArray(["South-West", "South-East", "North-West", "North-East"]), correct: 0},
+        {id: 183, q: "A person walks 2 km East, then 2 km South, then 2 km West. How far is he from the starting point?", a: shuffleArray(["2 km", "4 km", "6 km", "0 km"]), correct: 0},
+        {id: 184, q: "A man walks 3 km North, then 4 km West. How far is he from the starting point?", a: shuffleArray(["5 km", "7 km", "1 km", "12 km"]), correct: 0},
+        {id: 185, q: "A person walks 10 km East, then 10 km North, then 10 km West. How far is he from the starting point?", a: shuffleArray(["10 km", "20 km", "30 km", "0 km"]), correct: 0},
+        {id: 186, q: "A man walks 6 km South, then 8 km West. What is the shortest distance to the starting point?", a: shuffleArray(["10 km", "14 km", "2 km", "48 km"]), correct: 0},
+        {id: 187, q: "A person walks 4 km North, then 3 km East, then 4 km South. Where is he relative to the starting point?", a: shuffleArray(["East", "West", "North", "South"]), correct: 0},
+        {id: 188, q: "A man walks 5 km West, then 12 km North. How far is he from the starting point?", a: shuffleArray(["13 km", "17 km", "7 km", "60 km"]), correct: 0},
+        {id: 189, q: "A person walks 7 km South, then 7 km East. In which direction is he from the starting point?", a: shuffleArray(["South-East", "South-West", "North-East", "North-West"]), correct: 0},
+        {id: 190, q: "A man walks 4 km East, then 3 km South, then 4 km West. How far is he from the starting point?", a: shuffleArray(["3 km", "4 km", "5 km", "7 km"]), correct: 0},
+        {id: 191, q: "A person walks 2 km North, then 2 km East, then 2 km North. How far is he from the starting point?", a: shuffleArray(["2√5 km", "4 km", "6 km", "2 km"]), correct: 0},
+        {id: 192, q: "A man walks 5 km South, then 12 km West. What is the distance from the starting point?", a: shuffleArray(["13 km", "17 km", "7 km", "60 km"]), correct: 0},
+        {id: 193, q: "A person walks 8 km East, then 6 km North. How far is he from the starting point?", a: shuffleArray(["10 km", "14 km", "2 km", "48 km"]), correct: 0},
+        {id: 194, q: "A man walks 3 km North, then 3 km West, then 3 km South. Where is he relative to the starting point?", a: shuffleArray(["West", "East", "North", "South"]), correct: 0},
+        {id: 195, q: "A person walks 6 km West, then 6 km North, then 6 km East. How far is he from the starting point?", a: shuffleArray(["6 km", "12 km", "18 km", "0 km"]), correct: 0},
+        {id: 196, q: "A man walks 4 km North, then 4 km East, then 4 km South. How far is he from the starting point?", a: shuffleArray(["4 km", "8 km", "12 km", "0 km"]), correct: 0},
+        {id: 197, q: "A person walks 9 km West, then 12 km North. In which direction is he from the starting point?", a: shuffleArray(["North-West", "North-East", "South-West", "South-East"]), correct: 0},
+        {id: 198, q: "A man walks 5 km North, then 5 km East, then 5 km West. How far is he from the starting point?", a: shuffleArray(["5 km", "10 km", "15 km", "0 km"]), correct: 0},
+        {id: 199, q: "A person walks 7 km South, then 7 km West. How far is he from the starting point?", a: shuffleArray(["7√2 km", "14 km", "0 km", "7 km"]), correct: 0},
+        {id: 200, q: "A man walks 3 km East, then 4 km North. How far is he from the starting point?", a: shuffleArray(["5 km", "7 km", "1 km", "12 km"]), correct: 0}
+    ];
+
+    // ===== CORRECT VALUES MAPPING =====
+    const correctValues = {
+        1: "Hammer", 2: "169", 3: "Wood", 4: "Sphere", 5: "64",
+        6: "School", 7: "81", 8: "Stable", 9: "343", 10: "Bush",
+        11: "24", 12: "Court", 13: "216", 14: "Artist", 15: "125",
+        16: "Cockpit", 17: "729", 18: "Temperature", 19: "24", 20: "Ship",
+        21: "512", 22: "Nest", 23: "64", 24: "Site", 25: "1000",
+        26: "Kitten", 27: "125", 28: "Books", 29: "49", 30: "Leather",
+        31: "35", 32: "Ward", 33: "216", 34: "Court", 35: "729",
+        36: "Water", 37: "48", 38: "Sea", 39: "384", 40: "Write",
+        41: "18-1-9-14", 42: "13-1-14-7-15", 43: "1", 44: "TVO", 45: "81",
+        46: "AKTD", 47: "64", 48: "18-1-20", 49: "26", 50: "19-9-12-22-5-18",
+        51: "14", 52: "NBOHP", 53: "22", 54: "MPPO", 55: "25",
+        56: "3-1-20", 57: "24", 58: "16-5-14", 59: "36", 60: "DBQ",
+        61: "12", 62: "20-9-7-5-18", 63: "30", 64: "19-21-13-13-5-18", 65: "20",
+        66: "CJSE", 67: "27", 68: "7-9-18-1-6-6-5", 69: "30", 70: "RVM",
+        71: "20", 72: "12-15-3-11", 73: "21", 74: "8-15-18-19-5", 75: "6",
+        76: "GEX", 77: "40", 78: "6-9-19-8", 79: "30", 80: "IZRM",
+        81: "55", 82: "125", 83: "162", 84: "50", 85: "26",
+        86: "35", 87: "25", 88: "48", 89: "33", 90: "64",
+        91: "16", 92: "45", 93: "32", 94: "30", 95: "243",
+        96: "25", 97: "15", 98: "40", 99: "30", 100: "47",
+        101: "17", 102: "324", 103: "13", 104: "10000", 105: "17",
+        106: "26", 107: "50", 108: "360", 109: "625", 110: "13",
+        111: "35", 112: "24", 113: "31", 114: "22", 115: "216",
+        116: "120", 117: "80", 118: "18", 119: "189", 120: "14",
+        121: "Grandmother", 122: "Aunt", 123: "Son", 124: "Uncle", 125: "Husband",
+        126: "Son", 127: "Sister", 128: "Cousin", 129: "Aunt", 130: "Father",
+        131: "Father", 132: "Maternal Uncle", 133: "Father", 134: "Father", 135: "Wife",
+        136: "Wife", 137: "Maternal Uncle", 138: "Brother", 139: "Sister-in-law", 140: "Daughter",
+        141: "Father-in-law", 142: "Maternal Uncle", 143: "Niece", 144: "Brother", 145: "Brother-in-law",
+        146: "Aunt", 147: "Husband", 148: "Nephew", 149: "Paternal Uncle", 150: "Maternal Grandfather",
+        151: "Sister-in-law", 152: "Cousin", 153: "Father", 154: "Paternal Uncle", 155: "Mother",
+        156: "Father", 157: "Brother-in-law", 158: "Sister", 159: "Maternal Grandfather", 160: "Cousin",
+        161: "10 km", 162: "South-West", 163: "5 km", 164: "East", 165: "10 km",
+        166: "5 km", 167: "East", 168: "North-West", 169: "13 km", 170: "East",
+        171: "2 km", 172: "10 km", 173: "West", 174: "5 km", 175: "North-East",
+        176: "5 km", 177: "15 km", 178: "West", 179: "7√2 km", 180: "3 km",
+        181: "5 km", 182: "South-West", 183: "2 km", 184: "5 km", 185: "10 km",
+        186: "10 km", 187: "East", 188: "13 km", 189: "South-East", 190: "3 km",
+        191: "2√5 km", 192: "13 km", 193: "10 km", 194: "West", 195: "6 km",
+        196: "4 km", 197: "North-West", 198: "5 km", 199: "7√2 km", 200: "5 km"
+    };
+
+    // Apply correct values to mcqs
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const ans = correctValues[q.id];
+            const idx = q.a.indexOf(ans);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ===== TEST ENGINE =====
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 7200, timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT"; yourAns = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG"; yourAns = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED"; yourAns = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${qId}</td><td>${q.q}</td><td style="color:${color}; font-weight:bold;">${status}</td><td style="color:${color}; font-weight:bold;">${yourAns}</td><td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HSSC English Part-2 (Level-1 - Basic) MCQs Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; margin: 15px 0 20px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 15px; font-size: 24px; }
+        .instructions-box p { margin: 10px 0; font-size: 17px; }
+        .instructions-box b { color: #bb86fc; }
+        .startBtn, .restartBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 22px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; margin-bottom: 60px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 15px; border-radius: 12px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .timer { font-size: 20px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 20px; font-weight: bold; background: #7f00ff; padding: 5px 15px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; font-weight: bold; gap: 15px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 15px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 3px 12px; border-radius: 20px; font-size: 16px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 18px; margin-bottom: 15px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 8px 0; padding: 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 14px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 12px; font-size: 15px; }
+        td { padding: 10px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 70px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 12px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 12px; } .score-bar { font-size: 12px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">📚 HSSC English Part-2</h1>
+        <h2>Level-1 (Basic) · 200 MCQs</h2>
+        <p class="subtitle">MDCAT / ETEA / NUST Pattern</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+            </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+</div>
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // HSSC ENGLISH PART-2 LEVEL-1 (BASIC) - FRESH 200 MCQs
+    // All new words - 100% different from Part-1
+    // ============================================================
+    const mcqs = [
+        // ===== SYNONYMS (IDs 1-80) - NEW WORDS =====
+        {id: 1, q: "Synonym of 'Acumen'?", a: shuffleArray(["Keenness", "Dullness", "Stupidity", "Ignorance"]), correct: 0},
+        {id: 2, q: "Synonym of 'Brevity'?", a: shuffleArray(["Conciseness", "Length", "Long-windedness", "Verbosity"]), correct: 0},
+        {id: 3, q: "Synonym of 'Cognizant'?", a: shuffleArray(["Aware", "Unaware", "Ignorant", "Unmindful"]), correct: 0},
+        {id: 4, q: "Synonym of 'Defiance'?", a: shuffleArray(["Resistance", "Submission", "Obedience", "Compliance"]), correct: 0},
+        {id: 5, q: "Synonym of 'Embellish'?", a: shuffleArray(["Adorn", "Simplify", "Strip", "Deform"]), correct: 0},
+        {id: 6, q: "Synonym of 'Fickle'?", a: shuffleArray(["Changeable", "Steady", "Constant", "Fixed"]), correct: 0},
+        {id: 7, q: "Synonym of 'Gratify'?", a: shuffleArray(["Satisfy", "Displease", "Annoy", "Frustrate"]), correct: 0},
+        {id: 8, q: "Synonym of 'Haphazard'?", a: shuffleArray(["Random", "Systematic", "Orderly", "Methodical"]), correct: 0},
+        {id: 9, q: "Synonym of 'Impugn'?", a: shuffleArray(["Challenge", "Support", "Defend", "Uphold"]), correct: 0},
+        {id: 10, q: "Synonym of 'Jubilant'?", a: shuffleArray(["Overjoyed", "Sad", "Gloomy", "Mournful"]), correct: 0},
+        {id: 11, q: "Synonym of 'Knavery'?", a: shuffleArray(["Dishonesty", "Honesty", "Integrity", "Truthfulness"]), correct: 0},
+        {id: 12, q: "Synonym of 'Linger'?", a: shuffleArray(["Stay", "Hasten", "Rush", "Speed"]), correct: 0},
+        {id: 13, q: "Synonym of 'Momentary'?", a: shuffleArray(["Temporary", "Permanent", "Eternal", "Everlasting"]), correct: 0},
+        {id: 14, q: "Synonym of 'Naive'?", a: shuffleArray(["Gullible", "Sophisticated", "Experienced", "Worldly"]), correct: 0},
+        {id: 15, q: "Synonym of 'Odor'?", a: shuffleArray(["Smell", "Taste", "Touch", "Sight"]), correct: 0},
+        {id: 16, q: "Synonym of 'Paltry'?", a: shuffleArray(["Trivial", "Significant", "Important", "Vital"]), correct: 0},
+        {id: 17, q: "Synonym of 'Quench'?", a: shuffleArray(["Satisfy", "Ignite", "Kindle", "Light"]), correct: 0},
+        {id: 18, q: "Synonym of 'Ravenous'?", a: shuffleArray(["Starving", "Full", "Satisfied", "Content"]), correct: 0},
+        {id: 19, q: "Synonym of 'Scanty'?", a: shuffleArray(["Meager", "Abundant", "Plentiful", "Ample"]), correct: 0},
+        {id: 20, q: "Synonym of 'Treacherous'?", a: shuffleArray(["Disloyal", "Loyal", "Faithful", "Trustworthy"]), correct: 0},
+        {id: 21, q: "Synonym of 'Unyielding'?", a: shuffleArray(["Inflexible", "Flexible", "Yielding", "Soft"]), correct: 0},
+        {id: 22, q: "Synonym of 'Vigilant'?", a: shuffleArray(["Watchful", "Careless", "Negligent", "Inattentive"]), correct: 0},
+        {id: 23, q: "Synonym of 'Wretched'?", a: shuffleArray(["Miserable", "Happy", "Content", "Joyful"]), correct: 0},
+        {id: 24, q: "Synonym of 'Yearning'?", a: shuffleArray(["Desire", "Aversion", "Dislike", "Hatred"]), correct: 0},
+        {id: 25, q: "Synonym of 'Zest'?", a: shuffleArray(["Enthusiasm", "Apathy", "Indifference", "Lethargy"]), correct: 0},
+        {id: 26, q: "Synonym of 'Abhor'?", a: shuffleArray(["Detest", "Love", "Adore", "Cherish"]), correct: 0},
+        {id: 27, q: "Synonym of 'Belittle'?", a: shuffleArray(["Disparage", "Praise", "Commend", "Applaud"]), correct: 0},
+        {id: 28, q: "Synonym of 'Congeal'?", a: shuffleArray(["Freeze", "Melt", "Liquefy", "Dissolve"]), correct: 0},
+        {id: 29, q: "Synonym of 'Dalliance'?", a: shuffleArray(["Flirtation", "Seriousness", "Sincerity", "Solemnity"]), correct: 0},
+        {id: 30, q: "Synonym of 'Eerie'?", a: shuffleArray(["Mysterious", "Normal", "Ordinary", "Common"]), correct: 0},
+        {id: 31, q: "Synonym of 'Forsake'?", a: shuffleArray(["Abandon", "Adopt", "Embrace", "Welcome"]), correct: 0},
+        {id: 32, q: "Synonym of 'Grapple'?", a: shuffleArray(["Wrestle", "Release", "Let go", "Free"]), correct: 0},
+        {id: 33, q: "Synonym of 'Haunt'?", a: shuffleArray(["Torment", "Comfort", "Console", "Soothe"]), correct: 0},
+        {id: 34, q: "Synonym of 'Immerse'?", a: shuffleArray(["Submerge", "Remove", "Extract", "Withdraw"]), correct: 0},
+        {id: 35, q: "Synonym of 'Jostle'?", a: shuffleArray(["Push", "Pull", "Drag", "Carry"]), correct: 0},
+        {id: 36, q: "Synonym of 'Kindred'?", a: shuffleArray(["Related", "Unrelated", "Different", "Foreign"]), correct: 0},
+        {id: 37, q: "Synonym of 'Languish'?", a: shuffleArray(["Wither", "Flourish", "Thrive", "Prosper"]), correct: 0},
+        {id: 38, q: "Synonym of 'Mimic'?", a: shuffleArray(["Imitate", "Create", "Invent", "Originate"]), correct: 0},
+        {id: 39, q: "Synonym of 'Nurture'?", a: shuffleArray(["Foster", "Neglect", "Abandon", "Ignore"]), correct: 0},
+        {id: 40, q: "Synonym of 'Obsolete'?", a: shuffleArray(["Outdated", "Modern", "Current", "Contemporary"]), correct: 0},
+        {id: 41, q: "Synonym of 'Perturb'?", a: shuffleArray(["Disturb", "Calm", "Soothe", "Comfort"]), correct: 0},
+        {id: 42, q: "Synonym of 'Quiver'?", a: shuffleArray(["Tremble", "Steady", "Stable", "Fixed"]), correct: 0},
+        {id: 43, q: "Synonym of 'Revere'?", a: shuffleArray(["Venerate", "Despise", "Scorn", "Disrespect"]), correct: 0},
+        {id: 44, q: "Synonym of 'Sacred'?", a: shuffleArray(["Holy", "Profane", "Secular", "Worldly"]), correct: 0},
+        {id: 45, q: "Synonym of 'Tardy'?", a: shuffleArray(["Late", "Early", "Prompt", "Punctual"]), correct: 0},
+        {id: 46, q: "Synonym of 'Unravel'?", a: shuffleArray(["Solve", "Complicate", "Tangle", "Entangle"]), correct: 0},
+        {id: 47, q: "Synonym of 'Vouch'?", a: shuffleArray(["Guarantee", "Deny", "Refute", "Contradict"]), correct: 0},
+        {id: 48, q: "Synonym of 'Warrant'?", a: shuffleArray(["Justify", "Undermine", "Weaken", "Disprove"]), correct: 0},
+        {id: 49, q: "Synonym of 'Yell'?", a: shuffleArray(["Shout", "Whisper", "Mumble", "Murmur"]), correct: 0},
+        {id: 50, q: "Synonym of 'Zealot'?", a: shuffleArray(["Fanatic", "Moderate", "Tolerant", "Open-minded"]), correct: 0},
+        {id: 51, q: "Synonym of 'Affable'?", a: shuffleArray(["Friendly", "Unfriendly", "Hostile", "Antagonistic"]), correct: 0},
+        {id: 52, q: "Synonym of 'Benevolent'?", a: shuffleArray(["Kind-hearted", "Cruel", "Harsh", "Malevolent"]), correct: 0},
+        {id: 53, q: "Synonym of 'Calamity'?", a: shuffleArray(["Disaster", "Blessing", "Fortune", "Prosperity"]), correct: 0},
+        {id: 54, q: "Synonym of 'Deceit'?", a: shuffleArray(["Trickery", "Honesty", "Truthfulness", "Sincerity"]), correct: 0},
+        {id: 55, q: "Synonym of 'Eloquent'?", a: shuffleArray(["Fluent", "Inarticulate", "Vague", "Mumbled"]), correct: 0},
+        {id: 56, q: "Synonym of 'Fervor'?", a: shuffleArray(["Passion", "Indifference", "Apathy", "Calmness"]), correct: 0},
+        {id: 57, q: "Synonym of 'Grievous'?", a: shuffleArray(["Severe", "Mild", "Minor", "Trivial"]), correct: 0},
+        {id: 58, q: "Synonym of 'Haughty'?", a: shuffleArray(["Arrogant", "Humble", "Modest", "Gentle"]), correct: 0},
+        {id: 59, q: "Synonym of 'Illusive'?", a: shuffleArray(["Deceptive", "Real", "Genuine", "Tangible"]), correct: 0},
+        {id: 60, q: "Synonym of 'Jocular'?", a: shuffleArray(["Humorous", "Serious", "Solemn", "Grave"]), correct: 0},
+        {id: 61, q: "Synonym of 'Knavish'?", a: shuffleArray(["Rogueish", "Honest", "Honorable", "Trustworthy"]), correct: 0},
+        {id: 62, q: "Synonym of 'Lassitude'?", a: shuffleArray(["Weariness", "Energy", "Vigor", "Vitality"]), correct: 0},
+        {id: 63, q: "Synonym of 'Mendacious'?", a: shuffleArray(["Untruthful", "Truthful", "Honest", "Sincere"]), correct: 0},
+        {id: 64, q: "Synonym of 'Nefarious'?", a: shuffleArray(["Wicked", "Good", "Virtuous", "Righteous"]), correct: 0},
+        {id: 65, q: "Synonym of 'Ostentatious'?", a: shuffleArray(["Showy", "Modest", "Humble", "Plain"]), correct: 0},
+        {id: 66, q: "Synonym of 'Pernicious'?", a: shuffleArray(["Harmful", "Beneficial", "Helpful", "Salutary"]), correct: 0},
+        {id: 67, q: "Synonym of 'Querulous'?", a: shuffleArray(["Complaining", "Cheerful", "Jovial", "Merry"]), correct: 0},
+        {id: 68, q: "Synonym of 'Resplendent'?", a: shuffleArray(["Bright", "Dull", "Dim", "Shabby"]), correct: 0},
+        {id: 69, q: "Synonym of 'Sordid'?", a: shuffleArray(["Filthy", "Clean", "Pure", "Immaculate"]), correct: 0},
+        {id: 70, q: "Synonym of 'Turbid'?", a: shuffleArray(["Muddy", "Clear", "Pure", "Clean"]), correct: 0},
+        {id: 71, q: "Synonym of 'Umbrage'?", a: shuffleArray(["Offense", "Pleasure", "Happiness", "Joy"]), correct: 0},
+        {id: 72, q: "Synonym of 'Vapid'?", a: shuffleArray(["Dull", "Lively", "Interesting", "Exciting"]), correct: 0},
+        {id: 73, q: "Synonym of 'Winsome'?", a: shuffleArray(["Charming", "Repulsive", "Ugly", "Offensive"]), correct: 0},
+        {id: 74, q: "Synonym of 'Xeric'?", a: shuffleArray(["Dry", "Wet", "Humid", "Moist"]), correct: 0},
+        {id: 75, q: "Synonym of 'Yoke'?", a: shuffleArray(["Bondage", "Freedom", "Liberty", "Independence"]), correct: 0},
+        {id: 76, q: "Synonym of 'Zenith'?", a: shuffleArray(["Peak", "Nadir", "Bottom", "Base"]), correct: 0},
+        {id: 77, q: "Synonym of 'Ascend'?", a: shuffleArray(["Climb", "Descend", "Drop", "Fall"]), correct: 0},
+        {id: 78, q: "Synonym of 'Baffle'?", a: shuffleArray(["Bewilder", "Enlighten", "Clarify", "Illuminate"]), correct: 0},
+        {id: 79, q: "Synonym of 'Chastise'?", a: shuffleArray(["Punish", "Praise", "Commend", "Applaud"]), correct: 0},
+        {id: 80, q: "Synonym of 'Daunt'?", a: shuffleArray(["Frighten", "Encourage", "Inspire", "Embolden"]), correct: 0},
+
+        // ===== ANTONYMS (IDs 81-140) - NEW PAIRS =====
+        {id: 81, q: "Antonym of 'Acumen'?", a: shuffleArray(["Stupidity", "Keenness", "Sharpness", "Astuteness"]), correct: 0},
+        {id: 82, q: "Antonym of 'Brevity'?", a: shuffleArray(["Verbosity", "Conciseness", "Succinctness", "Terseness"]), correct: 0},
+        {id: 83, q: "Antonym of 'Cognizant'?", a: shuffleArray(["Ignorant", "Aware", "Conscious", "Mindful"]), correct: 0},
+        {id: 84, q: "Antonym of 'Defiance'?", a: shuffleArray(["Submission", "Resistance", "Rebellion", "Disobedience"]), correct: 0},
+        {id: 85, q: "Antonym of 'Embellish'?", a: shuffleArray(["Simplify", "Adorn", "Decorate", "Ornament"]), correct: 0},
+        {id: 86, q: "Antonym of 'Fickle'?", a: shuffleArray(["Steady", "Changeable", "Capricious", "Variable"]), correct: 0},
+        {id: 87, q: "Antonym of 'Gratify'?", a: shuffleArray(["Displease", "Satisfy", "Delight", "Content"]), correct: 0},
+        {id: 88, q: "Antonym of 'Haphazard'?", a: shuffleArray(["Methodical", "Random", "Erratic", "Casual"]), correct: 0},
+        {id: 89, q: "Antonym of 'Impugn'?", a: shuffleArray(["Defend", "Challenge", "Question", "Doubt"]), correct: 0},
+        {id: 90, q: "Antonym of 'Jubilant'?", a: shuffleArray(["Mournful", "Overjoyed", "Ecstatic", "Elated"]), correct: 0},
+        {id: 91, q: "Antonym of 'Knavery'?", a: shuffleArray(["Honesty", "Dishonesty", "Fraud", "Deceit"]), correct: 0},
+        {id: 92, q: "Antonym of 'Linger'?", a: shuffleArray(["Hasten", "Stay", "Wait", "Tarry"]), correct: 0},
+        {id: 93, q: "Antonym of 'Momentary'?", a: shuffleArray(["Permanent", "Temporary", "Short-lived", "Fleeting"]), correct: 0},
+        {id: 94, q: "Antonym of 'Naive'?", a: shuffleArray(["Sophisticated", "Gullible", "Simple", "Innocent"]), correct: 0},
+        {id: 95, q: "Antonym of 'Odor'?", a: shuffleArray(["Fragrance", "Stench", "Stink", "Malodor"]), correct: 0},
+        {id: 96, q: "Antonym of 'Paltry'?", a: shuffleArray(["Significant", "Trivial", "Minor", "Petty"]), correct: 0},
+        {id: 97, q: "Antonym of 'Quench'?", a: shuffleArray(["Ignite", "Satisfy", "Slake", "Assuage"]), correct: 0},
+        {id: 98, q: "Antonym of 'Ravenous'?", a: shuffleArray(["Full", "Starving", "Famished", "Hungry"]), correct: 0},
+        {id: 99, q: "Antonym of 'Scanty'?", a: shuffleArray(["Abundant", "Meager", "Sparse", "Scarce"]), correct: 0},
+        {id: 100, q: "Antonym of 'Treacherous'?", a: shuffleArray(["Loyal", "Disloyal", "Faithless", "Treasonous"]), correct: 0},
+        {id: 101, q: "Antonym of 'Unyielding'?", a: shuffleArray(["Flexible", "Inflexible", "Rigid", "Stubborn"]), correct: 0},
+        {id: 102, q: "Antonym of 'Vigilant'?", a: shuffleArray(["Careless", "Watchful", "Alert", "Observant"]), correct: 0},
+        {id: 103, q: "Antonym of 'Wretched'?", a: shuffleArray(["Happy", "Miserable", "Sorrowful", "Woe"]), correct: 0},
+        {id: 104, q: "Antonym of 'Yearning'?", a: shuffleArray(["Aversion", "Desire", "Craving", "Longing"]), correct: 0},
+        {id: 105, q: "Antonym of 'Zest'?", a: shuffleArray(["Apathy", "Enthusiasm", "Passion", "Ardor"]), correct: 0},
+        {id: 106, q: "Antonym of 'Abhor'?", a: shuffleArray(["Adore", "Detest", "Hate", "Loathe"]), correct: 0},
+        {id: 107, q: "Antonym of 'Belittle'?", a: shuffleArray(["Praise", "Disparage", "Denigrate", "Underrate"]), correct: 0},
+        {id: 108, q: "Antonym of 'Congeal'?", a: shuffleArray(["Melt", "Freeze", "Solidify", "Harden"]), correct: 0},
+        {id: 109, q: "Antonym of 'Dalliance'?", a: shuffleArray(["Seriousness", "Flirtation", "Coquetry", "Frivolity"]), correct: 0},
+        {id: 110, q: "Antonym of 'Eerie'?", a: shuffleArray(["Normal", "Mysterious", "Weird", "Uncanny"]), correct: 0},
+        {id: 111, q: "Antonym of 'Forsake'?", a: shuffleArray(["Embrace", "Abandon", "Desert", "Renounce"]), correct: 0},
+        {id: 112, q: "Antonym of 'Grapple'?", a: shuffleArray(["Release", "Wrestle", "Struggle", "Clinch"]), correct: 0},
+        {id: 113, q: "Antonym of 'Haunt'?", a: shuffleArray(["Comfort", "Torment", "Plague", "Harrass"]), correct: 0},
+        {id: 114, q: "Antonym of 'Immerse'?", a: shuffleArray(["Remove", "Submerge", "Dip", "Plunge"]), correct: 0},
+        {id: 115, q: "Antonym of 'Jostle'?", a: shuffleArray(["Pull", "Push", "Shove", "Elbow"]), correct: 0},
+        {id: 116, q: "Antonym of 'Kindred'?", a: shuffleArray(["Unrelated", "Related", "Akin", "Similar"]), correct: 0},
+        {id: 117, q: "Antonym of 'Languish'?", a: shuffleArray(["Flourish", "Wither", "Fade", "Decline"]), correct: 0},
+        {id: 118, q: "Antonym of 'Mimic'?", a: shuffleArray(["Create", "Imitate", "Copy", "Duplicate"]), correct: 0},
+        {id: 119, q: "Antonym of 'Nurture'?", a: shuffleArray(["Neglect", "Foster", "Cherish", "Cultivate"]), correct: 0},
+        {id: 120, q: "Antonym of 'Obsolete'?", a: shuffleArray(["Current", "Outdated", "Antique", "Archaic"]), correct: 0},
+        {id: 121, q: "Antonym of 'Perturb'?", a: shuffleArray(["Soothe", "Disturb", "Trouble", "Worry"]), correct: 0},
+        {id: 122, q: "Antonym of 'Quiver'?", a: shuffleArray(["Steady", "Tremble", "Shake", "Shudder"]), correct: 0},
+        {id: 123, q: "Antonym of 'Revere'?", a: shuffleArray(["Despise", "Venerate", "Adore", "Worship"]), correct: 0},
+        {id: 124, q: "Antonym of 'Sacred'?", a: shuffleArray(["Profane", "Holy", "Sacrosanct", "Consecrated"]), correct: 0},
+        {id: 125, q: "Antonym of 'Tardy'?", a: shuffleArray(["Punctual", "Late", "Belated", "Delayed"]), correct: 0},
+        {id: 126, q: "Antonym of 'Unravel'?", a: shuffleArray(["Tangle", "Solve", "Decode", "Disentangle"]), correct: 0},
+        {id: 127, q: "Antonym of 'Vouch'?", a: shuffleArray(["Deny", "Guarantee", "Witness", "Certify"]), correct: 0},
+        {id: 128, q: "Antonym of 'Warrant'?", a: shuffleArray(["Undermine", "Justify", "Authorize", "Sanction"]), correct: 0},
+        {id: 129, q: "Antonym of 'Yell'?", a: shuffleArray(["Whisper", "Shout", "Scream", "Bellow"]), correct: 0},
+        {id: 130, q: "Antonym of 'Zealot'?", a: shuffleArray(["Moderate", "Fanatic", "Extremist", "Radical"]), correct: 0},
+        {id: 131, q: "Antonym of 'Affable'?", a: shuffleArray(["Hostile", "Friendly", "Amiable", "Cordial"]), correct: 0},
+        {id: 132, q: "Antonym of 'Benevolent'?", a: shuffleArray(["Malevolent", "Kind-hearted", "Benign", "Compassionate"]), correct: 0},
+        {id: 133, q: "Antonym of 'Calamity'?", a: shuffleArray(["Blessing", "Disaster", "Catastrophe", "Tragedy"]), correct: 0},
+        {id: 134, q: "Antonym of 'Deceit'?", a: shuffleArray(["Truthfulness", "Trickery", "Fraud", "Deception"]), correct: 0},
+        {id: 135, q: "Antonym of 'Eloquent'?", a: shuffleArray(["Inarticulate", "Fluent", "Expressive", "Articulate"]), correct: 0},
+        {id: 136, q: "Antonym of 'Fervor'?", a: shuffleArray(["Indifference", "Passion", "Ardor", "Intensity"]), correct: 0},
+        {id: 137, q: "Antonym of 'Grievous'?", a: shuffleArray(["Minor", "Severe", "Grave", "Serious"]), correct: 0},
+        {id: 138, q: "Antonym of 'Haughty'?", a: shuffleArray(["Humble", "Arrogant", "Proud", "Superior"]), correct: 0},
+        {id: 139, q: "Antonym of 'Illusive'?", a: shuffleArray(["Real", "Deceptive", "Fanciful", "Imaginary"]), correct: 0},
+        {id: 140, q: "Antonym of 'Jocular'?", a: shuffleArray(["Serious", "Humorous", "Jovial", "Merry"]), correct: 0},
+
+        // ===== SENTENCE COMPLETION (IDs 141-200) - NEW CONTEXTS =====
+        {id: 141, q: "The _____ of the candidate was evident from his qualifications.", a: shuffleArray(["Suitability", "Unworthiness", "Inadequacy", "Ineptness"]), correct: 0},
+        {id: 142, q: "She felt a _____ of sadness when she heard the news.", a: shuffleArray(["Surge", "Decline", "Drop", "Fall"]), correct: 0},
+        {id: 143, q: "The _____ of the sea was a calming influence.", a: shuffleArray(["Rhythm", "Chaos", "Turbulence", "Disorder"]), correct: 0},
+        {id: 144, q: "His _____ of the situation was both accurate and fair.", a: shuffleArray(["Assessment", "Misjudgment", "Misreading", "Misunderstanding"]), correct: 0},
+        {id: 145, q: "The _____ of the forest was a result of careful conservation.", a: shuffleArray(["Preservation", "Destruction", "Exploitation", "Overuse"]), correct: 0},
+        {id: 146, q: "Her _____ of the poem was published in a literary journal.", a: shuffleArray(["Translation", "Misreading", "Misinterpretation", "Misunderstanding"]), correct: 0},
+        {id: 147, q: "The _____ of the ancient ruins attracted many tourists.", a: shuffleArray(["Mystery", "Clarity", "Transparency", "Obviousness"]), correct: 0},
+        {id: 148, q: "His _____ for the work was evident in his dedication.", a: shuffleArray(["Passion", "Apathy", "Indifference", "Lethargy"]), correct: 0},
+        {id: 149, q: "The _____ of the experiment was unexpected but welcome.", a: shuffleArray(["Outcome", "Delay", "Failure", "Setback"]), correct: 0},
+        {id: 150, q: "She spoke with _____ about her future plans.", a: shuffleArray(["Certainty", "Doubt", "Hesitation", "Uncertainty"]), correct: 0},
+        {id: 151, q: "The _____ of the bridge made it a landmark.", a: shuffleArray(["Architecture", "Simplicity", "Plainness", "Ordinariness"]), correct: 0},
+        {id: 152, q: "His _____ of the issue was refreshingly honest.", a: shuffleArray(["Perspective", "Ignorance", "Unawareness", "Oblivion"]), correct: 0},
+        {id: 153, q: "The _____ of the forest was threatened by development.", a: shuffleArray(["Biodiversity", "Monoculture", "Uniformity", "Sameness"]), correct: 0},
+        {id: 154, q: "Her _____ of the character was well-acted.", a: shuffleArray(["Portrayal", "Misrepresentation", "Distortion", "Misinterpretation"]), correct: 0},
+        {id: 155, q: "The _____ of the project was a significant achievement.", a: shuffleArray(["Completion", "Abandonment", "Neglect", "Postponement"]), correct: 0},
+        {id: 156, q: "His _____ of the rules was the cause of the conflict.", a: shuffleArray(["Misunderstanding", "Clarity", "Comprehension", "Understanding"]), correct: 0},
+        {id: 157, q: "The _____ of the city's architecture was impressive.", a: shuffleArray(["Diversity", "Monotony", "Uniformity", "Sameness"]), correct: 0},
+        {id: 158, q: "She showed _____ in handling the difficult situation.", a: shuffleArray(["Grace", "Clumsiness", "Awkwardness", "Ineptness"]), correct: 0},
+        {id: 159, q: "The _____ of the disease was a major concern.", a: shuffleArray(["Spread", "Containment", "Eradication", "Prevention"]), correct: 0},
+        {id: 160, q: "His _____ of the story was too simplistic.", a: shuffleArray(["Narrative", "Complication", "Complexity", "Intricacy"]), correct: 0},
+        {id: 161, q: "The _____ of the evidence was crucial to the case.", a: shuffleArray(["Verification", "Falsification", "Rejection", "Dismissal"]), correct: 0},
+        {id: 162, q: "Her _____ of the painting was a tribute to the artist.", a: shuffleArray(["Restoration", "Damage", "Destruction", "Vandalism"]), correct: 0},
+        {id: 163, q: "The _____ of the meeting was a positive step forward.", a: shuffleArray(["Outcome", "Delay", "Continuation", "Prolongation"]), correct: 0},
+        {id: 164, q: "His _____ of the text was both insightful and accurate.", a: shuffleArray(["Critique", "Misreading", "Misinterpretation", "Misunderstanding"]), correct: 0},
+        {id: 165, q: "The _____ of the glacier was a sign of climate change.", a: shuffleArray(["Melting", "Growth", "Expansion", "Increase"]), correct: 0},
+        {id: 166, q: "Her _____ of the event was more detailed than his.", a: shuffleArray(["Recollection", "Forgetting", "Oblivion", "Loss"]), correct: 0},
+        {id: 167, q: "The _____ of the market was unpredictable.", a: shuffleArray(["Volatility", "Stability", "Steadiness", "Predictability"]), correct: 0},
+        {id: 168, q: "His _____ for the job was based on his experience.", a: shuffleArray(["Qualification", "Incompetence", "Ineptitude", "Unfitness"]), correct: 0},
+        {id: 169, q: "The _____ of the weather was unusual for this season.", a: shuffleArray(["Temperateness", "Severity", "Harshness", "Extremity"]), correct: 0},
+        {id: 170, q: "Her _____ of the news was met with surprise.", a: shuffleArray(["Delivery", "Concealment", "Suppression", "Withholding"]), correct: 0},
+        {id: 171, q: "The _____ of the building was a testament to its history.", a: shuffleArray(["Character", "Monotony", "Uniformity", "Sameness"]), correct: 0},
+        {id: 172, q: "His _____ of the conflict was a welcome resolution.", a: shuffleArray(["Mediation", "Provocation", "Escalation", "Aggravation"]), correct: 0},
+        {id: 173, q: "The _____ of the river was essential for navigation.", a: shuffleArray(["Flow", "Stagnation", "Stoppage", "Stillness"]), correct: 0},
+        {id: 174, q: "Her _____ of the play was a critical success.", a: shuffleArray(["Interpretation", "Misunderstanding", "Misreading", "Misinterpretation"]), correct: 0},
+        {id: 175, q: "The _____ of the population was a matter of concern.", a: shuffleArray(["Growth", "Decline", "Stability", "Stagnation"]), correct: 0},
+        {id: 176, q: "His _____ of the society was based on his research.", a: shuffleArray(["Analysis", "Neglect", "Disregard", "Ignorance"]), correct: 0},
+        {id: 177, q: "The _____ of the technology was a major breakthrough.", a: shuffleArray(["Development", "Stagnation", "Decline", "Deterioration"]), correct: 0},
+        {id: 178, q: "Her _____ of the character was a powerful performance.", a: shuffleArray(["Portrayal", "Misrepresentation", "Distortion", "Misinterpretation"]), correct: 0},
+        {id: 179, q: "The _____ of the plan was a committee decision.", a: shuffleArray(["Approval", "Rejection", "Dismissal", "Refusal"]), correct: 0},
+        {id: 180, q: "His _____ of the situation was a great help.", a: shuffleArray(["Insight", "Confusion", "Uncertainty", "Doubt"]), correct: 0},
+        {id: 181, q: "The _____ of the desert was stark and beautiful.", a: shuffleArray(["Barrenness", "Lushness", "Fertility", "Greenness"]), correct: 0},
+        {id: 182, q: "Her _____ of the memory was crystal clear.", a: shuffleArray(["Recollection", "Forgetting", "Oblivion", "Loss"]), correct: 0},
+        {id: 183, q: "The _____ of the evidence was the key to the case.", a: shuffleArray(["Interpretation", "Misreading", "Misunderstanding", "Misinterpretation"]), correct: 0},
+        {id: 184, q: "His _____ of the world was shaped by his experiences.", a: shuffleArray(["Perspective", "Narrowness", "Limitation", "Restriction"]), correct: 0},
+        {id: 185, q: "The _____ of the ocean was a calming influence.", a: shuffleArray(["Magnitude", "Violence", "Turbulence", "Roughness"]), correct: 0},
+        {id: 186, q: "Her _____ of the new policy was very clear.", a: shuffleArray(["Explanation", "Confusion", "Obscurity", "Vagueness"]), correct: 0},
+        {id: 187, q: "The _____ of the city was a major tourist destination.", a: shuffleArray(["Architecture", "Neglect", "Decay", "Deterioration"]), correct: 0},
+        {id: 188, q: "His _____ of the game was widely praised.", a: shuffleArray(["Strategy", "Unpredictability", "Randomness", "Chaos"]), correct: 0},
+        {id: 189, q: "The _____ of the song was a beautiful melody.", a: shuffleArray(["Composition", "Cacophony", "Discord", "Dissonance"]), correct: 0},
+        {id: 190, q: "Her _____ of the project was a major contribution.", a: shuffleArray(["Effort", "Neglect", "Disregard", "Omission"]), correct: 0},
+        {id: 191, q: "The _____ of the company was a sign of its success.", a: shuffleArray(["Growth", "Decline", "Stagnation", "Failure"]), correct: 0},
+        {id: 192, q: "His _____ of the crime was a detailed account.", a: shuffleArray(["Reconstruction", "Misreading", "Misinterpretation", "Misunderstanding"]), correct: 0},
+        {id: 193, q: "The _____ of the mountain path made it dangerous.", a: shuffleArray(["Steepness", "Flatness", "Gentleness", "Evenness"]), correct: 0},
+        {id: 194, q: "Her _____ of the role was a brilliant performance.", a: shuffleArray(["Execution", "Failure", "Neglect", "Misconduct"]), correct: 0},
+        {id: 195, q: "The _____ of the library was a source of pride.", a: shuffleArray(["Collection", "Scarcity", "Limitation", "Lack"]), correct: 0},
+        {id: 196, q: "His _____ of the problem was the key to solving it.", a: shuffleArray(["Understanding", "Ignorance", "Unawareness", "Oblivion"]), correct: 0},
+        {id: 197, q: "The _____ of the sculpture was a collaborative effort.", a: shuffleArray(["Creation", "Destruction", "Vandalism", "Damage"]), correct: 0},
+        {id: 198, q: "Her _____ of the speech was a masterful example.", a: shuffleArray(["Delivery", "Concealment", "Suppression", "Withholding"]), correct: 0},
+        {id: 199, q: "The _____ of the poem was its powerful imagery.", a: shuffleArray(["Strength", "Weakness", "Dullness", "Monotony"]), correct: 0},
+        {id: 200, q: "His _____ of the treaty was a turning point in history.", a: shuffleArray(["Signing", "Rejection", "Refusal", "Denial"]), correct: 0}
+    ];
+
+    // ===== CORRECT VALUES MAPPING (FRESH) =====
+    const correctValues = {
+        1: "Keenness", 2: "Conciseness", 3: "Aware", 4: "Resistance", 5: "Adorn",
+        6: "Changeable", 7: "Satisfy", 8: "Random", 9: "Challenge", 10: "Overjoyed",
+        11: "Dishonesty", 12: "Stay", 13: "Temporary", 14: "Gullible", 15: "Smell",
+        16: "Trivial", 17: "Satisfy", 18: "Starving", 19: "Meager", 20: "Disloyal",
+        21: "Inflexible", 22: "Watchful", 23: "Miserable", 24: "Desire", 25: "Enthusiasm",
+        26: "Detest", 27: "Disparage", 28: "Freeze", 29: "Flirtation", 30: "Mysterious",
+        31: "Abandon", 32: "Wrestle", 33: "Torment", 34: "Submerge", 35: "Push",
+        36: "Related", 37: "Wither", 38: "Imitate", 39: "Foster", 40: "Outdated",
+        41: "Disturb", 42: "Tremble", 43: "Venerate", 44: "Holy", 45: "Late",
+        46: "Solve", 47: "Guarantee", 48: "Justify", 49: "Shout", 50: "Fanatic",
+        51: "Friendly", 52: "Kind-hearted", 53: "Disaster", 54: "Trickery", 55: "Fluent",
+        56: "Passion", 57: "Severe", 58: "Arrogant", 59: "Deceptive", 60: "Humorous",
+        61: "Rogueish", 62: "Weariness", 63: "Untruthful", 64: "Wicked", 65: "Showy",
+        66: "Harmful", 67: "Complaining", 68: "Bright", 69: "Filthy", 70: "Muddy",
+        71: "Offense", 72: "Dull", 73: "Charming", 74: "Dry", 75: "Bondage",
+        76: "Peak", 77: "Climb", 78: "Bewilder", 79: "Punish", 80: "Frighten",
+        81: "Stupidity", 82: "Verbosity", 83: "Ignorant", 84: "Submission", 85: "Simplify",
+        86: "Steady", 87: "Displease", 88: "Methodical", 89: "Defend", 90: "Mournful",
+        91: "Honesty", 92: "Hasten", 93: "Permanent", 94: "Sophisticated", 95: "Fragrance",
+        96: "Significant", 97: "Ignite", 98: "Full", 99: "Abundant", 100: "Loyal",
+        101: "Flexible", 102: "Careless", 103: "Happy", 104: "Aversion", 105: "Apathy",
+        106: "Adore", 107: "Praise", 108: "Melt", 109: "Seriousness", 110: "Normal",
+        111: "Embrace", 112: "Release", 113: "Comfort", 114: "Remove", 115: "Pull",
+        116: "Unrelated", 117: "Flourish", 118: "Create", 119: "Neglect", 120: "Current",
+        121: "Soothe", 122: "Steady", 123: "Despise", 124: "Profane", 125: "Punctual",
+        126: "Tangle", 127: "Deny", 128: "Undermine", 129: "Whisper", 130: "Moderate",
+        131: "Hostile", 132: "Malevolent", 133: "Blessing", 134: "Truthfulness", 135: "Inarticulate",
+        136: "Indifference", 137: "Minor", 138: "Humble", 139: "Real", 140: "Serious",
+        141: "Suitability", 142: "Surge", 143: "Rhythm", 144: "Assessment", 145: "Preservation",
+        146: "Translation", 147: "Mystery", 148: "Passion", 149: "Outcome", 150: "Certainty",
+        151: "Architecture", 152: "Perspective", 153: "Biodiversity", 154: "Portrayal", 155: "Completion",
+        156: "Misunderstanding", 157: "Diversity", 158: "Grace", 159: "Spread", 160: "Narrative",
+        161: "Verification", 162: "Restoration", 163: "Outcome", 164: "Critique", 165: "Melting",
+        166: "Recollection", 167: "Volatility", 168: "Qualification", 169: "Temperateness", 170: "Delivery",
+        171: "Character", 172: "Mediation", 173: "Flow", 174: "Interpretation", 175: "Growth",
+        176: "Analysis", 177: "Development", 178: "Portrayal", 179: "Approval", 180: "Insight",
+        181: "Barrenness", 182: "Recollection", 183: "Interpretation", 184: "Perspective", 185: "Magnitude",
+        186: "Explanation", 187: "Architecture", 188: "Strategy", 189: "Composition", 190: "Effort",
+        191: "Growth", 192: "Reconstruction", 193: "Steepness", 194: "Execution", 195: "Collection",
+        196: "Understanding", 197: "Creation", 198: "Delivery", 199: "Strength", 200: "Signing"
+    };
+
+    // Apply correct values to mcqs
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const ans = correctValues[q.id];
+            const idx = q.a.indexOf(ans);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ===== TEST ENGINE =====
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 7200, timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT"; yourAns = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG"; yourAns = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED"; yourAns = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${qId}</td><td>${q.q}</td><td style="color:${color}; font-weight:bold;">${status}</td><td style="color:${color}; font-weight:bold;">${yourAns}</td><td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

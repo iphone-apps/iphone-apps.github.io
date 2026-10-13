@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Physics Part-1 (Level-1 - Basic) MCQs Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .note-red {
+            color: #FF4500;
+            font-weight: bold;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">⚛️ FSc Physics Part-1</h1>
+        <h2>Level-1 (Basic) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+                </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red">❌ Calculator Not Allowed</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper: Shuffle array (Fisher-Yates)
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // LEVEL-1 (BASIC) - 200 MCQs with IDs 1 to 200
+    // All Units Mixed - FSc Physics Part-1
+    // ============================================================
+    const mcqs = [
+      // UNIT 1: MEASUREMENTS
+      {id: 1, q: "SI unit of length?", a: shuffleArray(["Meter", "Kilometer", "Centimeter", "Millimeter"]), correct: 0},
+      {id: 2, q: "SI unit of mass?", a: shuffleArray(["Kilogram", "Gram", "Pound", "Ounce"]), correct: 0},
+      {id: 3, q: "SI unit of time?", a: shuffleArray(["Second", "Minute", "Hour", "Day"]), correct: 0},
+      {id: 4, q: "Prefix 'kilo' represents?", a: shuffleArray(["10^3", "10^6", "10^9", "10^12"]), correct: 0},
+      {id: 5, q: "Prefix 'mega' represents?", a: shuffleArray(["10^6", "10^3", "10^9", "10^12"]), correct: 0},
+      {id: 6, q: "1 km = ? m", a: shuffleArray(["1000", "100", "10", "1"]), correct: 0},
+      {id: 7, q: "1 gram = ? kg", a: shuffleArray(["10^-3", "10^-2", "10^-1", "1"]), correct: 0},
+      {id: 8, q: "Base quantities in SI?", a: shuffleArray(["7", "5", "6", "8"]), correct: 0},
+      {id: 9, q: "SI unit of force?", a: shuffleArray(["Newton", "Joule", "Watt", "Pascal"]), correct: 0},
+      {id: 10, q: "SI unit of work?", a: shuffleArray(["Joule", "Newton", "Watt", "Pascal"]), correct: 0},
+      {id: 11, q: "SI unit of power?", a: shuffleArray(["Watt", "Joule", "Newton", "Pascal"]), correct: 0},
+      {id: 12, q: "SI unit of pressure?", a: shuffleArray(["Pascal", "Newton", "Joule", "Watt"]), correct: 0},
+      {id: 13, q: "SI unit of frequency?", a: shuffleArray(["Hertz", "Newton", "Joule", "Watt"]), correct: 0},
+      {id: 14, q: "Prefix 'micro' represents?", a: shuffleArray(["10^-6", "10^-3", "10^-9", "10^-12"]), correct: 0},
+      {id: 15, q: "Prefix 'nano' represents?", a: shuffleArray(["10^-9", "10^-6", "10^-3", "10^-12"]), correct: 0},
+      {id: 16, q: "Prefix 'pico' represents?", a: shuffleArray(["10^-12", "10^-9", "10^-6", "10^-3"]), correct: 0},
+      {id: 17, q: "1 AU ≈ ?", a: shuffleArray(["1.5×10^11 m", "1.5×10^10", "1.5×10^12", "1.5×10^9"]), correct: 0},
+      {id: 18, q: "1 light year ≈ ?", a: shuffleArray(["9.46×10^15 m", "9.46×10^14", "9.46×10^16", "9.46×10^13"]), correct: 0},
+      {id: 19, q: "Vernier caliper least count?", a: shuffleArray(["0.01 cm", "0.001 cm", "0.1 cm", "0.0001 cm"]), correct: 0},
+      {id: 20, q: "Screw gauge least count?", a: shuffleArray(["0.001 cm", "0.01 cm", "0.1 cm", "0.0001 cm"]), correct: 0},
+
+      // UNIT 2: VECTORS & EQUILIBRIUM
+      {id: 21, q: "Scalar quantity has?", a: ["Only magnitude", "Only direction", "Both", "None"], correct: 0},
+      {id: 22, q: "Vector quantity has?", a: shuffleArray(["Both magnitude and direction", "Only magnitude", "Only direction", "None"]), correct: 0},
+      {id: 23, q: "Which is scalar?", a: shuffleArray(["Speed", "Velocity", "Force", "Displacement"]), correct: 0},
+      {id: 24, q: "Which is vector?", a: shuffleArray(["Velocity", "Speed", "Mass", "Time"]), correct: 0},
+      {id: 25, q: "Resultant max at angle?", a: shuffleArray(["0°", "90°", "180°", "270°"]), correct: 0},
+      {id: 26, q: "Resultant min at angle?", a: shuffleArray(["180°", "90°", "0°", "270°"]), correct: 0},
+      {id: 27, q: "Dot product of perpendicular vectors?", a: shuffleArray(["0", "1", "Max", "Min"]), correct: 0},
+      {id: 28, q: "Magnitude of (3i+4j)?", a: shuffleArray(["5", "7", "12", "25"]), correct: 0},
+      {id: 29, q: "Unit vector = ?", a: shuffleArray(["A/|A|", "A×|A|", "|A|/A", "A+|A|"]), correct: 0},
+      {id: 30, q: "Equilibrium: net force = ?", a: shuffleArray(["Zero", "Max", "Min", "Non-zero"]), correct: 0},
+      {id: 31, q: "Torque also called?", a: shuffleArray(["Moment of force", "Momentum", "Work", "Energy"]), correct: 0},
+      {id: 32, q: "Torque unit?", a: shuffleArray(["Nm", "J", "N", "W"]), correct: 0},
+      {id: 33, q: "Torque max at angle?", a: shuffleArray(["90°", "0°", "180°", "45°"]), correct: 0},
+      {id: 34, q: "CM of uniform rod?", a: shuffleArray(["Middle", "End", "Quarter", "Third"]), correct: 0},
+      {id: 35, q: "CM of circular disk?", a: shuffleArray(["Center", "Edge", "Quarter", "Third"]), correct: 0},
+      {id: 36, q: "CM of triangle?", a: shuffleArray(["Centroid", "Vertex", "Midpoint", "Quarter"]), correct: 0},
+      {id: 37, q: "Stable equilibrium: CG at?", a: shuffleArray(["Lowest", "Highest", "Middle", "Same"]), correct: 0},
+      {id: 38, q: "Unstable equilibrium: CG at?", a: shuffleArray(["Highest", "Lowest", "Middle", "Same"]), correct: 0},
+      {id: 39, q: "Lever balanced: clockwise moment = ?", a: shuffleArray(["Anti-clockwise", "Clockwise", "Zero", "Infinity"]), correct: 0},
+      {id: 40, q: "Couple produces?", a: shuffleArray(["Rotation", "Translation", "Both", "None"]), correct: 0},
+
+      // UNIT 3: MOTION & FORCE
+      {id: 41, q: "Slope of distance-time graph?", a: shuffleArray(["Speed", "Acceleration", "Velocity", "Displacement"]), correct: 0},
+      {id: 42, q: "Slope of velocity-time graph?", a: shuffleArray(["Acceleration", "Speed", "Distance", "Displacement"]), correct: 0},
+      {id: 43, q: "Area under velocity-time graph?", a: shuffleArray(["Displacement", "Acceleration", "Speed", "Distance"]), correct: 0},
+      {id: 44, q: "Uniform velocity → acceleration?", a: shuffleArray(["Zero", "Positive", "Negative", "Variable"]), correct: 0},
+      {id: 45, q: "g on Earth ≈ ?", a: shuffleArray(["9.8 m/s²", "10 m/s", "9.8 m/s", "10 m/s²"]), correct: 0},
+      {id: 46, q: "First eq of motion?", a: shuffleArray(["v=u+at", "s=ut+½at²", "v²=u²+2as", "s=(u+v)t/2"]), correct: 0},
+      {id: 47, q: "Second eq of motion?", a: shuffleArray(["s=ut+½at²", "v=u+at", "v²=u²+2as", "s=(u+v)t/2"]), correct: 0},
+      {id: 48, q: "Third eq of motion?", a: shuffleArray(["v²=u²+2as", "v=u+at", "s=ut+½at²", "s=(u+v)t/2"]), correct: 0},
+      {id: 49, q: "Dropped from rest: initial velocity?", a: shuffleArray(["0", "g", "2g", "g/2"]), correct: 0},
+      {id: 50, q: "At max height: final velocity?", a: shuffleArray(["0", "u", "2u", "u/2"]), correct: 0},
+      {id: 51, q: "Newton's first law = ?", a: shuffleArray(["Law of inertia", "Law of acceleration", "Action-reaction", "Gravitation"]), correct: 0},
+      {id: 52, q: "Newton's second law: F = ?", a: shuffleArray(["ma", "mv", "mgh", "m/t"]), correct: 0},
+      {id: 53, q: "Newton's third law states?", a: shuffleArray(["Action=reaction", "F=ma", "Every body attracts", "Energy conserved"]), correct: 0},
+      {id: 54, q: "Momentum = ?", a: shuffleArray(["mass×velocity", "mass×accel", "force×time", "force×dist"]), correct: 0},
+      {id: 55, q: "Momentum unit?", a: shuffleArray(["kg m/s", "N", "J", "W"]), correct: 0},
+      {id: 56, q: "Impulse = ?", a: shuffleArray(["force×time", "mass×vel", "force×dist", "mass×accel"]), correct: 0},
+      {id: 57, q: "Friction opposes?", a: shuffleArray(["Motion", "Force", "Mass", "Velocity"]), correct: 0},
+      {id: 58, q: "Static friction ? kinetic", a: shuffleArray(["Greater than", "Less than", "Equal to", "Zero"]), correct: 0},
+      {id: 59, q: "Coefficient of friction usually ?", a: shuffleArray(["< 1", "> 1", "= 1", "0"]), correct: 0},
+      {id: 60, q: "Friction is a?", a: shuffleArray(["Contact force", "Non-contact", "Gravitational", "Magnetic"]), correct: 0},
+
+      // UNIT 4: WORK & ENERGY
+      {id: 61, q: "Work done when F and d parallel?", a: shuffleArray(["Max", "Zero", "Min", "Negative"]), correct: 0},
+      {id: 62, q: "Work zero when F ⟂ d?", a: shuffleArray(["Yes", "No", "Max", "Min"]), correct: 0},
+      {id: 63, q: "Kinetic energy is energy of?", a: shuffleArray(["Motion", "Position", "Configuration", "Rest"]), correct: 0},
+      {id: 64, q: "Potential energy is energy of?", a: shuffleArray(["Position", "Motion", "Rest", "None"]), correct: 0},
+      {id: 65, q: "KE formula?", a: shuffleArray(["½mv²", "mgh", "Fd", "P/t"]), correct: 0},
+      {id: 66, q: "Gravitational PE formula?", a: shuffleArray(["mgh", "½mv²", "Fd", "P/t"]), correct: 0},
+      {id: 67, q: "Power = rate of?", a: shuffleArray(["Doing work", "Displacement", "Velocity", "Accel"]), correct: 0},
+      {id: 68, q: "1 hp = ? W", a: shuffleArray(["746", "1000", "550", "750"]), correct: 0},
+      {id: 69, q: "Energy can be?", a: shuffleArray(["Transformed", "Destroyed", "Created", "Ignored"]), correct: 0},
+      {id: 70, q: "Work to lift m to height h?", a: shuffleArray(["mgh", "½mv²", "Fd", "P/t"]), correct: 0},
+      {id: 71, q: "KE of 2kg at 10m/s?", a: shuffleArray(["100 J", "200 J", "50 J", "20 J"]), correct: 0},
+      {id: 72, q: "PE of 5kg at 10m (g=10)?", a: shuffleArray(["500 J", "50 J", "5 J", "100 J"]), correct: 0},
+      {id: 73, q: "Work by gravity on falling body?", a: shuffleArray(["Positive", "Negative", "Zero", "None"]), correct: 0},
+      {id: 74, q: "Ideal machine efficiency?", a: shuffleArray(["100%", "75%", "50%", "0%"]), correct: 0},
+      {id: 75, q: "Efficiency = ?", a: shuffleArray(["Output/Input×100%", "Input/Output×100%", "Work/Time", "Force/Area"]), correct: 0},
+      {id: 76, q: "Power of machine doing 1000J in 10s?", a: shuffleArray(["100 W", "10 W", "1000 W", "10000 W"]), correct: 0},
+      {id: 77, q: "Energy in stretched spring?", a: shuffleArray(["Elastic PE", "KE", "Chemical", "Thermal"]), correct: 0},
+      {id: 78, q: "KE ∝ ?", a: shuffleArray(["v²", "v", "m", "m²"]), correct: 0},
+      {id: 79, q: "PE ∝ ?", a: shuffleArray(["Height", "v²", "m²", "Both a and c"]), correct: 0},
+      {id: 80, q: "Work in moving charge in E field?", a: shuffleArray(["qV", "qE", "V/q", "E/q"]), correct: 0},
+
+      // UNIT 5: CIRCULAR MOTION
+      {id: 81, q: "Angular velocity = rate of change of?", a: shuffleArray(["Angular displacement", "Velocity", "Accel", "None"]), correct: 0},
+      {id: 82, q: "Angular velocity unit?", a: shuffleArray(["rad/s", "m/s", "Hz", "N"]), correct: 0},
+      {id: 83, q: "Centripetal acceleration direction?", a: shuffleArray(["Towards center", "Away", "Tangential", "Radial outward"]), correct: 0},
+      {id: 84, q: "Centripetal force formula?", a: shuffleArray(["mv²/r", "mv/r", "mvr", "v²/r"]), correct: 0},
+      {id: 85, q: "Constant speed in circle has acceleration because?", a: shuffleArray(["Direction changes", "Speed changes", "Both", "None"]), correct: 0},
+      {id: 86, q: "Period = time for?", a: shuffleArray(["One revolution", "Half", "Quarter", "None"]), correct: 0},
+      {id: 87, q: "Frequency = revolutions per?", a: shuffleArray(["Second", "Minute", "Hour", "None"]), correct: 0},
+      {id: 88, q: "v = ?", a: shuffleArray(["rω", "r/ω", "ω/r", "r²ω"]), correct: 0},
+      {id: 89, q: "Centrifugal force is a?", a: shuffleArray(["Pseudo force", "Real", "Contact", "None"]), correct: 0},
+      {id: 90, q: "Banking provides?", a: shuffleArray(["Centripetal force", "Centrifugal", "Friction", "Gravity"]), correct: 0},
+      {id: 91, q: "Angle of banking depends on?", a: shuffleArray(["Speed and radius", "Mass", "Velocity only", "Radius only"]), correct: 0},
+      {id: 92, q: "Pendulum period independent of?", a: shuffleArray(["Mass and amplitude", "Length", "g", "None"]), correct: 0},
+      {id: 93, q: "Pendulum period depends on?", a: shuffleArray(["Length and g", "Mass", "Amplitude", "Material"]), correct: 0},
+      {id: 94, q: "Moment of inertia depends on?", a: shuffleArray(["Mass and distribution", "Mass only", "Velocity", "Force"]), correct: 0},
+      {id: 95, q: "Angular momentum = ?", a: shuffleArray(["Iω", "mv", "Ft", "Fd"]), correct: 0},
+      {id: 96, q: "Conservation of angular momentum: total L = ?", a: shuffleArray(["Constant", "Increases", "Decreases", "None"]), correct: 0},
+      {id: 97, q: "Diver increases angular speed by?", a: shuffleArray(["Decreasing I", "Increasing I", "Decreasing mass", "Increasing mass"]), correct: 0},
+      {id: 98, q: "Ice skater pulls arms in → rotates?", a: shuffleArray(["Faster", "Slower", "Same", "Stops"]), correct: 0},
+      {id: 99, q: "Centripetal force direction?", a: shuffleArray(["Towards center", "Away", "Tangent", "Upward"]), correct: 0},
+      {id: 100, q: "Centrifugal force direction?", a: shuffleArray(["Away from center", "Towards", "Tangent", "Downward"]), correct: 0},
+
+      // UNIT 6: FLUID DYNAMICS
+      {id: 101, q: "Pressure in fluid at rest P = ?", a: shuffleArray(["ρgh", "ρg/h", "h/ρg", "ρ/g h"]), correct: 0},
+      {id: 102, q: "Pascal's law: pressure transmitted?", a: shuffleArray(["Equally all directions", "One direction", "Unequally", "None"]), correct: 0},
+      {id: 103, q: "Hydraulic press works on?", a: shuffleArray(["Pascal's law", "Archimedes", "Bernoulli", "Boyle"]), correct: 0},
+      {id: 104, q: "Archimedes principle: buoyant force = weight of fluid displaced", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+      {id: 105, q: "Bernoulli: P + ½ρv² + ρgh = ?", a: shuffleArray(["Constant", "Increasing", "Decreasing", "Variable"]), correct: 0},
+      {id: 106, q: "Bernoulli equation?", a: shuffleArray(["P+½ρv²+ρgh=const", "P+½ρv²=const", "P+ρgh=const", "½ρv²+ρgh=const"]), correct: 0},
+      {id: 107, q: "Venturi tube measures?", a: shuffleArray(["Fluid flow rate", "Pressure", "Temperature", "Density"]), correct: 0},
+      {id: 108, q: "Torricelli: v = √(2gh)?", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+      {id: 109, q: "Viscosity SI unit?", a: shuffleArray(["Pa·s", "N·s/m²", "Both", "None"]), correct: 0},
+      {id: 110, q: "Newton's law of viscosity: F = ηA(dv/dx)?", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+      {id: 111, q: "Stokes' law: v_t = 2r²g(ρ-σ)/9η?", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+      {id: 112, q: "Re < 2000 → flow is?", a: shuffleArray(["Laminar", "Turbulent", "Transitional", "None"]), correct: 0},
+      {id: 113, q: "Re > 4000 → flow is?", a: shuffleArray(["Turbulent", "Laminar", "Transitional", "None"]), correct: 0},
+      {id: 114, q: "Surface tension unit?", a: shuffleArray(["N/m", "N·m", "J/m", "Pa"]), correct: 0},
+      {id: 115, q: "Capillary rise formula?", a: shuffleArray(["2Tcosθ/rρg", "Tcosθ/rρg", "rρg/2Tcosθ", "T/rρg"]), correct: 0},
+      {id: 116, q: "Speed increases when area decreases due to?", a: shuffleArray(["Continuity eq", "Bernoulli", "Pascal", "Archimedes"]), correct: 0},
+      {id: 117, q: "Continuity equation?", a: shuffleArray(["A₁v₁=A₂v₂", "P₁v₁=P₂v₂", "ρ₁v₁=ρ₂v₂", "A₁P₁=A₂P₂"]), correct: 0},
+      {id: 118, q: "Density ρ = ?", a: shuffleArray(["m/V", "V/m", "m×V", "1/(mV)"]), correct: 0},
+      {id: 119, q: "Density of water ≈ ?", a: shuffleArray(["1000 kg/m³", "100", "10", "1"]), correct: 0},
+      {id: 120, q: "Buoyant force = weight of displaced fluid is?", a: shuffleArray(["Archimedes", "Pascal", "Bernoulli", "Boyle"]), correct: 0},
+
+      // UNIT 7: OSCILLATIONS & WAVES
+      {id: 121, q: "SHM is a type of?", a: shuffleArray(["Periodic motion", "Random", "Uniform", "Non-periodic"]), correct: 0},
+      {id: 122, q: "SHM acceleration towards?", a: shuffleArray(["Mean position", "Extreme", "Away", "None"]), correct: 0},
+      {id: 123, q: "SHM velocity max at?", a: shuffleArray(["Mean position", "Extreme", "Halfway", "None"]), correct: 0},
+      {id: 124, q: "SHM acceleration max at?", a: shuffleArray(["Extreme position", "Mean", "Halfway", "None"]), correct: 0},
+      {id: 125, q: "Pendulum T = ?", a: shuffleArray(["2π√(l/g)", "2π√(g/l)", "√(l/g)", "√(g/l)"]), correct: 0},
+      {id: 126, q: "Mass-spring T = ?", a: shuffleArray(["2π√(m/k)", "2π√(k/m)", "√(m/k)", "√(k/m)"]), correct: 0},
+      {id: 127, q: "Resonance when driving freq = ?", a: shuffleArray(["Natural freq", "Zero", "Double", "Half"]), correct: 0},
+      {id: 128, q: "Damping causes amplitude to?", a: shuffleArray(["Decrease", "Increase", "Constant", "Infinite"]), correct: 0},
+      {id: 129, q: "Waves transfer?", a: shuffleArray(["Energy", "Mass", "Particles", "Matter"]), correct: 0},
+      {id: 130, q: "Mechanical waves require?", a: shuffleArray(["Medium", "Vacuum", "EM field", "None"]), correct: 0},
+      {id: 131, q: "EM waves travel in?", a: shuffleArray(["Vacuum", "Solid only", "Liquid only", "Gas only"]), correct: 0},
+      {id: 132, q: "Transverse waves: particles vibrate?", a: shuffleArray(["Perpendicular", "Parallel", "45°", "None"]), correct: 0},
+      {id: 133, q: "Longitudinal waves: particles vibrate?", a: shuffleArray(["Parallel", "Perpendicular", "45°", "None"]), correct: 0},
+      {id: 134, q: "Wave speed v = ?", a: shuffleArray(["fλ", "f/λ", "λ/f", "f+λ"]), correct: 0},
+      {id: 135, q: "Wavelength = distance between?", a: shuffleArray(["Crests/troughs", "Nodes", "Antinodes", "None"]), correct: 0},
+      {id: 136, q: "Amplitude = max displacement from?", a: shuffleArray(["Mean position", "Extreme", "Zero", "None"]), correct: 0},
+      {id: 137, q: "Frequency = vibrations per?", a: shuffleArray(["Second", "Minute", "Hour", "Day"]), correct: 0},
+      {id: 138, q: "Frequency unit?", a: shuffleArray(["Hertz", "Second", "Meter", "m/s"]), correct: 0},
+      {id: 139, q: "Sound waves are?", a: shuffleArray(["Longitudinal", "Transverse", "EM", "None"]), correct: 0},
+      {id: 140, q: "Light waves are?", a: shuffleArray(["Transverse", "Longitudinal", "Mechanical", "None"]), correct: 0},
+
+      // UNIT 8: PHYSICAL OPTICS
+      {id: 141, q: "Speed of light in vacuum ≈ ?", a: shuffleArray(["3×10⁸ m/s", "3×10⁶", "3×10¹⁰", "3×10⁵"]), correct: 0},
+      {id: 142, q: "Refractive index n = ?", a: shuffleArray(["c/v", "v/c", "c×v", "c+v"]), correct: 0},
+      {id: 143, q: "Snell's law: n₁ sin i = ?", a: shuffleArray(["n₂ sin r", "n₂ cos r", "n₂ tan r", "n₂"]), correct: 0},
+      {id: 144, q: "Total internal reflection: light goes from?", a: shuffleArray(["Denser to rarer", "Rarer to denser", "Same", "None"]), correct: 0},
+      {id: 145, q: "Critical angle: angle of refraction = ?", a: shuffleArray(["90°", "0°", "45°", "180°"]), correct: 0},
+      {id: 146, q: "Optical fibers work on?", a: shuffleArray(["Total internal reflection", "Reflection", "Refraction", "Diffraction"]), correct: 0},
+      {id: 147, q: "Lens power unit?", a: shuffleArray(["Diopters", "Meters", "Watts", "Joules"]), correct: 0},
+      {id: 148, q: "Concave lens forms?", a: shuffleArray(["Virtual, diminished", "Real, magnified", "Virtual, magnified", "Real, diminished"]), correct: 0},
+      {id: 149, q: "Convex lens forms real image when object beyond focus?", a: shuffleArray(["Yes", "No", "Sometimes", "None"]), correct: 0},
+      {id: 150, q: "Dispersion splits white light into?", a: shuffleArray(["7 colors", "3 colors", "2 colors", "Infinite"]), correct: 0},
+      {id: 151, q: "Rainbow color sequence?", a: shuffleArray(["VIBGYOR", "ROYGBIV", "BIVGYOR", "RIVGYOB"]), correct: 0},
+      {id: 152, q: "Interference due to?", a: shuffleArray(["Superposition of waves", "Reflection", "Refraction", "Diffraction"]), correct: 0},
+      {id: 153, q: "Young's double slit demonstrates?", a: shuffleArray(["Interference", "Diffraction", "Polarization", "Dispersion"]), correct: 0},
+      {id: 154, q: "Fringe width β = ?", a: shuffleArray(["λD/d", "d/λD", "D/λd", "λd/D"]), correct: 0},
+      {id: 155, q: "Diffraction grating: d sinθ = ?", a: shuffleArray(["nλ", "d sinθ", "λ/d", "d/λ"]), correct: 0},
+      {id: 156, q: "Polarization proves light is?", a: shuffleArray(["Transverse", "Longitudinal", "Both", "None"]), correct: 0},
+      {id: 157, q: "Malus law: I = I₀ cos²θ?", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+      {id: 158, q: "Brewster angle: tanθ = ?", a: shuffleArray(["n₂/n₁", "n₁/n₂", "n₁×n₂", "n₂-n₁"]), correct: 0},
+      {id: 159, q: "Law of reflection: i = ?", a: shuffleArray(["r", "r", "r", "r"]), correct: 0},
+      {id: 160, q: "Plane mirror forms?", a: shuffleArray(["Virtual, upright, same size", "Real, inverted, same", "Virtual, inverted, magnified", "Real, upright, diminished"]), correct: 0},
+
+      // UNIT 9: OPTICAL INSTRUMENTS
+      {id: 161, q: "f = R/2 for mirror?", a: shuffleArray(["Yes", "No", "f=R", "f=R²"]), correct: 0},
+      {id: 162, q: "Mirror formula: 1/f = ?", a: shuffleArray(["1/v+1/u", "1/v-1/u", "uv/(u+v)", "(u+v)/uv"]), correct: 0},
+      {id: 163, q: "Lens formula: 1/f = ?", a: shuffleArray(["1/v-1/u", "1/v+1/u", "uv/(u+v)", "(u+v)/uv"]), correct: 0},
+      {id: 164, q: "Magnification m = ?", a: shuffleArray(["-v/u", "v/u", "u/v", "-u/v"]), correct: 0},
+      {id: 165, q: "Spherical aberration caused by?", a: shuffleArray(["Paraxial and marginal rays not meeting", "Reflection", "Refraction", "Diffraction"]), correct: 0},
+      {id: 166, q: "Chromatic aberration caused by?", a: shuffleArray(["Different colors different n", "Reflection", "Diffraction", "None"]), correct: 0},
+      {id: 167, q: "Microscope resolving power depends on?", a: shuffleArray(["NA and λ", "Focal length", "Magnification", "None"]), correct: 0},
+      {id: 168, q: "Telescope resolving power depends on?", a: shuffleArray(["Diameter and λ", "Focal length", "Magnification", "None"]), correct: 0},
+      {id: 169, q: "Simple microscope m = ?", a: shuffleArray(["1+D/f", "D/f", "f/D", "1-D/f"]), correct: 0},
+      {id: 170, q: "Compound microscope m depends on?", a: shuffleArray(["Objective and eyepiece", "Objective only", "Eyepiece only", "None"]), correct: 0},
+      {id: 171, q: "Telescope m = ?", a: shuffleArray(["f₀/fₑ", "fₑ/f₀", "f₀+fₑ", "f₀×fₑ"]), correct: 0},
+      {id: 172, q: "Microscope resolving power R = ?", a: shuffleArray(["2μ sinθ/λ", "λ/2μ sinθ", "μ sinθ/λ", "2μλ/sinθ"]), correct: 0},
+      {id: 173, q: "Telescope resolving power R = ?", a: shuffleArray(["D/1.22λ", "1.22λ/D", "D×λ", "λ/D"]), correct: 0},
+      {id: 174, q: "Concave mirror forms real image when object beyond focus?", a: shuffleArray(["Yes", "No", "Sometimes", "None"]), correct: 0},
+      {id: 175, q: "Convex mirror always forms?", a: shuffleArray(["Virtual, diminished", "Real, magnified", "Virtual, magnified", "Real, diminished"]), correct: 0},
+      {id: 176, q: "Lens power unit?", a: shuffleArray(["Diopter", "Meter", "Watt", "Joule"]), correct: 0},
+      {id: 177, q: "Converging lens focal length?", a: shuffleArray(["Positive", "Negative", "Zero", "Infinite"]), correct: 0},
+      {id: 178, q: "Diverging lens focal length?", a: shuffleArray(["Negative", "Positive", "Zero", "Infinite"]), correct: 0},
+      {id: 179, q: "Convex lens also called?", a: shuffleArray(["Converging", "Diverging", "Concave", "Plano"]), correct: 0},
+      {id: 180, q: "Concave lens also called?", a: shuffleArray(["Diverging", "Converging", "Convex", "Plano"]), correct: 0},
+
+      // UNIT 10: HEAT & THERMODYNAMICS
+      {id: 181, q: "Temperature = average ?", a: shuffleArray(["KE of molecules", "PE", "Internal energy", "Heat content"]), correct: 0},
+      {id: 182, q: "Zeroth law defines?", a: shuffleArray(["Temperature", "Pressure", "Volume", "Energy"]), correct: 0},
+      {id: 183, q: "First law based on conservation of?", a: shuffleArray(["Energy", "Mass", "Momentum", "Charge"]), correct: 0},
+      {id: 184, q: "First law: ΔQ = ?", a: shuffleArray(["ΔU+ΔW", "ΔU-ΔW", "ΔU=ΔQ+ΔW", "ΔW=ΔU+ΔQ"]), correct: 0},
+      {id: 185, q: "Isothermal: T = ?", a: shuffleArray(["Constant", "Increasing", "Decreasing", "Variable"]), correct: 0},
+      {id: 186, q: "Adiabatic: Q = ?", a: shuffleArray(["Zero", "Max", "Min", "Variable"]), correct: 0},
+      {id: 187, q: "Second law: entropy of isolated system?", a: shuffleArray(["Always increases", "Decreases", "Constant", "Zero"]), correct: 0},
+      {id: 188, q: "Entropy = measure of ?", a: shuffleArray(["Disorder", "Order", "Energy", "Temperature"]), correct: 0},
+      {id: 189, q: "Carnot efficiency η = ?", a: shuffleArray(["1 - T₂/T₁", "T₁/T₂", "1 - T₁/T₂", "T₂/T₁"]), correct: 0},
+      {id: 190, q: "Heat engine works between two reservoirs T₁ (hot) and T₂ (cold)?", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+      {id: 191, q: "Ideal gas equation: PV = ?", a: shuffleArray(["nRT", "RT", "nR/T", "nT/R"]), correct: 0},
+      {id: 192, q: "Boyle: P ∝ ? (at constant T)", a: shuffleArray(["1/V", "V", "T", "mass"]), correct: 0},
+      {id: 193, q: "Charles: V ∝ ? (at constant P)", a: shuffleArray(["T", "P", "mass", "density"]), correct: 0},
+      {id: 194, q: "R = ?", a: shuffleArray(["8.31 J/mol·K", "1.38×10^-23", "6.67×10^-11", "9.8"]), correct: 0},
+      {id: 195, q: "Boltzmann k = ?", a: shuffleArray(["1.38×10^-23 J/K", "8.31", "6.67×10^-11", "9.8"]), correct: 0},
+      {id: 196, q: "Specific heat of water ≈ ?", a: shuffleArray(["4200 J/kg·K", "4200 J/g·K", "4200 cal/g·K", "4200 J/mol·K"]), correct: 0},
+      {id: 197, q: "Latent heat: state change at constant ?", a: shuffleArray(["Temperature", "Pressure", "Volume", "Mass"]), correct: 0},
+      {id: 198, q: "Latent heat of fusion of ice ≈ ?", a: shuffleArray(["3.36×10^5 J/kg", "3.36×10^6", "3.36×10^4", "3.36×10^3"]), correct: 0},
+      {id: 199, q: "Latent heat of vaporization of water ≈ ?", a: shuffleArray(["2.26×10^6 J/kg", "2.26×10^5", "2.26×10^7", "2.26×10^4"]), correct: 0},
+      {id: 200, q: "Specific heat capacity: heat to raise unit mass by ?", a: shuffleArray(["1 K", "10 K", "100 K", "0.1 K"]), correct: 0}
+    ];
+
+    // ============================================================
+    // CORRECT VALUES MAPPING (FIXED FOR Q41, Q79, Q109)
+    // ============================================================
+    const correctValues = {
+        1: "Meter", 2: "Kilogram", 3: "Second", 4: "10^3", 5: "10^6",
+        6: "1000", 7: "10^-3", 8: "7", 9: "Newton", 10: "Joule",
+        11: "Watt", 12: "Pascal", 13: "Hertz", 14: "10^-6", 15: "10^-9",
+        16: "10^-12", 17: "1.5×10^11 m", 18: "9.46×10^15 m",
+        19: "0.01 cm", 20: "0.001 cm",
+        21: "Only magnitude", 22: "Both magnitude and direction",
+        23: "Speed", 24: "Velocity", 25: "0°", 26: "180°", 27: "0",
+        28: "5", 29: "A/|A|", 30: "Zero", 31: "Moment of force",
+        32: "Nm", 33: "90°", 34: "Middle", 35: "Center", 36: "Centroid",
+        37: "Lowest", 38: "Highest", 39: "Anti-clockwise", 40: "Rotation",
+        41: "Speed", // FIXED
+        42: "Acceleration", 43: "Displacement", 44: "Zero",
+        45: "9.8 m/s²", 46: "v=u+at", 47: "s=ut+½at²", 48: "v²=u²+2as",
+        49: "0", 50: "0", 51: "Law of inertia", 52: "ma",
+        53: "Action=reaction", 54: "mass×velocity", 55: "kg m/s",
+        56: "force×time", 57: "Motion", 58: "Greater than",
+        59: "< 1", 60: "Contact force",
+        61: "Max", 62: "Yes", 63: "Motion", 64: "Position",
+        65: "½mv²", 66: "mgh", 67: "Doing work", 68: "746", 69: "Transformed",
+        70: "mgh", 71: "100 J", 72: "500 J", 73: "Positive", 74: "100%",
+        75: "Output/Input×100%", 76: "100 W", 77: "Elastic PE",
+        78: "v²", 79: "Height", // FIXED
+        80: "qV",
+        81: "Angular displacement", 82: "rad/s", 83: "Towards center",
+        84: "mv²/r", 85: "Direction changes", 86: "One revolution",
+        87: "Second", 88: "rω", 89: "Pseudo force", 90: "Centripetal force",
+        91: "Speed and radius", 92: "Mass and amplitude",
+        93: "Length and g", 94: "Mass and distribution", 95: "Iω",
+        96: "Constant", 97: "Decreasing I", 98: "Faster",
+        99: "Towards center", 100: "Away from center",
+        101: "ρgh", 102: "Equally all directions", 103: "Pascal's law",
+        104: "True", 105: "Constant",
+        106: "P+½ρv²+ρgh=const", 107: "Fluid flow rate", 108: "True",
+        109: "Both", // FIXED
+        110: "True", 111: "True", 112: "Laminar",
+        113: "Turbulent", 114: "N/m", 115: "2Tcosθ/rρg",
+        116: "Continuity eq", 117: "A₁v₁=A₂v₂", 118: "m/V",
+        119: "1000 kg/m³", 120: "Archimedes",
+        121: "Periodic motion", 122: "Mean position", 123: "Mean position",
+        124: "Extreme position", 125: "2π√(l/g)", 126: "2π√(m/k)",
+        127: "Natural freq", 128: "Decrease", 129: "Energy", 130: "Medium",
+        131: "Vacuum", 132: "Perpendicular", 133: "Parallel", 134: "fλ",
+        135: "Crests/troughs", 136: "Mean position", 137: "Second",
+        138: "Hertz", 139: "Longitudinal", 140: "Transverse",
+        141: "3×10⁸ m/s", 142: "c/v", 143: "n₂ sin r", 144: "Denser to rarer",
+        145: "90°", 146: "Total internal reflection", 147: "Diopters",
+        148: "Virtual, diminished", 149: "Yes", 150: "7 colors",
+        151: "VIBGYOR", 152: "Superposition of waves", 153: "Interference",
+        154: "λD/d",
+        155: "nλ", // FIXED (options changed to distinct values)
+        156: "Transverse", 157: "True",
+        158: "n₂/n₁", 159: "r", 160: "Virtual, upright, same size",
+        161: "Yes", 162: "1/v+1/u", 163: "1/v-1/u", 164: "-v/u",
+        165: "Paraxial and marginal rays not meeting",
+        166: "Different colors different n",
+        167: "NA and λ", 168: "Diameter and λ", 169: "1+D/f",
+        170: "Objective and eyepiece", 171: "f₀/fₑ",
+        172: "2μ sinθ/λ", 173: "D/1.22λ", 174: "Yes",
+        175: "Virtual, diminished", 176: "Diopter", 177: "Positive",
+        178: "Negative", 179: "Converging", 180: "Diverging",
+        181: "KE of molecules", 182: "Temperature", 183: "Energy",
+        184: "ΔU+ΔW", 185: "Constant", 186: "Zero",
+        187: "Always increases", 188: "Disorder",
+        189: "1 - T₂/T₁", 190: "True", 191: "nRT", 192: "1/V",
+        193: "T", 194: "8.31 J/mol·K", 195: "1.38×10^-23 J/K",
+        196: "4200 J/kg·K", 197: "Temperature",
+        198: "3.36×10^5 J/kg", 199: "2.26×10^6 J/kg", 200: "1 K"
+    };
+
+    // Apply correct values to mcqs
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const correctAns = correctValues[q.id];
+            const idx = q.a.indexOf(correctAns);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // TEST ENGINE (IDENTICAL TO BIOLOGY TEMPLATE)
+    // ============================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200;
+    let timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table =
+            "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>Q-${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

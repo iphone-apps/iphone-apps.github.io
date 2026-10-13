@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FSc Biology MCQs Test P1+2</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+            color: white;
+            font-family: 'Arial';
+            text-align: center;
+            padding: 8px 10px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* 10% Bara kar diya */
+        .main-title {
+            font-size: 29px;
+            color: #FF8C00;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        .main-subtitle {
+            font-size: 15px;
+            color: #E0E0FF;
+            margin-bottom: 12px;
+        }
+
+        /* Boxes 10% Bara */
+        .box {
+            background: linear-gradient(180deg, #001a4d 0%, #003399 100%);
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 7px auto;
+            cursor: pointer;
+            width: 70%;
+            max-width: 650px;
+            transition: 0.3s;
+        }
+        .box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .icon {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .box h2 {
+            font-size: 20px;
+            color: #FF8C00;
+            margin-bottom: 4px;
+        }
+        .box p {
+            font-size: 13px;
+            color: white;
+            margin: 2px 0;
+        }
+
+        /* Made By Box */
+        .madeby-box {
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .madeby-box h3 {
+            font-size: 15px;
+            color: #FFD700;
+            font-weight: bold;
+        }
+        .contact {
+            font-size: 12px;
+            color: white;
+            margin: 2px 0;
+        }
+        .feedback {
+            color: #FFD700;
+            font-weight: bold;
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        /* Level Buttons */
+        .level-btn {
+            display: block;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 7px;
+            margin: 5px auto;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 65%;
+            max-width: 600px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .level-btn:hover {
+            background: #FFA500;
+        }
+    </style>
+</head>
+<body>
+
+<h1 class="main-title">FSc Biology MCQs</h1>
+<p class="main-subtitle">Part-1 + Part-2 | Total 2000 MCQs</p>
+
+<!-- Part First -->
+<div class="box" onclick="showLevels('part1')">
+    <div class="icon">📘</div>
+    <h2>Part First</h2>
+    <p>5 Level Tests | Each = 200 MCQs</p>
+</div>
+<div id="part1" style="display: none;">
+    <button class="level-btn" onclick="openLevel('Level1.html')">Level 1</button>
+    <button class="level-btn" onclick="openLevel('Level2.html')">Level 2</button>
+    <button class="level-btn" onclick="openLevel('Level3.html')">Level 3</button>
+    <button class="level-btn" onclick="openLevel('Level4.html')">Level 4</button>
+    <button class="level-btn" onclick="openLevel('Level5.html')">Level 5</button>
+</div>
+
+<!-- Part Second -->
+<div class="box" onclick="showLevels('part2')">
+    <div class="icon">📗</div>
+    <h2>Part Second</h2>
+    <p>5 Level Tests | Each = 200 MCQs</p>
+</div>
+<div id="part2" style="display: none;">
+    <button class="level-btn" onclick="openLevel('Level6.html')">Level 1</button>
+    <button class="level-btn" onclick="openLevel('Level7.html')">Level 2</button>
+    <button class="level-btn" onclick="openLevel('Level8.html')">Level 3</button>
+    <button class="level-btn" onclick="openLevel('Level9.html')">Level 4</button>
+    <button class="level-btn" onclick="openLevel('Level10.html')">Level 5</button>
+</div>
+
+<!-- Made By - Email + 2 Numbers -->
+<div class="box madeby-box">
+    <h3>Made By: Akbar Ali Khan (SCT)</h3>
+    <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+    <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+    <p class="contact"><b>Phone 1:</b> +923068183790</p>
+    <p class="contact"><b>Phone 2:</b> +923339840801</p>
+    <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+</div>
+
+<script>
+    function showLevels(part) {
+        var x = document.getElementById(part);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function openLevel(levelFile) {
+        window.location.href = levelFile;
+    }
+</script>
+
+</body>
+</html>

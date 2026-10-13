@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Chemistry Part-2 (Level-5 - Expert) MCQs Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .note-red {
+            color: #FF4500;
+            font-weight: bold;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧪 FSc Chemistry Part-2</h1>
+        <h2>Level-5 (Expert) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+                </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red">❌ Calculator Not Allowed</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper functions
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // CHEMISTRY PART-2 LEVEL-5 (EXPERT) - 200 MCQs
+    // ============================================================
+    const mcqs = [
+        // 1-20: Periodic trends - advanced
+        {id:1, q:"IE₁ (kJ/mol) of Mg is 738, Al is 578. Difference due to?", a:shuffleArray(["3s² stable", "3p¹ easy", "Smaller Mg", "Larger Al"]), correct:0},
+        {id:2, q:"IE₁ of P (1012) > S (1000) because P has half‑filled 3p³.", a:shuffleArray(["Yes", "No", "Equal", "S is higher"]), correct:0},
+        {id:3, q:"EA of Cl (-349) is more negative than F (-328). Reason?", a:shuffleArray(["Less repulsion in Cl", "More repulsion in F", "F smaller", "Cl larger"]), correct:0},
+        {id:4, q:"EA of N (+7) is positive because gaining electron leads to?", a:shuffleArray(["Half-filled p⁴", "Full s²", "Stable p³", "Unstable p⁴"]), correct:0},
+        {id:5, q:"Atomic radius (pm) of Ar is 188 (vdW), but Cl is 99 (covalent). Why?", a:shuffleArray(["Different forces", "Same forces", "Ar smaller", "Cl larger"]), correct:0},
+        {id:6, q:"Lanthanide contraction: Zr (160 pm) and Hf (159 pm) have almost same size due to?", a:shuffleArray(["4f effect", "5d effect", "6s effect", "Full f"]), correct:0},
+        {id:7, q:"Inert pair effect: Tl(+1) is more stable than Tl(+3) because of?", a:shuffleArray(["6s² lone pair", "6p¹", "5d¹⁰", "High EN"]), correct:0},
+        {id:8, q:"Diagonal relationship: Li and Mg both form nitrides. Li₃N and Mg₃N₂ are?", a:shuffleArray(["Ionic", "Covalent", "Metallic", "Molecular"]), correct:0},
+        {id:9, q:"Which has higher IE: Na or K? Na (496) > K (419) because?", a:shuffleArray(["Smaller size", "Larger size", "More shielding", "Less shielding"]), correct:0},
+        {id:10, q:"The electronegativity of O (3.44) and Cl (3.16) – which has higher polarity in bond with H?", a:shuffleArray(["O-H", "Cl-H", "Equal", "Cannot compare"]), correct:0},
+        {id:11, q:"IE of Ca (590) > K (419) because Ca has?", a:shuffleArray(["More nuclear charge", "Larger size", "More shielding", "Fewer electrons"]), correct:0},
+        {id:12, q:"The ionic radius of Na⁺ (102 pm) and F⁻ (133 pm). The larger one is?", a:shuffleArray(["F⁻", "Na⁺", "Equal", "Neither"]), correct:0},
+        {id:13, q:"Which of the following has the largest size among: O²⁻, F⁻, Na⁺, Mg²⁺?", a:shuffleArray(["O²⁻", "F⁻", "Na⁺", "Mg²⁺"]), correct:0},
+        {id:14, q:"The second IE of Na is very high (4562 kJ/mol) because?", a:shuffleArray(["Core 2p⁶ stable", "Valence electron", "Small size", "High shielding"]), correct:0},
+        {id:15, q:"The first IE of Zn (906) is higher than Cu (745). Reason?", a:shuffleArray(["Full d¹⁰", "Half d¹⁰", "Cu has d⁹", "Zn larger"]), correct:0},
+        {id:16, q:"Electronegativity difference between H (2.20) and F (3.98) is 1.78. Bond type?", a:shuffleArray(["Polar covalent", "Nonpolar covalent", "Ionic", "Metallic"]), correct:0},
+        {id:17, q:"Which element in period 3 has the highest electron affinity (most negative)?", a:shuffleArray(["Cl", "S", "P", "Si"]), correct:0},
+        {id:18, q:"Which element in period 3 has the lowest ionization energy?", a:shuffleArray(["Na", "Mg", "Al", "Si"]), correct:0},
+        {id:19, q:"The shielding effect is maximum in which of the following orbitals?", a:shuffleArray(["s", "p", "d", "f"]), correct:0},
+        {id:20, q:"The effective nuclear charge felt by 3s electron of Na (Z=11) is approx?", a:shuffleArray(["2.2", "11", "5", "8"]), correct:0},
+        // 21-40: s-block
+        {id:21, q:"LiCl is soluble in alcohol because of covalent character, while NaCl is not. Why?", a:shuffleArray(["Li⁺ high polarising power", "Na⁺ smaller", "Cl⁻ larger", "Li⁺ larger"]), correct:0},
+        {id:22, q:"Na₂O₂ reacts with water to give H₂O₂ and NaOH. This is a?", a:shuffleArray(["Disproportionation", "Acid-base", "Redox", "Precipitation"]), correct:0},
+        {id:23, q:"Baking soda (NaHCO₃) on heating gives Na₂CO₃, CO₂ and H₂O. The residue is?", a:shuffleArray(["Na₂CO₃", "NaOH", "Na₂O", "NaCl"]), correct:0},
+        {id:24, q:"Solvay process: CaCO₃ is heated to give CaO and CO₂. The CO₂ is recycled. Name the step?", a:shuffleArray(["Calcination", "Carbonation", "Ammoniation", "Crystallization"]), correct:0},
+        {id:25, q:"In Castner-Kellner cell, brine (NaCl) is electrolysed. Anode product is?", a:shuffleArray(["Cl₂", "H₂", "NaOH", "Na"]), correct:0},
+        {id:26, q:"Density of alkali metals: Na (0.97) < K (0.86) but K has larger atomic mass. Why?", a:shuffleArray(["Larger volume", "Smaller volume", "Higher packing", "Lower packing"]), correct:0},
+        {id:27, q:"Melting point of Be (1278°C) is higher than Mg (650°C). Reason?", a:shuffleArray(["Stronger metallic bond", "Weaker bond", "Smaller size", "Larger size"]), correct:0},
+        {id:28, q:"Be(OH)₂ is amphoteric. With NaOH it forms Na₂BeO₂. What is the coordination number of Be?", a:shuffleArray(["4", "2", "6", "3"]), correct:0},
+        {id:29, q:"Mg⁺² has high hydration enthalpy. MgSO₄ is soluble; BaSO₄ is insoluble. Reason?", a:shuffleArray(["Smaller Mg", "Larger Ba", "Covalent Ba", "Ionic Mg"]), correct:0},
+        {id:30, q:"Which is more stable: Li₂O or Na₂O? Li₂O because of higher lattice energy.", a:shuffleArray(["Yes", "No", "Equal", "Cannot say"]), correct:0},
+        {id:31, q:"BeCl₂ is covalent and is a linear polymer. Its structure is?", a:shuffleArray(["Chain", "Ring", "Dimer", "Monomer"]), correct:0},
+        {id:32, q:"Alkali metals are stored under kerosene. They react with O₂ to form oxides. Which forms superoxide (MO₂)?", a:shuffleArray(["K", "Na", "Li", "Rb"]), correct:0},
+        {id:33, q:"Which alkaline earth metal forms a stable nitride (M₃N₂) like lithium?", a:shuffleArray(["Mg", "Ca", "Sr", "Ba"]), correct:0},
+        {id:34, q:"The carbonate of which group 2 element decomposes at the lowest temperature?", a:shuffleArray(["BeCO₃", "MgCO₃", "CaCO₃", "BaCO₃"]), correct:0},
+        {id:35, q:"Quick lime (CaO) is used in the manufacture of glass. It is also called?", a:shuffleArray(["Lime", "Slaked lime", "Limestone", "Gypsum"]), correct:0},
+        {id:36, q:"Slaked lime (Ca(OH)₂) is used to soften water. It precipitates CaCO₃ and Mg(OH)₂.", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:37, q:"The solubility of alkali metal hydroxides in water increases down the group. Reason?", a:shuffleArray(["Decreasing lattice energy", "Increasing lattice energy", "Increasing hydration", "Decreasing hydration"]), correct:0},
+        {id:38, q:"The solubility of alkaline earth metal hydroxides increases down the group. True?", a:shuffleArray(["Yes", "No", "Only for Be", "Only for Ba"]), correct:0},
+        {id:39, q:"Gypsum (CaSO₄·2H₂O) on heating to 120°C gives plaster of Paris (CaSO₄·½H₂O).", a:shuffleArray(["Yes", "No", "Gives anhydrous", "Gives CaO"]), correct:0},
+        {id:40, q:"Plaster of Paris sets to hard mass by rehydration to gypsum. It is exothermic.", a:shuffleArray(["Yes", "No", "Endothermic", "No change"]), correct:0},
+        // 41-80: p-block
+        {id:41, q:"BF₃ is electron deficient. It acts as a Lewis acid.", a:shuffleArray(["It is Lewis acid", "It is Lewis base", "It is amphoteric", "It is neutral"]), correct:0},
+        {id:42, q:"AlCl₃ exists as dimer Al₂Cl₆ with bridge bonds. Bond type in bridge?", a:shuffleArray(["3-centre-2-electron", "2-centre-2-electron", "3-centre-4-electron", "4-centre-2-electron"]), correct:0},
+        {id:43, q:"Aluminium is passivated by concentrated HNO₃ because it forms a thin layer of Al₂O₃.", a:shuffleArray(["Yes", "No", "Al dissolves", "Al reacts"]), correct:0},
+        {id:44, q:"Boron forms covalent compounds because its IE is high and size is small.", a:shuffleArray(["Yes", "No", "Only ionic", "Only metallic"]), correct:0},
+        {id:45, q:"Carbon has catenation because C-C bond energy is 347 kJ/mol. Si-Si bond energy is 226. Why weaker?", a:shuffleArray(["Larger size of Si", "Smaller size", "More orbitals", "Less orbitals"]), correct:0},
+        {id:46, q:"Diamond is hard because each C is sp³ hybridised and tetrahedrally bonded. It has no free electrons.", a:shuffleArray(["Yes", "No", "It has free electrons", "It is conductor"]), correct:0},
+        {id:47, q:"Graphite is soft because layers are held by weak van der Waals forces and electrons are delocalised.", a:shuffleArray(["Yes", "No", "Only covalent", "Only ionic"]), correct:0},
+        {id:48, q:"Fullerene C₆₀ has 60 carbon atoms arranged in 12 pentagons and 20 hexagons, like a soccer ball.", a:shuffleArray(["Yes", "No", "12 hexagons", "20 pentagons"]), correct:0},
+        {id:49, q:"Carbon monoxide (CO) acts as a ligand in metal carbonyls. It donates lone pair from C to metal.", a:shuffleArray(["Yes", "No", "From O", "From both"]), correct:0},
+        {id:50, q:"N₂ is inert due to triple bond (945 kJ/mol). Which has higher bond energy: N₂ or O₂?", a:shuffleArray(["N₂", "O₂", "Equal", "Cannot compare"]), correct:0},
+        {id:51, q:"NH₃ has lone pair on N, so it acts as a Lewis base. It reacts with BF₃ to form NH₃BF₃.", a:shuffleArray(["Yes", "No", "Acid-base", "Redox"]), correct:0},
+        {id:52, q:"NH₃ is more basic than PH₃ because N is smaller and lone pair is concentrated.", a:shuffleArray(["Yes", "No", "P more basic", "Both equal"]), correct:0},
+        {id:53, q:"HNO₃ is a strong oxidising agent. With copper it gives NO₂ (concentrated) or NO (dilute).", a:shuffleArray(["Yes", "No", "Always NO", "Always N₂O"]), correct:0},
+        {id:54, q:"White phosphorus (P₄) is stored under water because it spontaneously ignites in air (due to friction).", a:shuffleArray(["Yes", "No", "It reacts with water", "It dissolves in water"]), correct:0},
+        {id:55, q:"Red phosphorus is polymeric and more stable. It is used in matchboxes.", a:shuffleArray(["Yes", "No", "Used in explosives", "Used in fertiliser"]), correct:0},
+        {id:56, q:"Black phosphorus is semiconductor because it has layered structure like graphite.", a:shuffleArray(["Yes", "No", "It is conductor", "It is insulator"]), correct:0},
+        {id:57, q:"Oxygen is paramagnetic because it has two unpaired electrons in π* orbitals.", a:shuffleArray(["Yes", "No", "It is diamagnetic", "Unpaired 4"]), correct:0},
+        {id:58, q:"Ozone (O₃) is a bent molecule with bond angle 117°. It is resonance hybrid of two structures.", a:shuffleArray(["Yes", "No", "Linear", "Angular 104.5"]), correct:0},
+        {id:59, q:"SO₂ is bent with bond angle 119°. It is a reducing agent and bleaches by reduction.", a:shuffleArray(["Yes", "No", "It bleaches by oxidation", "It is oxidising"]), correct:0},
+        {id:60, q:"SO₃ is trigonal planar with bond angle 120°. It reacts with water to give H₂SO₄.", a:shuffleArray(["Yes", "No", "Gives H₂SO₃", "Gives SO₂"]), correct:0},
+        {id:61, q:"Concentrated H₂SO₄ is a dehydrating agent. It dehydrates sugar (C₁₂H₂₂O₁₁) to carbon (C).", a:shuffleArray(["Yes", "No", "Gives CO₂", "Gives H₂O"]), correct:0},
+        {id:62, q:"H₂SO₄ acts as oxidising agent. It oxidises S²⁻ to S or SO₂ depending on conditions.", a:shuffleArray(["Yes", "No", "Always to SO₂", "Always to S"]), correct:0},
+        {id:63, q:"Interhalogens: ClF₃ has a T-shaped structure (VSEPR). It is used as fluorinating agent.", a:shuffleArray(["Yes", "No", "Linear", "Trigonal planar"]), correct:0},
+        {id:64, q:"IF₇ has pentagonal bipyramidal geometry (sp³d³ hybridisation). It is very reactive.", a:shuffleArray(["Yes", "No", "Octahedral", "Square planar"]), correct:0},
+        {id:65, q:"XeF₂ is linear (sp³d hybridised). It is a mild fluorinating agent.", a:shuffleArray(["Yes", "No", "Bent", "T-shaped"]), correct:0},
+        {id:66, q:"XeF₄ is square planar (sp³d²). It reacts with water to give XeO₃.", a:shuffleArray(["Yes", "No", "Gives XeO₂", "Gives Xe"]), correct:0},
+        {id:67, q:"XeF₆ is distorted octahedral (sp³d³). It is completely hydrolysed to XeO₃.", a:shuffleArray(["Yes", "No", "Gives XeOF₄", "Gives XeO₂F₂"]), correct:0},
+        {id:68, q:"Helium has lowest boiling point (4.2 K) and is used in cryogenics.", a:shuffleArray(["Yes", "No", "Hydrogen lower", "Neon lower"]), correct:0},
+        {id:69, q:"Neon glows red-orange in neon signs because it has low excitation energy.", a:shuffleArray(["Yes", "No", "High excitation", "Argon glows blue"]), correct:0},
+        {id:70, q:"Argon is used as inert atmosphere in welding because it is cheap and inert.", a:shuffleArray(["Yes", "No", "Helium is cheaper", "Krypton is inert"]), correct:0},
+        {id:71, q:"Kr and Xe form compounds with F and O. They have available d-orbitals for bonding.", a:shuffleArray(["Yes", "No", "Only F", "Only O"]), correct:0},
+        {id:72, q:"Fluorine is the most oxidising element because of high EN and small size.", a:shuffleArray(["Yes", "No", "Chlorine is more", "Oxygen is more"]), correct:0},
+        {id:73, q:"Iodine is a good reducing agent because it can be oxidised easily (low EN).", a:shuffleArray(["Yes", "No", "It is oxidising", "It is neutral"]), correct:0},
+        {id:74, q:"Hydrogen fluoride (HF) is a weak acid because the H-F bond is very strong (567 kJ/mol).", a:shuffleArray(["Yes", "No", "It is strong acid", "It is neutral"]), correct:0},
+        {id:75, q:"Hydrochloric acid (HCl) is a strong acid because H-Cl bond is weak (431 kJ/mol) and dissociates completely.", a:shuffleArray(["Yes", "No", "It is weak", "It is covalent"]), correct:0},
+        {id:76, q:"Aqua regia (HCl:HNO₃ = 3:1) dissolves Pt and Au because it generates nascent chlorine and nitrosyl chloride.", a:shuffleArray(["Yes", "No", "Only HNO₃", "Only HCl"]), correct:0},
+        {id:77, q:"Glass is etched by HF because HF reacts with SiO₂ to form H₂SiF₆ (soluble).", a:shuffleArray(["Yes", "No", "Reacts with Na₂O", "Reacts with CaO"]), correct:0},
+        {id:78, q:"Concentrated H₂SO₄ has density 1.84 g/cm³. It is used in car batteries at 30-50% concentration.", a:shuffleArray(["Yes", "No", "Density 1.0", "Density 2.0"]), correct:0},
+        {id:79, q:"TNT is trinitrotoluene. It is made by nitration of toluene with mixed acid (HNO₃+H₂SO₄).", a:shuffleArray(["Yes", "No", "It is mononitro", "It is dinitro"]), correct:0},
+        {id:80, q:"Picric acid (2,4,6-trinitrophenol) is a stronger acid than phenol due to nitro groups.", a:shuffleArray(["Yes", "No", "Weaker", "Equal"]), correct:0},
+        // 81-110: d-block
+        {id:81, q:"Mn shows +7 in KMnO₄. It is a strong oxidising agent. Its colour is purple due to charge transfer.", a:shuffleArray(["Yes", "No", "d-d transition", "ligand field"]), correct:0},
+        {id:82, q:"Cr shows +6 in K₂Cr₂O₇. It is orange due to ligand-to-metal charge transfer (LMCT).", a:shuffleArray(["Yes", "No", "d-d transition", "Both"]), correct:0},
+        {id:83, q:"Fe₃O₄ is a mixed oxide (FeO·Fe₂O₃). It is ferromagnetic and used in magnetic tapes.", a:shuffleArray(["Yes", "No", "It is Fe₂O₃", "It is FeO"]), correct:0},
+        {id:84, q:"Cu₂O is red (Cu⁺) and CuO is black (Cu²⁺). The colour difference is due to d-d transitions.", a:shuffleArray(["Yes", "No", "Charge transfer", "Both"]), correct:0},
+        {id:85, q:"Transition metal ions are coloured because of d-d transitions. The colour depends on ligand field strength.", a:shuffleArray(["Yes", "No", "Only charge transfer", "Only f-f"]), correct:0},
+        {id:86, q:"[Cu(H₂O)₆]²⁺ is blue. If we replace water with NH₃ (stronger field), the colour changes to deep blue.", a:shuffleArray(["Yes", "No", "No change", "Colourless"]), correct:0},
+        {id:87, q:"NH₃ is a strong field ligand for Cu²⁺, causing larger splitting and shift in absorption.", a:shuffleArray(["Yes", "No", "Weak field", "Very weak"]), correct:0},
+        {id:88, q:"CN⁻ is a strong field ligand. It causes pairing of electrons (low spin) in d⁶ complexes like [Fe(CN)₆]⁴⁻.", a:shuffleArray(["Yes", "No", "High spin", "No pairing"]), correct:0},
+        {id:89, q:"F⁻ is a weak field ligand. It causes high spin complexes (e.g., [FeF₆]³⁻) with more unpaired electrons.", a:shuffleArray(["Yes", "No", "Low spin", "Diamagnetic"]), correct:0},
+        {id:90, q:"Magnetic moment (BM) for [Fe(CN)₆]³⁻ (low spin, d⁵)?", a:shuffleArray(["√3", "√35", "√15", "√8"]), correct:0},
+        {id:91, q:"High spin d⁵ (e.g., [Fe(H₂O)₆]³⁺) has 5 unpaired electrons, μ = √35 BM.", a:shuffleArray(["√35", "√3", "√15", "√8"]), correct:0},
+        {id:92, q:"Cis-platin is [Pt(NH₃)₂Cl₂] with cis geometry. It is effective in cancer treatment because it binds to DNA.", a:shuffleArray(["Yes", "No", "Trans-platin", "Both"]), correct:0},
+        {id:93, q:"EDTA is a hexadentate ligand (6 donor atoms: 4 O and 2 N). It forms stable complexes with metal ions.", a:shuffleArray(["Yes", "No", "Tetradentate", "Bidentate"]), correct:0},
+        {id:94, q:"Coordination number of Fe in [Fe(CN)₆]⁴⁻ is 6 (6 CN⁻ ligands).", a:shuffleArray(["6", "4", "2", "3"]), correct:0},
+        {id:95, q:"Ferrocene (Fe(C₅H₅)₂) is a sandwich compound. Fe has oxidation state +2.", a:shuffleArray(["+2", "0", "+3", "+1"]), correct:0},
+        {id:96, q:"Dibenzene chromium (Cr(C₆H₆)₂) is also sandwich. Cr has oxidation state 0 (since benzene is neutral).", a:shuffleArray(["0", "+2", "+3", "+1"]), correct:0},
+        {id:97, q:"Ni(CO)₄ is a toxic volatile liquid used in Mond's process for purifying nickel.", a:shuffleArray(["Yes", "No", "Used in Haber", "Used in Contact"]), correct:0},
+        {id:98, q:"Brass is an alloy of Cu and Zn (both d-block? Zn is d-block but full d¹⁰).", a:shuffleArray(["Cu and Zn", "Cu and Sn", "Cu and Ni", "Cu and Al"]), correct:0},
+        {id:99, q:"Bronze is an alloy of Cu and Sn (Sn is group 14).", a:shuffleArray(["Cu and Sn", "Cu and Zn", "Cu and Ni", "Cu and Pb"]), correct:0},
+        {id:100, q:"Steel is Fe with carbon (C). Carbon is added to increase hardness but decreases ductility.", a:shuffleArray(["Yes", "No", "Increases ductility", "No effect"]), correct:0},
+        {id:101, q:"Stainless steel contains Cr (18%) and Ni (8%). Cr provides corrosion resistance by forming Cr₂O₃ layer.", a:shuffleArray(["Yes", "No", "Ni provides", "Both"]), correct:0},
+        {id:102, q:"Hg is liquid at room temperature because its metallic bond is weak (6s² filled, no unpaired electrons).", a:shuffleArray(["Yes", "No", "Strong bond", "Covalent"]), correct:0},
+        {id:103, q:"Zn is not a transition metal because its d subshell is full (d¹⁰) and it does not show variable OS easily.", a:shuffleArray(["Yes", "No", "It shows +2 only", "It shows +3"]), correct:0},
+        {id:104, q:"Cd (d¹⁰) and Hg (d¹⁰) are also non-transition metals.", a:shuffleArray(["Yes", "No", "They are transition", "Only Zn"]), correct:0},
+        {id:105, q:"Which transition metal has the highest melting point? W (3422°C) due to strong metallic bond.", a:shuffleArray(["W", "Fe", "Cu", "Ag"]), correct:0},
+        {id:106, q:"Best conductor among transition metals is Ag (silver), then Cu, then Au.", a:shuffleArray(["Ag", "Cu", "Au", "Al"]), correct:0},
+        {id:107, q:"Manganese is used in steel making as a deoxidizer (removes oxygen).", a:shuffleArray(["Yes", "No", "Oxidizer", "Catalyst"]), correct:0},
+        {id:108, q:"Copper is extracted by smelting and electrorefining. In smelting, Cu₂S is roasted to Cu₂O then reduced.", a:shuffleArray(["Yes", "No", "Direct reduction", "Electrolysis"]), correct:0},
+        {id:109, q:"Silver bromide (AgBr) is used in photography because it is light-sensitive (decomposes to Ag).", a:shuffleArray(["Yes", "No", "AgCl", "AgI"]), correct:0},
+        {id:110, q:"In photography, AgBr is reduced to Ag by developer. The unexposed AgBr is removed by fixer (Na₂S₂O₃).", a:shuffleArray(["Yes", "No", "Only AgCl", "Only AgI"]), correct:0},
+        // 111-150: Organic
+        {id:111, q:"Which is optically active: 2-bromobutane? It has chiral carbon C2.", a:shuffleArray(["Yes", "No", "Only if racemic", "Never"]), correct:0},
+        {id:112, q:"Racemic mixture has equal amounts of enantiomers. It is optically inactive due to external compensation.", a:shuffleArray(["Yes", "No", "It is active", "It is meso"]), correct:0},
+        {id:113, q:"Meso compounds are optically inactive due to internal compensation (plane of symmetry).", a:shuffleArray(["Yes", "No", "They are active", "They are enantiomers"]), correct:0},
+        {id:114, q:"Geometrical isomerism in 2-butene (cis/trans) is due to restricted rotation around C=C. Trans is more stable.", a:shuffleArray(["Yes", "No", "Cis more stable", "Equal"]), correct:0},
+        {id:115, q:"E/Z system: if higher priority groups are on opposite sides, it is E (entgegen).", a:shuffleArray(["Yes", "No", "Z if opposite", "E if same"]), correct:0},
+        {id:116, q:"Saytzeff rule states that in elimination, the more substituted alkene is major product (more stable).", a:shuffleArray(["Yes", "No", "Less substituted", "No preference"]), correct:0},
+        {id:117, q:"Hoffmann rule: using bulky base (e.g., t-BuOK), the less substituted alkene is major (Hoffmann product).", a:shuffleArray(["Yes", "No", "More substituted", "Equal"]), correct:0},
+        {id:118, q:"Markovnikov addition: electrophile (H) adds to carbon with more H atoms (to form stable carbocation).", a:shuffleArray(["Yes", "No", "Less H atoms", "No rule"]), correct:0},
+        {id:119, q:"Anti-Markovnikov addition: HBr with peroxide (ROOR) gives anti-Markovnikov product via radical mechanism.", a:shuffleArray(["Yes", "No", "Only HBr", "HCl also"]), correct:0},
+        {id:120, q:"Kharasch effect is the anti-Markovnikov addition of HBr in presence of peroxide.", a:shuffleArray(["Yes", "No", "Markovnikov", "No effect"]), correct:0},
+        {id:121, q:"Ozonolysis of 2-butene (cis or trans) gives acetaldehyde (CH₃CHO) as product.", a:shuffleArray(["Acetaldehyde", "Formaldehyde", "Acetone", "Butanone"]), correct:0},
+        {id:122, q:"Ozonolysis of 2-methylpropene gives acetone and formaldehyde.", a:shuffleArray(["Acetone + HCHO", "Acetaldehyde + HCHO", "Acetone + acetaldehyde", "HCHO only"]), correct:0},
+        {id:123, q:"Diels-Alder reaction is a [4+2] cycloaddition between diene and dienophile (alkene). It is stereospecific.", a:shuffleArray(["Yes", "No", "It is electrophilic", "It is nucleophilic"]), correct:0},
+        {id:124, q:"Benzene undergoes electrophilic substitution rather than addition because addition would destroy aromaticity.", a:shuffleArray(["Yes", "No", "Addition is favoured", "Both"]), correct:0},
+        {id:125, q:"Friedel-Crafts acylation: benzene + acyl chloride (RCOCl) with AlCl₃ gives ketone.", a:shuffleArray(["Yes", "No", "Gives alcohol", "Gives acid"]), correct:0},
+        {id:126, q:"Friedel-Crafts alkylation: benzene + alkyl halide (RCl) with AlCl₃ gives alkylbenzene. But polyalkylation occurs.", a:shuffleArray(["Yes", "No", "Only mono", "No reaction"]), correct:0},
+        {id:127, q:"Nitration of benzene gives nitrobenzene. The electrophile is NO₂⁺ (nitronium ion).", a:shuffleArray(["Yes", "No", "NO₃⁻", "HNO₃"]), correct:0},
+        {id:128, q:"Sulfonation: benzene + SO₃ (or H₂SO₄) gives benzenesulfonic acid. This is reversible.", a:shuffleArray(["Yes", "No", "Irreversible", "Only with SO₃"]), correct:0},
+        {id:129, q:"Nitrobenzene on reduction with Sn/HCl gives aniline (C₆H₅NH₂).", a:shuffleArray(["Yes", "No", "Phenol", "Toluene"]), correct:0},
+        {id:130, q:"Aniline on diazotisation (NaNO₂/HCl at 0-5°C) gives benzenediazonium chloride.", a:shuffleArray(["Yes", "No", "Gives phenol", "Gives nitrobenzene"]), correct:0},
+        {id:131, q:"Benzenediazonium chloride gives phenol when warmed with water (hydrolysis).", a:shuffleArray(["Yes", "No", "Aniline", "Chlorobenzene"]), correct:0},
+        {id:132, q:"Sandmeyer reaction: diazonium salt with CuCl gives chlorobenzene, with CuBr gives bromobenzene, with CuCN gives benzonitrile.", a:shuffleArray(["Yes", "No", "Only CuCl", "Only CuBr"]), correct:0},
+        {id:133, q:"Cumene (isopropylbenzene) is oxidised to cumene hydroperoxide, which on acid treatment gives phenol and acetone.", a:shuffleArray(["Yes", "No", "Phenol only", "Acetone only"]), correct:0},
+        {id:134, q:"Phenol is more acidic than alcohol because phenoxide ion is resonance stabilised.", a:shuffleArray(["Yes", "No", "Alcohol more acidic", "Equal"]), correct:0},
+        {id:135, q:"Carboxylic acids are acidic because carboxylate ion is resonance stabilised (two equivalent structures).", a:shuffleArray(["Yes", "No", "Only one structure", "No resonance"]), correct:0},
+        {id:136, q:"Formic acid (HCOOH) is stronger than acetic acid because methyl group is electron donating.", a:shuffleArray(["Yes", "No", "Acetic is stronger", "Equal"]), correct:0},
+        // FIXED: Simplified Q137 to avoid internal double quotes
+        {id:137, q:"Which is stronger acid: formic acid or benzoic acid?", a:shuffleArray(["Formic acid stronger", "Benzoic acid stronger", "Equal", "Cannot compare"]), correct:0},
+        {id:138, q:"p-Nitrobenzoic acid is stronger than benzoic acid because NO₂ is strong electron withdrawing.", a:shuffleArray(["Yes", "No", "p-Methyl is stronger", "Equal"]), correct:0},
+        {id:139, q:"p-Methylbenzoic acid is weaker than benzoic acid because CH₃ is electron donating (hyperconjugation).", a:shuffleArray(["Yes", "No", "Stronger", "Equal"]), correct:0},
+        {id:140, q:"Esterification: carboxylic acid + alcohol ⇌ ester + H₂O. The reaction is acid-catalysed and reversible.", a:shuffleArray(["Yes", "No", "Irreversible", "Base-catalysed"]), correct:0},
+        {id:141, q:"Saponification: ester + NaOH → carboxylate salt + alcohol. It is irreversible and used in soap making.", a:shuffleArray(["Yes", "No", "Only acid", "Only alcohol"]), correct:0},
+        {id:142, q:"Soaps are sodium salts of long-chain fatty acids (e.g., sodium stearate). They are anionic surfactants.", a:shuffleArray(["Yes", "No", "Cationic", "Non-ionic"]), correct:0},
+        {id:143, q:"Detergents are sodium alkylbenzene sulfonates. They are also anionic surfactants and work in hard water.", a:shuffleArray(["Yes", "No", "Only in soft", "They form scum"]), correct:0},
+        {id:144, q:"Hard water contains Ca²⁺ and Mg²⁺. Soap forms curdy precipitate (scum) with them, but detergents do not.", a:shuffleArray(["Yes", "No", "Detergents also precipitate", "Soap soluble"]), correct:0},
+        {id:145, q:"Biodegradable detergents have linear alkyl chains. They are degraded by bacteria.", a:shuffleArray(["Yes", "No", "Branched chains", "Toxic"]), correct:0},
+        {id:146, q:"Non-biodegradable detergents with branched chains cause water pollution and foam in rivers.", a:shuffleArray(["Yes", "No", "They are safe", "They degrade fast"]), correct:0},
+        {id:147, q:"Polyvinyl chloride (PVC) is used in pipes and flooring. It is made from vinyl chloride (CH₂=CHCl).", a:shuffleArray(["Yes", "No", "PE", "PP"]), correct:0},
+        {id:148, q:"Teflon (PTFE) is used in non-stick pans. It is made from tetrafluoroethylene (CF₂=CF₂).", a:shuffleArray(["Yes", "No", "PE", "PP"]), correct:0},
+        {id:149, q:"Polystyrene is used in packaging and disposable cups. It is made from styrene (C₆H₅CH=CH₂).", a:shuffleArray(["Yes", "No", "Vinyl chloride", "Acrylonitrile"]), correct:0},
+        {id:150, q:"Nylon-6,6 is a polyamide made from adipic acid (hexanedioic acid) and hexamethylenediamine.", a:shuffleArray(["Yes", "No", "Caprolactam", "Glycol"]), correct:0},
+        // 151-180
+        {id:151, q:"Polyester (PET) is used in bottles. It is made from terephthalic acid and ethylene glycol.", a:shuffleArray(["Yes", "No", "Adipic acid", "Phenol"]), correct:0},
+        {id:152, q:"Bakelite is a thermosetting polymer made from phenol and formaldehyde. It is used in electrical switches.", a:shuffleArray(["Yes", "No", "Melamine", "Urea"]), correct:0},
+        {id:153, q:"Buna-S is a synthetic rubber made from butadiene and styrene. It is used in tires.", a:shuffleArray(["Yes", "No", "Buna-N", "Neoprene"]), correct:0},
+        {id:154, q:"Neoprene is a synthetic rubber made from chloroprene. It is resistant to oils and chemicals.", a:shuffleArray(["Yes", "No", "Buna-S", "Polybutadiene"]), correct:0},
+        {id:155, q:"Vulcanization of rubber involves heating with sulphur. It creates cross-links and increases strength.", a:shuffleArray(["Yes", "No", "Oxygen", "Hydrogen"]), correct:0},
+        {id:156, q:"Glucose is a monosaccharide with formula C₆H₁₂O₆. It is a reducing sugar due to free aldehyde group.", a:shuffleArray(["Yes", "No", "Fructose", "Sucrose"]), correct:0},
+        {id:157, q:"Sucrose (table sugar) is a disaccharide composed of glucose and fructose. It is non-reducing because both anomeric carbons are bonded.", a:shuffleArray(["Yes", "No", "It is reducing", "It is monosaccharide"]), correct:0},
+        {id:158, q:"Starch is a polymer of α-D-glucose units. It is digestible by humans (amylase).", a:shuffleArray(["Yes", "No", "Cellulose", "Glycogen"]), correct:0},
+        {id:159, q:"Cellulose is a polymer of β-D-glucose. It is not digestible by humans (no cellulase).", a:shuffleArray(["Yes", "No", "Starch", "Glycogen"]), correct:0},
+        {id:160, q:"Proteins are polymers of amino acids linked by peptide bonds. They have primary to quaternary structure.", a:shuffleArray(["Yes", "No", "Only primary", "No structure"]), correct:0},
+        {id:161, q:"DNA is double-helical, contains deoxyribose sugar, and has bases A, T, G, C.", a:shuffleArray(["Yes", "No", "RNA has T", "Protein"]), correct:0},
+        {id:162, q:"RNA is single-stranded, contains ribose, and has bases A, U, G, C (U instead of T).", a:shuffleArray(["Yes", "No", "DNA has U", "Both have T"]), correct:0},
+        {id:163, q:"Fats and oils are triglycerides (esters of glycerol with fatty acids). Oils are liquid (unsaturated).", a:shuffleArray(["Yes", "No", "Fats are liquid", "Oils are solid"]), correct:0},
+        {id:164, q:"Saponification of triglycerides with NaOH yields glycerol and sodium salts (soap).", a:shuffleArray(["Yes", "No", "Acid", "Aldehyde"]), correct:0},
+        {id:165, q:"Haber process: N₂ + 3H₂ ⇌ 2NH₃, ΔH = -92 kJ. High pressure (200 atm) favours product.", a:shuffleArray(["Yes", "No", "Low pressure", "No effect"]), correct:0},
+        {id:166, q:"Haber process uses Fe catalyst with promoters (K₂O, Al₂O₃). Temperature 400-450°C (compromise).", a:shuffleArray(["Yes", "No", "600°C", "100°C"]), correct:0},
+        {id:167, q:"Contact process: 2SO₂ + O₂ ⇌ 2SO₃, ΔH = -198 kJ. High P and low T favour product. Catalyst V₂O₅.", a:shuffleArray(["Yes", "No", "Pt", "Fe"]), correct:0},
+        {id:168, q:"Ostwald process: 4NH₃ + 5O₂ → 4NO + 6H₂O (Pt catalyst). NO is oxidised to NO₂, then dissolved in water to HNO₃.", a:shuffleArray(["Yes", "No", "Direct to HNO₃", "Only NO"]), correct:0},
+        {id:169, q:"Solvay process: NaCl + NH₃ + CO₂ + H₂O → NaHCO₃ + NH₄Cl. NaHCO₃ is heated to give Na₂CO₃.", a:shuffleArray(["Yes", "No", "Direct Na₂CO₃", "NaOH"]), correct:0},
+        {id:170, q:"Urea is NH₂CONH₂, manufactured from NH₃ and CO₂ at high P and T. It contains 46% nitrogen.", a:shuffleArray(["Yes", "No", "35%", "50%"]), correct:0},
+        {id:171, q:"Superphosphate is Ca(H₂PO₄)₂·CaSO₄, made from phosphate rock and H₂SO₄. It is a phosphorus fertiliser.", a:shuffleArray(["Yes", "No", "Ammonium phosphate", "Urea"]), correct:0},
+        {id:172, q:"Ammonium nitrate (NH₄NO₃) is a nitrogen fertiliser, also explosive when mixed with fuel.", a:shuffleArray(["Yes", "No", "Ammonium sulphate", "Urea"]), correct:0},
+        {id:173, q:"TNT is trinitrotoluene. It is made by nitration of toluene with a mixture of HNO₃ and H₂SO₄.", a:shuffleArray(["Yes", "No", "Benzene", "Phenol"]), correct:0},
+        {id:174, q:"RDX (cyclotrimethylene trinitramine) is a powerful explosive. It is also called cyclonite.", a:shuffleArray(["Yes", "No", "TNT", "PETN"]), correct:0},
+        {id:175, q:"Green chemistry aims to reduce hazardous substances. Supercritical CO₂ is used as a green solvent.", a:shuffleArray(["Yes", "No", "Water", "Benzene"]), correct:0},
+        {id:176, q:"Atom economy = (mass of desired product / total mass of reactants) × 100. Higher atom economy means less waste.", a:shuffleArray(["Yes", "No", "Yield", "Conversion"]), correct:0},
+        {id:177, q:"Benzene is a known carcinogen. It is present in cigarette smoke and petroleum.", a:shuffleArray(["Yes", "No", "Toluene", "Phenol"]), correct:0},
+        {id:178, q:"Carbon monoxide (CO) is toxic because it binds to hemoglobin with higher affinity than O₂, forming carboxyhemoglobin.", a:shuffleArray(["Yes", "No", "CO₂", "NO"]), correct:0},
+        {id:179, q:"SO₂ causes acid rain by forming H₂SO₃ and H₂SO₄. It also causes respiratory problems.", a:shuffleArray(["Yes", "No", "Only H₂SO₃", "Only H₂SO₄"]), correct:0},
+        {id:180, q:"NOx (nitrogen oxides) also cause acid rain and photochemical smog. They are produced in combustion engines.", a:shuffleArray(["Yes", "No", "Only SO₂", "Only CO₂"]), correct:0},
+        // 181-200
+        {id:181, q:"Ozone layer depletion is caused by CFCs (chlorofluorocarbons) which release Cl radicals.", a:shuffleArray(["Yes", "No", "CO₂", "SO₂"]), correct:0},
+        {id:182, q:"Greenhouse gases (CO₂, CH₄, N₂O) trap heat and cause global warming. CO₂ is the major one.", a:shuffleArray(["Yes", "No", "O₂", "N₂"]), correct:0},
+        {id:183, q:"Kyoto Protocol (1997) aimed to reduce greenhouse gas emissions. It was replaced by Paris Agreement.", a:shuffleArray(["Yes", "No", "Montreal Protocol", "Durban"]), correct:0},
+        {id:184, q:"Montreal Protocol (1987) phased out ozone-depleting substances like CFCs.", a:shuffleArray(["Yes", "No", "Kyoto", "Paris"]), correct:0},
+        {id:185, q:"Addition polymers are formed without loss of small molecules (e.g., PE, PP, PVC).", a:shuffleArray(["Yes", "No", "Condensation polymers", "Both"]), correct:0},
+        {id:186, q:"Condensation polymers eliminate small molecules like H₂O or HCl (e.g., Nylon, Polyester, Bakelite).", a:shuffleArray(["Yes", "No", "Addition", "No elimination"]), correct:0},
+        {id:187, q:"Thermoplastics can be remoulded (e.g., PE, PP, PVC, Nylon). They have linear or branched chains.", a:shuffleArray(["Yes", "No", "Thermosets", "Elastomers"]), correct:0},
+        {id:188, q:"Thermosets cannot be remoulded (e.g., Bakelite, epoxy resins). They have cross-linked structure.", a:shuffleArray(["Yes", "No", "Thermoplastics", "Elastomers"]), correct:0},
+        {id:189, q:"Elastomers are rubber-like materials with cross-linking. Vulcanisation increases cross-linking.", a:shuffleArray(["Yes", "No", "Thermoplastics", "Thermosets"]), correct:0},
+        {id:190, q:"Synthetic rubber (Buna-S, Neoprene) is used in tires, hoses, and seals.", a:shuffleArray(["Yes", "No", "Natural rubber only", "Both"]), correct:0},
+        {id:191, q:"Biodegradable polymers are environmentally friendly. PLA (polylactic acid) is one example.", a:shuffleArray(["Yes", "No", "PE", "PP"]), correct:0},
+        {id:192, q:"Compostable plastics degrade into CO₂, water, and biomass under composting conditions.", a:shuffleArray(["Yes", "No", "Non-degradable", "Toxic"]), correct:0},
+        {id:193, q:"Microwave irradiation is used in green chemistry to accelerate reactions and reduce solvent use.", a:shuffleArray(["Yes", "No", "Conventional heating", "Ultrasound"]), correct:0},
+        {id:194, q:"Ionic liquids are used as green solvents due to their low vapour pressure and recyclability.", a:shuffleArray(["Yes", "No", "Organic solvents", "Water"]), correct:0},
+        {id:195, q:"Biocatalysts (enzymes) are used in green chemistry for specific and mild reactions.", a:shuffleArray(["Yes", "No", "Chemical catalysts", "Acid"]), correct:0},
+        {id:196, q:"Supercritical CO₂ is used in decaffeination of coffee and as a solvent for extraction.", a:shuffleArray(["Yes", "No", "Water", "Hexane"]), correct:0},
+        {id:197, q:"Nanoparticles are used in catalysis and drug delivery. Their high surface area is beneficial.", a:shuffleArray(["Yes", "No", "Bulk materials", "No effect"]), correct:0},
+        {id:198, q:"Polymers are used in drug delivery systems (controlled release). They are biocompatible.", a:shuffleArray(["Yes", "No", "Toxic", "No use"]), correct:0},
+        {id:199, q:"Hydrogels are cross-linked polymer networks that can absorb water. Used in contact lenses and wound dressings.", a:shuffleArray(["Yes", "No", "Plastics", "Elastomers"]), correct:0},
+        {id:200, q:"Conducting polymers (e.g., polyacetylene, polyaniline) are used in organic electronics. They are semiconductors.", a:shuffleArray(["Yes", "No", "Insulators", "Conductors"]), correct:0}
+    ];
+
+    // ============================================================
+    // CORRECT VALUES MAPPING (for Level-5)
+    // ============================================================
+    const correctValues = {
+        1: "3s² stable", 2: "Yes", 3: "Less repulsion in Cl", 4: "Unstable p⁴",
+        5: "Different forces", 6: "4f effect", 7: "6s² lone pair",
+        8: "Ionic", 9: "Smaller size", 10: "O-H", 11: "More nuclear charge",
+        12: "F⁻", 13: "O²⁻", 14: "Core 2p⁶ stable", 15: "Full d¹⁰",
+        16: "Polar covalent", 17: "Cl", 18: "Na", 19: "s", 20: "2.2",
+        21: "Li⁺ high polarising power", 22: "Disproportionation", 23: "Na₂CO₃",
+        24: "Calcination", 25: "Cl₂", 26: "Larger volume", 27: "Stronger metallic bond",
+        28: "4", 29: "Smaller Mg", 30: "Yes", 31: "Chain", 32: "K",
+        33: "Mg", 34: "BeCO₃", 35: "Lime", 36: "Yes", 37: "Decreasing lattice energy",
+        38: "Yes", 39: "Yes", 40: "Yes",
+        41: "It is Lewis acid", 42: "3-centre-2-electron", 43: "Yes",
+        44: "Yes", 45: "Larger size of Si", 46: "Yes", 47: "Yes", 48: "Yes",
+        49: "Yes", 50: "N₂", 51: "Yes", 52: "Yes", 53: "Yes", 54: "Yes",
+        55: "Yes", 56: "Yes", 57: "Yes", 58: "Yes", 59: "Yes", 60: "Yes",
+        61: "Yes", 62: "Yes", 63: "Yes", 64: "Yes", 65: "Yes", 66: "Yes",
+        67: "Yes", 68: "Yes", 69: "Yes", 70: "Yes", 71: "Yes", 72: "Yes",
+        73: "Yes", 74: "Yes", 75: "Yes", 76: "Yes", 77: "Yes", 78: "Yes",
+        79: "Yes", 80: "Yes",
+        81: "Yes", 82: "Yes", 83: "Yes", 84: "Yes", 85: "Yes", 86: "Yes",
+        87: "Yes", 88: "Yes", 89: "Yes", 90: "√3", 91: "√35", 92: "Yes",
+        93: "Yes", 94: "6", 95: "+2", 96: "0", 97: "Yes", 98: "Cu and Zn",
+        99: "Cu and Sn", 100: "Yes", 101: "Yes", 102: "Yes", 103: "Yes",
+        104: "Yes", 105: "W", 106: "Ag", 107: "Yes", 108: "Yes", 109: "Yes",
+        110: "Yes",
+        111: "Yes", 112: "Yes", 113: "Yes", 114: "Yes", 115: "Yes",
+        116: "Yes", 117: "Yes", 118: "Yes", 119: "Yes", 120: "Yes",
+        121: "Acetaldehyde", 122: "Acetone + HCHO", 123: "Yes", 124: "Yes",
+        125: "Yes", 126: "Yes", 127: "Yes", 128: "Yes", 129: "Yes",
+        130: "Yes", 131: "Yes", 132: "Yes", 133: "Yes", 134: "Yes",
+        135: "Yes", 136: "Yes", 137: "Formic acid stronger", 138: "Yes",
+        139: "Yes", 140: "Yes", 141: "Yes", 142: "Yes", 143: "Yes",
+        144: "Yes", 145: "Yes", 146: "Yes", 147: "Yes", 148: "Yes",
+        149: "Yes", 150: "Yes",
+        151: "Yes", 152: "Yes", 153: "Yes", 154: "Yes", 155: "Yes",
+        156: "Yes", 157: "Yes", 158: "Yes", 159: "Yes", 160: "Yes",
+        161: "Yes", 162: "Yes", 163: "Yes", 164: "Yes", 165: "Yes",
+        166: "Yes", 167: "Yes", 168: "Yes", 169: "Yes", 170: "Yes",
+        171: "Yes", 172: "Yes", 173: "Yes", 174: "Yes", 175: "Yes",
+        176: "Yes", 177: "Yes", 178: "Yes", 179: "Yes", 180: "Yes",
+        181: "Yes", 182: "Yes", 183: "Yes", 184: "Yes", 185: "Yes",
+        186: "Yes", 187: "Yes", 188: "Yes", 189: "Yes", 190: "Yes",
+        191: "Yes", 192: "Yes", 193: "Yes", 194: "Yes", 195: "Yes",
+        196: "Yes", 197: "Yes", 198: "Yes", 199: "Yes", 200: "Yes"
+    };
+
+    // Apply correct answers
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const ans = correctValues[q.id];
+            const idx = q.a.indexOf(ans);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // TEST ENGINE (same as Level-4)
+    // ============================================================
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 7200, timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ(); timer();
+    }
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT"; yourAns = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG"; yourAns = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED"; yourAns = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${qId}</td><td>${q.q}</td><td style="color:${color}; font-weight:bold;">${status}</td><td style="color:${color}; font-weight:bold;">${yourAns}</td><td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

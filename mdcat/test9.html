@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MDCAT Test – 09</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 40px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 12px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧪 MDCAT Test – 09</h1>
+        <h2>Full Syllabus · 180 MCQs</h2>
+        <p class="subtitle">Biology 81 · Chemistry 45 · Physics 36 · English 9 · Logical 9</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 3 Hours (180 Minutes)</p>
+            <p><b>📝 Total Questions:</b> 180</p>
+            <p><b>🏆 Total Marks:</b> 180</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-green">0</span> (No Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p><b>📚 Subjects:</b> Biology (81) · Chemistry (45) · Physics (36) · English (9) · Logical (9)</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+            <p style="color: #FF6B6B; font-weight: bold; margin-top: 6px;">❌ Calculator Not Allowed</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">03:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">180</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All 180 Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // TEST-9: 180 UNIQUE MCQs
+    // Biology: 1–81, Chemistry: 82–126, Physics: 127–162, English: 163–171, Logical: 172–180
+    // ================================================================
+    const mcqs = [];
+
+    // ----- BIOLOGY (ID 1–81) - SET 9 -----
+    const bio = [
+        {id: 1, q: "The monomer of proteins is:", a: ["Amino acids", "Nucleotides", "Monosaccharides", "Fatty acids"], correct: 0},
+        {id: 2, q: "The monomer of nucleic acids is:", a: ["Nucleotides", "Amino acids", "Monosaccharides", "Fatty acids"], correct: 0},
+        {id: 3, q: "The monomer of carbohydrates is:", a: ["Monosaccharides", "Amino acids", "Nucleotides", "Fatty acids"], correct: 0},
+        {id: 4, q: "The monomer of lipids is:", a: ["Fatty acids and glycerol", "Amino acids", "Nucleotides", "Monosaccharides"], correct: 0},
+        {id: 5, q: "The bond that joins amino acids is:", a: ["Peptide bond", "Hydrogen bond", "Ionic bond", "Covalent bond"], correct: 0},
+        {id: 6, q: "The bond that joins nucleotides is:", a: ["Phosphodiester bond", "Peptide bond", "Hydrogen bond", "Ionic bond"], correct: 0},
+        {id: 7, q: "The bond that joins monosaccharides is:", a: ["Glycosidic bond", "Peptide bond", "Phosphodiester bond", "Hydrogen bond"], correct: 0},
+        {id: 8, q: "The bond that joins fatty acids and glycerol is:", a: ["Ester bond", "Peptide bond", "Glycosidic bond", "Phosphodiester bond"], correct: 0},
+        {id: 9, q: "The primary structure of a protein is the:", a: ["Sequence of amino acids", "Folding of polypeptide", "Alpha helix", "Beta sheet"], correct: 0},
+        {id: 10, q: "The secondary structure of a protein includes:", a: ["Alpha helix and beta sheet", "Sequence of amino acids", "Three-dimensional shape", "Subunit arrangement"], correct: 0},
+        {id: 11, q: "The tertiary structure of a protein is the:", a: ["Three-dimensional shape", "Sequence of amino acids", "Alpha helix and beta sheet", "Subunit arrangement"], correct: 0},
+        {id: 12, q: "The quaternary structure of a protein is the:", a: ["Arrangement of subunits", "Sequence of amino acids", "Three-dimensional shape", "Alpha helix and beta sheet"], correct: 0},
+        {id: 13, q: "The DNA double helix is held together by:", a: ["Hydrogen bonds", "Peptide bonds", "Phosphodiester bonds", "Glycosidic bonds"], correct: 0},
+        {id: 14, q: "The base pairing in DNA is:", a: ["A-T, G-C", "A-U, G-C", "A-T, G-U", "A-G, T-C"], correct: 0},
+        {id: 15, q: "The base pairing in RNA is:", a: ["A-U, G-C", "A-T, G-C", "A-T, G-U", "A-G, T-C"], correct: 0},
+        {id: 16, q: "The nitrogenous bases in DNA are:", a: ["A, T, G, C", "A, U, G, C", "A, T, G, U", "A, G, C, U"], correct: 0},
+        {id: 17, q: "The nitrogenous bases in RNA are:", a: ["A, U, G, C", "A, T, G, C", "A, T, G, U", "A, G, C, U"], correct: 0},
+        {id: 18, q: "The sugar in DNA is:", a: ["Deoxyribose", "Ribose", "Glucose", "Fructose"], correct: 0},
+        {id: 19, q: "The sugar in RNA is:", a: ["Ribose", "Deoxyribose", "Glucose", "Fructose"], correct: 0},
+        {id: 20, q: "The first step of DNA replication is:", a: ["Unwinding of DNA", "Synthesis of new strand", "Proofreading", "Ligation"], correct: 0},
+        {id: 21, q: "The enzyme that unwinds DNA is:", a: ["Helicase", "Polymerase", "Ligase", "Primase"], correct: 0},
+        {id: 22, q: "The enzyme that synthesizes DNA is:", a: ["Polymerase", "Helicase", "Ligase", "Primase"], correct: 0},
+        {id: 23, q: "The enzyme that joins DNA fragments is:", a: ["Ligase", "Helicase", "Polymerase", "Primase"], correct: 0},
+        {id: 24, q: "The enzyme that synthesizes RNA primers is:", a: ["Primase", "Helicase", "Polymerase", "Ligase"], correct: 0},
+        {id: 25, q: "The DNA replication is:", a: ["Semiconservative", "Conservative", "Dispersive", "All of the above"], correct: 0},
+        {id: 26, q: "The transcription is the synthesis of:", a: ["RNA from DNA", "DNA from RNA", "Protein from RNA", "RNA from protein"], correct: 0},
+        {id: 27, q: "The translation is the synthesis of:", a: ["Protein from mRNA", "mRNA from DNA", "DNA from mRNA", "mRNA from protein"], correct: 0},
+        {id: 28, q: "The codon is a sequence of ________ nucleotides:", a: ["Three", "One", "Two", "Four"], correct: 0},
+        {id: 29, q: "The anticodon is found on:", a: ["tRNA", "mRNA", "rRNA", "DNA"], correct: 0},
+        {id: 30, q: "The start codon is:", a: ["AUG", "UAA", "UAG", "UGA"], correct: 0},
+        {id: 31, q: "The stop codons are:", a: ["UAA, UAG, UGA", "AUG, UAA, UAG", "UGA, AUG, UAA", "UAG, UGA, AUG"], correct: 0},
+        {id: 32, q: "The mutation is a change in:", a: ["DNA sequence", "Protein sequence", "RNA sequence", "Lipid sequence"], correct: 0},
+        {id: 33, q: "The point mutation involves:", a: ["A single nucleotide", "Multiple nucleotides", "A chromosome", "A gene"], correct: 0},
+        {id: 34, q: "The frameshift mutation involves:", a: ["Insertion or deletion of nucleotides", "Substitution of nucleotides", "Duplication of nucleotides", "Inversion of nucleotides"], correct: 0},
+        {id: 35, q: "The chromosome mutation involves:", a: ["Changes in chromosome structure", "Changes in nucleotide sequence", "Changes in gene expression", "Changes in protein structure"], correct: 0},
+        {id: 36, q: "The gene is a segment of DNA that codes for:", a: ["A protein", "A lipid", "A carbohydrate", "A nucleic acid"], correct: 0},
+        {id: 37, q: "The allele is a variant of a:", a: ["Gene", "Chromosome", "Protein", "Enzyme"], correct: 0},
+        {id: 38, q: "The genotype is the:", a: ["Genetic makeup", "Physical appearance", "Environmental influence", "Behavioral trait"], correct: 0},
+        {id: 39, q: "The phenotype is the:", a: ["Physical appearance", "Genetic makeup", "Environmental influence", "Behavioral trait"], correct: 0},
+        {id: 40, q: "The dominant allele is expressed when:", a: ["At least one copy is present", "Two copies are present", "No copies are present", "One copy is present"], correct: 0},
+        {id: 41, q: "The recessive allele is expressed when:", a: ["Two copies are present", "One copy is present", "No copies are present", "At least one copy is present"], correct: 0},
+        {id: 42, q: "The Mendel's law of segregation states that:", a: ["Alleles separate during gamete formation", "Alleles are inherited together", "Alleles are independent", "Alleles are dominant"], correct: 0},
+        {id: 43, q: "The Mendel's law of independent assortment states that:", a: ["Alleles of different genes segregate independently", "Alleles of the same gene segregate independently", "All alleles are inherited together", "Alleles are dominant"], correct: 0},
+        {id: 44, q: "The Punnett square is used to:", a: ["Predict the outcome of a cross", "Determine the genotype of an organism", "Determine the phenotype of an organism", "All of the above"], correct: 3},
+        {id: 45, q: "The sex chromosomes in humans are:", a: ["X and Y", "XX and XY", "X and X", "Y and Y"], correct: 0},
+        {id: 46, q: "The male sex chromosomes are:", a: ["XY", "XX", "X", "Y"], correct: 0},
+        {id: 47, q: "The female sex chromosomes are:", a: ["XX", "XY", "X", "Y"], correct: 0},
+        {id: 48, q: "The sex-linked traits are carried on:", a: ["X chromosome", "Y chromosome", "Autosomes", "Both X and Y"], correct: 0},
+        {id: 49, q: "The pedigree analysis is used to:", a: ["Study inheritance patterns", "Determine genotype", "Determine phenotype", "All of the above"], correct: 0},
+        {id: 50, q: "The karyotype is:", a: ["A picture of chromosomes", "A picture of genes", "A picture of proteins", "A picture of cells"], correct: 0},
+        {id: 51, q: "The Down syndrome is caused by:", a: ["Trisomy 21", "Trisomy 18", "Trisomy 13", "Monosomy X"], correct: 0},
+        {id: 52, q: "The Turner syndrome is caused by:", a: ["Monosomy X", "Trisomy 21", "Trisomy 18", "Trisomy 13"], correct: 0},
+        {id: 53, q: "The Klinefelter syndrome is caused by:", a: ["XXY", "XXX", "XYY", "Monosomy X"], correct: 0},
+        {id: 54, q: "The DNA fingerprinting is used for:", a: ["Identification", "Gene therapy", "Cloning", "All of the above"], correct: 0},
+        {id: 55, q: "The PCR is used to:", a: ["Amplify DNA", "Cut DNA", "Join DNA", "Sequence DNA"], correct: 0},
+        {id: 56, q: "The gel electrophoresis is used to:", a: ["Separate DNA fragments", "Amplify DNA", "Cut DNA", "Join DNA"], correct: 0},
+        {id: 57, q: "The restriction enzymes are used to:", a: ["Cut DNA", "Amplify DNA", "Join DNA", "Sequence DNA"], correct: 0},
+        {id: 58, q: "The DNA ligase is used to:", a: ["Join DNA fragments", "Cut DNA", "Amplify DNA", "Sequence DNA"], correct: 0},
+        {id: 59, q: "The recombinant DNA technology involves:", a: ["Combining DNA from different sources", "Amplifying DNA", "Sequencing DNA", "Cutting DNA"], correct: 0},
+        {id: 60, q: "The transgenic organisms have:", a: ["Foreign DNA", "No DNA", "Only their own DNA", "Mutated DNA"], correct: 0},
+        {id: 61, q: "The gene therapy is used to:", a: ["Treat genetic disorders", "Prevent genetic disorders", "Diagnose genetic disorders", "All of the above"], correct: 0},
+        {id: 62, q: "The cloning is the production of:", a: ["Identical copies", "Different copies", "Mutated copies", "Incomplete copies"], correct: 0},
+        {id: 63, q: "The stem cell therapy is used to:", a: ["Treat diseases", "Prevent diseases", "Diagnose diseases", "All of the above"], correct: 0},
+        {id: 64, q: "The human genome project was completed in:", a: ["2003", "2000", "2010", "1995"], correct: 0},
+        {id: 65, q: "The human genome has approximately ________ genes:", a: ["20,000-25,000", "50,000-60,000", "100,000-150,000", "200,000-250,000"], correct: 0},
+        {id: 66, q: "The bioinformatics involves:", a: ["Computational analysis of biological data", "Biological experiments", "Chemical analysis", "Physical analysis"], correct: 0},
+        {id: 67, q: "The proteomics is the study of:", a: ["Proteins", "Genes", "Lipids", "Carbohydrates"], correct: 0},
+        {id: 68, q: "The metabolomics is the study of:", a: ["Metabolites", "Genes", "Proteins", "Lipids"], correct: 0},
+        {id: 69, q: "The transcriptomics is the study of:", a: ["Transcripts", "Genes", "Proteins", "Metabolites"], correct: 0},
+        {id: 70, q: "The genomics is the study of:", a: ["Genomes", "Genes", "Proteins", "Metabolites"], correct: 0},
+        {id: 71, q: "The DNA microarray is used to:", a: ["Study gene expression", "Amplify DNA", "Sequence DNA", "Cut DNA"], correct: 0},
+        {id: 72, q: "The RNA interference is used to:", a: ["Silence genes", "Amplify genes", "Cut genes", "Join genes"], correct: 0},
+        {id: 73, q: "The CRISPR-Cas9 is a:", a: ["Gene editing tool", "Gene amplification tool", "Gene sequencing tool", "Gene cloning tool"], correct: 0},
+        {id: 74, q: "The ethical issues in genetics include:", a: ["Privacy and discrimination", "Health and safety", "Environment and ecology", "All of the above"], correct: 0},
+        {id: 75, q: "The GMOs are:", a: ["Genetically modified organisms", "Genetically mutated organisms", "Genetically cloned organisms", "Genetically sequenced organisms"], correct: 0},
+        {id: 76, q: "The genetically modified crops are:", a: ["Crops with foreign DNA", "Crops with no DNA", "Crops with only their own DNA", "Crops with mutated DNA"], correct: 0},
+        {id: 77, q: "The Bt crops are engineered to:", a: ["Resist pests", "Resist herbicides", "Produce more yield", "All of the above"], correct: 0},
+        {id: 78, q: "The herbicide-resistant crops are engineered to:", a: ["Resist herbicides", "Resist pests", "Produce more yield", "All of the above"], correct: 0},
+        {id: 79, q: "The genetically modified animals are used for:", a: ["Research and production of proteins", "Food production", "Organ transplantation", "All of the above"], correct: 0},
+        {id: 80, q: "The pharming is the production of:", a: ["Pharmaceuticals in plants", "Food in plants", "Fuel in plants", "All of the above"], correct: 0},
+        {id: 81, q: "The bioremediation is the use of organisms to:", a: ["Clean up pollution", "Produce food", "Produce fuel", "All of the above"], correct: 0}
+    ];
+
+    // ----- CHEMISTRY (ID 82–126) - SET 9 -----
+    const chem = [
+        {id: 82, q: "The atomic number of nitrogen is:", a: ["7", "6", "8", "10"], correct: 0},
+        {id: 83, q: "The chemical formula of ammonia is:", a: ["NH3", "N2H4", "NH4", "N2H2"], correct: 0},
+        {id: 84, q: "The pH of a basic solution is:", a: ["Greater than 7", "Less than 7", "Equal to 7", "Between 0 and 7"], correct: 0},
+        {id: 85, q: "Which gas is used in the welding of metals?", a: ["Acetylene", "Methane", "Propane", "Butane"], correct: 0},
+        {id: 86, q: "The atomic number of phosphorus is:", a: ["15", "14", "16", "13"], correct: 0},
+        {id: 87, q: "The chemical formula of phosphoric acid is:", a: ["H3PO4", "H3PO3", "H4PO4", "H2PO4"], correct: 0},
+        {id: 88, q: "Which acid is used in the manufacture of fertilizers?", a: ["Nitric acid", "Sulfuric acid", "Hydrochloric acid", "Acetic acid"], correct: 0},
+        {id: 89, q: "The atomic number of aluminum is:", a: ["13", "12", "14", "11"], correct: 0},
+        {id: 90, q: "The chemical formula of aluminum oxide is:", a: ["Al2O3", "AlO", "Al2O", "AlO2"], correct: 0},
+        {id: 91, q: "Which gas is used in the production of ammonia?", a: ["Nitrogen and Hydrogen", "Oxygen and Hydrogen", "Nitrogen and Oxygen", "Carbon dioxide"], correct: 0},
+        {id: 92, q: "The atomic number of chlorine is:", a: ["17", "15", "16", "18"], correct: 0},
+        {id: 93, q: "The chemical formula of hydrochloric acid is:", a: ["HCl", "HClO4", "HClO3", "HClO2"], correct: 0},
+        {id: 94, q: "Which acid is found in the stomach?", a: ["Hydrochloric acid", "Sulfuric acid", "Nitric acid", "Acetic acid"], correct: 0},
+        {id: 95, q: "The atomic number of calcium is:", a: ["20", "19", "21", "18"], correct: 0},
+        {id: 96, q: "The chemical formula of calcium sulfate is:", a: ["CaSO4", "CaS", "CaO", "CaCl2"], correct: 0},
+        {id: 97, q: "Which acid is present in vinegar?", a: ["Acetic acid", "Hydrochloric acid", "Sulfuric acid", "Nitric acid"], correct: 0},
+        {id: 98, q: "The atomic number of potassium is:", a: ["19", "18", "20", "17"], correct: 0},
+        {id: 99, q: "The chemical formula of potassium nitrate is:", a: ["KNO3", "KNO2", "K2NO3", "KNO"], correct: 0},
+        {id: 100, q: "Which element is most abundant in the atmosphere?", a: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"], correct: 0},
+        {id: 101, q: "The atomic number of sodium is:", a: ["11", "10", "12", "9"], correct: 0},
+        {id: 102, q: "The chemical formula of sodium nitrate is:", a: ["NaNO3", "NaNO2", "Na2NO3", "NaNO"], correct: 0},
+        {id: 103, q: "Which gas is known as laughing gas?", a: ["Nitrous oxide", "Oxygen", "Carbon dioxide", "Nitrogen"], correct: 0},
+        {id: 104, q: "The atomic number of iron is:", a: ["26", "25", "27", "28"], correct: 0},
+        {id: 105, q: "The chemical formula of iron(III) oxide is:", a: ["Fe2O3", "FeO", "Fe3O4", "Fe2O"], correct: 0},
+        {id: 106, q: "Which gas is used in fire extinguishers?", a: ["Carbon dioxide", "Oxygen", "Nitrogen", "Helium"], correct: 0},
+        {id: 107, q: "The atomic number of copper is:", a: ["29", "28", "30", "27"], correct: 0},
+        {id: 108, q: "The chemical formula of copper sulfate is:", a: ["CuSO4", "CuS", "CuO", "CuCl2"], correct: 0},
+        {id: 109, q: "Which acid is used in car batteries?", a: ["Sulfuric acid", "Hydrochloric acid", "Nitric acid", "Acetic acid"], correct: 0},
+        {id: 110, q: "The atomic number of zinc is:", a: ["30", "29", "31", "28"], correct: 0},
+        {id: 111, q: "The chemical formula of zinc oxide is:", a: ["ZnO", "ZnSO4", "ZnS", "ZnCl2"], correct: 0},
+        {id: 112, q: "Which element is used in the treatment of cancer?", a: ["Radium", "Uranium", "Plutonium", "Thorium"], correct: 0},
+        {id: 113, q: "The atomic number of silver is:", a: ["47", "46", "48", "45"], correct: 0},
+        {id: 114, q: "The chemical formula of silver chloride is:", a: ["AgCl", "AgNO3", "Ag2O", "Ag2SO4"], correct: 0},
+        {id: 115, q: "Which gas is used in the manufacture of plastics?", a: ["Ethene", "Methane", "Propane", "Butane"], correct: 0},
+        {id: 116, q: "The atomic number of gold is:", a: ["79", "78", "80", "77"], correct: 0},
+        {id: 117, q: "The chemical formula of gold chloride is:", a: ["AuCl3", "AuCl", "AuCl2", "Au2Cl"], correct: 0},
+        {id: 118, q: "Which acid is used in the manufacture of fertilizers?", a: ["Sulfuric acid", "Hydrochloric acid", "Nitric acid", "Acetic acid"], correct: 0},
+        {id: 119, q: "The atomic number of mercury is:", a: ["80", "79", "81", "78"], correct: 0},
+        {id: 120, q: "The chemical formula of mercuric chloride is:", a: ["HgCl2", "HgCl", "Hg2Cl2", "HgCl3"], correct: 0},
+        {id: 121, q: "Which gas is used in the Haber process?", a: ["Nitrogen and Hydrogen", "Oxygen and Hydrogen", "Nitrogen and Oxygen", "Carbon dioxide"], correct: 0},
+        {id: 122, q: "The atomic number of lead is:", a: ["82", "81", "83", "80"], correct: 0},
+        {id: 123, q: "The chemical formula of lead oxide is:", a: ["PbO", "PbO2", "Pb2O", "Pb3O4"], correct: 0},
+        {id: 124, q: "Which element is used in the production of nuclear energy?", a: ["Uranium", "Radium", "Plutonium", "Thorium"], correct: 0},
+        {id: 125, q: "The atomic number of neon is:", a: ["10", "9", "11", "8"], correct: 0},
+        {id: 126, q: "The chemical formula of neon gas is:", a: ["Ne", "Ne2", "NeO", "NeH"], correct: 0}
+    ];
+
+    // ----- PHYSICS (ID 127–162) - SET 9 -----
+    const phys = [
+        {id: 127, q: "The SI unit of power is:", a: ["Watt", "Joule", "Newton", "Pascal"], correct: 0},
+        {id: 128, q: "The SI unit of pressure is:", a: ["Pascal", "Newton", "Joule", "Watt"], correct: 0},
+        {id: 129, q: "The SI unit of frequency is:", a: ["Hertz", "Newton", "Joule", "Watt"], correct: 0},
+        {id: 130, q: "The SI unit of wavelength is:", a: ["Meter", "Second", "Kilogram", "Ampere"], correct: 0},
+        {id: 131, q: "The SI unit of speed is:", a: ["m/s", "km/h", "m/s²", "cm/s"], correct: 0},
+        {id: 132, q: "The SI unit of acceleration is:", a: ["m/s²", "m/s", "km/h²", "cm/s²"], correct: 0},
+        {id: 133, q: "The SI unit of mass is:", a: ["Kilogram", "Gram", "Pound", "Ounce"], correct: 0},
+        {id: 134, q: "The SI unit of time is:", a: ["Second", "Minute", "Hour", "Day"], correct: 0},
+        {id: 135, q: "The SI unit of length is:", a: ["Meter", "Kilometer", "Centimeter", "Millimeter"], correct: 0},
+        {id: 136, q: "1 km = ? m:", a: ["1000", "100", "10", "1"], correct: 0},
+        {id: 137, q: "1 kg = ? g:", a: ["1000", "100", "10", "1"], correct: 0},
+        {id: 138, q: "The acceleration due to gravity on Earth is approximately:", a: ["9.8 m/s²", "10 m/s", "9.8 m/s", "10 m/s²"], correct: 0},
+        {id: 139, q: "Newton's first law is also known as:", a: ["Law of inertia", "Law of acceleration", "Action-reaction", "Gravitation"], correct: 0},
+        {id: 140, q: "Newton's second law: F = ?", a: ["ma", "mv", "mgh", "m/t"], correct: 0},
+        {id: 141, q: "Newton's third law states:", a: ["Action=reaction", "F=ma", "Every body attracts", "Energy conserved"], correct: 0},
+        {id: 142, q: "Momentum = ?", a: ["mass×velocity", "mass×accel", "force×time", "force×dist"], correct: 0},
+        {id: 143, q: "Momentum unit is:", a: ["kg m/s", "N", "J", "W"], correct: 0},
+        {id: 144, q: "Impulse = ?", a: ["force×time", "mass×vel", "force×dist", "mass×accel"], correct: 0},
+        {id: 145, q: "Friction opposes:", a: ["Motion", "Force", "Mass", "Velocity"], correct: 0},
+        {id: 146, q: "Static friction is ________ kinetic friction:", a: ["Greater than", "Less than", "Equal to", "Zero"], correct: 0},
+        {id: 147, q: "The slope of velocity-time graph gives:", a: ["Acceleration", "Speed", "Distance", "Displacement"], correct: 0},
+        {id: 148, q: "The area under velocity-time graph gives:", a: ["Displacement", "Acceleration", "Speed", "Distance"], correct: 0},
+        {id: 149, q: "Uniform velocity means acceleration is:", a: ["Zero", "Positive", "Negative", "Variable"], correct: 0},
+        {id: 150, q: "First equation of motion: v = ?", a: ["u+at", "ut+½at²", "u²+2as", "(u+v)t/2"], correct: 0},
+        {id: 151, q: "Second equation of motion: s = ?", a: ["ut+½at²", "u+at", "v²+u²+2as", "(u+v)t/2"], correct: 0},
+        {id: 152, q: "Third equation of motion: v² = ?", a: ["u²+2as", "u+at", "ut+½at²", "(u+v)t/2"], correct: 0},
+        {id: 153, q: "Work done when force and displacement are parallel is:", a: ["Maximum", "Zero", "Minimum", "Negative"], correct: 0},
+        {id: 154, q: "Work done when force and displacement are perpendicular is:", a: ["Zero", "Maximum", "Minimum", "Positive"], correct: 0},
+        {id: 155, q: "Kinetic energy formula:", a: ["½mv²", "mgh", "Fd", "P/t"], correct: 0},
+        {id: 156, q: "Potential energy formula:", a: ["mgh", "½mv²", "Fd", "P/t"], correct: 0},
+        {id: 157, q: "Power = rate of:", a: ["Doing work", "Displacement", "Velocity", "Acceleration"], correct: 0},
+        {id: 158, q: "1 horsepower = ? W:", a: ["746", "1000", "550", "750"], correct: 0},
+        {id: 159, q: "The law of conservation of energy states that energy can be:", a: ["Transformed", "Destroyed", "Created", "Ignored"], correct: 0},
+        {id: 160, q: "Centripetal acceleration direction is:", a: ["Towards center", "Away", "Tangential", "Radial outward"], correct: 0},
+        {id: 161, q: "Centripetal force formula:", a: ["mv²/r", "mv/r", "mvr", "v²/r"], correct: 0},
+        {id: 162, q: "The period of a pendulum depends on:", a: ["Length and g", "Mass", "Amplitude", "Material"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 163–171) - SET 9 -----
+    const eng = [
+        {id: 163, q: "The synonym of 'Ancient' is:", a: ["Old", "New", "Modern", "Young"], correct: 0},
+        {id: 164, q: "The antonym of 'Ancient' is:", a: ["Modern", "Old", "Historic", "Classic"], correct: 0},
+        {id: 165, q: "The synonym of 'Brave' is:", a: ["Courageous", "Coward", "Weak", "Timid"], correct: 0},
+        {id: 166, q: "The antonym of 'Brave' is:", a: ["Cowardly", "Courageous", "Strong", "Bold"], correct: 0},
+        {id: 167, q: "The synonym of 'Calm' is:", a: ["Peaceful", "Agitated", "Nervous", "Anxious"], correct: 0},
+        {id: 168, q: "The antonym of 'Calm' is:", a: ["Agitated", "Peaceful", "Tranquil", "Serene"], correct: 0},
+        {id: 169, q: "The synonym of 'Delightful' is:", a: ["Pleasant", "Unpleasant", "Displeasing", "Distasteful"], correct: 0},
+        {id: 170, q: "The antonym of 'Delightful' is:", a: ["Unpleasant", "Pleasant", "Enjoyable", "Lovely"], correct: 0},
+        {id: 171, q: "The synonym of 'Exquisite' is:", a: ["Beautiful", "Ugly", "Plain", "Ordinary"], correct: 0}
+    ];
+
+    // ----- LOGICAL (ID 172–180) - SET 9 -----
+    const log = [
+        {id: 172, q: "If A is the mother of B, and B is the son of C, then C is the ________ of A:", a: ["Husband", "Wife", "Son", "Daughter"], correct: 0},
+        {id: 173, q: "Which number comes next: 3, 6, 12, 24, ?", a: ["48", "42", "36", "30"], correct: 0},
+        {id: 174, q: "If all cars are vehicles, and some vehicles are trucks, then:", a: ["Some cars are trucks", "All cars are trucks", "No cars are trucks", "Cannot determine"], correct: 3},
+        {id: 175, q: "Which number is odd one out: 2, 4, 6, 8, 10, 11?", a: ["11", "2", "4", "6"], correct: 0},
+        {id: 176, q: "If A is the father of B, and B is the wife of C, then C is the ________ of A:", a: ["Son-in-law", "Son", "Brother", "Uncle"], correct: 0},
+        {id: 177, q: "Which number comes next: 1, 2, 6, 24, 120, ?", a: ["720", "600", "480", "360"], correct: 0},
+        {id: 178, q: "If all books are reading materials, and some reading materials are magazines, then:", a: ["Some books are magazines", "All books are magazines", "No books are magazines", "Cannot determine"], correct: 3},
+        {id: 179, q: "Which is the odd one out: Circle, Square, Triangle, Cube?", a: ["Cube", "Circle", "Square", "Triangle"], correct: 0},
+        {id: 180, q: "If A is the brother of B, and B is the father of C, then A is the ________ of C:", a: ["Uncle", "Father", "Grandfather", "Brother"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...bio, ...chem, ...phys, ...eng, ...log].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 10800;
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 10800;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 10800;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] === undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<table>
+            <tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let correctAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Biology Part-1 (Level-2 - Easy) MCQs Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; margin: 15px 0 20px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 15px; font-size: 24px; }
+        .instructions-box p { margin: 10px 0; font-size: 17px; }
+        .instructions-box b { color: #bb86fc; }
+        .startBtn,.restartBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 22px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; margin-bottom: 60px; transition: 0.3s; }
+        .startBtn:hover,.restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 15px; border-radius: 12px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .timer { font-size: 20px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 20px; font-weight: bold; background: #7f00ff; padding: 5px 15px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; font-weight: bold; gap: 15px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 15px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 3px 12px; border-radius: 20px; font-size: 16px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 18px; margin-bottom: 15px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 8px 0; padding: 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 14px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 12px; font-size: 15px; }
+        td { padding: 10px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 70px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 12px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 12px; } .score-bar { font-size: 12px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧬 FSc Biology Part-1</h1>
+        <h2>Level-2 (Easy) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <p style="color: #FFD700; font-weight: bold; font-size: 16px; margin-top: 10px;">
+                💡 Note: (Save for Later) option is available if you want to solve that question at the end
+            </p>
+            <p style="color: #00FF00; font-weight: bold; margin-top: 5px;">📖 Complete review with correct answers at the end.</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // ============================================================
+    // PART-1 LEVEL-2 (EASY) - 200 MCQs (IDs 1-200)
+    // Topics: Deeper Bio Molecules, Enzyme Kinetics, Cell Organelles, Division, Bioenergetics
+    // ============================================================
+    const mcqs = [
+        // ---- BIOLOGICAL MOLECULES (1-40) ----
+        { id: 1, q: "Which carbohydrate is the main energy source for human body?", a: shuffleArray(["Glucose", "Fructose", "Sucrose", "Starch"]), correct: 0 },
+        { id: 2, q: "Glycogen is stored in human body mainly in?", a: shuffleArray(["Liver and muscles", "Brain and heart", "Kidneys and lungs", "Stomach and intestine"]), correct: 0 },
+        { id: 3, q: "Which amino acid contains sulfur?", a: shuffleArray(["Cysteine", "Leucine", "Valine", "Tryptophan"]), correct: 0 },
+        { id: 4, q: "The primary structure of protein is held by?", a: shuffleArray(["Peptide bonds", "Hydrogen bonds", "Disulfide bonds", "Ionic bonds"]), correct: 0 },
+        { id: 5, q: "Beta-pleated sheet is a characteristic of which structure?", a: shuffleArray(["Secondary", "Primary", "Tertiary", "Quaternary"]), correct: 0 },
+        { id: 6, q: "Which lipid acts as a hormone precursor?", a: shuffleArray(["Cholesterol", "Triglyceride", "Phospholipid", "Wax"]), correct: 0 },
+        { id: 7, q: "Saturated fatty acid example?", a: shuffleArray(["Palmitic acid", "Oleic acid", "Linoleic acid", "Arachidonic acid"]), correct: 0 },
+        { id: 8, q: "Which base is found in RNA but not in DNA?", a: shuffleArray(["Uracil", "Thymine", "Cytosine", "Guanine"]), correct: 0 },
+        { id: 9, q: "A nucleoside is composed of?", a: shuffleArray(["Sugar and base", "Sugar, base, phosphate", "Base and phosphate", "Sugar and phosphate"]), correct: 0 },
+        { id: 10, q: "The sugar in ATP is?", a: shuffleArray(["Ribose", "Deoxyribose", "Glucose", "Fructose"]), correct: 0 },
+        { id: 11, q: "Which bond is present in polysaccharides?", a: shuffleArray(["Glycosidic bond", "Peptide bond", "Phosphodiester bond", "Hydrogen bond"]), correct: 0 },
+        { id: 12, q: "Insulin is a type of?", a: shuffleArray(["Protein", "Carbohydrate", "Lipid", "Nucleic acid"]), correct: 0 },
+        { id: 13, q: "Which mineral is part of hemoglobin?", a: shuffleArray(["Iron", "Calcium", "Magnesium", "Zinc"]), correct: 0 },
+        { id: 14, q: "Which vitamin is a coenzyme for carboxylation?", a: shuffleArray(["Biotin", "Vitamin C", "Vitamin A", "Vitamin D"]), correct: 0 },
+        { id: 15, q: "The genetic code is present in?", a: shuffleArray(["DNA", "RNA", "Protein", "Lipid"]), correct: 0 },
+        { id: 16, q: "Which sugar is the sweetest?", a: shuffleArray(["Fructose", "Glucose", "Sucrose", "Maltose"]), correct: 0 },
+        { id: 17, q: "Cellulose is a polymer of which sugar?", a: shuffleArray(["Beta-glucose", "Alpha-glucose", "Fructose", "Galactose"]), correct: 0 },
+        { id: 18, q: "Starch is a polymer of which sugar?", a: shuffleArray(["Alpha-glucose", "Beta-glucose", "Fructose", "Galactose"]), correct: 0 },
+        { id: 19, q: "Non-reducing sugar example?", a: shuffleArray(["Sucrose", "Glucose", "Fructose", "Maltose"]), correct: 0 },
+        { id: 20, q: "Reducing sugar example?", a: shuffleArray(["Glucose", "Sucrose", "Starch", "Cellulose"]), correct: 0 },
+        { id: 21, q: "The R-group in amino acids determines?", a: shuffleArray(["Specificity", "Molecular weight", "Color", "Solubility"]), correct: 0 },
+        { id: 22, q: "Which amino acid has an imino group?", a: shuffleArray(["Proline", "Glycine", "Alanine", "Cysteine"]), correct: 0 },
+        { id: 23, q: "Which lipid is amphipathic in nature?", a: shuffleArray(["Phospholipid", "Triglyceride", "Wax", "Steroid"]), correct: 0 },
+        { id: 24, q: "Sphingolipids are found in?", a: shuffleArray(["Cell membranes", "Cell walls", "Nucleus", "Ribosomes"]), correct: 0 },
+        { id: 25, q: "Which base pairs with Adenine in RNA?", a: shuffleArray(["Uracil", "Thymine", "Cytosine", "Guanine"]), correct: 0 },
+        { id: 26, q: "Which base pairs with Guanine in DNA?", a: shuffleArray(["Cytosine", "Thymine", "Adenine", "Uracil"]), correct: 0 },
+        { id: 27, q: "Hydrolysis of nucleic acids yields?", a: shuffleArray(["Nucleotides", "Amino acids", "Fatty acids", "Monosaccharides"]), correct: 0 },
+        { id: 28, q: "Which is an enzyme present in saliva?", a: shuffleArray(["Amylase", "Pepsin", "Trypsin", "Lipase"]), correct: 0 },
+        { id: 29, q: "Lock and key model explains?", a: shuffleArray(["Enzyme specificity", "Enzyme inhibition", "Enzyme denaturation", "Enzyme synthesis"]), correct: 0 },
+        { id: 30, q: "Induced fit model suggests enzyme changes shape when?", a: shuffleArray(["Substrate binds", "Product releases", "pH changes", "Temperature changes"]), correct: 0 },
+        { id: 31, q: "Enzyme activity is affected by pH because pH changes the?", a: shuffleArray(["Charge of amino acids", "Concentration of substrate", "Molecular weight", "Color"]), correct: 0 },
+        { id: 32, q: "Optimal pH for pancreatic lipase is?", a: shuffleArray(["8", "2", "7", "4"]), correct: 0 },
+        { id: 33, q: "Optimal pH for pepsin is?", a: shuffleArray(["2", "7", "8", "10"]), correct: 0 },
+        { id: 34, q: "Optimal temperature for catalase is?", a: shuffleArray(["37°C", "25°C", "50°C", "10°C"]), correct: 0 },
+        { id: 35, q: "Reactant molecule that binds to enzyme is called?", a: shuffleArray(["Substrate", "Product", "Coenzyme", "Cofactor"]), correct: 0 },
+        { id: 36, q: "Which metal ion acts as a cofactor for carbonic anhydrase?", a: shuffleArray(["Zinc", "Iron", "Copper", "Magnesium"]), correct: 0 },
+        { id: 37, q: "Which vitamin is part of coenzyme A?", a: shuffleArray(["Pantothenic acid", "Niacin", "Vitamin C", "Thiamine"]), correct: 0 },
+        { id: 38, q: "Which enzyme converts glucose-6-phosphate to fructose-6-phosphate?", a: shuffleArray(["Isomerase", "Hydrolase", "Oxidoreductase", "Ligase"]), correct: 0 },
+        { id: 39, q: "Which enzyme is used to join DNA fragments?", a: shuffleArray(["Ligase", "Polymerase", "Helicase", "Topoisomerase"]), correct: 0 },
+        { id: 40, q: "Enzymes are denatured by heavy metals because they bind to?", a: shuffleArray(["Sulfhydryl groups", "Peptide bonds", "Substrate", "Water molecules"]), correct: 0 },
+
+        // ---- CELL STRUCTURE (41-80) ----
+        { id: 41, q: "Which organelle is responsible for oxidative phosphorylation?", a: shuffleArray(["Mitochondria", "Chloroplast", "Nucleus", "Golgi"]), correct: 0 },
+        { id: 42, q: "Which organelle has its own DNA and ribosomes?", a: shuffleArray(["Mitochondria", "Lysosome", "Peroxisome", "ER"]), correct: 0 },
+        { id: 43, q: "Which organelle is involved in glycosylation of proteins?", a: shuffleArray(["Golgi apparatus", "ER", "Ribosome", "Lysosome"]), correct: 0 },
+        { id: 44, q: "Which organelle digests worn-out cell parts?", a: shuffleArray(["Lysosome", "Peroxisome", "Mitochondria", "ER"]), correct: 0 },
+        { id: 45, q: "Which organelle is involved in detoxification of drugs?", a: shuffleArray(["Smooth ER", "Rough ER", "Golgi", "Nucleus"]), correct: 0 },
+        { id: 46, q: "Which organelle is abundant in cells that secrete proteins?", a: shuffleArray(["Rough ER", "Smooth ER", "Lysosome", "Peroxisome"]), correct: 0 },
+        { id: 47, q: "The nucleus is bounded by?", a: shuffleArray(["Double membrane", "Single membrane", "Cell wall", "No membrane"]), correct: 0 },
+        { id: 48, q: "Which is the site of ribosome assembly?", a: shuffleArray(["Nucleolus", "Nucleoplasm", "Chromatin", "Nuclear pores"]), correct: 0 },
+        { id: 49, q: "Chromatin is composed of?", a: shuffleArray(["DNA and proteins", "RNA and proteins", "DNA and RNA", "Proteins only"]), correct: 0 },
+        { id: 50, q: "Cilia and flagella are made of which protein?", a: shuffleArray(["Tubulin", "Actin", "Myosin", "Keratin"]), correct: 0 },
+        { id: 51, q: "Microvilli increase surface area for absorption in?", a: shuffleArray(["Small intestine", "Large intestine", "Stomach", "Liver"]), correct: 0 },
+        { id: 52, q: "Which is not a membrane-bound organelle?", a: shuffleArray(["Ribosome", "Mitochondria", "Golgi", "ER"]), correct: 0 },
+        { id: 53, q: "Which of the following has 70S ribosomes?", a: shuffleArray(["Mitochondria", "Nucleus", "ER", "Golgi"]), correct: 0 },
+        { id: 54, q: "Endosymbiotic theory explains the origin of?", a: shuffleArray(["Mitochondria and chloroplasts", "Nucleus and ER", "Ribosomes and lysosomes", "Cell wall"]), correct: 0 },
+        { id: 55, q: "Which component of cell membrane gives it fluidity?", a: shuffleArray(["Phospholipids", "Proteins", "Carbohydrates", "Cholesterol"]), correct: 0 },
+        { id: 56, q: "Integral proteins are embedded in the?", a: shuffleArray(["Phospholipid bilayer", "Cell wall", "Cytoplasm", "Nucleus"]), correct: 0 },
+        { id: 57, q: "Peripheral proteins are bound by?", a: shuffleArray(["Electrostatic interactions", "Covalent bonds", "Hydrophobic interactions", "Glycosidic bonds"]), correct: 0 },
+        { id: 58, q: "Which cannot pass through cell membrane freely?", a: shuffleArray(["Ions", "Oxygen", "Carbon dioxide", "Water"]), correct: 0 },
+        { id: 59, q: "Phagocytosis is a type of?", a: shuffleArray(["Endocytosis", "Exocytosis", "Pinocytosis", "Osmosis"]), correct: 0 },
+        { id: 60, q: "Which cells are specialized for phagocytosis?", a: shuffleArray(["Macrophages", "RBCs", "Nerve cells", "Muscle cells"]), correct: 0 },
+        { id: 61, q: "Plant cell wall is rigid due to?", a: shuffleArray(["Cellulose microfibrils", "Lignin", "Pectin", "Hemicellulose"]), correct: 0 },
+        { id: 62, q: "Middle lamella is made up of?", a: shuffleArray(["Calcium pectate", "Cellulose", "Lignin", "Suberin"]), correct: 0 },
+        { id: 63, q: "Which is a type of plastid?", a: shuffleArray(["Chromoplast", "Lysosome", "Peroxisome", "Vacuole"]), correct: 0 },
+        { id: 64, q: "Which pigment gives color to red algae?", a: shuffleArray(["Phycoerythrin", "Chlorophyll", "Carotene", "Xanthophyll"]), correct: 0 },
+        { id: 65, q: "Centrosome is found in which type of cells?", a: shuffleArray(["Animal cells", "Plant cells", "Bacteria", "Fungi"]), correct: 0 },
+        { id: 66, q: "The cytoskeleton provides?", a: shuffleArray(["Structural support", "Energy", "Protein synthesis", "DNA replication"]), correct: 0 },
+        { id: 67, q: "Actin filaments are also called?", a: shuffleArray(["Microfilaments", "Microtubules", "Intermediate filaments", "Cilia"]), correct: 0 },
+        { id: 68, q: "Largest organelle in most plant cells is?", a: shuffleArray(["Vacuole", "Nucleus", "Chloroplast", "Mitochondria"]), correct: 0 },
+        { id: 69, q: "Tonoplast is the membrane of?", a: shuffleArray(["Vacuole", "Nucleus", "Chloroplast", "Mitochondria"]), correct: 0 },
+        { id: 70, q: "Which is a prokaryotic organelle?", a: shuffleArray(["Ribosome", "Mitochondria", "Golgi", "ER"]), correct: 0 },
+
+        // ---- CELL DIVISION (71-110) ----
+        { id: 71, q: "During which phase does DNA replication occur?", a: shuffleArray(["S phase", "G1 phase", "G2 phase", "M phase"]), correct: 0 },
+        { id: 72, q: "The G1 phase is also called?", a: shuffleArray(["First gap phase", "Second gap phase", "Synthesis phase", "Mitotic phase"]), correct: 0 },
+        { id: 73, q: "The M phase includes?", a: shuffleArray(["Mitosis and cytokinesis", "Meiosis and DNA replication", "G1 and S", "G2 and S"]), correct: 0 },
+        { id: 74, q: "Chromosomes are replicated during?", a: shuffleArray(["Interphase", "Prophase", "Metaphase", "Anaphase"]), correct: 0 },
+        { id: 75, q: "The spindle apparatus is formed during?", a: shuffleArray(["Prophase", "Metaphase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 76, q: "The nuclear envelope disintegrates during?", a: shuffleArray(["Prophase", "Metaphase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 77, q: "Spindle fibers attach to kinetochore during?", a: shuffleArray(["Metaphase", "Prophase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 78, q: "Sister chromatids separate during?", a: shuffleArray(["Anaphase", "Metaphase", "Prophase", "Telophase"]), correct: 0 },
+        { id: 79, q: "Chromosomes reach the poles during?", a: shuffleArray(["Telophase", "Anaphase", "Metaphase", "Prophase"]), correct: 0 },
+        { id: 80, q: "Cytokinesis in plant cells results in?", a: shuffleArray(["Cell plate", "Cleavage furrow", "Fragmentation", "Budding"]), correct: 0 },
+        { id: 81, q: "Cytokinesis in animal cells results in?", a: shuffleArray(["Cleavage furrow", "Cell plate", "Fragmentation", "Budding"]), correct: 0 },
+        { id: 82, q: "In which type does crossing over occur?", a: shuffleArray(["Meiosis", "Mitosis", "Binary fission", "Budding"]), correct: 0 },
+        { id: 83, q: "Crossing over results in?", a: shuffleArray(["Genetic variation", "Genetic cloning", "Cell death", "Chromosome condensation"]), correct: 0 },
+        { id: 84, q: "Synaptonemal complex is formed during?", a: shuffleArray(["Prophase-I", "Metaphase-I", "Anaphase-I", "Telophase-I"]), correct: 0 },
+        { id: 85, q: "Tetrad is a structure formed by?", a: shuffleArray(["Four chromatids", "Two chromatids", "One chromatid", "Eight chromatids"]), correct: 0 },
+        { id: 86, q: "Reduction of chromosome number occurs in which division?", a: shuffleArray(["Meiosis-I", "Meiosis-II", "Both", "Neither"]), correct: 0 },
+        { id: 87, q: "Sister chromatids separate in which division?", a: shuffleArray(["Meiosis-II", "Meiosis-I", "Both", "Neither"]), correct: 0 },
+        { id: 88, q: "Meiosis results in cells that are?", a: shuffleArray(["Haploid", "Diploid", "Polyploid", "Aneuploid"]), correct: 0 },
+        { id: 89, q: "Human gametes have how many chromosomes?", a: shuffleArray(["23", "46", "44", "22"]), correct: 0 },
+        { id: 90, q: "Human somatic cells have how many chromosomes?", a: shuffleArray(["46", "23", "44", "22"]), correct: 0 },
+        { id: 91, q: "Oogenesis produces?", a: shuffleArray(["One ovum", "Four ova", "Two ova", "Eight ova"]), correct: 0 },
+        { id: 92, q: "Spermatogenesis produces?", a: shuffleArray(["Four sperm", "One sperm", "Two sperm", "Eight sperm"]), correct: 0 },
+        { id: 93, q: "Which is a haploid cell?", a: shuffleArray(["Sperm", "Skin cell", "Muscle cell", "Nerve cell"]), correct: 0 },
+        { id: 94, q: "Which is a diploid cell?", a: shuffleArray(["Zygote", "Ovum", "Sperm", "Pollen"]), correct: 0 },
+        { id: 95, q: "Gametogenesis is formation of?", a: shuffleArray(["Gametes", "Zygotes", "Embryos", "Tissues"]), correct: 0 },
+        { id: 96, q: "Which process is responsible for growth?", a: shuffleArray(["Mitosis", "Meiosis", "Gametogenesis", "Fertilization"]), correct: 0 },
+        { id: 97, q: "Which process repairs damaged tissues?", a: shuffleArray(["Mitosis", "Meiosis", "Gametogenesis", "Fertilization"]), correct: 0 },
+        { id: 98, q: "Longest phase of cell cycle is?", a: shuffleArray(["Interphase", "Prophase", "Metaphase", "Telophase"]), correct: 0 },
+        { id: 99, q: "Cancer cells divide uncontrollably due to failure of?", a: shuffleArray(["Cell cycle checkpoints", "DNA replication", "Protein synthesis", "Cytokinesis"]), correct: 0 },
+        { id: 100, q: "Apoptosis is also called?", a: shuffleArray(["Programmed cell death", "Cell division", "Cell growth", "Cell differentiation"]), correct: 0 },
+
+        // ---- BIOENERGETICS (101-140) ----
+        { id: 101, q: "Energy source for photosynthesis is?", a: shuffleArray(["Sunlight", "Glucose", "ATP", "NADPH"]), correct: 0 },
+        { id: 102, q: "Photosynthesis is an example of which reaction?", a: shuffleArray(["Anabolic", "Catabolic", "Exergonic", "Hydrolysis"]), correct: 0 },
+        { id: 103, q: "Cellular respiration is an example of which reaction?", a: shuffleArray(["Catabolic", "Anabolic", "Endergonic", "Reduction"]), correct: 0 },
+        { id: 104, q: "Where does the Calvin cycle occur?", a: shuffleArray(["Stroma of chloroplast", "Thylakoid membrane", "Matrix of mitochondria", "Cytoplasm"]), correct: 0 },
+        { id: 105, q: "Where does the light reaction occur?", a: shuffleArray(["Thylakoid membrane", "Stroma", "Matrix", "Cytoplasm"]), correct: 0 },
+        { id: 106, q: "Which pigment absorbs light energy in photosynthesis?", a: shuffleArray(["Chlorophyll a", "Chlorophyll b", "Carotene", "Xanthophyll"]), correct: 0 },
+        { id: 107, q: "CO2 fixation in C3 plants is catalyzed by?", a: shuffleArray(["Rubisco", "PEP carboxylase", "Hexokinase", "Pyruvate kinase"]), correct: 0 },
+        { id: 108, q: "CO2 fixation in C4 plants is catalyzed by?", a: shuffleArray(["PEP carboxylase", "Rubisco", "Hexokinase", "Pyruvate kinase"]), correct: 0 },
+        { id: 109, q: "Which plant has bundle sheath cells with chloroplasts?", a: shuffleArray(["C4 plants", "C3 plants", "CAM plants", "All plants"]), correct: 0 },
+        { id: 110, q: "CAM plants are adapted to?", a: shuffleArray(["Dry environments", "Aquatic", "Cold", "High altitude"]), correct: 0 },
+        { id: 111, q: "Glycolysis converts glucose into?", a: shuffleArray(["Pyruvate", "Acetyl-CoA", "Citrate", "Oxaloacetate"]), correct: 0 },
+        { id: 112, q: "Glycolysis occurs in which part?", a: shuffleArray(["Cytoplasm", "Matrix", "Cristae", "Nucleus"]), correct: 0 },
+        { id: 113, q: "Krebs cycle occurs in which part?", a: shuffleArray(["Matrix", "Cristae", "Outer membrane", "Intermembrane space"]), correct: 0 },
+        { id: 114, q: "ETC is located on the?", a: shuffleArray(["Inner membrane of mitochondria", "Outer membrane", "Matrix", "Cytoplasm"]), correct: 0 },
+        { id: 115, q: "ATP synthase is located on the?", a: shuffleArray(["Inner membrane of mitochondria", "Outer membrane", "Matrix", "Cytoplasm"]), correct: 0 },
+        { id: 116, q: "Which carries electrons from glycolysis to ETC?", a: shuffleArray(["NADH", "FADH2", "ATP", "GTP"]), correct: 0 },
+        { id: 117, q: "Which carries electrons from Krebs cycle to ETC?", a: shuffleArray(["NADH and FADH2", "Only NADH", "Only FADH2", "ATP"]), correct: 0 },
+        { id: 118, q: "Final electron acceptor in ETC is?", a: shuffleArray(["Oxygen", "CO2", "Water", "NADH"]), correct: 0 },
+        { id: 119, q: "ETC and chemiosmosis are collectively called?", a: shuffleArray(["Oxidative phosphorylation", "Substrate-level phosphorylation", "Photophosphorylation", "Hydrolysis"]), correct: 0 },
+        { id: 120, q: "Substrate-level phosphorylation occurs in?", a: shuffleArray(["Glycolysis and Krebs cycle", "ETC", "Calvin cycle", "Light reaction"]), correct: 0 },
+        { id: 121, q: "Waste product of aerobic respiration is?", a: shuffleArray(["CO2 and water", "Lactic acid", "Ethanol", "Oxygen"]), correct: 0 },
+        { id: 122, q: "Product of anaerobic respiration in muscles?", a: shuffleArray(["Lactic acid", "Ethanol", "CO2", "Acetyl-CoA"]), correct: 0 },
+        { id: 123, q: "Product of alcoholic fermentation?", a: shuffleArray(["Ethanol and CO2", "Lactic acid", "Acetyl-CoA", "Pyruvate"]), correct: 0 },
+        { id: 124, q: "Which yields more ATP?", a: shuffleArray(["Aerobic respiration", "Anaerobic respiration", "Fermentation", "Same"]), correct: 0 },
+        { id: 125, q: "Net gain of ATP during glycolysis is?", a: shuffleArray(["2 ATP", "1 ATP", "4 ATP", "0 ATP"]), correct: 0 },
+        { id: 126, q: "Net gain of ATP during Krebs cycle is?", a: shuffleArray(["1 ATP per turn", "2 ATP per turn", "3 ATP per turn", "4 ATP per turn"]), correct: 0 },
+        { id: 127, q: "Which is a high energy compound?", a: shuffleArray(["ATP", "ADP", "AMP", "Glucose"]), correct: 0 },
+        { id: 128, q: "ATP is hydrolyzed to ADP and Pi to release?", a: shuffleArray(["Energy", "Oxygen", "CO2", "Water"]), correct: 0 },
+        { id: 129, q: "Which enzyme catalyzes ATP synthesis?", a: shuffleArray(["ATP synthase", "ATPase", "Hexokinase", "Rubisco"]), correct: 0 },
+        { id: 130, q: "Which enzyme catalyzes ATP hydrolysis?", a: shuffleArray(["ATPase", "ATP synthase", "Hexokinase", "Rubisco"]), correct: 0 },
+
+        // ---- MIXED / APPLIED CONCEPTS (131-200) ----
+        { id: 131, q: "Which organelle modifies and sorts proteins?", a: shuffleArray(["Golgi apparatus", "ER", "Lysosome", "Ribosome"]), correct: 0 },
+        { id: 132, q: "Which is not found in animal cells?", a: shuffleArray(["Cell wall", "Centriole", "Lysosome", "Plasma membrane"]), correct: 0 },
+        { id: 133, q: "Which is not found in plant cells?", a: shuffleArray(["Centriole", "Cell wall", "Chloroplast", "Vacuole"]), correct: 0 },
+        { id: 134, q: "Which enzyme unwinds DNA during replication?", a: shuffleArray(["Helicase", "Polymerase", "Ligase", "Topoisomerase"]), correct: 0 },
+        { id: 135, q: "Which enzyme adds nucleotides to growing DNA strand?", a: shuffleArray(["DNA polymerase", "Helicase", "Ligase", "Primase"]), correct: 0 },
+        { id: 136, q: "Okazaki fragments are formed during?", a: shuffleArray(["DNA replication", "Transcription", "Translation", "Repair"]), correct: 0 },
+        { id: 137, q: "Leading strand is synthesized in which direction?", a: shuffleArray(["5' to 3'", "3' to 5'", "Both", "None"]), correct: 0 },
+        { id: 138, q: "Lagging strand is synthesized in which direction?", a: shuffleArray(["5' to 3' (in pieces)", "3' to 5'", "Both", "None"]), correct: 0 },
+        { id: 139, q: "Which RNA carries genetic code from DNA to ribosomes?", a: shuffleArray(["mRNA", "tRNA", "rRNA", "snRNA"]), correct: 0 },
+        { id: 140, q: "Which RNA brings amino acids to ribosome?", a: shuffleArray(["tRNA", "mRNA", "rRNA", "snRNA"]), correct: 0 },
+        { id: 141, q: "Which RNA is a component of ribosomes?", a: shuffleArray(["rRNA", "mRNA", "tRNA", "snRNA"]), correct: 0 },
+        { id: 142, q: "Transcription occurs in which part?", a: shuffleArray(["Nucleus", "Cytoplasm", "Ribosome", "Mitochondria"]), correct: 0 },
+        { id: 143, q: "Translation occurs in which part?", a: shuffleArray(["Ribosome", "Nucleus", "Golgi", "ER"]), correct: 0 },
+        { id: 144, q: "Which process converts DNA to RNA?", a: shuffleArray(["Transcription", "Translation", "Replication", "Repair"]), correct: 0 },
+        { id: 145, q: "Which process converts RNA to protein?", a: shuffleArray(["Translation", "Transcription", "Replication", "Repair"]), correct: 0 },
+        { id: 146, q: "Lac operon is a model for?", a: shuffleArray(["Gene regulation", "DNA replication", "Protein synthesis", "Cell division"]), correct: 0 },
+        { id: 147, q: "Mutation is a change in?", a: shuffleArray(["DNA sequence", "Protein sequence", "RNA sequence", "Lipid sequence"]), correct: 0 },
+        { id: 148, q: "Which is a chromosomal disorder?", a: shuffleArray(["Down syndrome", "Hemophilia", "Sickle cell", "Cystic fibrosis"]), correct: 0 },
+        { id: 149, q: "Which is a single gene disorder?", a: shuffleArray(["Hemophilia", "Down syndrome", "Klinefelter", "Turner"]), correct: 0 },
+        { id: 150, q: "Human genome project was completed in?", a: shuffleArray(["2003", "1990", "2000", "2010"]), correct: 0 },
+        { id: 151, q: "Bacteria reproduce by?", a: shuffleArray(["Binary fission", "Mitosis", "Meiosis", "Budding"]), correct: 0 },
+        { id: 152, q: "Viruses are considered non-living because they cannot?", a: shuffleArray(["Reproduce on their own", "Move", "Eat", "Excrete"]), correct: 0 },
+        { id: 153, q: "The immune system defends against?", a: shuffleArray(["Pathogens", "Food", "Water", "Air"]), correct: 0 },
+        { id: 154, q: "Antibodies are produced by which cells?", a: shuffleArray(["B-cells", "T-cells", "RBCs", "Platelets"]), correct: 0 },
+        { id: 155, q: "Function of white blood cells?", a: shuffleArray(["Fighting infections", "Carrying oxygen", "Clotting blood", "Carrying nutrients"]), correct: 0 },
+        { id: 156, q: "Function of red blood cells?", a: shuffleArray(["Carrying oxygen", "Fighting infections", "Clotting blood", "Producing antibodies"]), correct: 0 },
+        { id: 157, q: "Function of platelets?", a: shuffleArray(["Clotting blood", "Carrying oxygen", "Fighting infections", "Producing antibodies"]), correct: 0 },
+        { id: 158, q: "Which hormone regulates blood glucose?", a: shuffleArray(["Insulin", "Thyroxine", "Adrenaline", "Growth hormone"]), correct: 0 },
+        { id: 159, q: "Excess glucose is converted to glycogen by the action of?", a: shuffleArray(["Insulin", "Glucagon", "Adrenaline", "Thyroxine"]), correct: 0 },
+        { id: 160, q: "Which bio-molecule is found in all living organisms?", a: shuffleArray(["DNA", "Cellulose", "Chitin", "Starch"]), correct: 0 },
+        { id: 161, q: "Most abundant organic molecule in biosphere?", a: shuffleArray(["Cellulose", "Starch", "Protein", "Lipid"]), correct: 0 },
+        { id: 162, q: "Main structural component of plant cell walls?", a: shuffleArray(["Cellulose", "Chitin", "Peptidoglycan", "Lignin"]), correct: 0 },
+        { id: 163, q: "Main structural component of fungal cell walls?", a: shuffleArray(["Chitin", "Cellulose", "Peptidoglycan", "Lignin"]), correct: 0 },
+        { id: 164, q: "Main structural component of bacterial cell walls?", a: shuffleArray(["Peptidoglycan", "Chitin", "Cellulose", "Lignin"]), correct: 0 },
+        { id: 165, q: "Which is a type of RNA?", a: shuffleArray(["All of these", "mRNA", "tRNA", "rRNA"]), correct: 0 },
+        { id: 166, q: "Which organelle is involved in apoptosis?", a: shuffleArray(["Lysosome", "Mitochondria", "Golgi", "ER"]), correct: 0 },
+        { id: 167, q: "Nucleosome refers to?", a: shuffleArray(["DNA wrapped around histone proteins", "A single DNA molecule", "A type of chromosome", "A ribosome subunit"]), correct: 0 },
+        { id: 168, q: "Chromosomes are made of?", a: shuffleArray(["DNA and histone proteins", "RNA and proteins", "Lipids and proteins", "Carbohydrates and proteins"]), correct: 0 },
+        { id: 169, q: "Function of smooth ER?", a: shuffleArray(["Lipid synthesis", "Protein synthesis", "Cell division", "Photosynthesis"]), correct: 0 },
+        { id: 170, q: "Function of rough ER?", a: shuffleArray(["Protein synthesis", "Lipid synthesis", "Cell division", "Photosynthesis"]), correct: 0 },
+        { id: 171, q: "Which of the following is a function of the cell membrane?", a: shuffleArray(["Selective permeability", "Protein synthesis", "Energy production", "DNA replication"]), correct: 0 },
+        { id: 172, q: "The process of taking in solid particles by cell is?", a: shuffleArray(["Phagocytosis", "Pinocytosis", "Exocytosis", "Osmosis"]), correct: 0 },
+        { id: 173, q: "The process of taking in liquid droplets is?", a: shuffleArray(["Pinocytosis", "Phagocytosis", "Exocytosis", "Osmosis"]), correct: 0 },
+        { id: 174, q: "The process of releasing substances from the cell is?", a: shuffleArray(["Exocytosis", "Endocytosis", "Phagocytosis", "Pinocytosis"]), correct: 0 },
+        { id: 175, q: "Centrioles help in?", a: shuffleArray(["Cell division", "Protein synthesis", "Energy production", "Photosynthesis"]), correct: 0 },
+        { id: 176, q: "The cytoskeleton is composed of?", a: shuffleArray(["Microtubules, microfilaments, intermediate filaments", "Cellulose", "Chitin", "Peptidoglycan"]), correct: 0 },
+        { id: 177, q: "The outermost layer in a plant cell is?", a: shuffleArray(["Cell wall", "Cell membrane", "Cytoplasm", "Nucleus"]), correct: 0 },
+        { id: 178, q: "The plasma membrane is composed of a phospholipid?", a: shuffleArray(["Bilayer", "Monolayer", "Trilayer", "None"]), correct: 0 },
+        { id: 179, q: "Cholesterol in cell membrane provides?", a: shuffleArray(["Stability", "Permeability", "Energy", "Receptor sites"]), correct: 0 },
+        { id: 180, q: "Glycoproteins on cell membrane act as?", a: shuffleArray(["Receptors", "Channels", "Pumps", "Enzymes"]), correct: 0 },
+        { id: 181, q: "The organelle that detoxifies harmful substances is?", a: shuffleArray(["Peroxisome", "Lysosome", "Golgi", "Ribosome"]), correct: 0 },
+        { id: 182, q: "During which phase does DNA replication occur?", a: shuffleArray(["S phase", "G1 phase", "G2 phase", "M phase"]), correct: 0 },
+        { id: 183, q: "The G1 phase is also called?", a: shuffleArray(["First gap phase", "Second gap phase", "Synthesis phase", "Mitotic phase"]), correct: 0 },
+        { id: 184, q: "The M phase includes?", a: shuffleArray(["Mitosis and cytokinesis", "Meiosis and DNA replication", "G1 and S", "G2 and S"]), correct: 0 },
+        { id: 185, q: "Chromosomes are replicated during?", a: shuffleArray(["Interphase", "Prophase", "Metaphase", "Anaphase"]), correct: 0 },
+        { id: 186, q: "The spindle apparatus is formed during?", a: shuffleArray(["Prophase", "Metaphase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 187, q: "The nuclear envelope disintegrates during?", a: shuffleArray(["Prophase", "Metaphase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 188, q: "The spindle fibers attach to the kinetochore during?", a: shuffleArray(["Metaphase", "Prophase", "Anaphase", "Telophase"]), correct: 0 },
+        { id: 189, q: "Sister chromatids separate during?", a: shuffleArray(["Anaphase", "Metaphase", "Prophase", "Telophase"]), correct: 0 },
+        { id: 190, q: "The chromosomes reach the poles during?", a: shuffleArray(["Telophase", "Anaphase", "Metaphase", "Prophase"]), correct: 0 },
+        { id: 191, q: "Cytokinesis in plant cells results in the formation of?", a: shuffleArray(["Cell plate", "Cleavage furrow", "Fragmentation", "Budding"]), correct: 0 },
+        { id: 192, q: "Cytokinesis in animal cells results in the formation of?", a: shuffleArray(["Cleavage furrow", "Cell plate", "Fragmentation", "Budding"]), correct: 0 },
+        { id: 193, q: "In which type of cell division does crossing over occur?", a: shuffleArray(["Meiosis", "Mitosis", "Binary fission", "Budding"]), correct: 0 },
+        { id: 194, q: "Crossing over results in?", a: shuffleArray(["Genetic variation", "Genetic cloning", "Cell death", "Chromosome condensation"]), correct: 0 },
+        { id: 195, q: "The synaptonemal complex is formed during?", a: shuffleArray(["Prophase-I", "Metaphase-I", "Anaphase-I", "Telophase-I"]), correct: 0 },
+        { id: 196, q: "Tetrad is a structure formed by?", a: shuffleArray(["Four chromatids", "Two chromatids", "One chromatid", "Eight chromatids"]), correct: 0 },
+        { id: 197, q: "During meiosis, reduction of chromosome number occurs in which division?", a: shuffleArray(["Meiosis-I", "Meiosis-II", "Both", "Neither"]), correct: 0 },
+        { id: 198, q: "During meiosis, sister chromatids separate in which division?", a: shuffleArray(["Meiosis-II", "Meiosis-I", "Both", "Neither"]), correct: 0 },
+        { id: 199, q: "Meiosis results in cells that are?", a: shuffleArray(["Haploid", "Diploid", "Polyploid", "Aneuploid"]), correct: 0 },
+        { id: 200, q: "Human gametes have how many chromosomes?", a: shuffleArray(["23", "46", "44", "22"]), correct: 0 }
+    ];
+
+    // ============================================================
+    // CORRECT ANSWERS MAPPING
+    // ============================================================
+    const correctValues = {
+        1: "Glucose", 2: "Liver and muscles", 3: "Cysteine", 4: "Peptide bonds", 5: "Secondary",
+        6: "Cholesterol", 7: "Palmitic acid", 8: "Uracil", 9: "Sugar and base", 10: "Ribose",
+        11: "Glycosidic bond", 12: "Protein", 13: "Iron", 14: "Biotin", 15: "DNA",
+        16: "Fructose", 17: "Beta-glucose", 18: "Alpha-glucose", 19: "Sucrose", 20: "Glucose",
+        21: "Specificity", 22: "Proline", 23: "Phospholipid", 24: "Cell membranes", 25: "Uracil",
+        26: "Cytosine", 27: "Nucleotides", 28: "Amylase", 29: "Enzyme specificity",
+        30: "Substrate binds", 31: "Charge of amino acids", 32: "8", 33: "2",
+        34: "37°C", 35: "Substrate", 36: "Zinc", 37: "Pantothenic acid", 38: "Isomerase",
+        39: "Ligase", 40: "Sulfhydryl groups",
+        41: "Mitochondria", 42: "Mitochondria", 43: "Golgi apparatus", 44: "Lysosome",
+        45: "Smooth ER", 46: "Rough ER", 47: "Double membrane", 48: "Nucleolus",
+        49: "DNA and proteins", 50: "Tubulin", 51: "Small intestine", 52: "Ribosome",
+        53: "Mitochondria", 54: "Mitochondria and chloroplasts", 55: "Phospholipids",
+        56: "Phospholipid bilayer", 57: "Electrostatic interactions", 58: "Ions",
+        59: "Endocytosis", 60: "Macrophages", 61: "Cellulose microfibrils",
+        62: "Calcium pectate", 63: "Chromoplast", 64: "Phycoerythrin", 65: "Animal cells",
+        66: "Structural support", 67: "Microfilaments", 68: "Vacuole", 69: "Vacuole",
+        70: "Ribosome",
+        71: "S phase", 72: "First gap phase", 73: "Mitosis and cytokinesis", 74: "Interphase",
+        75: "Prophase", 76: "Prophase", 77: "Metaphase", 78: "Anaphase", 79: "Telophase",
+        80: "Cell plate", 81: "Cleavage furrow", 82: "Meiosis", 83: "Genetic variation",
+        84: "Prophase-I", 85: "Four chromatids", 86: "Meiosis-I", 87: "Meiosis-II",
+        88: "Haploid", 89: "23", 90: "46", 91: "One ovum", 92: "Four sperm", 93: "Sperm",
+        94: "Zygote", 95: "Gametes", 96: "Mitosis", 97: "Mitosis", 98: "Interphase",
+        99: "Cell cycle checkpoints", 100: "Programmed cell death",
+        101: "Sunlight", 102: "Anabolic", 103: "Catabolic", 104: "Stroma of chloroplast",
+        105: "Thylakoid membrane", 106: "Chlorophyll a", 107: "Rubisco", 108: "PEP carboxylase",
+        109: "C4 plants", 110: "Dry environments", 111: "Pyruvate", 112: "Cytoplasm",
+        113: "Matrix", 114: "Inner membrane of mitochondria", 115: "Inner membrane of mitochondria",
+        116: "NADH", 117: "NADH and FADH2", 118: "Oxygen", 119: "Oxidative phosphorylation",
+        120: "Glycolysis and Krebs cycle", 121: "CO2 and water", 122: "Lactic acid",
+        123: "Ethanol and CO2", 124: "Aerobic respiration", 125: "2 ATP", 126: "1 ATP per turn",
+        127: "ATP", 128: "Energy", 129: "ATP synthase", 130: "ATPase",
+        131: "Golgi apparatus", 132: "Cell wall", 133: "Centriole", 134: "Helicase",
+        135: "DNA polymerase", 136: "DNA replication", 137: "5' to 3'", 138: "5' to 3' (in pieces)",
+        139: "mRNA", 140: "tRNA", 141: "rRNA", 142: "Nucleus", 143: "Ribosome",
+        144: "Transcription", 145: "Translation", 146: "Gene regulation", 147: "DNA sequence",
+        148: "Down syndrome", 149: "Hemophilia", 150: "2003", 151: "Binary fission",
+        152: "Reproduce on their own", 153: "Pathogens", 154: "B-cells", 155: "Fighting infections",
+        156: "Carrying oxygen", 157: "Clotting blood", 158: "Insulin", 159: "Insulin",
+        160: "DNA", 161: "Cellulose", 162: "Cellulose", 163: "Chitin", 164: "Peptidoglycan",
+        165: "All of these", 166: "Lysosome", 167: "DNA wrapped around histone proteins",
+        168: "DNA and histone proteins", 169: "Lipid synthesis", 170: "Protein synthesis",
+        171: "Selective permeability", 172: "Phagocytosis", 173: "Pinocytosis", 174: "Exocytosis",
+        175: "Cell division", 176: "Microtubules, microfilaments, intermediate filaments",
+        177: "Cell wall", 178: "Bilayer", 179: "Stability", 180: "Receptors",
+        181: "Peroxisome", 182: "S phase", 183: "First gap phase", 184: "Mitosis and cytokinesis",
+        185: "Interphase", 186: "Prophase", 187: "Prophase", 188: "Metaphase", 189: "Anaphase",
+        190: "Telophase", 191: "Cell plate", 192: "Cleavage furrow", 193: "Meiosis",
+        194: "Genetic variation", 195: "Prophase-I", 196: "Four chromatids", 197: "Meiosis-I",
+        198: "Meiosis-II", 199: "Haploid", 200: "23"
+    };
+
+    // ============================================================
+    // FIX CORRECT INDEX
+    // ============================================================
+    mcqs.forEach(q => {
+        if (q.id && correctValues[q.id]) {
+            const correctAns = correctValues[q.id];
+            const correctIndex = q.a.indexOf(correctAns);
+            if (correctIndex !== -1) {
+                q.correct = correctIndex;
+            }
+        }
+    });
+
+    // ------------------ TEST ENGINE (same as above) ------------------
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200;
+    let timerInterval;
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    function startTest() {
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval);
+                showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table =
+            "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>Q-${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

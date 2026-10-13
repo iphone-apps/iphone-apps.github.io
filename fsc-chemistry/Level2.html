@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Chemistry Part-1 (Level-2 - Easy) MCQs Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .note-red {
+            color: #FF4500;
+            font-weight: bold;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🧪 FSc Chemistry Part-1</h1>
+        <h2>Level-2 (Easy) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+                </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red">❌ Calculator Not Allowed</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper: Shuffle array (Fisher-Yates)
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // CHEMISTRY PART-1 LEVEL-2 (EASY) - 200 MCQs
+    // Topics: Stoichiometry, Gas Laws, Quantum Numbers, Bonding,
+    // Thermochemistry, Electrochemistry (with simple calculations)
+    // ============================================================
+    const mcqs = [
+        // UNIT 1: STOICHIOMETRY (IDs 1-20)
+        {id: 1, q: "Moles in 44g of CO₂?", a: shuffleArray(["1", "0.5", "2", "1.5"]), correct: 0},
+        {id: 2, q: "Mass of 0.25 mol H₂SO₄ (M=98)?", a: shuffleArray(["24.5 g", "49 g", "12.25 g", "98 g"]), correct: 0},
+        {id: 3, q: "Moles of atoms in 18g H₂O?", a: shuffleArray(["3 mol atoms", "2 mol", "1 mol", "4 mol"]), correct: 0},
+        {id: 4, q: "Molecules in 0.5 mol N₂?", a: shuffleArray(["3.01×10²³", "6.02×10²³", "1.204×10²⁴", "3.01×10²⁴"]), correct: 0},
+        {id: 5, q: "Oxygen atoms in 0.5 mol CO₂?", a: shuffleArray(["6.02×10²³", "3.01×10²³", "1.204×10²⁴", "9.03×10²³"]), correct: 0},
+        {id: 6, q: "Molar mass of CaCO₃ (Ca=40, C=12, O=16)?", a: shuffleArray(["100 g/mol", "80 g/mol", "120 g/mol", "60 g/mol"]), correct: 0},
+        {id: 7, q: "Percentage of Ca in CaCO₃?", a: shuffleArray(["40%", "20%", "60%", "80%"]), correct: 0},
+        {id: 8, q: "Empirical formula of C₄H₈O₄?", a: shuffleArray(["CH₂O", "C₄H₈O₄", "C₂H₄O₂", "CH₃O"]), correct: 0},
+        {id: 9, q: "Molecular formula mass = n×empirical mass. n for glucose (EF=CH₂O, M=180)?", a: shuffleArray(["6", "2", "3", "4"]), correct: 0},
+        {id: 10, q: "Limiting reagent: 2H₂+O₂→2H₂O, if 4 mol H₂ and 3 mol O₂?", a: shuffleArray(["H₂", "O₂", "Both", "None"]), correct: 0},
+        {id: 11, q: "Theoretical yield from 1 mol H₂ (2H₂+O₂→2H₂O)?", a: shuffleArray(["18 g", "36 g", "9 g", "72 g"]), correct: 0},
+        {id: 12, q: "Actual yield 15g, theoretical 20g. % yield = ?", a: shuffleArray(["75%", "80%", "70%", "85%"]), correct: 0},
+        {id: 13, q: "Mass of 1 molecule of H₂O (in g)?", a: shuffleArray(["2.99×10⁻²³", "3.0×10⁻²²", "6.02×10⁻²³", "1.66×10⁻²⁴"]), correct: 0},
+        {id: 14, q: "Moles in 11.2 L of O₂ at STP?", a: shuffleArray(["0.5", "1", "2", "0.25"]), correct: 0},
+        {id: 15, q: "Volume of 2 mol H₂ at STP?", a: shuffleArray(["44.8 L", "22.4 L", "11.2 L", "67.2 L"]), correct: 0},
+        {id: 16, q: "Mass of 5.6 L of N₂ at STP (M=28)?", a: shuffleArray(["7 g", "14 g", "28 g", "56 g"]), correct: 0},
+        {id: 17, q: "Atom economy = ?", a: shuffleArray(["Mass of desired product / total mass ×100", "Moles desired / total ×100", "Volume desired / total ×100", "None"]), correct: 0},
+        {id: 18, q: "Green chemistry principle atom economy aims for?", a: shuffleArray(["100%", "50%", "75%", "0%"]), correct: 0},
+        {id: 19, q: "Moles of CO₂ produced from 10g CaCO₃ (M=100)?", a: shuffleArray(["0.1", "0.05", "0.2", "0.5"]), correct: 0},
+        {id: 20, q: "Moles of O₂ required to burn 2 mol CH₄ (CH₄+2O₂→CO₂+2H₂O)?", a: shuffleArray(["4", "2", "1", "6"]), correct: 0},
+
+        // UNIT 2: GAS LAWS (IDs 21-40)
+        {id: 21, q: "P=2 atm, V=5L at constant T. If P→4 atm, V=?", a: shuffleArray(["2.5 L", "10 L", "5 L", "1.25 L"]), correct: 0},
+        {id: 22, q: "V=10L at 300K. If T→600K at constant P, V=?", a: shuffleArray(["20 L", "5 L", "10 L", "40 L"]), correct: 0},
+        {id: 23, q: "Combined gas law: P₁V₁/T₁ = P₂V₂/T₂. If P doubles, V halves, T?", a: shuffleArray(["Same", "Doubles", "Halves", "4 times"]), correct: 0},
+        {id: 24, q: "Ideal gas equation: n=PV/RT. P=2 atm, V=11.2 L, T=273K (R=0.0821). n=?", a: shuffleArray(["1 mol", "0.5 mol", "2 mol", "0.25 mol"]), correct: 0},
+        {id: 25, q: "Molar mass from density: M=dRT/P. d=2g/L, T=273K, P=1 atm. M=?", a: shuffleArray(["44.8 g/mol", "22.4 g/mol", "89.6 g/mol", "11.2 g/mol"]), correct: 0},
+        {id: 26, q: "Dalton's law: P_total = P₁+P₂+P₃. If P₁=1 atm, P₂=0.5 atm, P_total=2 atm, P₃=?", a: shuffleArray(["0.5 atm", "1 atm", "1.5 atm", "0.25 atm"]), correct: 0},
+        {id: 27, q: "Mole fraction of gas = partial pressure / total pressure. If P_O₂=0.2 atm, total=1 atm, X_O₂=?", a: shuffleArray(["0.2", "0.8", "1", "0.4"]), correct: 0},
+        {id: 28, q: "rms speed ∝ √T. If T quadrupled, rms speed = ?", a: shuffleArray(["Double", "4 times", "Half", "Same"]), correct: 0},
+        {id: 29, q: "Rate of diffusion of H₂ (M=2) vs O₂ (M=32) ratio = ?", a: shuffleArray(["4:1", "1:4", "16:1", "1:16"]), correct: 0},
+        {id: 30, q: "Average kinetic energy of gas depends on?", a: shuffleArray(["Temperature only", "Pressure only", "Volume only", "Molar mass"]), correct: 0},
+        {id: 31, q: "van der Waals equation: (P + a n²/V²)(V - nb) = nRT. 'a' corrects for?", a: shuffleArray(["Intermolecular attraction", "Molecular volume", "Molecular mass", "Molecular shape"]), correct: 0},
+        {id: 32, q: "'b' in van der Waals corrects for?", a: shuffleArray(["Molecular volume", "Intermolecular attraction", "Molecular mass", "Molecular shape"]), correct: 0},
+        {id: 33, q: "Critical constant T_c = 8a/27Rb. If 'a' increases, T_c?", a: shuffleArray(["Increases", "Decreases", "Same", "Zero"]), correct: 0},
+        {id: 34, q: "Vapour pressure of water at 100°C is?", a: shuffleArray(["1 atm", "0.5 atm", "2 atm", "0.1 atm"]), correct: 0},
+        {id: 35, q: "Boiling point at higher altitude is lower because?", a: shuffleArray(["Atmospheric pressure decreases", "Temperature decreases", "Density decreases", "Humidity increases"]), correct: 0},
+        {id: 36, q: "Compressibility factor Z = PV/nRT. For ideal gas, Z=?", a: shuffleArray(["1", "0", "∞", "-1"]), correct: 0},
+        {id: 37, q: "Z<1 indicates?", a: shuffleArray(["Attractive forces dominate", "Repulsive forces dominate", "Ideal gas", "No forces"]), correct: 0},
+        {id: 38, q: "Z>1 indicates?", a: shuffleArray(["Repulsive forces dominate", "Attractive forces dominate", "Ideal gas", "No forces"]), correct: 0},
+        {id: 39, q: "Gas at high pressure deviates because?", a: shuffleArray(["Volume of molecules becomes significant", "Attraction increases", "Molecules move faster", "None"]), correct: 0},
+        {id: 40, q: "Gas at low temperature deviates because?", a: shuffleArray(["Attractive forces become significant", "Volume of molecules significant", "Molecules move faster", "None"]), correct: 0},
+
+        // UNIT 3: ATOMIC STRUCTURE (IDs 41-60)
+        {id: 41, q: "Number of subshells in n=3?", a: shuffleArray(["3", "1", "2", "4"]), correct: 0},
+        {id: 42, q: "Number of orbitals in n=3?", a: shuffleArray(["9", "3", "6", "12"]), correct: 0},
+        {id: 43, q: "Max electrons in n=3 shell?", a: shuffleArray(["18", "8", "32", "2"]), correct: 0},
+        {id: 44, q: "Orbitals in p-subshell?", a: shuffleArray(["3", "1", "5", "7"]), correct: 0},
+        {id: 45, q: "Orbitals in d-subshell?", a: shuffleArray(["5", "3", "1", "7"]), correct: 0},
+        {id: 46, q: "Quantum number m_l for p-subshell values?", a: shuffleArray(["-1,0,+1", "0", "-2,-1,0,+1,+2", "-3,-2,-1,0,+1,+2,+3"]), correct: 0},
+        {id: 47, q: "Electronic config of Mg (Z=12)?", a: shuffleArray(["1s²2s²2p⁶3s²", "1s²2s²2p⁶3s¹", "1s²2s²2p⁶3p²", "1s²2s²2p⁶3s²3p¹"]), correct: 0},
+        {id: 48, q: "Electronic config of Ca (Z=20)?", a: shuffleArray(["1s²2s²2p⁶3s²3p⁶4s²", "1s²2s²2p⁶3s²3p⁶4s¹", "1s²2s²2p⁶3s²3p⁶3d²", "1s²2s²2p⁶3s²3p⁶4p²"]), correct: 0},
+        {id: 49, q: "Electronic config of Cr (Z=24) exception?", a: shuffleArray(["1s²2s²2p⁶3s²3p⁶3d⁵4s¹", "1s²2s²2p⁶3s²3p⁶3d⁴4s²", "1s²2s²2p⁶3s²3p⁶3d⁶4s⁰", "1s²2s²2p⁶3s²3p⁶3d⁵4s²"]), correct: 0},
+        {id: 50, q: "Electronic config of Cu (Z=29) exception?", a: shuffleArray(["1s²2s²2p⁶3s²3p⁶3d¹⁰4s¹", "1s²2s²2p⁶3s²3p⁶3d⁹4s²", "1s²2s²2p⁶3s²3p⁶3d¹⁰4s²", "1s²2s²2p⁶3s²3p⁶3d⁹4s¹"]), correct: 0},
+        {id: 51, q: "Pauli exclusion principle: no two electrons can have same?", a: shuffleArray(["All four quantum numbers", "Spin", "Principal quantum number", "Azimuthal quantum number"]), correct: 0},
+        {id: 52, q: "Hund's rule: electrons fill orbitals singly before pairing to?", a: shuffleArray(["Maximize spin multiplicity", "Minimize energy", "Maximize charge", "Minimize spin"]), correct: 0},
+        {id: 53, q: "Aufbau principle: fill orbitals in order of?", a: shuffleArray(["Increasing energy", "Decreasing energy", "Increasing size", "Decreasing size"]), correct: 0},
+        {id: 54, q: "Orbital with (n=3, l=2) is?", a: shuffleArray(["3d", "3p", "3s", "4d"]), correct: 0},
+        {id: 55, q: "Orbital with (n=4, l=1) is?", a: shuffleArray(["4p", "4s", "4d", "4f"]), correct: 0},
+        {id: 56, q: "Magnetic quantum number m_l determines?", a: shuffleArray(["Orbital orientation", "Orbital shape", "Orbital energy", "Spin"]), correct: 0},
+        {id: 57, q: "Spin quantum number m_s values?", a: shuffleArray(["+1/2, -1/2", "+1, -1", "0, 1", "+1/2 only"]), correct: 0},
+        {id: 58, q: "Number of unpaired electrons in O (Z=8)?", a: shuffleArray(["2", "0", "1", "3"]), correct: 0},
+        {id: 59, q: "Number of unpaired electrons in N (Z=7)?", a: shuffleArray(["3", "2", "1", "0"]), correct: 0},
+        {id: 60, q: "Isotopes of hydrogen: Protium (¹H), Deuterium (²H), Tritium (³H). Number of neutrons in Tritium?", a: shuffleArray(["2", "0", "1", "3"]), correct: 0},
+
+        // UNIT 4: CHEMICAL BONDING (IDs 61-80)
+        {id: 61, q: "Bond order in O₂ molecule? (Molecular orbital theory)", a: shuffleArray(["2", "1", "3", "0.5"]), correct: 0},
+        {id: 62, q: "Bond order in N₂ molecule?", a: shuffleArray(["3", "2", "1", "4"]), correct: 0},
+        {id: 63, q: "Bond length inversely proportional to?", a: shuffleArray(["Bond order", "Bond energy", "Molecular mass", "Electronegativity"]), correct: 0},
+        {id: 64, q: "Which has shorter bond: C=C or C-C?", a: shuffleArray(["C=C", "C-C", "Same", "Cannot say"]), correct: 0},
+        {id: 65, q: "Which has stronger bond: C=C or C-C?", a: shuffleArray(["C=C", "C-C", "Same", "Cannot say"]), correct: 0},
+        {id: 66, q: "Electronegativity difference > 1.7 generally gives?", a: shuffleArray(["Ionic bond", "Covalent bond", "Metallic bond", "Hydrogen bond"]), correct: 0},
+        {id: 67, q: "Electronegativity difference < 1.7 generally gives?", a: shuffleArray(["Covalent bond", "Ionic bond", "Metallic bond", "Hydrogen bond"]), correct: 0},
+        {id: 68, q: "Dipole moment of CO₂ (linear) is?", a: shuffleArray(["0", "1", "2", "0.5"]), correct: 0},
+        {id: 69, q: "Dipole moment of H₂O (bent) is?", a: shuffleArray(["Non-zero", "Zero", "1", "0"]), correct: 0},
+        {id: 70, q: "Hybridization of carbon in diamond is?", a: shuffleArray(["sp³", "sp²", "sp", "sp³d"]), correct: 0},
+        {id: 71, q: "Hybridization of carbon in graphite is?", a: shuffleArray(["sp²", "sp³", "sp", "sp³d"]), correct: 0},
+        {id: 72, q: "Hybridization of carbon in fullerene (C₆₀) is?", a: shuffleArray(["sp²", "sp³", "sp", "sp³d"]), correct: 0},
+        {id: 73, q: "Bond angle in CH₄ (sp³) is?", a: shuffleArray(["109.5°", "120°", "180°", "90°"]), correct: 0},
+        {id: 74, q: "Bond angle in BF₃ (sp²) is?", a: shuffleArray(["120°", "109.5°", "180°", "90°"]), correct: 0},
+        {id: 75, q: "Bond angle in BeCl₂ (sp) is?", a: shuffleArray(["180°", "120°", "109.5°", "90°"]), correct: 0},
+        {id: 76, q: "VSEPR: NH₃ has 3 bond pairs, 1 lone pair. Shape?", a: shuffleArray(["Trigonal pyramidal", "Tetrahedral", "Bent", "Linear"]), correct: 0},
+        {id: 77, q: "VSEPR: H₂O has 2 bond pairs, 2 lone pairs. Shape?", a: shuffleArray(["Bent", "Linear", "Tetrahedral", "Trigonal planar"]), correct: 0},
+        {id: 78, q: "Sigma bond is formed by?", a: shuffleArray(["End-to-end overlap", "Side-to-side overlap", "Both", "None"]), correct: 0},
+        {id: 79, q: "Pi bond is formed by?", a: shuffleArray(["Side-to-side overlap", "End-to-end overlap", "Both", "None"]), correct: 0},
+        {id: 80, q: "Double bond consists of?", a: shuffleArray(["1 sigma + 1 pi", "2 sigma", "2 pi", "1 sigma"]), correct: 0},
+
+        // UNIT 5: THERMOCHEMISTRY (IDs 81-100)
+        {id: 81, q: "ΔH for 2H₂+O₂→2H₂O is -572 kJ. For 1 mol H₂O formed, ΔH=?", a: shuffleArray(["-286 kJ", "-572 kJ", "-143 kJ", "-1144 kJ"]), correct: 0},
+        {id: 82, q: "Heat released when 0.5 mol H₂ burns (ΔH=-286 kJ/mol H₂O)?", a: shuffleArray(["143 kJ", "286 kJ", "572 kJ", "71.5 kJ"]), correct: 0},
+        {id: 83, q: "Heat capacity of 100g water (C=4.18 J/g·K) to raise temp by 10°C?", a: shuffleArray(["4180 J", "418 J", "41800 J", "41.8 J"]), correct: 0},
+        {id: 84, q: "Specific heat of metal: 50g heated from 25°C to 75°C, absorbs 500J. C=?", a: shuffleArray(["0.2 J/g·K", "0.4 J/g·K", "0.1 J/g·K", "0.8 J/g·K"]), correct: 0},
+        {id: 85, q: "Enthalpy of neutralization of strong acid and base is approx?", a: shuffleArray(["-57 kJ/mol", "-57 J/mol", "-57 cal/mol", "-57 kcal/mol"]), correct: 0},
+        {id: 86, q: "Heat of combustion is always?", a: shuffleArray(["Negative", "Positive", "Zero", "Variable"]), correct: 0},
+        {id: 87, q: "Heat of formation of CO₂(g) from C(s) and O₂(g) is?", a: shuffleArray(["Negative", "Positive", "Zero", "Variable"]), correct: 0},
+        {id: 88, q: "Hess's law: ΔH for overall reaction = ?", a: shuffleArray(["Sum of ΔH of steps", "Product of ΔH", "Difference of ΔH", "Average of ΔH"]), correct: 0},
+        {id: 89, q: "Bond energy: H-H = 436 kJ/mol, Cl-Cl = 243 kJ/mol, H-Cl = 432 kJ/mol. ΔH for H₂+Cl₂→2HCl = ?", a: shuffleArray(["-185 kJ", "-185 kJ/mol", "-185 J", "+185 kJ"]), correct: 0},
+        {id: 90, q: "ΔH for reaction = Sum bonds broken - Sum bonds formed. If bonds broken energy > bonds formed energy, ΔH=?", a: shuffleArray(["Positive (endothermic)", "Negative (exothermic)", "Zero", "Cannot say"]), correct: 0},
+        {id: 91, q: "Standard enthalpy of formation of O₂(g) is zero because?", a: shuffleArray(["Element in standard state", "Compound", "Ion", "None"]), correct: 0},
+        {id: 92, q: "Standard enthalpy of formation of C(s) graphite is zero because?", a: shuffleArray(["Element in standard state", "Compound", "Ion", "None"]), correct: 0},
+        {id: 93, q: "Enthalpy of vaporization is energy required to?", a: shuffleArray(["Convert liquid to gas", "Convert gas to liquid", "Melt solid", "Freeze liquid"]), correct: 0},
+        {id: 94, q: "Enthalpy of fusion is energy required to?", a: shuffleArray(["Melt solid", "Freeze liquid", "Vaporize liquid", "Condense gas"]), correct: 0},
+        {id: 95, q: "Sublimation is conversion of?", a: shuffleArray(["Solid to gas", "Solid to liquid", "Liquid to gas", "Gas to solid"]), correct: 0},
+        {id: 96, q: "Bomb calorimeter measures ΔU at?", a: shuffleArray(["Constant volume", "Constant pressure", "Constant temperature", "Constant density"]), correct: 0},
+        {id: 97, q: "Coffee cup calorimeter measures ΔH at?", a: shuffleArray(["Constant pressure", "Constant volume", "Constant temperature", "Constant density"]), correct: 0},
+        {id: 98, q: "ΔH = ΔU + Δn_g RT. For reaction with no gas change, ΔH = ?", a: shuffleArray(["ΔU", "ΔU+RT", "ΔU-RT", "0"]), correct: 0},
+        {id: 99, q: "2H₂+O₂→2H₂O(g). Δn_g = ? (products - reactants)", a: shuffleArray(["2 - 3 = -1", "3 - 2 = +1", "2 - 2 = 0", "1 - 2 = -1"]), correct: 0},
+        {id: 100, q: "Heat of reaction at constant pressure is ΔH, at constant volume is ΔU. Which is larger if Δn_g > 0?", a: shuffleArray(["ΔH > ΔU", "ΔU > ΔH", "Equal", "Cannot say"]), correct: 0},
+
+        // UNIT 6: ELECTROCHEMISTRY (IDs 101-120)
+        {id: 101, q: "Zn + Cu²⁺ → Zn²⁺ + Cu. Which is oxidized?", a: shuffleArray(["Zn", "Cu²⁺", "Zn²⁺", "Cu"]), correct: 0},
+        {id: 102, q: "Zn + Cu²⁺ → Zn²⁺ + Cu. Which is reduced?", a: shuffleArray(["Cu²⁺", "Zn", "Zn²⁺", "Cu"]), correct: 0},
+        {id: 103, q: "Oxidation state of S in H₂SO₄?", a: shuffleArray(["+6", "+4", "+2", "0"]), correct: 0},
+        {id: 104, q: "Oxidation state of Mn in KMnO₄?", a: shuffleArray(["+7", "+4", "+2", "+6"]), correct: 0},
+        {id: 105, q: "Oxidation state of Cr in K₂Cr₂O₇?", a: shuffleArray(["+6", "+3", "+2", "+7"]), correct: 0},
+        {id: 106, q: "Half-reaction for reduction of Cu²⁺ to Cu?", a: shuffleArray(["Cu²⁺ + 2e⁻ → Cu", "Cu → Cu²⁺ + 2e⁻", "Cu²⁺ → Cu + 2e⁻", "Cu + 2e⁻ → Cu²⁺"]), correct: 0},
+        {id: 107, q: "Half-reaction for oxidation of Zn to Zn²⁺?", a: shuffleArray(["Zn → Zn²⁺ + 2e⁻", "Zn²⁺ + 2e⁻ → Zn", "Zn + 2e⁻ → Zn²⁺", "Zn²⁺ → Zn + 2e⁻"]), correct: 0},
+        {id: 108, q: "In electrochemical cell, electrons flow from?", a: shuffleArray(["Anode to cathode", "Cathode to anode", "Both directions", "No flow"]), correct: 0},
+        {id: 109, q: "In electrochemical cell, current (conventional) flows from?", a: shuffleArray(["Cathode to anode", "Anode to cathode", "Both", "None"]), correct: 0},
+        {id: 110, q: "Salt bridge in galvanic cell allows migration of?", a: shuffleArray(["Ions", "Electrons", "Both", "None"]), correct: 0},
+        {id: 111, q: "Electrode potential of standard hydrogen electrode (SHE) is?", a: shuffleArray(["0.00 V", "0.34 V", "-0.76 V", "1.0 V"]), correct: 0},
+        {id: 112, q: "Standard reduction potential of Cu²⁺/Cu is +0.34 V. Cu electrode is?", a: shuffleArray(["Cathode if paired with Zn", "Anode if paired with Zn", "Always cathode", "Always anode"]), correct: 0},
+        {id: 113, q: "Standard reduction potential of Zn²⁺/Zn is -0.76 V. Zn electrode is?", a: shuffleArray(["Anode if paired with Cu", "Cathode if paired with Cu", "Always cathode", "Always anode"]), correct: 0},
+        {id: 114, q: "E°cell for Zn/Zn²⁺( -0.76 V) and Cu/Cu²⁺( +0.34 V) = ?", a: shuffleArray(["1.10 V", "0.42 V", "-1.10 V", "0.76 V"]), correct: 0},
+        {id: 115, q: "ΔG° = -nFE°cell. If E°cell positive, ΔG° is?", a: shuffleArray(["Negative (spontaneous)", "Positive (non-spontaneous)", "Zero", "Cannot say"]), correct: 0},
+        {id: 116, q: "Nernst equation: E = E° - (0.0592/n) log Q at 25°C. For Cu²⁺ + 2e⁻ → Cu, n=?", a: shuffleArray(["2", "1", "3", "0"]), correct: 0},
+        {id: 117, q: "At equilibrium, E=0 and Q=K. So log K = ?", a: shuffleArray(["nE°/0.0592", "0.0592/nE°", "nE°/0.0592", "0.0592/E°"]), correct: 0},
+        {id: 118, q: "Faraday constant F = 96485 C/mol. Charge for 1 mol electrons = ?", a: shuffleArray(["96485 C", "1 C", "6.02×10²³ C", "1.6×10⁻¹⁹ C"]), correct: 0},
+        {id: 119, q: "In electrolysis, mass deposited m = (I t / F) × (M/z). z is?", a: shuffleArray(["Number of electrons transferred", "Atomic number", "Valence", "Mass number"]), correct: 0},
+        {id: 120, q: "Electrolysis of water: 2H₂O → 2H₂ + O₂. At cathode, which reaction occurs?", a: shuffleArray(["2H₂O + 2e⁻ → H₂ + 2OH⁻", "H₂O → O₂ + 4H⁺ + 4e⁻", "2H⁺ + 2e⁻ → H₂", "Both a and c"]), correct: 0},
+
+        // UNIT 7: PERIODIC TRENDS (IDs 121-140)
+        {id: 121, q: "Ionization energy trend across period (left→right)?", a: shuffleArray(["Increases", "Decreases", "Same", "Random"]), correct: 0},
+        {id: 122, q: "Ionization energy trend down group (top→bottom)?", a: shuffleArray(["Decreases", "Increases", "Same", "Random"]), correct: 0},
+        {id: 123, q: "Atomic radius trend across period (left→right)?", a: shuffleArray(["Decreases", "Increases", "Same", "Random"]), correct: 0},
+        {id: 124, q: "Atomic radius trend down group (top→bottom)?", a: shuffleArray(["Increases", "Decreases", "Same", "Random"]), correct: 0},
+        {id: 125, q: "Electronegativity trend across period (left→right)?", a: shuffleArray(["Increases", "Decreases", "Same", "Random"]), correct: 0},
+        {id: 126, q: "Electronegativity trend down group (top→bottom)?", a: shuffleArray(["Decreases", "Increases", "Same", "Random"]), correct: 0},
+        {id: 127, q: "Element with highest ionization energy in Period 2?", a: shuffleArray(["Ne", "F", "O", "N"]), correct: 0},
+        {id: 128, q: "Element with lowest ionization energy in Period 2?", a: shuffleArray(["Li", "Be", "B", "C"]), correct: 0},
+        {id: 129, q: "Ionization energy of Na is lower than Mg because?", a: shuffleArray(["Na has one 3s electron, Mg has two", "Na has larger nuclear charge", "Na has smaller size", "Mg has fewer protons"]), correct: 0},
+        {id: 130, q: "Electron affinity trend across period (left→right)?", a: shuffleArray(["Generally increases", "Generally decreases", "Same", "Random"]), correct: 0},
+        {id: 131, q: "Noble gases have zero electron affinity because?", a: shuffleArray(["Stable octet", "High ionization energy", "Small size", "Large size"]), correct: 0},
+        {id: 132, q: "Halogens have high electron affinity because?", a: shuffleArray(["Need one electron to complete octet", "Low ionization energy", "Large size", "Low electronegativity"]), correct: 0},
+        {id: 133, q: "Metallic character trend down group (top→bottom)?", a: shuffleArray(["Increases", "Decreases", "Same", "Random"]), correct: 0},
+        {id: 134, q: "Metallic character trend across period (left→right)?", a: shuffleArray(["Decreases", "Increases", "Same", "Random"]), correct: 0},
+        {id: 135, q: "Non-metallic character trend across period (left→right)?", a: shuffleArray(["Increases", "Decreases", "Same", "Random"]), correct: 0},
+        {id: 136, q: "Non-metallic character trend down group (top→bottom)?", a: shuffleArray(["Decreases", "Increases", "Same", "Random"]), correct: 0},
+        {id: 137, q: "Smallest atom in Period 3?", a: shuffleArray(["Ar", "Cl", "S", "P"]), correct: 0},
+        {id: 138, q: "Largest atom in Period 3?", a: shuffleArray(["Na", "Mg", "Al", "Si"]), correct: 0},
+        {id: 139, q: "Element with lowest ionization energy in Group 1?", a: shuffleArray(["Cs", "Li", "Na", "K"]), correct: 0},
+        {id: 140, q: "Element with highest ionization energy in Group 17?", a: shuffleArray(["F", "Cl", "Br", "I"]), correct: 0},
+
+        // UNIT 8: ACIDS & BASES (IDs 141-160)
+        {id: 141, q: "pH of 0.01 M HCl (strong acid)?", a: shuffleArray(["2", "1", "3", "4"]), correct: 0},
+        {id: 142, q: "pH of 0.01 M NaOH (strong base)? (Kw=10⁻¹⁴)", a: shuffleArray(["12", "2", "10", "14"]), correct: 0},
+        {id: 143, q: "pH + pOH = ? at 25°C", a: shuffleArray(["14", "7", "10", "1"]), correct: 0},
+        {id: 144, q: "pH of 0.1 M HCl?", a: shuffleArray(["1", "2", "3", "0.1"]), correct: 0},
+        {id: 145, q: "pOH of 0.01 M NaOH?", a: shuffleArray(["2", "12", "1", "14"]), correct: 0},
+        {id: 146, q: "Hydrolysis of salt of weak acid and strong base gives pH?", a: shuffleArray([">7", "<7", "=7", "0"]), correct: 0},
+        {id: 147, q: "Hydrolysis of salt of strong acid and weak base gives pH?", a: shuffleArray(["<7", ">7", "=7", "0"]), correct: 0},
+        {id: 148, q: "Buffer solution contains weak acid and its salt. It resists pH change by?", a: shuffleArray(["Neutralizing added acid/base", "Changing temperature", "Changing volume", "Changing pressure"]), correct: 0},
+        {id: 149, q: "Henderson-Hasselbalch equation: pH = pKa + log([Salt]/[Acid]). For acid buffer.", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+        {id: 150, q: "pKa of acetic acid is 4.76. At pH=4.76, [Salt]/[Acid]=?", a: shuffleArray(["1", "0", "2", "0.5"]), correct: 0},
+        {id: 151, q: "Titration: equivalence point of strong acid + strong base pH=?", a: shuffleArray(["7", ">7", "<7", "0"]), correct: 0},
+        {id: 152, q: "Methyl orange pH range?", a: shuffleArray(["3.1-4.4", "6-8", "8-10", "1-3"]), correct: 0},
+        {id: 153, q: "Phenolphthalein pH range?", a: shuffleArray(["8.2-10", "3.1-4.4", "6-8", "1-3"]), correct: 0},
+        {id: 154, q: "Litmus red in acid, blue in base. pH of neutral is?", a: shuffleArray(["7", "0", "14", "4"]), correct: 0},
+        {id: 155, q: "Arrhenius acid-base concept limited to?", a: shuffleArray(["Aqueous solutions", "All solutions", "Gas phase", "Solid state"]), correct: 0},
+        {id: 156, q: "Bronsted-Lowry concept can apply to?", a: shuffleArray(["All solvents", "Only water", "Only acids", "Only bases"]), correct: 0},
+        {id: 157, q: "Lewis acid-base concept based on?", a: shuffleArray(["Electron pair", "Proton transfer", "Hydroxide ion", "Hydrogen ion"]), correct: 0},
+        {id: 158, q: "Strong acid has high tendency to donate?", a: shuffleArray(["Proton", "Electron", "Neutron", "Mass"]), correct: 0},
+        {id: 159, q: "Strong base has high tendency to accept?", a: shuffleArray(["Proton", "Electron", "Neutron", "Mass"]), correct: 0},
+        {id: 160, q: "Conjugate acid-base pair differs by?", a: shuffleArray(["One proton", "One electron", "One neutron", "One mass unit"]), correct: 0},
+
+        // UNIT 9: ORGANIC BASICS (IDs 161-180)
+        {id: 161, q: "First member of alkane series?", a: shuffleArray(["CH₄", "C₂H₆", "C₃H₈", "C₄H₁₀"]), correct: 0},
+        {id: 162, q: "First member of alkene series?", a: shuffleArray(["C₂H₄", "C₃H₆", "C₄H₈", "CH₂"]), correct: 0},
+        {id: 163, q: "First member of alkyne series?", a: shuffleArray(["C₂H₂", "C₃H₄", "C₄H₆", "CH"]), correct: 0},
+        {id: 164, q: "Functional group of alcohols is?", a: shuffleArray(["−OH", "−CHO", "−COOH", "−NH₂"]), correct: 0},
+        {id: 165, q: "Functional group of aldehydes is?", a: shuffleArray(["−CHO", "−OH", "−COOH", "−NH₂"]), correct: 0},
+        {id: 166, q: "Functional group of carboxylic acids is?", a: shuffleArray(["−COOH", "−OH", "−CHO", "−NH₂"]), correct: 0},
+        {id: 167, q: "Functional group of amines is?", a: shuffleArray(["−NH₂", "−OH", "−CHO", "−COOH"]), correct: 0},
+        {id: 168, q: "Functional group of ketones is?", a: shuffleArray([">C=O", "−CHO", "−OH", "−COOH"]), correct: 0},
+        {id: 169, q: "C₅H₁₂ has number of structural isomers?", a: shuffleArray(["3", "2", "4", "5"]), correct: 0},
+        {id: 170, q: "C₄H₁₀ has number of structural isomers?", a: shuffleArray(["2", "3", "4", "1"]), correct: 0},
+        {id: 171, q: "C₂H₆O can have isomers?", a: shuffleArray(["2", "1", "3", "4"]), correct: 0},
+        {id: 172, q: "Which is not an isomer of C₄H₁₀? (n-butane, isobutane, 2-methylpropane)", a: shuffleArray(["None, all are isomers", "n-butane", "isobutane", "2-methylpropane"]), correct: 0},
+        {id: 173, q: "Saturated hydrocarbons are called?", a: shuffleArray(["Alkanes", "Alkenes", "Alkynes", "Aromatics"]), correct: 0},
+        {id: 174, q: "Unsaturated hydrocarbons with double bond are?", a: shuffleArray(["Alkenes", "Alkanes", "Alkynes", "Aromatics"]), correct: 0},
+        {id: 175, q: "Unsaturated hydrocarbons with triple bond are?", a: shuffleArray(["Alkynes", "Alkanes", "Alkenes", "Aromatics"]), correct: 0},
+        {id: 176, q: "Aromatic hydrocarbons contain?", a: shuffleArray(["Benzene ring", "Double bonds", "Triple bonds", "No ring"]), correct: 0},
+        {id: 177, q: "General formula of cycloalkanes?", a: shuffleArray(["CₙH₂ₙ", "CₙH₂ₙ₊₂", "CₙH₂ₙ₋₂", "CₙH₂ₙ₊₁"]), correct: 0},
+        {id: 178, q: "IUPAC name of CH₃OH is?", a: shuffleArray(["Methanol", "Ethanol", "Propanol", "Butanol"]), correct: 0},
+        {id: 179, q: "IUPAC name of C₂H₅OH is?", a: shuffleArray(["Ethanol", "Methanol", "Propanol", "Butanol"]), correct: 0},
+        {id: 180, q: "IUPAC name of HCHO is?", a: shuffleArray(["Methanal", "Ethanal", "Propanal", "Butanal"]), correct: 0},
+
+        // UNIT 10: MISCELLANEOUS (IDs 181-200)
+        {id: 181, q: "Number of atoms in 12g of C-12?", a: shuffleArray(["6.02×10²³", "1.204×10²⁴", "3.01×10²³", "9.03×10²³"]), correct: 0},
+        {id: 182, q: "Molar volume of ideal gas at STP in L?", a: shuffleArray(["22.4", "24.4", "20.4", "18.4"]), correct: 0},
+        {id: 183, q: "Raoult's law: P_solution = X_solvent × P°_solvent. For ideal solution?", a: shuffleArray(["True", "False", "Sometimes", "Never"]), correct: 0},
+        {id: 184, q: "Colligative properties depend on?", a: shuffleArray(["Number of particles", "Type of particles", "Mass of solute", "Volume of solution"]), correct: 0},
+        {id: 185, q: "Osmotic pressure π = CRT. C is?", a: shuffleArray(["Molarity", "Molality", "Mole fraction", "Normality"]), correct: 0},
+        {id: 186, q: "Isotonic solutions have same?", a: shuffleArray(["Osmotic pressure", "pH", "Temperature", "Volume"]), correct: 0},
+        {id: 187, q: "Tyndall effect is shown by?", a: shuffleArray(["Colloids", "True solutions", "Suspensions", "All"]), correct: 0},
+        {id: 188, q: "Brownian motion is due to?", a: shuffleArray(["Collision with solvent molecules", "Gravity", "Electric field", "Magnetic field"]), correct: 0},
+        {id: 189, q: "Coagulation of colloid can be done by?", a: shuffleArray(["Adding electrolyte", "Heating", "Cooling", "Both a and b"]), correct: 0},
+        {id: 190, q: "Emulsion is a colloidal dispersion of?", a: shuffleArray(["Liquid in liquid", "Solid in liquid", "Gas in liquid", "Liquid in gas"]), correct: 0},
+        {id: 191, q: "Saponification is hydrolysis of?", a: shuffleArray(["Fats/oils", "Carbohydrates", "Proteins", "Nucleic acids"]), correct: 0},
+        {id: 192, q: "Soaps are sodium or potassium salts of?", a: shuffleArray(["Fatty acids", "Mineral acids", "Alcohols", "Amines"]), correct: 0},
+        {id: 193, q: "Detergents are?", a: shuffleArray(["Synthetic surfactants", "Natural surfactants", "Salts", "Acids"]), correct: 0},
+        {id: 194, q: "Hard water forms scum with soap because of?", a: shuffleArray(["Ca²⁺, Mg²⁺ ions", "Na⁺ ions", "K⁺ ions", "Cl⁻ ions"]), correct: 0},
+        {id: 195, q: "Cationic detergents have positive charge on?", a: shuffleArray(["Hydrophilic part", "Hydrophobic part", "Both", "None"]), correct: 0},
+        {id: 196, q: "Anionic detergents have negative charge on?", a: shuffleArray(["Hydrophilic part", "Hydrophobic part", "Both", "None"]), correct: 0},
+        {id: 197, q: "Biodegradable detergents are degraded by?", a: shuffleArray(["Microorganisms", "Heat", "Light", "Pressure"]), correct: 0},
+        {id: 198, q: "Non-biodegradable detergents cause?", a: shuffleArray(["Water pollution", "Air pollution", "Soil erosion", "Ozone depletion"]), correct: 0},
+        {id: 199, q: "Green chemistry reduces?", a: shuffleArray(["Hazardous substances", "Temperature", "Pressure", "Volume"]), correct: 0},
+        {id: 200, q: "Catalyst in green chemistry helps to?", a: shuffleArray(["Reduce energy", "Increase waste", "Increase toxicity", "Decrease yield"]), correct: 0}
+    ];
+
+    // ============================================================
+    // CORRECT VALUES MAPPING (100% MATCH WITH ANSWERS)
+    // ============================================================
+    const correctValues = {
+        1: "1", 2: "24.5 g", 3: "3 mol atoms", 4: "3.01×10²³", 5: "6.02×10²³",
+        6: "100 g/mol", 7: "40%", 8: "CH₂O", 9: "6", 10: "H₂",
+        11: "18 g", 12: "75%", 13: "2.99×10⁻²³", 14: "0.5", 15: "44.8 L",
+        16: "7 g", 17: "Mass of desired product / total mass ×100", 18: "100%",
+        19: "0.1", 20: "4",
+        21: "2.5 L", 22: "20 L", 23: "Same", 24: "1 mol", 25: "44.8 g/mol",
+        26: "0.5 atm", 27: "0.2", 28: "Double", 29: "4:1", 30: "Temperature only",
+        31: "Intermolecular attraction", 32: "Molecular volume", 33: "Increases",
+        34: "1 atm", 35: "Atmospheric pressure decreases", 36: "1",
+        37: "Attractive forces dominate", 38: "Repulsive forces dominate",
+        39: "Volume of molecules becomes significant",
+        40: "Attractive forces become significant",
+        41: "3", 42: "9", 43: "18", 44: "3", 45: "5", 46: "-1,0,+1",
+        47: "1s²2s²2p⁶3s²", 48: "1s²2s²2p⁶3s²3p⁶4s²",
+        49: "1s²2s²2p⁶3s²3p⁶3d⁵4s¹",
+        50: "1s²2s²2p⁶3s²3p⁶3d¹⁰4s¹",
+        51: "All four quantum numbers", 52: "Maximize spin multiplicity",
+        53: "Increasing energy", 54: "3d", 55: "4p", 56: "Orbital orientation",
+        57: "+1/2, -1/2", 58: "2", 59: "3", 60: "2",
+        61: "2", 62: "3", 63: "Bond order", 64: "C=C", 65: "C=C",
+        66: "Ionic bond", 67: "Covalent bond", 68: "0", 69: "Non-zero",
+        70: "sp³", 71: "sp²", 72: "sp²", 73: "109.5°", 74: "120°",
+        75: "180°", 76: "Trigonal pyramidal", 77: "Bent",
+        78: "End-to-end overlap", 79: "Side-to-side overlap",
+        80: "1 sigma + 1 pi",
+        81: "-286 kJ", 82: "143 kJ", 83: "4180 J", 84: "0.2 J/g·K",
+        85: "-57 kJ/mol", 86: "Negative", 87: "Negative",
+        88: "Sum of ΔH of steps", 89: "-185 kJ",
+        90: "Positive (endothermic)", 91: "Element in standard state",
+        92: "Element in standard state", 93: "Convert liquid to gas",
+        94: "Melt solid", 95: "Solid to gas", 96: "Constant volume",
+        97: "Constant pressure", 98: "ΔU", 99: "2 - 3 = -1",
+        100: "ΔH > ΔU",
+        101: "Zn", 102: "Cu²⁺", 103: "+6", 104: "+7", 105: "+6",
+        106: "Cu²⁺ + 2e⁻ → Cu", 107: "Zn → Zn²⁺ + 2e⁻",
+        108: "Anode to cathode", 109: "Cathode to anode", 110: "Ions",
+        111: "0.00 V", 112: "Cathode if paired with Zn",
+        113: "Anode if paired with Cu", 114: "1.10 V",
+        115: "Negative (spontaneous)", 116: "2",
+        117: "nE°/0.0592", 118: "96485 C", 119: "Number of electrons transferred",
+        120: "Both a and c",
+        121: "Increases", 122: "Decreases", 123: "Decreases", 124: "Increases",
+        125: "Increases", 126: "Decreases", 127: "Ne", 128: "Li",
+        129: "Na has one 3s electron, Mg has two", 130: "Generally increases",
+        131: "Stable octet", 132: "Need one electron to complete octet",
+        133: "Increases", 134: "Decreases", 135: "Increases", 136: "Decreases",
+        137: "Ar", 138: "Na", 139: "Cs", 140: "F",
+        141: "2", 142: "12", 143: "14", 144: "1", 145: "2", 146: ">7",
+        147: "<7", 148: "Neutralizing added acid/base", 149: "True",
+        150: "1", 151: "7", 152: "3.1-4.4", 153: "8.2-10", 154: "7",
+        155: "Aqueous solutions", 156: "All solvents", 157: "Electron pair",
+        158: "Proton", 159: "Proton", 160: "One proton",
+        161: "CH₄", 162: "C₂H₄", 163: "C₂H₂", 164: "−OH", 165: "−CHO",
+        166: "−COOH", 167: "−NH₂", 168: ">C=O", 169: "3", 170: "2",
+        171: "2", 172: "None, all are isomers", 173: "Alkanes", 174: "Alkenes",
+        175: "Alkynes", 176: "Benzene ring", 177: "CₙH₂ₙ", 178: "Methanol",
+        179: "Ethanol", 180: "Methanal",
+        181: "6.02×10²³", 182: "22.4", 183: "True",
+        184: "Number of particles", 185: "Molarity", 186: "Osmotic pressure",
+        187: "Colloids", 188: "Collision with solvent molecules",
+        189: "Both a and b", 190: "Liquid in liquid", 191: "Fats/oils",
+        192: "Fatty acids", 193: "Synthetic surfactants",
+        194: "Ca²⁺, Mg²⁺ ions", 195: "Hydrophilic part",
+        196: "Hydrophilic part", 197: "Microorganisms",
+        198: "Water pollution", 199: "Hazardous substances",
+        200: "Reduce energy"
+    };
+
+    // Apply correct values to mcqs
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const correctAns = correctValues[q.id];
+            const idx = q.a.indexOf(correctAns);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // TEST ENGINE (IDENTICAL TO PHYSICS TEMPLATE)
+    // ============================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200;
+    let timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table =
+            "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>Q-${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

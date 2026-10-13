@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECAT Test – 01</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 40px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 12px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">⚡ ECAT Test – 01</h1>
+        <h2>Full Syllabus · 100 MCQs</h2>
+        <p class="subtitle">Physics 30 · Chemistry 30 · Mathematics 30 · English 10</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 Hours (120 Minutes)</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-green">0</span> (No Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p><b>📚 Subjects:</b> Physics (30) · Chemistry (30) · Mathematics (30) · English (10)</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+            <p style="color: #FF6B6B; font-weight: bold; margin-top: 6px;">❌ Calculator Not Allowed</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All 100 Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // ECAT TEST-1: 100 UNIQUE MCQs (ECAT Standard)
+    // Physics: 1–30, Chemistry: 31–60, Mathematics: 61–90, English: 91–100
+    // ================================================================
+    const mcqs = [];
+
+    // ----- PHYSICS (ID 1–30) - ECAT Standard (Numerical + Conceptual) -----
+    const phys = [
+        {id: 1, q: "A car accelerates uniformly from rest to 20 m/s in 5 seconds. What is its acceleration?", a: ["4 m/s²", "2 m/s²", "5 m/s²", "10 m/s²"], correct: 0},
+        {id: 2, q: "If the velocity of an object is doubled, its kinetic energy becomes:", a: ["Four times", "Two times", "Half", "Same"], correct: 0},
+        {id: 3, q: "A ball is dropped from a height of 20 m. How long will it take to reach the ground? (g = 10 m/s²)", a: ["2 s", "4 s", "1 s", "3 s"], correct: 0},
+        {id: 4, q: "What is the work done when a force of 10 N moves an object 5 m in the direction of force?", a: ["50 J", "10 J", "5 J", "20 J"], correct: 0},
+        {id: 5, q: "A 5 kg block is pulled by a force of 20 N at 30° with horizontal. Find horizontal acceleration.", a: ["3.46 m/s²", "4 m/s²", "2 m/s²", "5 m/s²"], correct: 0},
+        {id: 6, q: "If kinetic energy of a body is increased by 300%, find % increase in momentum.", a: ["100%", "200%", "300%", "50%"], correct: 0},
+        {id: 7, q: "A car accelerates from 10 m/s to 30 m/s in 5 s. Find displacement.", a: ["100 m", "150 m", "200 m", "50 m"], correct: 0},
+        {id: 8, q: "What is the power of a machine that does 1000 J of work in 10 seconds?", a: ["100 W", "10 W", "50 W", "200 W"], correct: 0},
+        {id: 9, q: "A force of 20 N acts on a body of mass 4 kg. Find acceleration.", a: ["5 m/s²", "2 m/s²", "10 m/s²", "4 m/s²"], correct: 0},
+        {id: 10, q: "What is the centripetal force on a 2 kg mass moving at 4 m/s in a circle of radius 2 m?", a: ["16 N", "8 N", "32 N", "4 N"], correct: 0},
+        {id: 11, q: "A 2 kg ball is thrown upward with 20 m/s. Find maximum height. (g = 10 m/s²)", a: ["20 m", "10 m", "40 m", "5 m"], correct: 0},
+        {id: 12, q: "What is the acceleration due to gravity on the Moon if a stone takes 2 s to fall 3.2 m?", a: ["1.6 m/s²", "3.2 m/s²", "0.8 m/s²", "4 m/s²"], correct: 0},
+        {id: 13, q: "A spring constant k = 100 N/m is stretched by 0.5 m. Find elastic potential energy.", a: ["12.5 J", "25 J", "50 J", "5 J"], correct: 0},
+        {id: 14, q: "A 10 kg block is on a frictionless incline of 30°. Find acceleration down the incline. (g = 10 m/s²)", a: ["5 m/s²", "8.66 m/s²", "10 m/s²", "4.33 m/s²"], correct: 0},
+        {id: 15, q: "What is the angular velocity of a wheel turning 60 times in 5 seconds?", a: ["12π rad/s", "6π rad/s", "24π rad/s", "3π rad/s"], correct: 0},
+        {id: 16, q: "A 2 kg mass moves with velocity 3 m/s. Find its momentum.", a: ["6 kg m/s", "3 kg m/s", "9 kg m/s", "2 kg m/s"], correct: 0},
+        {id: 17, q: "What is the impulse of a force of 10 N acting for 2 seconds?", a: ["20 N s", "10 N s", "5 N s", "40 N s"], correct: 0},
+        {id: 18, q: "A body of mass 5 kg is moving with 10 m/s. Find its kinetic energy.", a: ["250 J", "500 J", "50 J", "100 J"], correct: 0},
+        {id: 19, q: "What is the gravitational potential energy of a 10 kg mass at height 5 m? (g = 10 m/s²)", a: ["500 J", "50 J", "100 J", "250 J"], correct: 0},
+        {id: 20, q: "A car of mass 800 kg moves with 20 m/s. Find braking force required to stop in 10 m.", a: ["16000 N", "8000 N", "32000 N", "4000 N"], correct: 0},
+        {id: 21, q: "What is the frequency of a pendulum of length 1 m? (g = 10 m/s²)", a: ["0.5 Hz", "1 Hz", "2 Hz", "0.25 Hz"], correct: 0},
+        {id: 22, q: "A wave of wavelength 2 m has frequency 5 Hz. Find speed.", a: ["10 m/s", "2.5 m/s", "7 m/s", "0.4 m/s"], correct: 0},
+        {id: 23, q: "What is the temperature in Kelvin if the temperature is 27°C?", a: ["300 K", "27 K", "273 K", "327 K"], correct: 0},
+        {id: 24, q: "A gas expands from 2 m³ to 5 m³ at constant pressure of 100 Pa. Find work done.", a: ["300 J", "200 J", "500 J", "100 J"], correct: 0},
+        {id: 25, q: "What is the efficiency of a heat engine that does 200 J work from 500 J heat?", a: ["40%", "20%", "50%", "60%"], correct: 0},
+        {id: 26, q: "A charge of 2 C is placed in an electric field of 5 N/C. Find force.", a: ["10 N", "2.5 N", "5 N", "20 N"], correct: 0},
+        {id: 27, q: "What is the potential difference across a 10 Ω resistor with 2 A current?", a: ["20 V", "10 V", "5 V", "8 V"], correct: 0},
+        {id: 28, q: "A capacitor of 2 μF has charge 10 μC. Find voltage.", a: ["5 V", "20 V", "10 V", "2 V"], correct: 0},
+        {id: 29, q: "What is the magnetic force on a charge of 2 C moving at 3 m/s in a 4 T field perpendicular?", a: ["24 N", "12 N", "6 N", "18 N"], correct: 0},
+        {id: 30, q: "What is the energy of a photon of frequency 2 × 10¹⁵ Hz? (h = 6.63 × 10⁻³⁴ J s)", a: ["1.326 × 10⁻¹⁸ J", "3.315 × 10⁻¹⁹ J", "6.63 × 10⁻¹⁹ J", "2.652 × 10⁻¹⁸ J"], correct: 0}
+    ];
+
+    // ----- CHEMISTRY (ID 31–60) - ECAT Standard -----
+    const chem = [
+        {id: 31, q: "How many moles of CO₂ are produced when 10 g of CaCO₃ reacts with HCl? (Molar mass CaCO₃ = 100 g/mol)", a: ["0.1 mol", "1 mol", "0.5 mol", "0.01 mol"], correct: 0},
+        {id: 32, q: "What is the pH of a 0.01 M HCl solution?", a: ["2", "1", "3", "4"], correct: 0},
+        {id: 33, q: "Calculate the molarity of a solution containing 5 g NaOH in 500 mL. (Molar mass NaOH = 40 g/mol)", a: ["0.25 M", "0.5 M", "1 M", "0.125 M"], correct: 0},
+        {id: 34, q: "What is the volume of 2 moles of gas at STP? (22.4 L/mol)", a: ["44.8 L", "22.4 L", "11.2 L", "33.6 L"], correct: 0},
+        {id: 35, q: "If the atomic number of carbon is 6, how many electrons does it have in its valence shell?", a: ["4", "2", "6", "8"], correct: 0},
+        {id: 36, q: "What is the oxidation state of Mn in KMnO₄?", a: ["+7", "+6", "+5", "+4"], correct: 0},
+        {id: 37, q: "What is the number of moles in 44 g of CO₂? (Molar mass CO₂ = 44 g/mol)", a: ["1 mol", "2 mol", "0.5 mol", "1.5 mol"], correct: 0},
+        {id: 38, q: "What is the concentration of OH⁻ ions in a 0.001 M NaOH solution?", a: ["0.001 M", "1 M", "0.01 M", "0.0001 M"], correct: 0},
+        {id: 39, q: "What is the bond order of O₂ molecule?", a: ["2", "1", "3", "1.5"], correct: 0},
+        {id: 40, q: "What is the hybridization of carbon in CH₄?", a: ["sp³", "sp²", "sp", "sp³d"], correct: 0},
+        {id: 41, q: "What is the number of moles in 50 g of CaCO₃? (Molar mass = 100 g/mol)", a: ["0.5 mol", "1 mol", "0.25 mol", "2 mol"], correct: 0},
+        {id: 42, q: "What is the pH of a 0.001 M HCl solution?", a: ["3", "2", "1", "4"], correct: 0},
+        {id: 43, q: "What is the concentration of a solution if 20 g NaCl is dissolved in 500 mL? (Molar mass NaCl = 58.5 g/mol)", a: ["0.684 M", "0.342 M", "1.368 M", "0.171 M"], correct: 0},
+        {id: 44, q: "What is the volume of 3.2 g of O₂ at STP? (Molar mass O₂ = 32 g/mol, 22.4 L/mol)", a: ["2.24 L", "4.48 L", "1.12 L", "6.72 L"], correct: 0},
+        {id: 45, q: "What is the oxidation state of sulfur in H₂SO₄?", a: ["+6", "+4", "+2", "0"], correct: 0},
+        {id: 46, q: "What is the number of molecules in 1 mole of H₂O?", a: ["6.02 × 10²³", "3.01 × 10²³", "1.204 × 10²⁴", "1.806 × 10²⁴"], correct: 0},
+        {id: 47, q: "What is the pH of pure water at 25°C?", a: ["7", "6", "8", "5"], correct: 0},
+        {id: 48, q: "What is the molarity of a solution containing 2 mol in 1 L?", a: ["2 M", "1 M", "0.5 M", "4 M"], correct: 0},
+        {id: 49, q: "What is the number of valence electrons in nitrogen?", a: ["5", "3", "7", "4"], correct: 0},
+        {id: 50, q: "What is the bond angle in water?", a: ["104.5°", "109.5°", "120°", "90°"], correct: 0},
+        {id: 51, q: "What is the number of moles in 34 g of NH₃? (Molar mass = 17 g/mol)", a: ["2 mol", "1 mol", "0.5 mol", "3 mol"], correct: 0},
+        {id: 52, q: "What is the pH of a 0.01 M NaOH solution?", a: ["12", "2", "10", "14"], correct: 0},
+        {id: 53, q: "What is the concentration of H⁺ ions in a 0.01 M HCl solution?", a: ["0.01 M", "0.001 M", "1 M", "0.1 M"], correct: 0},
+        {id: 54, q: "What is the volume of 1 mole of gas at STP?", a: ["22.4 L", "11.2 L", "44.8 L", "33.6 L"], correct: 0},
+        {id: 55, q: "What is the oxidation state of Cl in KClO₃?", a: ["+5", "+3", "+7", "+1"], correct: 0},
+        {id: 56, q: "What is the number of atoms in 1 mole of any element?", a: ["6.02 × 10²³", "3.01 × 10²³", "1.204 × 10²⁴", "1.806 × 10²⁴"], correct: 0},
+        {id: 57, q: "What is the molar mass of H₂O?", a: ["18 g/mol", "16 g/mol", "20 g/mol", "14 g/mol"], correct: 0},
+        {id: 58, q: "What is the molarity of a solution containing 4 mol in 2 L?", a: ["2 M", "1 M", "0.5 M", "4 M"], correct: 0},
+        {id: 59, q: "What is the number of electrons in the outer shell of oxygen?", a: ["6", "2", "4", "8"], correct: 0},
+        {id: 60, q: "What is the bond angle in methane?", a: ["109.5°", "104.5°", "120°", "90°"], correct: 0}
+    ];
+
+    // ----- MATHEMATICS (ID 61–90) - ECAT Standard -----
+    const math = [
+        {id: 61, q: "If f(x) = x³ - 3x² + 2x + 1, find f'(2).", a: ["2", "3", "4", "5"], correct: 0},
+        {id: 62, q: "Find the sum of roots of equation 2x² - 5x + 3 = 0.", a: ["2.5", "1.5", "3", "2"], correct: 0},
+        {id: 63, q: "Find the area enclosed between y = x² and y = 4.", a: ["32/3", "16/3", "8/3", "4/3"], correct: 0},
+        {id: 64, q: "What is the derivative of sin x?", a: ["cos x", "-sin x", "sec² x", "-cos x"], correct: 0},
+        {id: 65, q: "What is the integral of cos x dx?", a: ["sin x + C", "-sin x + C", "cos x + C", "tan x + C"], correct: 0},
+        {id: 66, q: "What is the slope of the line 2x + 3y = 6?", a: ["-2/3", "2/3", "-3/2", "3/2"], correct: 0},
+        {id: 67, q: "What is the distance between points (1,2) and (4,6)?", a: ["5", "3", "4", "6"], correct: 0},
+        {id: 68, q: "What is the logarithm of 1000 to base 10?", a: ["3", "2", "4", "1"], correct: 0},
+        {id: 69, q: "What is the value of e⁰?", a: ["1", "0", "e", "-1"], correct: 0},
+        {id: 70, q: "What is the sum of the first 20 natural numbers?", a: ["210", "200", "190", "180"], correct: 0},
+        {id: 71, q: "What is the mean of 10, 20, 30, 40, 50?", a: ["30", "25", "35", "20"], correct: 0},
+        {id: 72, q: "What is the median of 3, 7, 9, 12, 15?", a: ["9", "7", "12", "10"], correct: 0},
+        {id: 73, q: "What is the mode of 2, 3, 4, 4, 5, 6?", a: ["4", "3", "5", "2"], correct: 0},
+        {id: 74, q: "What is the standard deviation of 2, 2, 2, 2, 2?", a: ["0", "1", "2", "3"], correct: 0},
+        {id: 75, q: "What is the probability of getting exactly 3 heads in 4 coin tosses?", a: ["1/4", "1/2", "1/8", "3/16"], correct: 0},
+        {id: 76, q: "What is the probability of rolling an even number on a die?", a: ["1/2", "1/3", "1/6", "2/3"], correct: 0},
+        {id: 77, q: "What is the value of 5! ?", a: ["120", "60", "24", "100"], correct: 0},
+        {id: 78, q: "What is the value of 0! ?", a: ["1", "0", "2", "Undefined"], correct: 0},
+        {id: 79, q: "What is the number of ways to arrange 5 books on a shelf?", a: ["120", "60", "24", "5"], correct: 0},
+        {id: 80, q: "What is the number of ways to choose 2 from 5 items?", a: ["10", "20", "5", "15"], correct: 0},
+        {id: 81, q: "What is the value of sin 30°?", a: ["0.5", "1", "0", "√3/2"], correct: 0},
+        {id: 82, q: "What is the value of cos 60°?", a: ["0.5", "1", "0", "√3/2"], correct: 0},
+        {id: 83, q: "What is the value of tan 60°?", a: ["√3", "1", "1/√3", "0"], correct: 0},
+        {id: 84, q: "What is the value of sin 180°?", a: ["0", "1", "-1", "0.5"], correct: 0},
+        {id: 85, q: "What is the value of cos 180°?", a: ["-1", "1", "0", "0.5"], correct: 0},
+        {id: 86, q: "What is the value of tan 45°?", a: ["1", "0", "√3", "1/√3"], correct: 0},
+        {id: 87, q: "What is the derivative of eˣ?", a: ["eˣ", "x eˣ", "1/eˣ", "0"], correct: 0},
+        {id: 88, q: "What is the integral of 1/x dx?", a: ["ln|x| + C", "x² + C", "eˣ + C", "sin x + C"], correct: 0},
+        {id: 89, q: "What is the derivative of ln x?", a: ["1/x", "x", "eˣ", "0"], correct: 0},
+        {id: 90, q: "What is the integral of eˣ dx?", a: ["eˣ + C", "ln x + C", "x + C", "sin x + C"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 91–100) - ECAT Standard -----
+    const eng = [
+        {id: 91, q: "Choose the correct synonym of 'Abundant':", a: ["Plentiful", "Scarce", "Rare", "Empty"], correct: 0},
+        {id: 92, q: "Choose the correct antonym of 'Bold':", a: ["Timid", "Brave", "Strong", "Loud"], correct: 0},
+        {id: 93, q: "Choose the correct synonym of 'Courageous':", a: ["Brave", "Coward", "Weak", "Timid"], correct: 0},
+        {id: 94, q: "Choose the correct antonym of 'Generous':", a: ["Stingy", "Liberal", "Kind", "Bountiful"], correct: 0},
+        {id: 95, q: "Choose the correct synonym of 'Magnificent':", a: ["Glorious", "Ordinary", "Common", "Simple"], correct: 0},
+        {id: 96, q: "Choose the correct antonym of 'Optimistic':", a: ["Pessimistic", "Hopeful", "Positive", "Bright"], correct: 0},
+        {id: 97, q: "Choose the correct synonym of 'Prudent':", a: ["Wise", "Foolish", "Reckless", "Careless"], correct: 0},
+        {id: 98, q: "Choose the correct antonym of 'Rich':", a: ["Poor", "Wealthy", "Affluent", "Prosperous"], correct: 0},
+        {id: 99, q: "Choose the correct synonym of 'Sincere':", a: ["Genuine", "Fake", "Deceitful", "Insincere"], correct: 0},
+        {id: 100, q: "Choose the correct antonym of 'Vast':", a: ["Limited", "Huge", "Enormous", "Immense"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...phys, ...chem, ...math, ...eng].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200; // 2 hours
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] === undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<table>
+            <tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let correctAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

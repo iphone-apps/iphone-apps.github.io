@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Mathematics Part-2 (Level-5 - Expert) ECAT MCQs</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .note-red {
+            color: #FF4500;
+            font-weight: bold;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">📐 FSc Mathematics Part-2</h1>
+        <h2>Level-5 (Expert) · 200 MCQs</h2>
+        <p class="subtitle">ECAT / NUST / GIKI / LUMS Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+            </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red">❌ Calculator Not Allowed</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper functions
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // MATHEMATICS PART-2 LEVEL-5 (EXPERT) - 200 MCQs
+    // Top-level ECAT/NUST questions
+    // ============================================================
+    const mcqs = [
+        // Functions & Limits (1-30)
+        {id:1, q:"Domain of f(x)=√(x²-16) is?", a:shuffleArray(["(-∞,-4]∪[4,∞)", "[-4,4]", "(-4,4)", "All real"]), correct:0},
+        {id:2, q:"Domain of f(x)=1/√(x²-9) is?", a:shuffleArray(["(-∞,-3)∪(3,∞)", "[-3,3]", "(-3,3)", "All real"]), correct:0},
+        {id:3, q:"Range of f(x)=x²-8x+17 is?", a:shuffleArray(["y≥1", "y>1", "y≤1", "All real"]), correct:0},
+        {id:4, q:"Range of f(x)=tanx is?", a:shuffleArray(["All real", "[-1,1]", "(-1,1)", "[0,∞)"]), correct:0},
+        {id:5, q:"If f(x)=x²+6x+9, f(-3)=?", a:shuffleArray(["0", "9", "18", "-9"]), correct:0},
+        {id:6, q:"If f(x)=x³-12x²+48x-64, f(4)=?", a:shuffleArray(["0", "64", "128", "-64"]), correct:0},
+        {id:7, q:"If f(x)=sinx+cosx, f(π/6)=?", a:shuffleArray(["(√3+1)/2", "1", "0", "√2"]), correct:0},
+        {id:8, q:"If f(x)=e^x+lnx, f(e²)=?", a:shuffleArray(["e^{e²}+2", "e²+2", "e^{e²}", "e²"]), correct:0},
+        {id:9, q:"If f(x)=2sinx+3cosx, f(π/3)=?", a:shuffleArray(["√3+3/2", "2+3/2", "√3", "3"]), correct:0},
+        {id:10, q:"If f(x)=3sinx-4cosx, f(π/2)=?", a:shuffleArray(["3", "-3", "4", "-4"]), correct:0},
+        {id:11, q:"lim(x→4) (x²-16)/(x-4) = ?", a:shuffleArray(["8", "4", "0", "∞"]), correct:0},
+        {id:12, q:"lim(x→0) sin7x/x = ?", a:shuffleArray(["7", "1", "0", "49"]), correct:0},
+        {id:13, q:"lim(x→0) (1-cosx)/x² = ?", a:shuffleArray(["1/2", "1", "0", "∞"]), correct:0},
+        {id:14, q:"lim(x→0) tan4x/5x = ?", a:shuffleArray(["4/5", "5/4", "1", "0"]), correct:0},
+        {id:15, q:"lim(x→∞) (4x²+5)/(3x²+2) = ?", a:shuffleArray(["4/3", "5/3", "3/4", "0"]), correct:0},
+        {id:16, q:"lim(x→∞) (x+3)/(x-3) = ?", a:shuffleArray(["1", "0", "∞", "3"]), correct:0},
+        {id:17, q:"lim(x→∞) (x²-9)/(4x²+1) = ?", a:shuffleArray(["1/4", "1", "0", "∞"]), correct:0},
+        {id:18, q:"lim(x→0) (e^{5x}-1)/x = ?", a:shuffleArray(["5", "1", "0", "e"]), correct:0},
+        {id:19, q:"lim(x→0) ln(1+5x)/x = ?", a:shuffleArray(["5", "1", "0", "e"]), correct:0},
+        {id:20, q:"lim(x→0) sin²4x/x² = ?", a:shuffleArray(["16", "4", "1", "0"]), correct:0},
+        {id:21, q:"If f(x)=x⁵-5x⁴+10x³, f'(x)=?", a:shuffleArray(["5x⁴-20x³+30x²", "x⁴-4x³+6x²", "5x⁴-5x³+10x²", "5x⁴-20x³+10x²"]), correct:0},
+        {id:22, q:"If f(x)=sinx cosx, f'(π/4)=?", a:shuffleArray(["0", "1", "-1", "√2"]), correct:0},
+        {id:23, q:"If f(x)=tanx, f'(π/3)=?", a:shuffleArray(["4", "1", "2", "3"]), correct:0},
+        {id:24, q:"If f(x)=secx, f'(π/3)=?", a:shuffleArray(["2√3", "√3", "2", "4"]), correct:0},
+        {id:25, q:"If f(x)=cosecx, f'(π/3)=?", a:shuffleArray(["-4/√3", "4/√3", "-2", "2"]), correct:0},
+        {id:26, q:"If f(x)=cotx, f'(π/3)=?", a:shuffleArray(["-4/3", "4/3", "-2", "2"]), correct:0},
+        {id:27, q:"If f(x)=ln(sinx), f'(π/3)=?", a:shuffleArray(["1/√3", "√3", "-1/√3", "-√3"]), correct:0},
+        {id:28, q:"If f(x)=e^{sinx}, f'(π/2)=?", a:shuffleArray(["0", "e", "-e", "1"]), correct:0},
+        {id:29, q:"If f(x)=ln(cosx), f'(π/4)=?", a:shuffleArray(["-1", "1", "0", "∞"]), correct:0},
+        {id:30, q:"If f(x)=sin²x+cos²x, f'(π/4)=?", a:shuffleArray(["0", "1", "2", "sin2x"]), correct:0},
+        // Integration (31-60)
+        {id:31, q:"∫(x⁴+3x³-2x) dx = ?", a:shuffleArray(["x⁵/5+3x⁴/4-x²+c", "x⁵/5+3x⁴/4-2x²+c", "x⁴/4+3x³/3-x²+c", "x⁵+3x⁴-x²+c"]), correct:0},
+        {id:32, q:"∫(5x⁴-8x³+3x²) dx = ?", a:shuffleArray(["x⁵-2x⁴+x³+c", "5x⁵-8x⁴+3x³+c", "x⁵-8x⁴+3x³+c", "x⁵-2x⁴+3x³+c"]), correct:0},
+        {id:33, q:"∫sin6x dx = ?", a:shuffleArray(["-cos6x/6 + c", "cos6x/6 + c", "-cos6x + c", "sin6x/6 + c"]), correct:0},
+        {id:34, q:"∫cos7x dx = ?", a:shuffleArray(["sin7x/7 + c", "-sin7x/7 + c", "cos7x/7 + c", "sin7x + c"]), correct:0},
+        {id:35, q:"∫e^{6x} dx = ?", a:shuffleArray(["e^{6x}/6 + c", "e^{6x} + c", "6e^{6x} + c", "e^{6x}/x + c"]), correct:0},
+        {id:36, q:"∫1/(4x+3) dx = ?", a:shuffleArray(["1/4 ln|4x+3| + c", "ln|4x+3| + c", "1/4 ln|x| + c", "ln|x| + c"]), correct:0},
+        {id:37, q:"∫x/(x²+9) dx = ?", a:shuffleArray(["1/2 ln|x²+9| + c", "ln|x²+9| + c", "x²+9 + c", "1/(x²+9) + c"]), correct:0},
+        {id:38, q:"∫sec²5x dx = ?", a:shuffleArray(["tan5x/5 + c", "tan5x + c", "5tan5x + c", "cot5x/5 + c"]), correct:0},
+        {id:39, q:"∫cosec²4x dx = ?", a:shuffleArray(["-cot4x/4 + c", "cot4x/4 + c", "-cot4x + c", "tan4x/4 + c"]), correct:0},
+        {id:40, q:"∫sinx cos³x dx = ?", a:shuffleArray(["-cos⁴x/4 + c", "cos⁴x/4 + c", "sin⁴x/4 + c", "-sin⁴x/4 + c"]), correct:0},
+        {id:41, q:"∫_0^π sin4x dx = ?", a:shuffleArray(["0", "1", "2", "π"]), correct:0},
+        {id:42, q:"∫_0^{π/2} cos5x dx = ?", a:shuffleArray(["-1/5", "1/5", "0", "1"]), correct:0},
+        {id:43, q:"∫_0^1 (x⁴+3x²) dx = ?", a:shuffleArray(["8/5", "7/5", "1", "2"]), correct:0},
+        {id:44, q:"∫_0^2 (x⁵-4x³) dx = ?", a:shuffleArray(["-16/3", "16/3", "32/3", "0"]), correct:0},
+        {id:45, q:"∫_0^1 e^{4x} dx = ?", a:shuffleArray(["(e⁴-1)/4", "e⁴-1", "e-1", "1"]), correct:0},
+        {id:46, q:"∫_1^4 1/(2x) dx = ?", a:shuffleArray(["1/2 ln4", "ln4", "ln8", "0"]), correct:0},
+        {id:47, q:"∫_0^{π/2} sin3x dx = ?", a:shuffleArray(["1/3", "0", "1", "2"]), correct:0},
+        {id:48, q:"∫_0^{π/2} cos3x dx = ?", a:shuffleArray(["-1/3", "1/3", "0", "1"]), correct:0},
+        {id:49, q:"∫_0^π sinx cos²x dx = ?", a:shuffleArray(["0", "1", "2", "π"]), correct:0},
+        {id:50, q:"∫_0^{π/2} sin²x cosx dx = ?", a:shuffleArray(["1/3", "0", "1", "π/4"]), correct:0},
+        {id:51, q:"∫_0^1 x²e^{3x} dx = ?", a:shuffleArray(["(2e³+1)/27", "(e³-1)/3", "1", "0"]), correct:0},
+        {id:52, q:"∫_0^1 x lnx dx = ?", a:shuffleArray(["-1/4", "1/4", "0", "1"]), correct:0},
+        {id:53, q:"∫_0^π x sin3x dx = ?", a:shuffleArray(["π/3", "1", "0", "2π"]), correct:0},
+        {id:54, q:"∫_0^1 x e^{3x} dx = ?", a:shuffleArray(["(2e³+1)/9", "e³-1", "e", "0"]), correct:0},
+        {id:55, q:"∫_0^1 x²e^{4x} dx = ?", a:shuffleArray(["(6e⁴-1)/64", "(e⁴-1)/4", "1", "0"]), correct:0},
+        {id:56, q:"∫_0^1 x² lnx dx = ?", a:shuffleArray(["-1/9", "1/9", "0", "1"]), correct:0},
+        {id:57, q:"∫_0^1 x sin3x dx = ?", a:shuffleArray(["sin3/9 - cos3/3 + 1/3", "1", "0", "π/2"]), correct:0},
+        {id:58, q:"∫_0^1 x cos3x dx = ?", a:shuffleArray(["sin3/3 + cos3/9 - 1/9", "1", "0", "π/2"]), correct:0},
+        {id:59, q:"∫_0^1 e^x sin2x dx = ?", a:shuffleArray(["(e(sin2-2cos2)+2)/5", "1", "0", "π/2"]), correct:0},
+        {id:60, q:"∫_0^1 e^x cos2x dx = ?", a:shuffleArray(["(e(sin2+2cos2)-2)/5", "1", "0", "π/2"]), correct:0},
+        // Analytic Geometry (61-90)
+        {id:61, q:"Distance between (2,5) and (-2,1) is?", a:shuffleArray(["√32", "4", "6", "3"]), correct:0},
+        {id:62, q:"Distance between (3,6) and (-1,2) is?", a:shuffleArray(["√32", "5", "6", "3"]), correct:0},
+        {id:63, q:"Distance between (1,4) and (5,1) is?", a:shuffleArray(["5", "4", "6", "3"]), correct:0},
+        {id:64, q:"Midpoint of (2,6) and (6,10) is?", a:shuffleArray(["(4,8)", "(3,7)", "(5,9)", "(8,16)"]), correct:0},
+        {id:65, q:"Midpoint of (-4,5) and (6,-3) is?", a:shuffleArray(["(1,1)", "(2,2)", "(0,2)", "(3,1)"]), correct:0},
+        {id:66, q:"Slope of line through (2,5) and (5,14) is?", a:shuffleArray(["3", "2", "1", "4"]), correct:0},
+        {id:67, q:"Slope of line through (-2,3) and (2,11) is?", a:shuffleArray(["2", "3", "4", "1"]), correct:0},
+        {id:68, q:"Equation of line with slope -4 passing through (2,3) is?", a:shuffleArray(["y=-4x+11", "y=-4x+3", "y=4x+3", "y=-4x-5"]), correct:0},
+        {id:69, q:"Equation of line with slope 5 passing through (-1,2) is?", a:shuffleArray(["y=5x+7", "y=5x-3", "y=5x+2", "y=5x-7"]), correct:0},
+        {id:70, q:"Slope of line 3x+4y=12 is?", a:shuffleArray(["-3/4", "3/4", "-4/3", "4/3"]), correct:0},
+        {id:71, q:"Slope of line 5x-2y=10 is?", a:shuffleArray(["5/2", "-5/2", "2/5", "-2/5"]), correct:0},
+        {id:72, q:"Slope of line 4x+7y=28 is?", a:shuffleArray(["-4/7", "4/7", "-7/4", "7/4"]), correct:0},
+        {id:73, q:"Slope of line y=8x-5 is?", a:shuffleArray(["8", "-8", "5", "-5"]), correct:0},
+        {id:74, q:"Slope of line y=-9x+4 is?", a:shuffleArray(["-9", "9", "4", "-4"]), correct:0},
+        {id:75, q:"x-intercept of line 3x+4y=12 is?", a:shuffleArray(["4", "3", "12", "1"]), correct:0},
+        {id:76, q:"y-intercept of line 3x+4y=12 is?", a:shuffleArray(["3", "4", "12", "1"]), correct:0},
+        {id:77, q:"x-intercept of line 5x-2y=10 is?", a:shuffleArray(["2", "5", "10", "-2"]), correct:0},
+        {id:78, q:"y-intercept of line 5x-2y=10 is?", a:shuffleArray(["-5", "5", "2", "-2"]), correct:0},
+        {id:79, q:"Line through (3,6) with slope -4 equation?", a:shuffleArray(["y=-4x+18", "y=-4x+6", "y=4x+6", "y=-4x-6"]), correct:0},
+        {id:80, q:"Line through (2,5) with slope 3 equation?", a:shuffleArray(["y=3x-1", "y=3x+5", "y=3x+2", "y=3x-2"]), correct:0},
+        {id:81, q:"Slopes of parallel lines are?", a:shuffleArray(["Equal", "Negative reciprocal", "Product=-1", "Sum=0"]), correct:0},
+        {id:82, q:"Slopes of perpendicular lines are?", a:shuffleArray(["Negative reciprocal", "Equal", "Sum=0", "Product=1"]), correct:0},
+        {id:83, q:"Circle center (4,5), radius 6 equation?", a:shuffleArray(["(x-4)²+(y-5)²=36", "(x+4)²+(y+5)²=36", "(x-4)²+(y-5)²=6", "(x+4)²+(y+5)²=6"]), correct:0},
+        {id:84, q:"Circle center (-3,4), radius 5 equation?", a:shuffleArray(["(x+3)²+(y-4)²=25", "(x-3)²+(y+4)²=25", "(x+3)²+(y-4)²=5", "(x-3)²+(y+4)²=5"]), correct:0},
+        {id:85, q:"Circle x²+y²=144 has radius?", a:shuffleArray(["12", "144", "24", "6"]), correct:0},
+        {id:86, q:"Circle x²+y²=169 has radius?", a:shuffleArray(["13", "169", "26", "6.5"]), correct:0},
+        {id:87, q:"Circle x²+y²+10x-8y-23=0 center is?", a:shuffleArray(["(-5,4)", "(5,-4)", "(10,-8)", "(-10,8)"]), correct:0},
+        {id:88, q:"Circle x²+y²-16x+20y=0 center is?", a:shuffleArray(["(8,-10)", "(-8,10)", "(16,-20)", "(-16,20)"]), correct:0},
+        {id:89, q:"Parabola y²=32x has focus?", a:shuffleArray(["(8,0)", "(32,0)", "(0,8)", "(0,32)"]), correct:0},
+        {id:90, q:"Parabola x²=48y has focus?", a:shuffleArray(["(0,12)", "(48,0)", "(0,48)", "(12,0)"]), correct:0},
+        // Linear Programming (91-110)
+        {id:91, q:"Maximize Z=3x+4y subject to x+y≤5, x≤3, y≤4, x≥0, y≥0. Z_max=?", a:shuffleArray(["17", "20", "15", "12"]), correct:0},
+        {id:92, q:"Maximize Z=4x+5y subject to x+y≤6, x≤4, y≤5, x≥0, y≥0. Z_max=?", a:shuffleArray(["24", "25", "20", "30"]), correct:0},
+        {id:93, q:"Minimize Z=x+3y subject to x+y≥4, x≤3, y≤5, x≥0, y≥0. Z_min=?", a:shuffleArray(["4", "5", "6", "7"]), correct:0},
+        {id:94, q:"Minimize Z=2x+3y subject to x+y≥5, x≤4, y≤3, x≥0, y≥0. Z_min=?", a:shuffleArray(["5", "6", "7", "8"]), correct:0},
+        {id:95, q:"Feasible region for x≥0, y≥0, x+y≤8, x≤5, y≤4 is?", a:shuffleArray(["Pentagon", "Triangle", "Square", "Circle"]), correct:0},
+        {id:96, q:"Feasible region for x≥0, y≥0, x+y≥3, x≤4, y≤5 is?", a:shuffleArray(["Pentagon", "Triangle", "Square", "Circle"]), correct:0},
+        {id:97, q:"Maximize Z=5x+4y subject to x+y≤6, x≤4, y≤5, x≥0, y≥0. Z_max=?", a:shuffleArray(["24", "25", "20", "30"]), correct:0},
+        {id:98, q:"Minimize Z=4x+5y subject to x+y≥3, x≤4, y≤3, x≥0, y≥0. Z_min=?", a:shuffleArray(["12", "15", "10", "20"]), correct:0},
+        {id:99, q:"In LPP, constraints are always?", a:shuffleArray(["Inequalities", "Equations", "Quadratic", "Cubic"]), correct:0},
+        {id:100, q:"Optimal value of objective function occurs at?", a:shuffleArray(["Corner point", "Interior point", "Origin", "Infinity"]), correct:0},
+        {id:101, q:"If feasible region is unbounded, solution may be?", a:shuffleArray(["Unbounded", "Bounded", "Always finite", "None"]), correct:0},
+        {id:102, q:"Linear programming is used to find?", a:shuffleArray(["Optimum value", "Area", "Volume", "Speed"]), correct:0},
+        {id:103, q:"Objective function in LPP is?", a:shuffleArray(["Linear function", "Quadratic function", "Cubic function", "Exponential function"]), correct:0},
+        {id:104, q:"Constraints in LPP are?", a:shuffleArray(["Linear inequalities", "Linear equations", "Non-linear", "Quadratic"]), correct:0},
+        {id:105, q:"Feasible region is the set of points satisfying?", a:shuffleArray(["All constraints", "Objective function", "Only one constraint", "No constraint"]), correct:0},
+        {id:106, q:"Corner points method is used to find?", a:shuffleArray(["Optimum solution", "Feasible region", "Constraints", "Graph"]), correct:0},
+        {id:107, q:"In LPP, optimal solution lies at?", a:shuffleArray(["Corner point", "Interior point", "Edge", "Anywhere"]), correct:0},
+        {id:108, q:"Maximize Z=2x+3y subject to x+y≤5, x≤3, y≤4, x≥0, y≥0. Z_max=?", a:shuffleArray(["15", "14", "12", "18"]), correct:0},
+        {id:109, q:"Minimize Z=x+2y subject to x+y≥4, x≤3, y≤4, x≥0, y≥0. Z_min=?", a:shuffleArray(["4", "5", "6", "7"]), correct:0},
+        {id:110, q:"Feasible region for x≥0, y≥0, x+y≤5, x≤3, y≤4 is?", a:shuffleArray(["Pentagon", "Triangle", "Square", "Circle"]), correct:0},
+        // Conic Sections (111-140)
+        {id:111, q:"Circle (x-4)²+(y+5)²=49 center is?", a:shuffleArray(["(4,-5)", "(-4,5)", "(4,5)", "(-4,-5)"]), correct:0},
+        {id:112, q:"Circle (x+3)²+(y-6)²=25 center is?", a:shuffleArray(["(-3,6)", "(3,-6)", "(-3,-6)", "(3,6)"]), correct:0},
+        {id:113, q:"Circle x²+y²+12x-10y=0 center is?", a:shuffleArray(["(-6,5)", "(6,-5)", "(12,-10)", "(-12,10)"]), correct:0},
+        {id:114, q:"Circle x²+y²-18x+24y=0 center is?", a:shuffleArray(["(9,-12)", "(-9,12)", "(18,-24)", "(-18,24)"]), correct:0},
+        {id:115, q:"Ellipse x²/100+y²/81=1 has major axis length?", a:shuffleArray(["20", "18", "10", "9"]), correct:0},
+        {id:116, q:"Ellipse x²/100+y²/81=1 has minor axis length?", a:shuffleArray(["18", "20", "10", "9"]), correct:0},
+        {id:117, q:"Ellipse x²/81+y²/64=1 has foci?", a:shuffleArray(["±√17,0", "±9,0", "0,±√17", "0,±9"]), correct:0},
+        {id:118, q:"Hyperbola x²/81-y²/64=1 has foci?", a:shuffleArray(["±√145,0", "±9,0", "0,±√145", "0,±9"]), correct:0},
+        {id:119, q:"Parabola y²=36x has focus?", a:shuffleArray(["(9,0)", "(36,0)", "(0,9)", "(0,36)"]), correct:0},
+        {id:120, q:"Parabola x²=44y has focus?", a:shuffleArray(["(0,11)", "(44,0)", "(0,44)", "(11,0)"]), correct:0},
+        {id:121, q:"Parabola y²=28x has directrix?", a:shuffleArray(["x=-7", "x=7", "y=-7", "y=7"]), correct:0},
+        {id:122, q:"Parabola x²=48y has directrix?", a:shuffleArray(["y=-12", "y=12", "x=-12", "x=12"]), correct:0},
+        {id:123, q:"Ellipse x²/100+y²/81=1 has eccentricity?", a:shuffleArray(["√19/10", "9/10", "10/9", "√19/9"]), correct:0},
+        {id:124, q:"Hyperbola x²/100-y²/81=1 has eccentricity?", a:shuffleArray(["√181/10", "10/9", "9/10", "√181/9"]), correct:0},
+        {id:125, q:"Circle x²+y²+12x-10y=0 radius is?", a:shuffleArray(["√61", "6", "5", "12"]), correct:0},
+        {id:126, q:"Circle x²+y²-18x+24y=0 radius is?", a:shuffleArray(["15", "9", "12", "18"]), correct:0},
+        {id:127, q:"Ellipse x²/49+y²/36=1 has center?", a:shuffleArray(["(0,0)", "(7,6)", "(49,36)", "(0,0)"]), correct:0},
+        {id:128, q:"Hyperbola x²/49-y²/36=1 has center?", a:shuffleArray(["(0,0)", "(7,6)", "(49,36)", "(0,0)"]), correct:0},
+        {id:129, q:"Parabola y²=16x has vertex?", a:shuffleArray(["(0,0)", "(4,0)", "(0,4)", "(16,0)"]), correct:0},
+        {id:130, q:"Parabola x²=20y has vertex?", a:shuffleArray(["(0,0)", "(0,5)", "(5,0)", "(20,0)"]), correct:0},
+        {id:131, q:"Ellipse x²/121+y²/100=1 has major axis along?", a:shuffleArray(["x-axis", "y-axis", "Both", "None"]), correct:0},
+        {id:132, q:"Ellipse x²/100+y²/121=1 has major axis along?", a:shuffleArray(["y-axis", "x-axis", "Both", "None"]), correct:0},
+        {id:133, q:"Hyperbola x²/81-y²/64=1 has transverse axis along?", a:shuffleArray(["x-axis", "y-axis", "Both", "None"]), correct:0},
+        {id:134, q:"Hyperbola y²/81-x²/64=1 has transverse axis along?", a:shuffleArray(["y-axis", "x-axis", "Both", "None"]), correct:0},
+        {id:135, q:"Circle x²+y²+8x-6y-39=0 radius is?", a:shuffleArray(["8", "4", "5", "6"]), correct:0},
+        {id:136, q:"Circle x²+y²-12x+16y=0 radius is?", a:shuffleArray(["10", "6", "8", "12"]), correct:0},
+        {id:137, q:"Parabola y²=4ax has axis?", a:shuffleArray(["x-axis", "y-axis", "z-axis", "None"]), correct:0},
+        {id:138, q:"Parabola x²=4ay has axis?", a:shuffleArray(["y-axis", "x-axis", "z-axis", "None"]), correct:0},
+        {id:139, q:"Ellipse has eccentricity < 1", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:140, q:"Hyperbola has eccentricity > 1", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        // Vectors (141-160)
+        {id:141, q:"Vector AB from A(3,6) to B(7,10) is?", a:shuffleArray(["(4,4)", "(7,10)", "(10,16)", "(3,6)"]), correct:0},
+        {id:142, q:"Magnitude of vector (9,40) is?", a:shuffleArray(["41", "49", "31", "360"]), correct:0},
+        {id:143, q:"Magnitude of vector (11,60) is?", a:shuffleArray(["61", "71", "49", "660"]), correct:0},
+        {id:144, q:"Unit vector in direction of (9,40) is?", a:shuffleArray(["(9/41,40/41)", "(41/9,41/40)", "(9/40,40/9)", "(9,40)"]), correct:0},
+        {id:145, q:"Sum of vectors (3,6) and (4,5) is?", a:shuffleArray(["(7,11)", "(4,5)", "(12,30)", "(7,5)"]), correct:0},
+        {id:146, q:"Difference of vectors (10,12) and (4,5) is?", a:shuffleArray(["(6,7)", "(14,17)", "(40,60)", "(4,5)"]), correct:0},
+        {id:147, q:"Scalar product of (4,5) and (6,7) is?", a:shuffleArray(["59", "34", "58", "28"]), correct:0},
+        {id:148, q:"Scalar product of (5,6) and (7,8) is?", a:shuffleArray(["83", "46", "82", "36"]), correct:0},
+        {id:149, q:"Vectors (4,8) and (8,16) are?", a:shuffleArray(["Parallel", "Perpendicular", "Equal", "Opposite"]), correct:0},
+        {id:150, q:"Vectors (6,8) and (8,-6) are?", a:shuffleArray(["Perpendicular", "Parallel", "Equal", "Opposite"]), correct:0},
+        {id:151, q:"Dot product of perpendicular vectors is?", a:shuffleArray(["0", "1", "-1", "2"]), correct:0},
+        {id:152, q:"Angle between (2,3) and (-3,2) is?", a:shuffleArray(["90°", "0°", "180°", "45°"]), correct:0},
+        {id:153, q:"Angle between (3,4) and (4,3) is?", a:shuffleArray(["cos⁻¹(24/25)", "0°", "90°", "180°"]), correct:0},
+        {id:154, q:"Vector (4,7) multiplied by scalar 5 is?", a:shuffleArray(["(20,35)", "(4,7)", "(9,12)", "(0,0)"]), correct:0},
+        {id:155, q:"Magnitude of vector (20,21) is?", a:shuffleArray(["29", "41", "9", "420"]), correct:0},
+        {id:156, q:"Unit vector of (20,21) is?", a:shuffleArray(["(20/29,21/29)", "(20/21,21/20)", "(4/5,3/5)", "(20,21)"]), correct:0},
+        {id:157, q:"Vector addition is commutative.", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:158, q:"Vector addition is associative.", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:159, q:"Zero vector is identity for vector addition.", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:160, q:"Negative of vector (6,8) is?", a:shuffleArray(["(-6,-8)", "(6,8)", "(8,6)", "(-6,8)"]), correct:0},
+        // Complex Numbers (161-180)
+        {id:161, q:"i² = ?", a:shuffleArray(["-1", "1", "i", "-i"]), correct:0},
+        {id:162, q:"i³ = ?", a:shuffleArray(["-i", "i", "-1", "1"]), correct:0},
+        {id:163, q:"i⁴ = ?", a:shuffleArray(["1", "-1", "i", "-i"]), correct:0},
+        {id:164, q:"(4+5i)(6-7i) = ?", a:shuffleArray(["59+2i", "24-35i", "59-2i", "24+35i"]), correct:0},
+        {id:165, q:"(5+6i)(7-8i) = ?", a:shuffleArray(["83+2i", "35-48i", "83-2i", "35+48i"]), correct:0},
+        {id:166, q:"(1+i)^5 = ?", a:shuffleArray(["-4+4i", "4+4i", "-4-4i", "4-4i"]), correct:0},
+        {id:167, q:"(1-i)^5 = ?", a:shuffleArray(["-4-4i", "4+4i", "-4+4i", "4-4i"]), correct:0},
+        {id:168, q:"Real part of 7+24i is?", a:shuffleArray(["7", "24", "25", "31"]), correct:0},
+        {id:169, q:"Imaginary part of 7+24i is?", a:shuffleArray(["24", "7", "25", "31"]), correct:0},
+        {id:170, q:"Conjugate of 7+24i is?", a:shuffleArray(["7-24i", "-7+24i", "7+24i", "-7-24i"]), correct:0},
+        {id:171, q:"Modulus of 7+24i is?", a:shuffleArray(["25", "31", "17", "168"]), correct:0},
+        {id:172, q:"Modulus of 9+40i is?", a:shuffleArray(["41", "49", "31", "360"]), correct:0},
+        {id:173, q:"Sum of (4+5i) and (6+7i) is?", a:shuffleArray(["10+12i", "24+35i", "10+2i", "2+2i"]), correct:0},
+        {id:174, q:"Difference of (9+10i) and (4+5i) is?", a:shuffleArray(["5+5i", "13+15i", "36+50i", "4+5i"]), correct:0},
+        {id:175, q:"Product of (3+2i) and (4+3i) is?", a:shuffleArray(["6+17i", "12+6i", "6+7i", "17+6i"]), correct:0},
+        {id:176, q:"(4+5i)/(1+i) = ?", a:shuffleArray(["9/2 - 1/2 i", "9/2 + 1/2 i", "4+5i", "4-5i"]), correct:0},
+        {id:177, q:"(4+5i)/(4-5i) = ?", a:shuffleArray(["(-9+40i)/41", "(-9-40i)/41", "(9+40i)/41", "(9-40i)/41"]), correct:0},
+        {id:178, q:"i^5 = ?", a:shuffleArray(["i", "-i", "1", "-1"]), correct:0},
+        {id:179, q:"i^6 = ?", a:shuffleArray(["-1", "1", "i", "-i"]), correct:0},
+        {id:180, q:"i^7 = ?", a:shuffleArray(["-i", "i", "1", "-1"]), correct:0},
+        // Probability & Statistics (181-200)
+        {id:181, q:"P(A∪B) = ?", a:shuffleArray(["P(A)+P(B)-P(A∩B)", "P(A)+P(B)", "P(A)P(B)", "P(A)-P(B)"]), correct:0},
+        {id:182, q:"If A and B are mutually exclusive, P(A∪B)=?", a:shuffleArray(["P(A)+P(B)", "P(A)P(B)", "0", "1"]), correct:0},
+        {id:183, q:"If A and B are independent, P(A∩B)=?", a:shuffleArray(["P(A)P(B)", "P(A)+P(B)", "0", "1"]), correct:0},
+        {id:184, q:"Mean of data 6,8,10,12,14 is?", a:shuffleArray(["10", "8", "12", "9"]), correct:0},
+        {id:185, q:"Mean of data 4,8,12,16,20,24 is?", a:shuffleArray(["14", "12", "16", "10"]), correct:0},
+        {id:186, q:"Median of data 6,8,10,12,14 is?", a:shuffleArray(["10", "8", "12", "9"]), correct:0},
+        {id:187, q:"Median of data 4,8,12,16,20,24 is?", a:shuffleArray(["14", "12", "16", "10"]), correct:0},
+        {id:188, q:"Mode of data 3,4,4,5,5,5,6,6,6,6 is?", a:shuffleArray(["6", "5", "4", "3"]), correct:0},
+        {id:189, q:"Range of data 7,14,21,28,35 is?", a:shuffleArray(["28", "21", "35", "14"]), correct:0},
+        {id:190, q:"Range of data 10,20,30,40,50 is?", a:shuffleArray(["40", "30", "50", "20"]), correct:0},
+        {id:191, q:"Variance is square of?", a:shuffleArray(["Standard deviation", "Mean", "Median", "Mode"]), correct:0},
+        {id:192, q:"Standard deviation is square root of?", a:shuffleArray(["Variance", "Mean", "Range", "Median"]), correct:0},
+        {id:193, q:"When rolling a die, P(>5) = ?", a:shuffleArray(["1/6", "1/3", "1/2", "1"]), correct:0},
+        {id:194, q:"When rolling a die, P(<2) = ?", a:shuffleArray(["1/6", "1/3", "1/2", "1"]), correct:0},
+        {id:195, q:"When tossing two coins, P(exactly two heads) = ?", a:shuffleArray(["1/4", "1/2", "3/4", "1"]), correct:0},
+        {id:196, q:"When tossing two coins, P(no heads) = ?", a:shuffleArray(["1/4", "1/2", "1", "0"]), correct:0},
+        {id:197, q:"Probability of event A is 0.6, then P(A') = ?", a:shuffleArray(["0.4", "0.6", "1", "0"]), correct:0},
+        {id:198, q:"If P(A)=0.5, P(B)=0.6, A and B independent, P(A∩B)=?", a:shuffleArray(["0.3", "1.1", "0.1", "0"]), correct:0},
+        {id:199, q:"If P(A)=0.7, P(B)=0.8, A and B mutually exclusive, P(A∪B)=?", a:shuffleArray(["1.5", "0.3", "0.7", "0.8"]), correct:0},
+        {id:200, q:"Total outcomes when 6 coins tossed are?", a:shuffleArray(["64", "32", "16", "128"]), correct:0}
+    ];
+
+    // ============================================================
+    // CORRECT VALUES MAPPING
+    // ============================================================
+    const correctValues = {
+        1: "(-∞,-4]∪[4,∞)", 2: "(-∞,-3)∪(3,∞)", 3: "y≥1", 4: "All real", 5: "0",
+        6: "0", 7: "(√3+1)/2", 8: "e^{e²}+2", 9: "√3+3/2", 10: "3",
+        11: "8", 12: "7", 13: "1/2", 14: "4/5", 15: "4/3",
+        16: "1", 17: "1/4", 18: "5", 19: "5", 20: "16",
+        21: "5x⁴-20x³+30x²", 22: "0", 23: "4", 24: "2√3", 25: "-4/√3",
+        26: "-4/3", 27: "1/√3", 28: "0", 29: "-1", 30: "0",
+        31: "x⁵/5+3x⁴/4-x²+c", 32: "x⁵-2x⁴+x³+c", 33: "-cos6x/6 + c", 34: "sin7x/7 + c", 35: "e^{6x}/6 + c",
+        36: "1/4 ln|4x+3| + c", 37: "1/2 ln|x²+9| + c", 38: "tan5x/5 + c", 39: "-cot4x/4 + c", 40: "-cos⁴x/4 + c",
+        41: "0", 42: "-1/5", 43: "8/5", 44: "-16/3", 45: "(e⁴-1)/4",
+        46: "1/2 ln4", 47: "1/3", 48: "-1/3", 49: "0", 50: "1/3",
+        51: "(2e³+1)/27", 52: "-1/4", 53: "π/3", 54: "(2e³+1)/9", 55: "(6e⁴-1)/64",
+        56: "-1/9", 57: "sin3/9 - cos3/3 + 1/3", 58: "sin3/3 + cos3/9 - 1/9", 59: "(e(sin2-2cos2)+2)/5", 60: "(e(sin2+2cos2)-2)/5",
+        61: "√32", 62: "√32", 63: "5", 64: "(4,8)", 65: "(1,1)",
+        66: "3", 67: "2", 68: "y=-4x+11", 69: "y=5x+7", 70: "-3/4",
+        71: "5/2", 72: "-4/7", 73: "8", 74: "-9", 75: "4",
+        76: "3", 77: "2", 78: "-5", 79: "y=-4x+18", 80: "y=3x-1",
+        81: "Equal", 82: "Negative reciprocal", 83: "(x-4)²+(y-5)²=36", 84: "(x+3)²+(y-4)²=25", 85: "12",
+        86: "13", 87: "(-5,4)", 88: "(8,-10)", 89: "(8,0)", 90: "(0,12)",
+        91: "17", 92: "24", 93: "4", 94: "5", 95: "Pentagon",
+        96: "Pentagon", 97: "24", 98: "12", 99: "Inequalities", 100: "Corner point",
+        101: "Unbounded", 102: "Optimum value", 103: "Linear function", 104: "Linear inequalities", 105: "All constraints",
+        106: "Optimum solution", 107: "Corner point", 108: "15", 109: "4", 110: "Pentagon",
+        111: "(4,-5)", 112: "(-3,6)", 113: "(-6,5)", 114: "(9,-12)", 115: "20",
+        116: "18", 117: "±√17,0", 118: "±√145,0", 119: "(9,0)", 120: "(0,11)",
+        121: "x=-7", 122: "y=-12", 123: "√19/10", 124: "√181/10", 125: "√61",
+        126: "15", 127: "(0,0)", 128: "(0,0)", 129: "(0,0)", 130: "(0,0)",
+        131: "x-axis", 132: "y-axis", 133: "x-axis", 134: "y-axis", 135: "8",
+        136: "10", 137: "x-axis", 138: "y-axis", 139: "Yes", 140: "Yes",
+        141: "(4,4)", 142: "41", 143: "61", 144: "(9/41,40/41)", 145: "(7,11)",
+        146: "(6,7)", 147: "59", 148: "83", 149: "Parallel", 150: "Perpendicular",
+        151: "0", 152: "90°", 153: "cos⁻¹(24/25)", 154: "(20,35)", 155: "29",
+        156: "(20/29,21/29)", 157: "Yes", 158: "Yes", 159: "Yes", 160: "(-6,-8)",
+        161: "-1", 162: "-i", 163: "1", 164: "59+2i", 165: "83+2i",
+        166: "-4+4i", 167: "-4-4i", 168: "7", 169: "24", 170: "7-24i",
+        171: "25", 172: "41", 173: "10+12i", 174: "5+5i", 175: "6+17i",
+        176: "9/2 - 1/2 i", 177: "(-9+40i)/41", 178: "i", 179: "-1", 180: "-i",
+        181: "P(A)+P(B)-P(A∩B)", 182: "P(A)+P(B)", 183: "P(A)P(B)", 184: "10", 185: "14",
+        186: "10", 187: "14", 188: "6", 189: "28", 190: "40",
+        191: "Standard deviation", 192: "Variance", 193: "1/6", 194: "1/6", 195: "1/4",
+        196: "1/4", 197: "0.4", 198: "0.3", 199: "1.5", 200: "64"
+    };
+
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const ans = correctValues[q.id];
+            const idx = q.a.indexOf(ans);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // TEST ENGINE
+    // ============================================================
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 7200, timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ(); timer();
+    }
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT"; yourAns = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG"; yourAns = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED"; yourAns = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${qId}</td><td>${q.q}</td><td style="color:${color}; font-weight:bold;">${status}</td><td style="color:${color}; font-weight:bold;">${yourAns}</td><td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

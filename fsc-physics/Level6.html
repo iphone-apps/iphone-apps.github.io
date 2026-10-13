@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Physics Part-2 (Level-1 - Basic) MCQs Test</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 25px; border-radius: 15px; margin: 15px 0 20px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 15px; font-size: 24px; }
+        .instructions-box p { margin: 10px 0; font-size: 17px; }
+        .instructions-box b { color: #bb86fc; }
+        .startBtn, .restartBtn { width: 100%; padding: 18px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 22px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 10px; margin-bottom: 60px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 12px 15px; border-radius: 12px; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .timer { font-size: 20px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 20px; font-weight: bold; background: #7f00ff; padding: 5px 15px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 20px; font-size: 14px; font-weight: bold; gap: 15px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 15px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 3px 12px; border-radius: 20px; font-size: 16px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 18px; margin-bottom: 15px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 8px 0; padding: 14px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 20px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 25px; border-radius: 15px; margin-bottom: 25px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 15px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 14px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 12px; font-size: 15px; }
+        td { padding: 10px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 70px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 12px 30px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 12px; } .score-bar { font-size: 12px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">⚛️ FSc Physics Part-2</h1>
+        <h2>Level-1 (Basic) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">💡 Note: (Save for Later) option is available if you want to solve that question at the end</span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red" style="color: #FF4500; font-weight: bold;">❌ Calculator Not Allowed</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+</div>
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ===== PART-2 LEVEL-1: 200 MCQs (Aap ki di hui list) =====
+    const mcqs = [
+      // UNIT 1: ELECTROSTATICS (IDs 1-20)
+      {id: 1, q: "SI unit of electric charge?", a: shuffleArray(["Coulomb", "Ampere", "Volt", "Ohm"]), correct: 0},
+      {id: 2, q: "SI unit of electric field?", a: shuffleArray(["N/C", "V/m", "Both", "J/C"]), correct: 0},
+      {id: 3, q: "Coulomb's law: F between two charges is directly proportional to?", a: shuffleArray(["Product of charges", "Sum of charges", "Difference", "Ratio"]), correct: 0},
+      {id: 4, q: "Coulomb's law: F between two charges is inversely proportional to?", a: shuffleArray(["Square of distance", "Distance", "Cube", "√distance"]), correct: 0},
+      {id: 5, q: "Value of Coulomb's constant k?", a: shuffleArray(["9×10⁹", "8.85×10⁻¹²", "4π×10⁻⁷", "1.6×10⁻¹⁹"]), correct: 0},
+      {id: 6, q: "Permittivity of free space ε₀?", a: shuffleArray(["8.85×10⁻¹²", "9×10⁹", "4π×10⁻⁷", "1.6×10⁻¹⁹"]), correct: 0},
+      {id: 7, q: "Electric field lines originate from?", a: shuffleArray(["Positive charge", "Negative charge", "Both", "None"]), correct: 0},
+      {id: 8, q: "Electric field lines terminate at?", a: shuffleArray(["Negative charge", "Positive charge", "Both", "None"]), correct: 0},
+      {id: 9, q: "Electric field inside a conductor is?", a: shuffleArray(["Zero", "Non-zero", "Maximum", "Variable"]), correct: 0},
+      {id: 10, q: "Potential due to point charge q at distance r?", a: shuffleArray(["V = kq/r", "V = kq/r²", "V = kq²/r", "V = kq/r³"]), correct: 0},
+      {id: 11, q: "Capacitance of parallel plate capacitor?", a: shuffleArray(["C = ε₀A/d", "C = ε₀d/A", "C = A/ε₀d", "C = d/ε₀A"]), correct: 0},
+      {id: 12, q: "If distance between plates doubled, C becomes?", a: shuffleArray(["Half", "Double", "Four times", "One-fourth"]), correct: 0},
+      {id: 13, q: "If dielectric inserted between plates, C?", a: shuffleArray(["Increases", "Decreases", "Remains same", "Becomes zero"]), correct: 0},
+      {id: 14, q: "Dielectric constant for vacuum?", a: shuffleArray(["1", "0", "8.85×10⁻¹²", "9×10⁹"]), correct: 0},
+      {id: 15, q: "Energy stored in capacitor?", a: shuffleArray(["1/2 CV²", "CV²", "1/2 QV", "Both a and c"]), correct: 0},
+      {id: 16, q: "If voltage doubled, energy stored becomes?", a: shuffleArray(["Four times", "Double", "Half", "One-fourth"]), correct: 0},
+      {id: 17, q: "In series capacitors, charge on each is?", a: shuffleArray(["Same", "Different", "Zero", "Infinite"]), correct: 0},
+      {id: 18, q: "In parallel capacitors, voltage across each is?", a: shuffleArray(["Same", "Different", "Zero", "Infinite"]), correct: 0},
+      {id: 19, q: "Equivalent capacitance of two in series?", a: shuffleArray(["1/C=1/C₁+1/C₂", "C=C₁+C₂", "C=C₁×C₂", "C=C₁-C₂"]), correct: 0},
+      {id: 20, q: "Equivalent capacitance of two in parallel?", a: shuffleArray(["C=C₁+C₂", "1/C=1/C₁+1/C₂", "C=C₁×C₂", "C=C₁-C₂"]), correct: 0},
+
+      // UNIT 2: CURRENT ELECTRICITY (IDs 21-40)
+      {id: 21, q: "SI unit of electric current?", a: shuffleArray(["Ampere", "Coulomb", "Volt", "Ohm"]), correct: 0},
+      {id: 22, q: "SI unit of resistance?", a: shuffleArray(["Ohm", "Volt", "Ampere", "Watt"]), correct: 0},
+      {id: 23, q: "Ohm's law formula?", a: shuffleArray(["V=IR", "I=VR", "R=VI", "V=I/R"]), correct: 0},
+      {id: 24, q: "Resistance of conductor?", a: shuffleArray(["R=ρL/A", "R=ρA/L", "R=L/ρA", "R=A/ρL"]), correct: 0},
+      {id: 25, q: "Resistivity depends on?", a: shuffleArray(["Temperature", "Length", "Area", "Voltage"]), correct: 0},
+      {id: 26, q: "If length doubled, R becomes?", a: shuffleArray(["Double", "Half", "Four times", "One-fourth"]), correct: 0},
+      {id: 27, q: "If area doubled, R becomes?", a: shuffleArray(["Half", "Double", "Four times", "One-fourth"]), correct: 0},
+      {id: 28, q: "Series combination of resistors?", a: shuffleArray(["R=R₁+R₂+R₃", "1/R=1/R₁+1/R₂", "R=R₁×R₂", "None"]), correct: 0},
+      {id: 29, q: "Parallel combination of resistors?", a: shuffleArray(["1/R=1/R₁+1/R₂+1/R₃", "R=R₁+R₂+R₃", "R=R₁×R₂", "None"]), correct: 0},
+      {id: 30, q: "Kirchhoff's first law based on?", a: shuffleArray(["Charge", "Energy", "Mass", "Momentum"]), correct: 0},
+      {id: 31, q: "Kirchhoff's second law based on?", a: shuffleArray(["Energy", "Charge", "Mass", "Momentum"]), correct: 0},
+      {id: 32, q: "Terminal voltage V = ?", a: shuffleArray(["V=ε-Ir", "V=ε+Ir", "V=εr/I", "V=εI/r"]), correct: 0},
+      {id: 33, q: "Power in resistor?", a: shuffleArray(["P=I²R", "P=V²/R", "P=VI", "All"]), correct: 0},
+      {id: 34, q: "Unit of electrical energy?", a: shuffleArray(["Joule", "Wh", "kWh", "All"]), correct: 0},
+      {id: 35, q: "Electricity cost based on?", a: shuffleArray(["kWh", "Joules", "Calories", "BTU"]), correct: 0},
+      {id: 36, q: "Resistance of 100W bulb at 220V?", a: shuffleArray(["484Ω", "220Ω", "100Ω", "440Ω"]), correct: 0},
+      {id: 37, q: "Power in 10Ω with 2A current?", a: shuffleArray(["40W", "20W", "10W", "5W"]), correct: 0},
+      {id: 38, q: "Voltage across 5Ω with 3A?", a: shuffleArray(["15V", "10V", "5V", "3V"]), correct: 0},
+      {id: 39, q: "Energy by 100W bulb in 10 hours?", a: shuffleArray(["1 kWh", "10 kWh", "100 kWh", "0.1 kWh"]), correct: 0},
+      {id: 40, q: "Cost of 1000W heater for 5h at Rs20/unit?", a: shuffleArray(["100 Rs", "50 Rs", "200 Rs", "10 Rs"]), correct: 0},
+
+      // UNIT 3: ELECTROMAGNETISM (IDs 41-60)
+      {id: 41, q: "SI unit of magnetic field?", a: shuffleArray(["Tesla", "Weber", "Henry", "Farad"]), correct: 0},
+      {id: 42, q: "SI unit of magnetic flux?", a: shuffleArray(["Weber", "Tesla", "Henry", "Farad"]), correct: 0},
+      {id: 43, q: "B due to long straight conductor?", a: shuffleArray(["B=μ₀I/2πr", "B=μ₀I/4πr", "B=μ₀I/r", "B=μ₀I/2r"]), correct: 0},
+      {id: 44, q: "B at center of circular coil?", a: shuffleArray(["B=μ₀NI/2r", "B=μ₀NI/r", "B=μ₀I/2r", "B=μ₀I/r"]), correct: 0},
+      {id: 45, q: "B inside solenoid is?", a: shuffleArray(["Uniform", "Non-uniform", "Zero", "Max at ends"]), correct: 0},
+      {id: 46, q: "Direction of B around current wire?", a: shuffleArray(["Right-hand grip rule", "Left-hand rule", "Fleming", "None"]), correct: 0},
+      {id: 47, q: "Force on conductor in B field?", a: shuffleArray(["F=BIL sinθ", "F=BIL cosθ", "F=BIL", "F=BI/L"]), correct: 0},
+      {id: 48, q: "Force between parallel conductors attractive if currents?", a: shuffleArray(["Same direction", "Opposite", "Perpendicular", "None"]), correct: 0},
+      {id: 49, q: "Force between parallel conductors repulsive if currents?", a: shuffleArray(["Opposite direction", "Same", "Perpendicular", "None"]), correct: 0},
+      {id: 50, q: "Torque on current loop?", a: shuffleArray(["τ=NIAB sinθ", "τ=NIAB cosθ", "τ=NIAB", "τ=BIL"]), correct: 0},
+      {id: 51, q: "Torque max when plane parallel to B?", a: shuffleArray(["Maximum", "Zero", "Minimum", "NIAB"]), correct: 0},
+      {id: 52, q: "Torque zero when plane perpendicular to B?", a: shuffleArray(["Zero", "Maximum", "Minimum", "NIAB"]), correct: 0},
+      {id: 53, q: "Magnetic dipole moment?", a: shuffleArray(["μ=NIA", "μ=NIB", "μ=IA", "μ=IB"]), correct: 0},
+      {id: 54, q: "Diamagnetic susceptibility?", a: shuffleArray(["Negative small", "Positive large", "Zero", "Infinite"]), correct: 0},
+      {id: 55, q: "Paramagnetic susceptibility?", a: shuffleArray(["Positive small", "Negative small", "Zero", "Infinite"]), correct: 0},
+      {id: 56, q: "Ferromagnetic susceptibility?", a: shuffleArray(["Positive large", "Negative small", "Zero", "Infinite"]), correct: 0},
+      {id: 57, q: "Diamagnetic materials weakly repelled because?", a: shuffleArray(["No permanent dipoles", "Permanent dipoles", "Ferromagnetic", "None"]), correct: 0},
+      {id: 58, q: "Paramagnetic weakly attracted because?", a: shuffleArray(["Permanent dipoles align", "No dipoles", "Ferromagnetic", "None"]), correct: 0},
+      {id: 59, q: "Ferromagnetic strongly attracted because?", a: shuffleArray(["Domains align", "No domains", "Diamagnetic", "None"]), correct: 0},
+      {id: 60, q: "Curie temperature: above it, ferromagnetic becomes?", a: shuffleArray(["Paramagnetic", "Diamagnetic", "Ferromagnetic", "Superconducting"]), correct: 0},
+
+      // UNIT 4: EMI (IDs 61-80)
+      {id: 61, q: "EMI is production of?", a: shuffleArray(["EMF due to changing flux", "Current due to E field", "Heat", "None"]), correct: 0},
+      {id: 62, q: "Faraday's law: induced EMF proportional to?", a: shuffleArray(["Rate of change of flux", "Flux", "Current", "None"]), correct: 0},
+      {id: 63, q: "Lenz's law: induced current opposes?", a: shuffleArray(["Cause producing it", "Effect", "Magnetic field", "Electric field"]), correct: 0},
+      {id: 64, q: "Lenz's law based on conservation of?", a: shuffleArray(["Energy", "Charge", "Mass", "Momentum"]), correct: 0},
+      {id: 65, q: "Direction of induced EMF by?", a: shuffleArray(["Lenz's law", "Faraday's law", "Ohm's law", "Coulomb's law"]), correct: 0},
+      {id: 66, q: "Self-inductance opposes?", a: shuffleArray(["Change in current", "Change in voltage", "Change in R", "None"]), correct: 0},
+      {id: 67, q: "Unit of inductance?", a: shuffleArray(["Henry", "Farad", "Ohm", "Tesla"]), correct: 0},
+      {id: 68, q: "Energy stored in inductor?", a: shuffleArray(["U=1/2 LI²", "U=LI²", "U=1/2 CV²", "U=QV"]), correct: 0},
+      {id: 69, q: "Mutual inductance depends on?", a: shuffleArray(["Geometry of coils", "Current", "Voltage", "Resistance"]), correct: 0},
+      {id: 70, q: "Transformer works on?", a: shuffleArray(["Mutual induction", "Self induction", "Faraday's law", "Lenz's law"]), correct: 0},
+      {id: 71, q: "Step-up transformer: voltage up, current?", a: shuffleArray(["Down", "Up", "Same", "Zero"]), correct: 0},
+      {id: 72, q: "Step-down transformer: voltage down, current?", a: shuffleArray(["Up", "Down", "Same", "Zero"]), correct: 0},
+      {id: 73, q: "Ideal transformer efficiency?", a: shuffleArray(["100%", "75%", "50%", "0%"]), correct: 0},
+      {id: 74, q: "Eddy currents produced in?", a: shuffleArray(["Changing B field", "Constant B field", "E field", "None"]), correct: 0},
+      {id: 75, q: "Eddy currents minimized by?", a: shuffleArray(["Laminated core", "Solid core", "Thick core", "None"]), correct: 0},
+      {id: 76, q: "AC generator frequency depends on?", a: shuffleArray(["Speed of rotation", "Turns", "B field", "Area"]), correct: 0},
+      {id: 77, q: "DC generator uses?", a: shuffleArray(["Commutator", "Slip rings", "Rectifier", "Inverter"]), correct: 0},
+      {id: 78, q: "Back EMF in DC motor helps to?", a: shuffleArray(["Limit current", "Increase current", "Increase speed", "None"]), correct: 0},
+      {id: 79, q: "Motional EMF formula?", a: shuffleArray(["ε=Bvl", "ε=Bv/l", "ε=Bl/v", "ε=Bvl²"]), correct: 0},
+      {id: 80, q: "Motional EMF when v perpendicular B?", a: shuffleArray(["ε=Bvl", "ε=0", "ε=Bv/l", "ε=Bl/v"]), correct: 0},
+
+      // UNIT 5: AC (IDs 81-100)
+      {id: 81, q: "AC frequency in Pakistan?", a: shuffleArray(["50 Hz", "60 Hz", "100 Hz", "220 Hz"]), correct: 0},
+      {id: 82, q: "RMS current I_rms = ?", a: shuffleArray(["I₀/√2", "I₀√2", "I₀/2", "I₀"]), correct: 0},
+      {id: 83, q: "RMS voltage V_rms = ?", a: shuffleArray(["V₀/√2", "V₀√2", "V₀/2", "V₀"]), correct: 0},
+      {id: 84, q: "Phase difference in pure resistor?", a: shuffleArray(["0°", "90°", "180°", "45°"]), correct: 0},
+      {id: 85, q: "In pure resistor, V and I are?", a: shuffleArray(["In phase", "90° out", "180° out", "None"]), correct: 0},
+      {id: 86, q: "In pure inductor, current?", a: shuffleArray(["Lags V by 90°", "Leads V by 90°", "In phase", "180°"]), correct: 0},
+      {id: 87, q: "In pure capacitor, current?", a: shuffleArray(["Leads V by 90°", "Lags V by 90°", "In phase", "180°"]), correct: 0},
+      {id: 88, q: "Inductive reactance X_L = ?", a: shuffleArray(["ωL", "1/ωL", "ωC", "1/ωC"]), correct: 0},
+      {id: 89, q: "Capacitive reactance X_C = ?", a: shuffleArray(["1/ωC", "ωC", "ωL", "1/ωL"]), correct: 0},
+      {id: 90, q: "Impedance Z of RLC series?", a: shuffleArray(["√(R²+(X_L-X_C)²)", "R+X_L+X_C", "√(R²+X_L²+X_C²)", "R-X_L-X_C"]), correct: 0},
+      {id: 91, q: "Phase angle φ in RLC?", a: shuffleArray(["tan⁻¹((X_L-X_C)/R)", "tan⁻¹(R/(X_L-X_C))", "tan⁻¹((X_L+X_C)/R)", "tan⁻¹(R/(X_L+X_C))"]), correct: 0},
+      {id: 92, q: "At resonance, X_L = X_C, Z = ?", a: shuffleArray(["Minimum (R)", "Maximum", "Zero", "Infinite"]), correct: 0},
+      {id: 93, q: "At resonance, current is?", a: shuffleArray(["Maximum", "Minimum", "Zero", "Infinite"]), correct: 0},
+      {id: 94, q: "Resonant frequency f_r = ?", a: shuffleArray(["1/(2π√LC)", "1/(2πLC)", "2π√LC", "√LC/2π"]), correct: 0},
+      {id: 95, q: "Quality factor Q = ?", a: shuffleArray(["(1/R)√(L/C)", "R√(L/C)", "(1/R)√(C/L)", "R√(C/L)"]), correct: 0},
+      {id: 96, q: "High Q indicates?", a: shuffleArray(["Sharp resonance", "Broad resonance", "Low current", "High R"]), correct: 0},
+      {id: 97, q: "Bandwidth BW = ?", a: shuffleArray(["f_r/Q", "f_r×Q", "Q/f_r", "1/(f_r Q)"]), correct: 0},
+      {id: 98, q: "Power factor = ?", a: shuffleArray(["cos φ", "sin φ", "tan φ", "1/cos φ"]), correct: 0},
+      {id: 99, q: "Power factor for pure resistor?", a: shuffleArray(["1", "0", "0.5", "0.8"]), correct: 0},
+      {id: 100, q: "Power factor for pure L or C?", a: shuffleArray(["0", "1", "0.5", "0.8"]), correct: 0},
+
+      // UNIT 6: SOLIDS (IDs 101-120)
+      {id: 101, q: "Conductivity depends on?", a: shuffleArray(["Free electrons", "Temperature", "Both", "None"]), correct: 0},
+      {id: 102, q: "In conductor, valence band is?", a: shuffleArray(["Partially filled", "Completely filled", "Empty", "Overlapping"]), correct: 0},
+      {id: 103, q: "In insulator, energy gap is?", a: shuffleArray(["Large", "Small", "Zero", "Negative"]), correct: 0},
+      {id: 104, q: "In semiconductor, energy gap is?", a: shuffleArray(["Small", "Large", "Zero", "Negative"]), correct: 0},
+      {id: 105, q: "Resistivity of semiconductor decreases with T because?", a: shuffleArray(["Carriers increase", "Carriers decrease", "Mobility increases", "None"]), correct: 0},
+      {id: 106, q: "Resistivity of metal increases with T because?", a: shuffleArray(["Lattice vibrations increase", "Carriers decrease", "Carriers increase", "None"]), correct: 0},
+      {id: 107, q: "Critical temperature for superconductor is?", a: shuffleArray(["Material dependent", "Same for all", "Zero", "Infinite"]), correct: 0},
+      {id: 108, q: "Meissner effect is characteristic of?", a: shuffleArray(["Type I SC", "Type II SC", "Both", "None"]), correct: 0},
+      {id: 109, q: "Hall effect determines?", a: shuffleArray(["Type and concentration of carriers", "Resistance", "Voltage", "Current"]), correct: 0},
+      {id: 110, q: "Mobility unit?", a: shuffleArray(["m²/V·s", "m/V·s", "V·s/m²", "None"]), correct: 0},
+      {id: 111, q: "Valence band is?", a: shuffleArray(["Highest occupied", "Lowest occupied", "Empty", "Overlapping"]), correct: 0},
+      {id: 112, q: "Conduction band is?", a: shuffleArray(["Lowest unoccupied", "Highest occupied", "Empty", "Overlapping"]), correct: 0},
+      {id: 113, q: "In intrinsic semiconductor, Fermi level lies?", a: shuffleArray(["Middle of gap", "Near CB", "Near VB", "In VB"]), correct: 0},
+      {id: 114, q: "In N-type, Fermi level lies?", a: shuffleArray(["Near CB", "Near VB", "Middle", "In VB"]), correct: 0},
+      {id: 115, q: "In P-type, Fermi level lies?", a: shuffleArray(["Near VB", "Near CB", "Middle", "In CB"]), correct: 0},
+      {id: 116, q: "Extrinsic semiconductor formed by?", a: shuffleArray(["Doping", "Heating", "Cooling", "Pressure"]), correct: 0},
+      {id: 117, q: "N-type doped with?", a: shuffleArray(["Pentavalent", "Trivalent", "Monovalent", "Divalent"]), correct: 0},
+      {id: 118, q: "P-type doped with?", a: shuffleArray(["Trivalent", "Pentavalent", "Monovalent", "Divalent"]), correct: 0},
+      {id: 119, q: "In N-type, majority carriers?", a: shuffleArray(["Electrons", "Holes", "Both", "None"]), correct: 0},
+      {id: 120, q: "In P-type, majority carriers?", a: shuffleArray(["Holes", "Electrons", "Both", "None"]), correct: 0},
+
+      // UNIT 7: ELECTRONICS (IDs 121-140)
+      {id: 121, q: "PN junction diode allows current in?", a: shuffleArray(["One direction", "Both", "No", "Reverse"]), correct: 0},
+      {id: 122, q: "Si PN junction barrier potential?", a: shuffleArray(["0.7 V", "0.3 V", "1.1 V", "3 V"]), correct: 0},
+      {id: 123, q: "Ge PN junction barrier potential?", a: shuffleArray(["0.3 V", "0.7 V", "1.1 V", "3 V"]), correct: 0},
+      {id: 124, q: "In forward bias, depletion width?", a: shuffleArray(["Decreases", "Increases", "Constant", "Zero"]), correct: 0},
+      {id: 125, q: "In reverse bias, depletion width?", a: shuffleArray(["Increases", "Decreases", "Constant", "Zero"]), correct: 0},
+      {id: 126, q: "Zener diode operated in?", a: shuffleArray(["Reverse breakdown", "Forward", "No bias", "Reverse saturation"]), correct: 0},
+      {id: 127, q: "Zener diode used as?", a: shuffleArray(["Voltage regulator", "Rectifier", "Amplifier", "Oscillator"]), correct: 0},
+      {id: 128, q: "LED emits light due to?", a: shuffleArray(["Recombination", "Drift", "Diffusion", "None"]), correct: 0},
+      {id: 129, q: "LED color depends on?", a: shuffleArray(["Band gap", "Current", "Voltage", "Temperature"]), correct: 0},
+      {id: 130, q: "Photodiode operated in?", a: shuffleArray(["Reverse bias", "Forward", "Zero", "No"]), correct: 0},
+      {id: 131, q: "Solar cell converts light into?", a: shuffleArray(["Electrical", "Heat", "Sound", "Magnetic"]), correct: 0},
+      {id: 132, q: "Transistor regions?", a: shuffleArray(["Emitter, Base, Collector", "Anode, Cathode, Gate", "Source, Drain, Gate", "None"]), correct: 0},
+      {id: 133, q: "α = I_C/I_E, value?", a: shuffleArray(["Less than 1", "Greater than 1", "Equal to 1", "Zero"]), correct: 0},
+      {id: 134, q: "β = I_C/I_B, value?", a: shuffleArray(["Greater than 1", "Less than 1", "Equal to 1", "Zero"]), correct: 0},
+      {id: 135, q: "Relation between α and β?", a: shuffleArray(["α=β/(1+β)", "β=α/(1-α)", "Both", "None"]), correct: 0},
+      {id: 136, q: "Transistor as amplifier in?", a: shuffleArray(["Active region", "Cut-off", "Saturation", "Breakdown"]), correct: 0},
+      {id: 137, q: "Transistor as switch in?", a: shuffleArray(["Cut-off and saturation", "Active", "Breakdown", "None"]), correct: 0},
+      {id: 138, q: "In cut-off, transistor is?", a: shuffleArray(["Off", "On", "Partly on", "Breakdown"]), correct: 0},
+      {id: 139, q: "In saturation, transistor is?", a: shuffleArray(["On", "Off", "Partly on", "Breakdown"]), correct: 0},
+      {id: 140, q: "Op-amp has high?", a: shuffleArray(["Voltage gain", "Input impedance", "Bandwidth", "All"]), correct: 0},
+
+      // UNIT 8: MODERN PHYSICS (IDs 141-160)
+      {id: 141, q: "Photoelectric effect explained by?", a: shuffleArray(["Einstein", "Newton", "Bohr", "Planck"]), correct: 0},
+      {id: 142, q: "Photon energy E = ?", a: shuffleArray(["hν", "hc/λ", "Both", "None"]), correct: 0},
+      {id: 143, q: "Work function φ = ?", a: shuffleArray(["hν₀", "hν", "1/2mv²", "eV"]), correct: 0},
+      {id: 144, q: "Photoelectric equation?", a: shuffleArray(["hν=φ+1/2mv²", "hν=φ-1/2mv²", "hν=1/2mv²-φ", "hν=φ"]), correct: 0},
+      {id: 145, q: "Stopping potential eV₀ = ?", a: shuffleArray(["hν-φ", "hν", "φ", "1/2mv²"]), correct: 0},
+      {id: 146, q: "Photoelectric current ∝ intensity because?", a: shuffleArray(["More photons=more electrons", "More energy=more electrons", "Higher freq=more electrons", "None"]), correct: 0},
+      {id: 147, q: "Max KE depends on frequency, not intensity because?", a: shuffleArray(["Energy of photon depends on freq", "Energy depends on intensity", "Depends on both", "None"]), correct: 0},
+      {id: 148, q: "Photoelectric effect is instantaneous suggests?", a: shuffleArray(["Energy quantized", "Energy continuous", "Energy zero", "None"]), correct: 0},
+      {id: 149, q: "Wave-particle duality proposed by?", a: shuffleArray(["de Broglie", "Einstein", "Bohr", "Planck"]), correct: 0},
+      {id: 150, q: "de Broglie wavelength λ = ?", a: shuffleArray(["h/p", "p/h", "h/mv", "Both a and c"]), correct: 0},
+      {id: 151, q: "Electron has larger λ than proton same speed because?", a: shuffleArray(["Electron smaller mass", "Proton smaller mass", "Electron larger mass", "None"]), correct: 0},
+      {id: 152, q: "Heisenberg uncertainty principle?", a: shuffleArray(["Δx Δp ≥ ħ/2", "Δx Δp ≤ ħ/2", "Δx Δp = ħ/2", "Δx Δp = 0"]), correct: 0},
+      {id: 153, q: "Energy-time uncertainty?", a: shuffleArray(["ΔE Δt ≥ ħ/2", "ΔE Δt ≤ ħ/2", "ΔE Δt = ħ/2", "ΔE Δt = 0"]), correct: 0},
+      {id: 154, q: "Uncertainty principle consequence of?", a: shuffleArray(["Wave-particle duality", "Classical mechanics", "Newton's laws", "None"]), correct: 0},
+      {id: 155, q: "Time-independent Schrödinger equation?", a: shuffleArray(["Hψ=Eψ", "iħ∂ψ/∂t=Hψ", "∂²ψ/∂x²=0", "∇²ψ=0"]), correct: 0},
+      {id: 156, q: "Probability density = ?", a: shuffleArray(["|ψ|²", "ψ", "ψ²", "1/ψ"]), correct: 0},
+      {id: 157, q: "Quantum harmonic oscillator energy?", a: shuffleArray(["E_n=(n+1/2)ħω", "E_n=nħω", "E_n=(n-1/2)ħω", "E_n=(n+1)ħω"]), correct: 0},
+      {id: 158, q: "Zero-point energy exists because?", a: shuffleArray(["Uncertainty principle", "Oscillator has no energy", "At rest", "None"]), correct: 0},
+      {id: 159, q: "Pauli exclusion principle valid for?", a: shuffleArray(["Fermions", "Bosons", "All particles", "None"]), correct: 0},
+      {id: 160, q: "Principal quantum n determines?", a: shuffleArray(["Energy", "Angular momentum", "Orientation", "Spin"]), correct: 0},
+
+      // UNIT 9: ATOMIC SPECTRA (IDs 161-180)
+      {id: 161, q: "Hydrogen energy levels E_n = ?", a: shuffleArray(["-13.6/n² eV", "13.6/n² eV", "-13.6/n eV", "13.6/n eV"]), correct: 0},
+      {id: 162, q: "Ionization energy of hydrogen?", a: shuffleArray(["13.6 eV", "10.2 eV", "3.4 eV", "1.9 eV"]), correct: 0},
+      {id: 163, q: "Bohr radius of hydrogen?", a: shuffleArray(["0.529 Å", "5.29 Å", "0.0529 Å", "52.9 Å"]), correct: 0},
+      {id: 164, q: "Lyman series in?", a: shuffleArray(["UV region", "Visible", "Infrared", "X-ray"]), correct: 0},
+      {id: 165, q: "Balmer series in?", a: shuffleArray(["Visible", "UV", "Infrared", "X-ray"]), correct: 0},
+      {id: 166, q: "Paschen series in?", a: shuffleArray(["Infrared", "Visible", "UV", "X-ray"]), correct: 0},
+      {id: 167, q: "Velocity in first Bohr orbit?", a: shuffleArray(["2.18×10⁶ m/s", "2.18×10⁸", "2.18×10⁴", "2.18×10²"]), correct: 0},
+      {id: 168, q: "Angular momentum L = ?", a: shuffleArray(["nħ", "nħ/2", "ħ/n", "2nħ"]), correct: 0},
+      {id: 169, q: "Selection rules: Δl = ±1 because?", a: shuffleArray(["Photon has angular momentum", "Photon has linear momentum", "Photon has energy", "None"]), correct: 0},
+      {id: 170, q: "Zeeman effect: splitting in?", a: shuffleArray(["Magnetic field", "Electric field", "Gravitational field", "None"]), correct: 0},
+      {id: 171, q: "Stark effect: splitting in?", a: shuffleArray(["Electric field", "Magnetic field", "Gravitational", "None"]), correct: 0},
+      {id: 172, q: "Spin-orbit coupling leads to?", a: shuffleArray(["Fine structure", "Hyperfine", "Zeeman", "Stark"]), correct: 0},
+      {id: 173, q: "Hyperfine structure due to?", a: shuffleArray(["Nucleus spin", "Nucleus charge", "Nucleus mass", "None"]), correct: 0},
+      {id: 174, q: "Laser works on?", a: shuffleArray(["Stimulated emission", "Spontaneous emission", "Absorption", "Reflection"]), correct: 0},
+      {id: 175, q: "Stimulated emission results in?", a: shuffleArray(["Amplification", "Attenuation", "Scattering", "Absorption"]), correct: 0},
+      {id: 176, q: "Population inversion necessary for?", a: shuffleArray(["Laser action", "Absorption", "Spontaneous emission", "None"]), correct: 0},
+      {id: 177, q: "Pumping can be done by?", a: shuffleArray(["Optical", "Electrical", "Chemical", "All"]), correct: 0},
+      {id: 178, q: "Ruby laser active medium?", a: shuffleArray(["Cr³⁺ in Al₂O₃", "He-Ne", "CO₂", "Semiconductor"]), correct: 0},
+      {id: 179, q: "He-Ne laser wavelength?", a: shuffleArray(["632.8 nm", "694.3 nm", "1064 nm", "10.6 μm"]), correct: 0},
+      {id: 180, q: "CO₂ laser wavelength?", a: shuffleArray(["10.6 μm", "632.8 nm", "694.3 nm", "1064 nm"]), correct: 0},
+
+      // UNIT 10: NUCLEAR PHYSICS (IDs 181-200)
+      {id: 181, q: "Atomic number = number of?", a: shuffleArray(["Protons", "Neutrons", "Electrons", "Nucleons"]), correct: 0},
+      {id: 182, q: "Mass number = number of?", a: shuffleArray(["Protons + Neutrons", "Protons", "Neutrons", "Electrons"]), correct: 0},
+      {id: 183, q: "Isotopes: same protons, different?", a: shuffleArray(["Neutrons", "Electrons", "Protons", "Nucleons"]), correct: 0},
+      {id: 184, q: "Isobars: same mass number, different?", a: shuffleArray(["Atomic number", "Neutron number", "Proton number", "All"]), correct: 0},
+      {id: 185, q: "Nuclear radius R = ?", a: shuffleArray(["R₀A^(1/3)", "R₀A", "R₀/A^(1/3)", "R₀/A"]), correct: 0},
+      {id: 186, q: "Binding energy ΔE = ?", a: shuffleArray(["Δmc²", "mc²", "m/Δc²", "c²/Δm"]), correct: 0},
+      {id: 187, q: "Mass defect Δm, binding energy?", a: shuffleArray(["Δmc²", "mc²", "m/Δc²", "c²/Δm"]), correct: 0},
+      {id: 188, q: "Binding energy per nucleon max for?", a: shuffleArray(["Fe-56", "U-235", "H-1", "He-4"]), correct: 0},
+      {id: 189, q: "Fission: splitting of heavy nucleus. Energy due to?", a: shuffleArray(["Mass defect", "Chemical", "Heat", "None"]), correct: 0},
+      {id: 190, q: "Fusion: combining light nuclei. Energy due to?", a: shuffleArray(["Mass defect", "Chemical", "Heat", "None"]), correct: 0},
+      {id: 191, q: "Sun produces energy by?", a: shuffleArray(["Fusion", "Fission", "Chemical", "Radioactivity"]), correct: 0},
+      {id: 192, q: "Nuclear reactor produces energy by?", a: shuffleArray(["Fission", "Fusion", "Chemical", "Radioactivity"]), correct: 0},
+      {id: 193, q: "Chain reaction controlled by?", a: shuffleArray(["Control rods", "Moderator", "Coolant", "Fuel"]), correct: 0},
+      {id: 194, q: "Moderator slows down?", a: shuffleArray(["Neutrons", "Protons", "Electrons", "Photons"]), correct: 0},
+      {id: 195, q: "Average neutrons per fission in U-235?", a: shuffleArray(["2.5", "1", "3", "4"]), correct: 0},
+      {id: 196, q: "Half-life T₁/₂ = ?", a: shuffleArray(["0.693/λ", "λ/0.693", "1/λ", "λ"]), correct: 0},
+      {id: 197, q: "Alpha particle is?", a: shuffleArray(["Helium nucleus", "Electron", "Photon", "Proton"]), correct: 0},
+      {id: 198, q: "Beta particle is?", a: shuffleArray(["Electron", "Proton", "Neutron", "Photon"]), correct: 0},
+      {id: 199, q: "Gamma ray is?", a: shuffleArray(["Photon", "Electron", "Proton", "Neutron"]), correct: 0},
+      {id: 200, q: "Geiger-Muller counter detects?", a: shuffleArray(["Radioactive radiation", "Light", "Sound", "Heat"]), correct: 0}
+    ];
+
+    // ===== CORRECT VALUES (100% Aap ki di hui mapping) =====
+    const correctValues = {
+        1: "Coulomb", 2: "N/C", 3: "Product of charges", 4: "Square of distance",
+        5: "9×10⁹", 6: "8.85×10⁻¹²", 7: "Positive charge", 8: "Negative charge",
+        9: "Zero", 10: "V = kq/r", 11: "C = ε₀A/d", 12: "Half",
+        13: "Increases", 14: "1", 15: "1/2 CV²", 16: "Four times",
+        17: "Same", 18: "Same", 19: "1/C=1/C₁+1/C₂", 20: "C=C₁+C₂",
+        21: "Ampere", 22: "Ohm", 23: "V=IR", 24: "R=ρL/A",
+        25: "Temperature", 26: "Double", 27: "Half", 28: "R=R₁+R₂+R₃",
+        29: "1/R=1/R₁+1/R₂+1/R₃", 30: "Charge", 31: "Energy",
+        32: "V=ε-Ir", 33: "All", 34: "All", 35: "kWh",
+        36: "484Ω", 37: "40W", 38: "15V", 39: "1 kWh", 40: "100 Rs",
+        41: "Tesla", 42: "Weber", 43: "B=μ₀I/2πr", 44: "B=μ₀NI/2r",
+        45: "Uniform", 46: "Right-hand grip rule", 47: "F=BIL sinθ",
+        48: "Same direction", 49: "Opposite direction", 50: "τ=NIAB sinθ",
+        51: "Maximum", 52: "Zero", 53: "μ=NIA", 54: "Negative small",
+        55: "Positive small", 56: "Positive large", 57: "No permanent dipoles",
+        58: "Permanent dipoles align", 59: "Domains align", 60: "Paramagnetic",
+        61: "EMF due to changing flux", 62: "Rate of change of flux",
+        63: "Cause producing it", 64: "Energy", 65: "Lenz's law",
+        66: "Change in current", 67: "Henry", 68: "U=1/2 LI²",
+        69: "Geometry of coils", 70: "Mutual induction", 71: "Down",
+        72: "Up", 73: "100%", 74: "Changing B field",
+        75: "Laminated core", 76: "Speed of rotation", 77: "Commutator",
+        78: "Limit current", 79: "ε=Bvl", 80: "ε=Bvl",
+        81: "50 Hz", 82: "I₀/√2", 83: "V₀/√2", 84: "0°",
+        85: "In phase", 86: "Lags V by 90°", 87: "Leads V by 90°",
+        88: "ωL", 89: "1/ωC", 90: "√(R²+(X_L-X_C)²)",
+        91: "tan⁻¹((X_L-X_C)/R)", 92: "Minimum (R)", 93: "Maximum",
+        94: "1/(2π√LC)", 95: "(1/R)√(L/C)", 96: "Sharp resonance",
+        97: "f_r/Q", 98: "cos φ", 99: "1", 100: "0",
+        101: "Both", 102: "Partially filled", 103: "Large", 104: "Small",
+        105: "Carriers increase", 106: "Lattice vibrations increase",
+        107: "Material dependent", 108: "Type I SC", 109: "Type and concentration of carriers",
+        110: "m²/V·s", 111: "Highest occupied", 112: "Lowest unoccupied",
+        113: "Middle of gap", 114: "Near CB", 115: "Near VB",
+        116: "Doping", 117: "Pentavalent", 118: "Trivalent",
+        119: "Electrons", 120: "Holes",
+        121: "One direction", 122: "0.7 V", 123: "0.3 V",
+        124: "Decreases", 125: "Increases", 126: "Reverse breakdown",
+        127: "Voltage regulator", 128: "Recombination", 129: "Band gap",
+        130: "Reverse bias", 131: "Electrical", 132: "Emitter, Base, Collector",
+        133: "Less than 1", 134: "Greater than 1", 135: "Both",
+        136: "Active region", 137: "Cut-off and saturation",
+        138: "Off", 139: "On", 140: "All",
+        141: "Einstein", 142: "Both", 143: "hν₀", 144: "hν=φ+1/2mv²",
+        145: "hν-φ", 146: "More photons=more electrons",
+        147: "Energy of photon depends on freq", 148: "Energy quantized",
+        149: "de Broglie", 150: "Both a and c",
+        151: "Electron smaller mass", 152: "Δx Δp ≥ ħ/2",
+        153: "ΔE Δt ≥ ħ/2", 154: "Wave-particle duality",
+        155: "Hψ=Eψ", 156: "|ψ|²", 157: "E_n=(n+1/2)ħω",
+        158: "Uncertainty principle", 159: "Fermions", 160: "Energy",
+        161: "-13.6/n² eV", 162: "13.6 eV", 163: "0.529 Å",
+        164: "UV region", 165: "Visible", 166: "Infrared",
+        167: "2.18×10⁶ m/s", 168: "nħ", 169: "Photon has angular momentum",
+        170: "Magnetic field", 171: "Electric field", 172: "Fine structure",
+        173: "Nucleus spin", 174: "Stimulated emission",
+        175: "Amplification", 176: "Laser action", 177: "All",
+        178: "Cr³⁺ in Al₂O₃", 179: "632.8 nm", 180: "10.6 μm",
+        181: "Protons", 182: "Protons + Neutrons", 183: "Neutrons",
+        184: "Atomic number", 185: "R₀A^(1/3)", 186: "Δmc²",
+        187: "Δmc²", 188: "Fe-56", 189: "Mass defect",
+        190: "Mass defect", 191: "Fusion", 192: "Fission",
+        193: "Control rods", 194: "Neutrons", 195: "2.5",
+        196: "0.693/λ", 197: "Helium nucleus", 198: "Electron",
+        199: "Photon", 200: "Radioactive radiation"
+    };
+
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const ans = correctValues[q.id];
+            const idx = q.a.indexOf(ans);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ===== TEST ENGINE (IDENTICAL TO BIOLOGY TEMPLATE) =====
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 7200, timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ(); timer();
+    }
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT"; yourAns = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG"; yourAns = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED"; yourAns = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${qId}</td><td>${q.q}</td><td style="color:${color}; font-weight:bold;">${status}</td><td style="color:${color}; font-weight:bold;">${yourAns}</td><td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

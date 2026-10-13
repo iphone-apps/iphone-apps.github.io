@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Physics Part-1 (Level-3 - Medium) MCQs Test</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">⚛️ FSc Physics Part-1</h1>
+        <h2>Level-3 (Medium) · 200 MCQs</h2>
+        <p class="subtitle">FSc / MDCAT / ETEA / NUST Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+                </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red" style="color: #FF4500; font-weight: bold;">❌ Calculator Not Allowed</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper: Shuffle array (Fisher-Yates)
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // LEVEL-3 (MEDIUM) - 200 MCQs with IDs 1 to 200
+    // All Units Mixed - FSc Physics Part-1
+    // ============================================================
+    const mcqs = [
+      // Unit 1: Measurements
+      {id: 1, q: "Dimension of work?", a: shuffleArray(["ML²T⁻²", "MLT⁻²", "ML²T⁻¹", "MLT⁻¹"]), correct: 0},
+      {id: 2, q: "Dimension of power?", a: shuffleArray(["ML²T⁻³", "ML²T⁻²", "MLT⁻²", "ML²T⁻¹"]), correct: 0},
+      {id: 3, q: "Dimension of pressure?", a: shuffleArray(["ML⁻¹T⁻²", "ML²T⁻²", "MLT⁻²", "ML⁻²T⁻²"]), correct: 0},
+      {id: 4, q: "Error % for 10cm with 0.01cm least count?", a: shuffleArray(["0.1%", "1%", "0.01%", "10%"]), correct: 0},
+      {id: 5, q: "Absolute error: measured 5.2cm, true 5.0cm?", a: shuffleArray(["0.2 cm", "0.02", "2", "0.002"]), correct: 0},
+      {id: 6, q: "Relative error: 0.2cm / 5.0cm = ?", a: shuffleArray(["0.04", "0.4", "4", "0.004"]), correct: 0},
+      {id: 7, q: "SI unit of solid angle?", a: shuffleArray(["Steradian", "Radian", "Degree", "Gradian"]), correct: 0},
+      {id: 8, q: "SI unit of plane angle?", a: shuffleArray(["Radian", "Steradian", "Degree", "Gradian"]), correct: 0},
+      {id: 9, q: "1 radian = ? degrees", a: shuffleArray(["57.3°", "180°", "90°", "360°"]), correct: 0},
+      {id: 10, q: "'tera' represents ?", a: shuffleArray(["10^12", "10^9", "10^6", "10^3"]), correct: 0},
+
+      // Unit 2: Vectors
+      {id: 11, q: "A.B max at angle?", a: shuffleArray(["0°", "90°", "180°", "45°"]), correct: 0},
+      {id: 12, q: "A.B zero at angle?", a: shuffleArray(["90°", "0°", "180°", "45°"]), correct: 0},
+      {id: 13, q: "A×B max at angle?", a: shuffleArray(["90°", "0°", "180°", "45°"]), correct: 0},
+      {id: 14, q: "A×B zero at angle?", a: shuffleArray(["0°", "90°", "180°", "45°"]), correct: 0},
+      {id: 15, q: "Resultant of 5N and 12N at 90°?", a: shuffleArray(["13N", "17N", "7N", "60N"]), correct: 0},
+      {id: 16, q: "Resultant of 3N and 4N at 60°?", a: shuffleArray(["√37 N", "7 N", "5 N", "12 N"]), correct: 0},
+      {id: 17, q: "Torque max at angle?", a: shuffleArray(["90°", "0°", "180°", "45°"]), correct: 0},
+      {id: 18, q: "Torque zero at angle?", a: shuffleArray(["0°", "90°", "180°", "45°"]), correct: 0},
+      {id: 19, q: "CM theorem: system moves as if all mass at CM?", a: shuffleArray(["Center of mass theorem", "Newton's law", "Equilibrium", "Moment of inertia"]), correct: 0},
+      {id: 20, q: "Equilibrium: ΣF=0, Στ=0 = ?", a: shuffleArray(["First & second conditions", "Newton's laws", "Work-energy", "Momentum"]), correct: 0},
+
+      // Unit 3: Motion
+      {id: 21, q: "T for projectile at 30° with u=20m/s (g=10)?", a: shuffleArray(["2 s", "4 s", "1 s", "3 s"]), correct: 0},
+      {id: 22, q: "Range for projectile at 30° with u=20m/s?", a: shuffleArray(["20√3 m", "40√3", "10√3", "30√3"]), correct: 0},
+      {id: 23, q: "Max height for projectile at 30° with u=20m/s?", a: shuffleArray(["5 m", "10 m", "15 m", "20 m"]), correct: 0},
+      {id: 24, q: "Uniform velocity → acceleration = ?", a: shuffleArray(["Zero", "Positive", "Negative", "Variable"]), correct: 0},
+      {id: 25, q: "10N on 2kg → a=5. On 4kg → a=?", a: shuffleArray(["2.5", "5", "10", "20"]), correct: 0},
+      {id: 26, q: "p=20 kgm/s, m=4kg → v=?", a: shuffleArray(["5", "4", "20", "80"]), correct: 0},
+      {id: 27, q: "Impulse: 10N × 2s = ?", a: shuffleArray(["20 Ns", "10", "5", "2"]), correct: 0},
+      {id: 28, q: "Friction: μ=0.5, N=100N → f=?", a: shuffleArray(["50N", "100", "200", "10"]), correct: 0},
+      {id: 29, q: "Angle of friction for μ=0.5?", a: shuffleArray(["26.6°", "45°", "30°", "60°"]), correct: 0},
+      {id: 30, q: "Inclined plane acceleration = g sinθ - μg cosθ due to?", a: shuffleArray(["Gravity & friction", "Gravity only", "Friction only", "Normal"]), correct: 0},
+
+      // Unit 4: Work & Energy
+      {id: 31, q: "Work to stop 2kg at 10m/s?", a: shuffleArray(["100J", "50J", "200J", "20J"]), correct: 0},
+      {id: 32, q: "Work by gravity: 2kg lifted 10m (g=10)?", a: shuffleArray(["-200J", "200J", "100J", "-100J"]), correct: 0},
+      {id: 33, q: "Work by lifting force: 2kg lifted 10m?", a: shuffleArray(["200J", "-200J", "100J", "-100J"]), correct: 0},
+      {id: 34, q: "Efficiency: input=1000J, output=800J = ?", a: shuffleArray(["80%", "100%", "20%", "80J"]), correct: 0},
+      {id: 35, q: "MA=4, VR=5 → η=?", a: shuffleArray(["80%", "100%", "20%", "125%"]), correct: 0},
+      {id: 36, q: "Power: 10N × 20m in 5s = ?", a: shuffleArray(["40W", "200W", "10W", "100W"]), correct: 0},
+      {id: 37, q: "v doubled → KE = ?", a: shuffleArray(["4 times", "2 times", "½", "¼"]), correct: 0},
+      {id: 38, q: "h doubled → PE = ?", a: shuffleArray(["Double", "4 times", "Half", "Same"]), correct: 0},
+      {id: 39, q: "Work by variable force = area under F-x curve = ?", a: shuffleArray(["Work-energy theorem", "Energy conservation", "Newton's laws", "Impulse"]), correct: 0},
+      {id: 40, q: "Work-energy theorem consequence of?", a: shuffleArray(["Newton's second law", "First law", "Third law", "Energy conservation"]), correct: 0},
+
+      // Unit 5: Circular Motion
+      {id: 41, q: "Fc: m=2kg, r=1m, v=2m/s?", a: shuffleArray(["8N", "4N", "2N", "16N"]), correct: 0},
+      {id: 42, q: "ac: m=2kg, r=1m, v=2m/s?", a: shuffleArray(["4", "8", "2", "16"]), correct: 0},
+      {id: 43, q: "ω for f=5Hz?", a: shuffleArray(["10π", "5π", "20π", "π/5"]), correct: 0},
+      {id: 44, q: "T for ω=5 rad/s?", a: shuffleArray(["2π/5", "5/2π", "π/5", "5π"]), correct: 0},
+      {id: 45, q: "R doubled → I for solid sphere = ?", a: shuffleArray(["4 times", "2 times", "8 times", "16 times"]), correct: 0},
+      {id: 46, q: "R doubled → I for solid cylinder = ?", a: shuffleArray(["4 times", "2 times", "8 times", "16 times"]), correct: 0},
+      {id: 47, q: "L=10, I=2 → ω=?", a: shuffleArray(["5", "2", "10", "20"]), correct: 0},
+      {id: 48, q: "ω doubled → KErot = ?", a: shuffleArray(["4 times", "2 times", "½", "¼"]), correct: 0},
+      {id: 49, q: "τ: I=4, α=2 → τ=?", a: shuffleArray(["8 Nm", "4", "2", "16"]), correct: 0},
+      {id: 50, q: "Solid sphere: KEtrans/KErot = ?", a: shuffleArray(["5/2", "2/5", "1", "3/2"]), correct: 0},
+
+      // Unit 6: Fluid Dynamics
+      {id: 51, q: "Pascal's law: pressure transmitted equally?", a: shuffleArray(["Pascal's law", "Archimedes", "Bernoulli", "Boyle"]), correct: 0},
+      {id: 52, q: "Buoyant force: density doubled → Fb = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 53, q: "Continuity: A halved → v = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 54, q: "Bernoulli: high v → low P used in?", a: shuffleArray(["Venturi tube", "Hydraulic lift", "Barometer", "Manometer"]), correct: 0},
+      {id: 55, q: "Torricelli: h quadrupled → v = ?", a: shuffleArray(["Double", "4 times", "Half", "Same"]), correct: 0},
+      {id: 56, q: "Velocity gradient doubled → viscous force?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 57, q: "r doubled → terminal velocity = ?", a: shuffleArray(["4 times", "Double", "8 times", "16 times"]), correct: 0},
+      {id: 58, q: "v doubled → Re = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 59, q: "L doubled → force = ? (surface tension)", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 60, q: "r doubled → capillary rise = ?", a: shuffleArray(["Half", "Double", "4 times", "Same"]), correct: 0},
+
+      // Unit 7: Oscillations
+      {id: 61, q: "Moon (g/6): pendulum T = ?", a: shuffleArray(["√6 times", "6 times", "1/√6", "Same"]), correct: 0},
+      {id: 62, q: "m quadrupled → T (mass-spring) = ?", a: shuffleArray(["4s", "2s", "1s", "8s"]), correct: 0},
+      {id: 63, q: "k quadrupled → T (mass-spring) = ?", a: shuffleArray(["1s", "4s", "2s", "8s"]), correct: 0},
+      {id: 64, q: "v: f=100Hz, λ=2m = ?", a: shuffleArray(["200", "100", "50", "400"]), correct: 0},
+      {id: 65, q: "λ: v=340, f=340Hz = ?", a: shuffleArray(["1m", "2m", "0.5m", "3m"]), correct: 0},
+      {id: 66, q: "Open pipe: f=200Hz → next harmonic?", a: shuffleArray(["400Hz", "300", "500", "600"]), correct: 0},
+      {id: 67, q: "Closed pipe: f=200Hz → next harmonic?", a: shuffleArray(["600Hz", "400", "300", "500"]), correct: 0},
+      {id: 68, q: "Beat: 440Hz and 436Hz = ?", a: shuffleArray(["4 Hz", "876", "440", "436"]), correct: 0},
+      {id: 69, q: "Doppler: source speed = v/2 → f' = ?", a: shuffleArray(["2f", "f/2", "3f/2", "f"]), correct: 0},
+      {id: 70, q: "P doubled → speed of sound = ?", a: shuffleArray(["√2 times", "2 times", "1/√2", "Same"]), correct: 0},
+
+      // Unit 8: Physical Optics
+      {id: 71, q: "n: v=2×10⁸ m/s → n=?", a: shuffleArray(["1.5", "1.33", "1.0", "2.0"]), correct: 0},
+      {id: 72, q: "Critical angle for n=1.5?", a: shuffleArray(["41.8°", "48.6°", "53°", "90°"]), correct: 0},
+      {id: 73, q: "Brewster angle for n=1.5?", a: shuffleArray(["56.3°", "41.8°", "48.6°", "90°"]), correct: 0},
+      {id: 74, q: "d doubled → fringe width = ?", a: shuffleArray(["Half", "Double", "4 times", "Same"]), correct: 0},
+      {id: 75, q: "D doubled → fringe width = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 76, q: "d halved → θ for grating = ?", a: shuffleArray(["Increases", "Decreases", "Same", "Zero"]), correct: 0},
+      {id: 77, q: "N doubled → resolving power = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 78, q: "Polarizing angle for glass (n=1.5) to air?", a: shuffleArray(["56.3°", "33.7°", "41.8°", "48.6°"]), correct: 0},
+      {id: 79, q: "Malus: θ=60° → I=?", a: shuffleArray(["I₀/4", "I₀/2", "3I₀/4", "I₀"]), correct: 0},
+      {id: 80, q: "Malus: θ=45° → I=?", a: shuffleArray(["I₀/2", "I₀/4", "3I₀/4", "I₀"]), correct: 0},
+
+      // Unit 9: Optical Instruments
+      {id: 81, q: "P: f=25cm → P=?", a: shuffleArray(["4D", "2.5D", "5D", "0.25D"]), correct: 0},
+      {id: 82, q: "P: f=-25cm → P=?", a: shuffleArray(["-4D", "4D", "-2.5D", "2.5D"]), correct: 0},
+      {id: 83, q: "Two 20cm lenses (convex + concave) → P=?", a: shuffleArray(["0D", "5D", "-5D", "10D"]), correct: 0},
+      {id: 84, q: "20cm convex + 30cm concave → P=?", a: shuffleArray(["1.67D", "5D", "3.33D", "0.5D"]), correct: 0},
+      {id: 85, q: "Simple microscope: f=10cm, D=25cm → m=?", a: shuffleArray(["3.5", "2.5", "1.5", "4.5"]), correct: 0},
+      {id: 86, q: "Compound microscope: L=20cm, f₀=1cm, fₑ=2.5cm, D=25cm → m=?", a: shuffleArray(["200", "100", "50", "400"]), correct: 0},
+      {id: 87, q: "Telescope: f₀=100cm, fₑ=5cm → m=?", a: shuffleArray(["20", "100", "5", "500"]), correct: 0},
+      {id: 88, q: "λ halved → resolving power (microscope) = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 89, q: "D doubled → resolving power (telescope) = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 90, q: "R for convex mirror: f=20cm → R=?", a: shuffleArray(["40cm", "20cm", "10cm", "80cm"]), correct: 0},
+
+      // Unit 10: Heat
+      {id: 91, q: "Heat: 1kg water 20→100°C (c=4200)?", a: shuffleArray(["3.36×10⁵ J", "4.2×10⁵", "2.1×10⁵", "1.68×10⁵"]), correct: 0},
+      {id: 92, q: "Heat to melt 0.5kg ice (Lf=3.36×10⁵)?", a: shuffleArray(["1.68×10⁵ J", "3.36×10⁵", "6.72×10⁵", "0.84×10⁵"]), correct: 0},
+      {id: 93, q: "Heat to boil 0.5kg water (Lv=2.26×10⁶)?", a: shuffleArray(["1.13×10⁶ J", "2.26×10⁶", "4.52×10⁶", "0.565×10⁶"]), correct: 0},
+      {id: 94, q: "Adiabatic: Q=0 → ΔU = -ΔW means?", a: shuffleArray(["Work done at expense of U", "U increases", "Work on system", "None"]), correct: 0},
+      {id: 95, q: "Isothermal: ΔU=0 → Q=W means?", a: shuffleArray(["All heat → work", "No work", "U changes", "None"]), correct: 0},
+      {id: 96, q: "Carnot: T₁=600K, T₂=300K → η=?", a: shuffleArray(["50%", "25%", "75%", "100%"]), correct: 0},
+      {id: 97, q: "To increase Carnot efficiency, T₁ should be?", a: shuffleArray(["Increased", "Decreased", "Same", "Zero"]), correct: 0},
+      {id: 98, q: "ΔS = Q/T: Q=1000J, T=300K → ΔS=?", a: shuffleArray(["3.33 J/K", "10", "30", "0.33"]), correct: 0},
+      {id: 99, q: "α=2×10⁻⁵ /K, ΔL=0.002m, L=1m → ΔT=?", a: shuffleArray(["100 K", "50", "200", "10"]), correct: 0},
+      {id: 100, q: "γ=6×10⁻⁵ /K, ΔV=0.0006m³, V=1m³ → ΔT=?", a: shuffleArray(["10 K", "5", "20", "100"]), correct: 0},
+      {id: 101, q: "Heat flow: k=200, A=1m², L=0.1m, ΔT=100K → Q/t=?", a: shuffleArray(["2×10⁵ W", "2×10⁴", "2×10³", "2×10²"]), correct: 0},
+      {id: 102, q: "Heat flow in 10s: Q/t=2×10⁵W → Q=?", a: shuffleArray(["2×10⁶ J", "2×10⁵", "2×10⁴", "2×10³"]), correct: 0},
+      {id: 103, q: "T doubled → Stefan-Boltzmann E = ?", a: shuffleArray(["16 times", "8", "4", "2"]), correct: 0},
+      {id: 104, q: "T doubled → Wien's λmax = ?", a: shuffleArray(["Half", "Double", "4 times", "Same"]), correct: 0},
+      {id: 105, q: "Cp > Cv because?", a: shuffleArray(["Work done at const P", "No work at const V", "Both", "None"]), correct: 0},
+      {id: 106, q: "γ=5/3 for monoatomic → degrees of freedom?", a: shuffleArray(["3", "5", "6", "7"]), correct: 0},
+      {id: 107, q: "γ=7/5 for diatomic → degrees of freedom?", a: shuffleArray(["5", "3", "6", "7"]), correct: 0},
+      {id: 108, q: "Ideal gas U depends only on T because?", a: shuffleArray(["No intermolecular forces", "Point masses", "Both", "None"]), correct: 0},
+      {id: 109, q: "Average KE at 300K (k=1.38×10⁻²³)?", a: shuffleArray(["6.21×10⁻²¹ J", "6.21×10⁻²³", "6.21×10⁻²⁰", "6.21×10⁻²⁴"]), correct: 0},
+      {id: 110, q: "T quadrupled → vrms = ?", a: shuffleArray(["Double", "4 times", "Half", "Same"]), correct: 0},
+
+      // Unit 1 continued
+      {id: 111, q: "Dimension of velocity?", a: shuffleArray(["LT⁻¹", "LT⁻²", "L²T⁻²", "L²T⁻¹"]), correct: 0},
+      {id: 112, q: "Dimension of acceleration?", a: shuffleArray(["LT⁻²", "LT⁻¹", "L²T⁻²", "L²T⁻¹"]), correct: 0},
+      {id: 113, q: "Dimension of momentum?", a: shuffleArray(["MLT⁻¹", "MLT⁻²", "ML²T⁻¹", "ML²T⁻²"]), correct: 0},
+      {id: 114, q: "Dimension of impulse?", a: shuffleArray(["MLT⁻¹", "MLT⁻²", "ML²T⁻¹", "ML²T⁻²"]), correct: 0},
+      {id: 115, q: "Dimension of torque?", a: shuffleArray(["ML²T⁻²", "MLT⁻²", "ML²T⁻¹", "MLT⁻¹"]), correct: 0},
+
+      // Unit 2 continued
+      {id: 116, q: "A.B = AB cos60° = ?", a: shuffleArray(["AB/2", "AB√3/2", "AB", "0"]), correct: 0},
+      {id: 117, q: "A×B = AB sin60° = ?", a: shuffleArray(["AB√3/2", "AB/2", "AB", "0"]), correct: 0},
+      {id: 118, q: "Resultant: 3N and 4N at 60°?", a: shuffleArray(["√37 N", "5 N", "7 N", "12 N"]), correct: 0},
+      {id: 119, q: "Torque: θ=30° → τ=?", a: shuffleArray(["rF/2", "rF√3/2", "rF", "0"]), correct: 0},
+      {id: 120, q: "Torque: θ=60° → τ=?", a: shuffleArray(["rF√3/2", "rF/2", "rF", "0"]), correct: 0},
+
+      // Unit 3 continued
+      {id: 121, q: "0→20m/s in 5s → distance?", a: shuffleArray(["50m", "100", "25", "10"]), correct: 0},
+      {id: 122, q: "u=30m/s, g=10 → Hmax=?", a: shuffleArray(["45m", "90", "30", "15"]), correct: 0},
+      {id: 123, q: "u=30m/s, g=10 → time to max height?", a: shuffleArray(["3s", "6", "1.5", "9"]), correct: 0},
+      {id: 124, q: "Total time of flight: u=30m/s?", a: shuffleArray(["6s", "3", "12", "1.5"]), correct: 0},
+      {id: 125, q: "Weight on moon: 10kg × 1.6 = ?", a: shuffleArray(["16 N", "10", "98", "160"]), correct: 0},
+      {id: 126, q: "Weight=196N on Earth → m=?", a: shuffleArray(["20kg", "10", "196", "98"]), correct: 0},
+      {id: 127, q: "20N on 4kg → a=5. Force doubled → a=?", a: shuffleArray(["10", "5", "20", "2.5"]), correct: 0},
+      {id: 128, q: "2kg at 6m/s, 10N for 2s → Δv=?", a: shuffleArray(["10", "20", "5", "2"]), correct: 0},
+      {id: 129, q: "Impulse: 10N×2s on 2kg → Δv=?", a: shuffleArray(["10", "20", "5", "2"]), correct: 0},
+      {id: 130, q: "Friction: μ=0.4, N=50N → f=?", a: shuffleArray(["20N", "50", "100", "10"]), correct: 0},
+
+      // Unit 4 continued
+      {id: 131, q: "Work: gravity -200J, lifting +200J → net = ?", a: shuffleArray(["0J", "200", "-200", "400"]), correct: 0},
+      {id: 132, q: "Work to stop 2kg at 10m/s = 100J. v doubled → W=?", a: shuffleArray(["400J", "200", "100", "50"]), correct: 0},
+      {id: 133, q: "Efficiency 70%: input=1000J → output=700J, loss=?", a: shuffleArray(["300J", "1000", "700", "200"]), correct: 0},
+      {id: 134, q: "MA=4, η=80%, effort=50N → load=?", a: shuffleArray(["200N", "50", "100", "250"]), correct: 0},
+      {id: 135, q: "Power=100W → work in 10s = ?", a: shuffleArray(["1000J", "100", "10", "10000"]), correct: 0},
+      {id: 136, q: "v halved → KE = ?", a: shuffleArray(["1/4", "1/2", "Same", "2 times"]), correct: 0},
+      {id: 137, q: "h halved → PE = ?", a: shuffleArray(["1/2", "1/4", "Same", "2 times"]), correct: 0},
+      {id: 138, q: "F varies 0→20N over 5m → W=?", a: shuffleArray(["50J", "100", "25", "200"]), correct: 0},
+      {id: 139, q: "Work to accelerate 2kg 0→10m/s = ?", a: shuffleArray(["100J", "50", "200", "20"]), correct: 0},
+      {id: 140, q: "Force doubled → W=?", a: shuffleArray(["400J", "200", "100", "50"]), correct: 0},
+
+      // Unit 5 continued
+      {id: 141, q: "Fc: m=2kg, r=2m, v=4m/s = ?", a: shuffleArray(["16N", "8", "4", "32"]), correct: 0},
+      {id: 142, q: "ac: m=2kg, r=2m, v=4m/s = ?", a: shuffleArray(["8", "4", "2", "16"]), correct: 0},
+      {id: 143, q: "f doubled → ω = ?", a: shuffleArray(["40π", "20π", "10π", "80π"]), correct: 0},
+      {id: 144, q: "ω doubled → T = ?", a: shuffleArray(["π/10", "π/5", "2π/5", "π/2.5"]), correct: 0},
+      {id: 145, q: "m doubled → I (solid sphere) = ?", a: shuffleArray(["Double", "4 times", "Half", "Same"]), correct: 0},
+      {id: 146, q: "m doubled → I (solid cylinder) = ?", a: shuffleArray(["Double", "4 times", "Half", "Same"]), correct: 0},
+      {id: 147, q: "L=20, I=4 → ω=?", a: shuffleArray(["5", "4", "20", "80"]), correct: 0},
+      {id: 148, q: "ω halved → KErot = ?", a: shuffleArray(["1/4", "1/2", "Same", "2 times"]), correct: 0},
+      {id: 149, q: "τ: α=5, I=2 → τ=?", a: shuffleArray(["10 Nm", "5", "2", "20"]), correct: 0},
+      {id: 150, q: "Solid sphere rolling acceleration = ?", a: shuffleArray(["5/7 g sinθ", "2/5", "3/5", "1/2"]), correct: 0},
+
+      // Unit 6 continued
+      {id: 151, q: "P: h=5m, ρ=1000, g=10 → P=?", a: shuffleArray(["5×10⁴ Pa", "5×10³", "5×10⁵", "5×10²"]), correct: 0},
+      {id: 152, q: "Fb: V=0.2m³ in water → Fb=?", a: shuffleArray(["2000 N", "200", "20", "20000"]), correct: 0},
+      {id: 153, q: "Weight of floating body: Vdisp=0.1m³ → W=?", a: shuffleArray(["1000 N", "100", "10", "10000"]), correct: 0},
+      {id: 154, q: "Continuity: A=0.2→0.1, v=3 → v'=?", a: shuffleArray(["6", "3", "1.5", "12"]), correct: 0},
+      {id: 155, q: "Terminal velocity: drag ∝ v → vt = ?", a: shuffleArray(["Constant", "Increasing", "Decreasing", "Zero"]), correct: 0},
+      {id: 156, q: "Coefficient of viscosity of water ≈ ?", a: shuffleArray(["10⁻³ Pa·s", "10⁻²", "10⁻⁴", "10⁻⁵"]), correct: 0},
+      {id: 157, q: "Surface tension: F for L=0.1m (T=0.072 N/m)?", a: shuffleArray(["0.0072 N", "0.072", "0.72", "7.2"]), correct: 0},
+      {id: 158, q: "Surface tension from capillary rise: h=0.014m, r=0.001m → T=?", a: shuffleArray(["0.07 N/m", "0.14", "0.035", "0.28"]), correct: 0},
+      {id: 159, q: "Pascal's law used in?", a: shuffleArray(["Hydraulic lift", "Barometer", "Manometer", "Venturi"]), correct: 0},
+      {id: 160, q: "Bernoulli's theorem used in?", a: shuffleArray(["Flow meters", "Hydraulic lift", "Barometer", "Manometer"]), correct: 0},
+
+      // Unit 7 continued
+      {id: 161, q: "Moon: pendulum T=4s on Earth → T'=?", a: shuffleArray(["2√6 s", "4/√6", "4√6", "2/√6"]), correct: 0},
+      {id: 162, q: "m doubled → T (mass-spring) = ?", a: shuffleArray(["2√2 s", "4√2", "2", "8"]), correct: 0},
+      {id: 163, q: "k doubled → T (mass-spring) = ?", a: shuffleArray(["4/√2 s", "4√2", "2", "8"]), correct: 0},
+      {id: 164, q: "v: f=200Hz, λ=1.5m → v=?", a: shuffleArray(["300", "200", "133.3", "400"]), correct: 0},
+      {id: 165, q: "λ: v=340, f=170Hz → λ=?", a: shuffleArray(["2m", "1", "0.5", "3"]), correct: 0},
+      {id: 166, q: "Open pipe: f=200Hz → 3rd harmonic?", a: shuffleArray(["600Hz", "400", "200", "800"]), correct: 0},
+      {id: 167, q: "Closed pipe: f=200Hz → 5th harmonic?", a: shuffleArray(["1000Hz", "600", "400", "200"]), correct: 0},
+      {id: 168, q: "Beat: one=440Hz, beat=5Hz → other=?", a: shuffleArray(["435 or 445", "440", "880", "110"]), correct: 0},
+      {id: 169, q: "Doppler: source speed = v/3 → f'=?", a: shuffleArray(["3f/2", "2f/3", "f", "3f"]), correct: 0},
+      {id: 170, q: "ρ quadrupled → speed of sound = ?", a: shuffleArray(["Half", "Double", "4 times", "Same"]), correct: 0},
+
+      // Unit 8 continued
+      {id: 171, q: "v in glass: n=1.5 → v=?", a: shuffleArray(["2×10⁸", "1.5×10⁸", "3×10⁸", "4.5×10⁸"]), correct: 0},
+      {id: 172, q: "Critical angle for n=2?", a: shuffleArray(["30°", "41.8°", "48.6°", "90°"]), correct: 0},
+      {id: 173, q: "Brewster angle for n=2?", a: shuffleArray(["63.4°", "26.6°", "41.8°", "48.6°"]), correct: 0},
+      {id: 174, q: "λ doubled → fringe width = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 175, q: "λ doubled → θ for grating = ?", a: shuffleArray(["Increases", "Decreases", "Same", "Zero"]), correct: 0},
+      {id: 176, q: "n doubled → resolving power = ?", a: shuffleArray(["Double", "Half", "4 times", "Same"]), correct: 0},
+      {id: 177, q: "Polarizing angle: air→glass (n=1.5)?", a: shuffleArray(["56.3°", "33.7°", "41.8°", "48.6°"]), correct: 0},
+      {id: 178, q: "Malus: θ=30° → I=?", a: shuffleArray(["3I₀/4", "I₀/4", "I₀/2", "I₀"]), correct: 0},
+      {id: 179, q: "Malus: θ=0° → I=?", a: shuffleArray(["I₀", "0", "I₀/2", "I₀/4"]), correct: 0},
+      {id: 180, q: "Malus: θ=90° → I=?", a: shuffleArray(["0", "I₀", "I₀/2", "I₀/4"]), correct: 0},
+
+      // Unit 9 continued
+      {id: 181, q: "P: f=50cm → P=?", a: shuffleArray(["2D", "0.5D", "5D", "0.2D"]), correct: 0},
+      {id: 182, q: "P: f=-50cm → P=?", a: shuffleArray(["-2D", "2D", "-0.5D", "0.5D"]), correct: 0},
+      {id: 183, q: "30cm convex + 20cm concave → P=?", a: shuffleArray(["-1.67D", "1.67D", "5D", "-5D"]), correct: 0},
+      {id: 184, q: "Simple microscope: f=5cm, D=25cm → m=?", a: shuffleArray(["6", "5", "4", "3"]), correct: 0},
+      {id: 185, q: "Compound microscope: L=20cm, f₀=0.5cm, fₑ=2cm, D=25cm → m=?", a: shuffleArray(["500", "250", "100", "1000"]), correct: 0},
+      {id: 186, q: "Telescope: f₀=150cm, fₑ=5cm → m=?", a: shuffleArray(["30", "150", "5", "750"]), correct: 0},
+      {id: 187, q: "λ doubled → resolving power (microscope) = ?", a: shuffleArray(["Half", "Double", "4 times", "Same"]), correct: 0},
+      {id: 188, q: "λ doubled → resolving power (telescope) = ?", a: shuffleArray(["Half", "Double", "4 times", "Same"]), correct: 0},
+      {id: 189, q: "R for concave mirror: f=20cm → R=?", a: shuffleArray(["40cm", "20", "10", "80"]), correct: 0},
+      {id: 190, q: "R for convex mirror: f=-20cm → R=?", a: shuffleArray(["-40cm", "-20", "-10", "-80"]), correct: 0},
+
+      // Unit 10 continued
+      {id: 191, q: "Heat: 2kg water 20→80°C (c=4200)?", a: shuffleArray(["5.04×10⁵ J", "2.52×10⁵", "1.68×10⁵", "3.36×10⁵"]), correct: 0},
+      {id: 192, q: "Heat to melt 0.2kg ice (Lf=3.36×10⁵)?", a: shuffleArray(["6.72×10⁴ J", "3.36×10⁴", "1.68×10⁴", "13.44×10⁴"]), correct: 0},
+      {id: 193, q: "Heat to boil 0.2kg water (Lv=2.26×10⁶)?", a: shuffleArray(["4.52×10⁵ J", "2.26×10⁵", "1.13×10⁵", "9.04×10⁵"]), correct: 0},
+      {id: 194, q: "Cyclic: ΔU=0 → Q=W means?", a: shuffleArray(["Net heat = net work", "No work", "U changes", "None"]), correct: 0},
+      {id: 195, q: "Isobaric: W=PΔV, P=1×10⁵, ΔV=0.02 → W=?", a: shuffleArray(["2000 J", "200", "20", "20000"]), correct: 0},
+      {id: 196, q: "Carnot: T₁=400K, T₂=200K → η=?", a: shuffleArray(["50%", "25%", "75%", "100%"]), correct: 0},
+      {id: 197, q: "Adiabatic reversible: ΔQ=0 → ΔS=0 means?", a: shuffleArray(["Entropy constant", "Increases", "Decreases", "Zero"]), correct: 0},
+      {id: 198, q: "α=2×10⁻⁵ /K, L=2m, ΔL=0.004m → ΔT=?", a: shuffleArray(["100 K", "50", "200", "10"]), correct: 0},
+      {id: 199, q: "γ=6×10⁻⁵ /K, V=2m³, ΔV=0.0012m³ → ΔT=?", a: shuffleArray(["10 K", "5", "20", "100"]), correct: 0},
+      {id: 200, q: "Heat flow: k=400, A=2m², L=0.2m, ΔT=100K → Q/t=?", a: shuffleArray(["4×10⁵ W", "2×10⁵", "1×10⁵", "8×10⁵"]), correct: 0}
+    ];
+
+    // ============================================================
+    // CORRECT VALUES MAPPING (100% MATCH WITH USER'S DATA)
+    // ============================================================
+    const correctValues = {
+        1: "ML²T⁻²", 2: "ML²T⁻³", 3: "ML⁻¹T⁻²", 4: "0.1%", 5: "0.2 cm",
+        6: "0.04", 7: "Steradian", 8: "Radian", 9: "57.3°", 10: "10^12",
+        11: "0°", 12: "90°", 13: "90°", 14: "0°", 15: "13N", 16: "√37 N",
+        17: "90°", 18: "0°", 19: "Center of mass theorem",
+        20: "First & second conditions",
+        21: "2 s", 22: "20√3 m", 23: "5 m", 24: "Zero", 25: "2.5",
+        26: "5", 27: "20 Ns", 28: "50N", 29: "26.6°",
+        30: "Gravity & friction",
+        31: "100J", 32: "-200J", 33: "200J", 34: "80%", 35: "80%",
+        36: "40W", 37: "4 times", 38: "Double", 39: "Work-energy theorem",
+        40: "Newton's second law",
+        41: "8N", 42: "4", 43: "10π", 44: "2π/5",
+        45: "4 times", 46: "4 times", 47: "5", 48: "4 times", 49: "8 Nm",
+        50: "5/2",
+        51: "Pascal's law", 52: "Double", 53: "Double", 54: "Venturi tube",
+        55: "Double", 56: "Double", 57: "4 times", 58: "Double",
+        59: "Double", 60: "Half",
+        61: "√6 times", 62: "4s", 63: "1s", 64: "200", 65: "1m",
+        66: "400Hz", 67: "600Hz", 68: "4 Hz", 69: "2f",
+        70: "√2 times",
+        71: "1.5", 72: "41.8°", 73: "56.3°", 74: "Half", 75: "Double",
+        76: "Increases", 77: "Double", 78: "56.3°", 79: "I₀/4", 80: "I₀/2",
+        81: "4D", 82: "-4D", 83: "0D", 84: "1.67D", 85: "3.5", 86: "200",
+        87: "20", 88: "Double", 89: "Double", 90: "40cm",
+        91: "3.36×10⁵ J", 92: "1.68×10⁵ J", 93: "1.13×10⁶ J",
+        94: "Work done at expense of U",
+        95: "All heat → work", 96: "50%",
+        97: "Increased", 98: "3.33 J/K", 99: "100 K", 100: "10 K",
+        101: "2×10⁵ W", 102: "2×10⁶ J", 103: "16 times", 104: "Half",
+        105: "Both", 106: "3", 107: "5", 108: "Both",
+        109: "6.21×10⁻²¹ J", 110: "Double",
+        111: "LT⁻¹", 112: "LT⁻²", 113: "MLT⁻¹", 114: "MLT⁻¹", 115: "ML²T⁻²",
+        116: "AB/2", 117: "AB√3/2", 118: "√37 N", 119: "rF/2",
+        120: "rF√3/2",
+        121: "50m", 122: "45m", 123: "3s", 124: "6s", 125: "16 N",
+        126: "20kg", 127: "10", 128: "10", 129: "10", 130: "20N",
+        131: "0J", 132: "400J", 133: "300J", 134: "200N", 135: "1000J",
+        136: "1/4", 137: "1/2", 138: "50J", 139: "100J", 140: "400J",
+        141: "16N", 142: "8", 143: "40π", 144: "π/10",
+        145: "Double", 146: "Double", 147: "5", 148: "1/4",
+        149: "10 Nm", 150: "5/7 g sinθ",
+        151: "5×10⁴ Pa", 152: "2000 N", 153: "1000 N", 154: "6",
+        155: "Constant", 156: "10⁻³ Pa·s", 157: "0.0072 N",
+        158: "0.07 N/m", 159: "Hydraulic lift", 160: "Flow meters",
+        161: "2√6 s", 162: "2√2 s", 163: "4/√2 s", 164: "300",
+        165: "2m", 166: "600Hz", 167: "1000Hz", 168: "435 or 445",
+        169: "3f/2", 170: "Half",
+        171: "2×10⁸", 172: "30°", 173: "63.4°", 174: "Double",
+        175: "Increases", 176: "Double", 177: "56.3°", 178: "3I₀/4",
+        179: "I₀", 180: "0",
+        181: "2D", 182: "-2D", 183: "-1.67D", 184: "6", 185: "500",
+        186: "30", 187: "Half", 188: "Half", 189: "40cm", 190: "-40cm",
+        191: "5.04×10⁵ J", 192: "6.72×10⁴ J", 193: "4.52×10⁵ J",
+        194: "Net heat = net work", 195: "2000 J",
+        196: "50%", 197: "Entropy constant", 198: "100 K", 199: "10 K",
+        200: "4×10⁵ W"
+    };
+
+    // Apply correct values to mcqs
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const correctAns = correctValues[q.id];
+            const idx = q.a.indexOf(correctAns);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // TEST ENGINE (IDENTICAL TO BIOLOGY TEMPLATE)
+    // ============================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200;
+    let timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table =
+            "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>Q-${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

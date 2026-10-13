@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECAT Test – 10</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 40px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 12px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">⚡ ECAT Test – 10</h1>
+        <h2>Full Syllabus · 100 MCQs</h2>
+        <p class="subtitle">Physics 30 · Chemistry 30 · Mathematics 30 · English 10</p>
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 Hours (120 Minutes)</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-green">0</span> (No Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p><b>📚 Subjects:</b> Physics (30) · Chemistry (30) · Mathematics (30) · English (10)</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+            <p style="color: #FF6B6B; font-weight: bold; margin-top: 6px;">❌ Calculator Not Allowed</p>
+        </div>
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All 100 Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // ECAT TEST-10: 100 UNIQUE MCQs (ECAT Standard) - FINAL TEST
+    // Physics: 1–30, Chemistry: 31–60, Mathematics: 61–90, English: 91–100
+    // ================================================================
+    const mcqs = [];
+
+    // ----- PHYSICS (ID 1–30) - ECAT Standard (No repetition) -----
+    const phys = [
+        {id: 1, q: "A car moves at 22 m/s for 20 s. Find distance.", a: ["440 m", "220 m", "660 m", "110 m"], correct: 0},
+        {id: 2, q: "If mass is halved and acceleration is quadrupled, force becomes:", a: ["Double", "Half", "Quadruple", "Same"], correct: 0},
+        {id: 3, q: "A ball thrown upward reaches max height 405 m. Find initial velocity. (g = 10 m/s²)", a: ["90 m/s", "45 m/s", "135 m/s", "180 m/s"], correct: 0},
+        {id: 4, q: "Work done in lifting a 70 kg mass to height 7 m. (g = 10 m/s²)", a: ["4900 J", "2450 J", "9800 J", "1225 J"], correct: 0},
+        {id: 5, q: "A 50 kg block pulled by 200 N at 53° horizontal. Find horizontal acceleration.", a: ["2.4 m/s²", "4 m/s²", "3.2 m/s²", "1.6 m/s²"], correct: 0},
+        {id: 6, q: "If kinetic energy is reduced by 36%, momentum reduces by:", a: ["20%", "36%", "18%", "10%"], correct: 0},
+        {id: 7, q: "Car accelerates from 8 m/s to 48 m/s in 8 s. Find displacement.", a: ["224 m", "192 m", "256 m", "160 m"], correct: 0},
+        {id: 8, q: "What is power if 4000 J work done in 80 s?", a: ["50 W", "25 W", "100 W", "62.5 W"], correct: 0},
+        {id: 9, q: "A force of 210 N acts on 42 kg body. Find acceleration.", a: ["5 m/s²", "4 m/s²", "3 m/s²", "6 m/s²"], correct: 0},
+        {id: 10, q: "Find centripetal force for 10 kg mass at 12 m/s in radius 6 m.", a: ["240 N", "120 N", "480 N", "60 N"], correct: 0},
+        {id: 11, q: "A 40 kg ball thrown upward with 120 m/s. Find max height. (g = 10 m/s²)", a: ["720 m", "360 m", "1440 m", "540 m"], correct: 0},
+        {id: 12, q: "A stone takes 16 s to fall. Find height. (g = 10 m/s²)", a: ["1280 m", "256 m", "2560 m", "640 m"], correct: 0},
+        {id: 13, q: "Spring k=900 N/m stretched by 0.3 m. Find elastic PE.", a: ["40.5 J", "81 J", "20.25 J", "162 J"], correct: 0},
+        {id: 14, q: "A 28 kg block on frictionless incline 45°. Find acceleration. (g = 10 m/s²)", a: ["7.07 m/s²", "5 m/s²", "10 m/s²", "3.53 m/s²"], correct: 0},
+        {id: 15, q: "Wheel rotates 700 times in 35 seconds. Find angular velocity.", a: ["40π rad/s", "20π rad/s", "80π rad/s", "10π rad/s"], correct: 0},
+        {id: 16, q: "A 22 kg mass moves with velocity 9 m/s. Find momentum.", a: ["198 kg m/s", "99 kg m/s", "297 kg m/s", "148.5 kg m/s"], correct: 0},
+        {id: 17, q: "Impulse of force 105 N acting for 1.2 s is:", a: ["126 N s", "105 N s", "210 N s", "52.5 N s"], correct: 0},
+        {id: 18, q: "A 16 kg mass moves at 20 m/s. Find kinetic energy.", a: ["3200 J", "1600 J", "6400 J", "800 J"], correct: 0},
+        {id: 19, q: "Potential energy of 90 kg mass at height 10 m. (g = 10 m/s²)", a: ["9000 J", "4500 J", "18000 J", "2250 J"], correct: 0},
+        {id: 20, q: "Car mass 4000 kg at 50 m/s. Braking force to stop in 40 m.", a: ["125000 N", "62500 N", "250000 N", "31250 N"], correct: 0},
+        {id: 21, q: "Frequency of pendulum length 0.09 m. (g = 10 m/s²)", a: ["1.67 Hz", "0.83 Hz", "3.33 Hz", "0.42 Hz"], correct: 0},
+        {id: 22, q: "Wave wavelength 25 m, frequency 4 Hz. Find speed.", a: ["100 m/s", "6.25 m/s", "29 m/s", "0.16 m/s"], correct: 0},
+        {id: 23, q: "Convert 120°F to Celsius.", a: ["48.9°C", "50°C", "60°C", "40°C"], correct: 0},
+        {id: 24, q: "Gas expands from 6 m³ to 15 m³ at 400 Pa. Find work.", a: ["3600 J", "2400 J", "6000 J", "900 J"], correct: 0},
+        {id: 25, q: "Heat engine takes 2500 J, rejects 1500 J. Find efficiency.", a: ["40%", "20%", "60%", "80%"], correct: 0},
+        {id: 26, q: "Charge of 9 C in field 13 N/C. Find force.", a: ["117 N", "58.5 N", "234 N", "29.25 N"], correct: 0},
+        {id: 27, q: "Voltage across 40 Ω resistor with 2.5 A current.", a: ["100 V", "50 V", "150 V", "25 V"], correct: 0},
+        {id: 28, q: "Capacitor 18 μF has charge 90 μC. Find voltage.", a: ["5 V", "10 V", "15 V", "20 V"], correct: 0},
+        {id: 29, q: "Magnetic force on 20 C charge moving 7 m/s in 5 T field perpendicular.", a: ["700 N", "350 N", "1050 N", "175 N"], correct: 0},
+        {id: 30, q: "Photon energy with frequency 1.5×10¹⁶ Hz. (h = 6.63×10⁻³⁴ J s)", a: ["9.945×10⁻¹⁸ J", "4.972×10⁻¹⁸ J", "1.492×10⁻¹⁷ J", "6.63×10⁻¹⁹ J"], correct: 0}
+    ];
+
+    // ----- CHEMISTRY (ID 31–60) - ECAT Standard (No repetition) -----
+    const chem = [
+        {id: 31, q: "Moles in 180 g H₂O? (Molar mass = 18 g/mol)", a: ["10 mol", "9 mol", "8 mol", "7 mol"], correct: 0},
+        {id: 32, q: "pH of 0.00000001 M HCl?", a: ["8", "7", "9", "6"], correct: 0},
+        {id: 33, q: "Molarity of 10 g NaOH in 250 mL? (Molar mass NaOH = 40 g/mol)", a: ["1 M", "0.5 M", "2 M", "0.25 M"], correct: 0},
+        {id: 34, q: "Volume of 12 mol gas at STP? (22.4 L/mol)", a: ["268.8 L", "134.4 L", "201.6 L", "67.2 L"], correct: 0},
+        {id: 35, q: "Valence electrons in antimony?", a: ["5", "3", "4", "6"], correct: 0},
+        {id: 36, q: "Oxidation state of S in SO₃?", a: ["+6", "+4", "+2", "0"], correct: 0},
+        {id: 37, q: "Moles in 440 g CO₂? (Molar mass = 44 g/mol)", a: ["10 mol", "9 mol", "11 mol", "8 mol"], correct: 0},
+        {id: 38, q: "Concentration of OH⁻ in 0.004 M NaOH?", a: ["0.004 M", "0.002 M", "0.008 M", "0.001 M"], correct: 0},
+        {id: 39, q: "Bond order of O₂²⁻?", a: ["1", "1.5", "2", "2.5"], correct: 0},
+        {id: 40, q: "Hybridization of C in C₂H₂?", a: ["sp", "sp²", "sp³", "sp³d"], correct: 0},
+        {id: 41, q: "Moles in 3.75 g CaCO₃? (Molar mass = 100 g/mol)", a: ["0.0375 mol", "0.075 mol", "0.375 mol", "0.75 mol"], correct: 0},
+        {id: 42, q: "pH of 0.00001 M H₂SO₄? (Both H⁺)", a: ["4.7", "5", "3", "4"], correct: 0},
+        {id: 43, q: "Molarity of 35.1 g NaCl in 300 mL? (Molar mass NaCl = 58.5 g/mol)", a: ["2 M", "1 M", "0.5 M", "4 M"], correct: 0},
+        {id: 44, q: "Volume of 11.2 g O₂ at STP? (Molar mass O₂ = 32 g/mol, 22.4 L/mol)", a: ["7.84 L", "3.92 L", "15.68 L", "11.2 L"], correct: 0},
+        {id: 45, q: "Oxidation state of N in N₂O₅?", a: ["+5", "+3", "+4", "+2"], correct: 0},
+        {id: 46, q: "Molecules in 10 mol H₂O?", a: ["6.02×10²⁴", "1.204×10²⁴", "3.01×10²⁴", "4.816×10²⁴"], correct: 0},
+        {id: 47, q: "pH of 0.001 M H₂SO₄? (Both H⁺)", a: ["2.7", "3", "2", "4"], correct: 0},
+        {id: 48, q: "Molarity of 5 mol in 2.5 L?", a: ["2 M", "1 M", "3 M", "0.5 M"], correct: 0},
+        {id: 49, q: "Valence electrons in tellurium?", a: ["6", "4", "5", "7"], correct: 0},
+        {id: 50, q: "Bond angle in PCl₅?", a: ["90° and 120°", "109.5°", "120°", "104.5°"], correct: 0},
+        {id: 51, q: "Moles in 187 g NH₃? (Molar mass = 17 g/mol)", a: ["11 mol", "10 mol", "9 mol", "8 mol"], correct: 0},
+        {id: 52, q: "pH of 0.01 M NaOH?", a: ["12", "2", "10", "14"], correct: 0},
+        {id: 53, q: "Concentration of H⁺ in 0.1 M H₂SO₄?", a: ["0.2 M", "0.1 M", "0.01 M", "0.001 M"], correct: 0},
+        {id: 54, q: "Volume of 5.5 mol gas at STP?", a: ["123.2 L", "89.6 L", "156.8 L", "67.2 L"], correct: 0},
+        {id: 55, q: "Oxidation state of P in PO₄³⁻?", a: ["+5", "+3", "+7", "+1"], correct: 0},
+        {id: 56, q: "Atoms in 10 mol of any element?", a: ["6.02×10²⁴", "1.204×10²⁴", "3.01×10²⁴", "4.816×10²⁴"], correct: 0},
+        {id: 57, q: "Molar mass of H₂SO₄?", a: ["98 g/mol", "96 g/mol", "100 g/mol", "102 g/mol"], correct: 0},
+        {id: 58, q: "Molarity of 3.5 mol in 7 L?", a: ["0.5 M", "1 M", "2 M", "0.25 M"], correct: 0},
+        {id: 59, q: "Valence electrons in iodine?", a: ["7", "3", "5", "8"], correct: 0},
+        {id: 60, q: "Bond angle in XeF₂?", a: ["180°", "120°", "109.5°", "104.5°"], correct: 0}
+    ];
+
+    // ----- MATHEMATICS (ID 61–90) - ECAT Standard (No repetition) -----
+    const math = [
+        {id: 61, q: "If f(x)=3x⁶ - 2x⁵ + 4x³ - 8, find f'(0).", a: ["0", "3", "4", "8"], correct: 0},
+        {id: 62, q: "Sum of roots of 5x² - 13x + 6 = 0 is:", a: ["13/5", "-13/5", "6/5", "-6/5"], correct: 0},
+        {id: 63, q: "Area between y = x² and y = 64 is:", a: ["2048/3", "1024/3", "512/3", "256/3"], correct: 0},
+        {id: 64, q: "Derivative of csc x is:", a: ["-csc x cot x", "csc x cot x", "-sec x tan x", "sec x tan x"], correct: 0},
+        {id: 65, q: "Integral of csc x cot x dx is:", a: ["-csc x + C", "csc x + C", "cot x + C", "-cot x + C"], correct: 0},
+        {id: 66, q: "Slope of line 8x - 4y = 16 is:", a: ["2", "-2", "1/2", "-1/2"], correct: 0},
+        {id: 67, q: "Distance between (-4,-2) and (4,4) is:", a: ["10", "8", "6", "12"], correct: 0},
+        {id: 68, q: "log₁₀ 0.000001 is:", a: ["-6", "6", "-5", "7"], correct: 0},
+        {id: 69, q: "ln e⁸ is:", a: ["8", "1", "e", "0"], correct: 0},
+        {id: 70, q: "Sum of first 90 natural numbers is:", a: ["4095", "4005", "4185", "4275"], correct: 0},
+        {id: 71, q: "Mean of 8, 16, 24, 32, 40, 48, 56, 64 is:", a: ["36", "32", "40", "44"], correct: 0},
+        {id: 72, q: "Median of 2, 4, 6, 8, 10, 12, 14, 16, 18 is:", a: ["10", "8", "12", "14"], correct: 0},
+        {id: 73, q: "Mode of 2, 3, 3, 4, 5, 5, 5, 6, 6, 7, 7 is:", a: ["5", "3", "6", "7"], correct: 0},
+        {id: 74, q: "Range of 5, 10, 15, 20, 25, 30, 35, 40 is:", a: ["35", "30", "40", "25"], correct: 0},
+        {id: 75, q: "Probability of getting exactly 1 head in 4 coin tosses is:", a: ["1/4", "3/8", "1/2", "1/8"], correct: 0},
+        {id: 76, q: "Probability of rolling a number greater than 4 on a die is:", a: ["1/3", "1/2", "1/6", "2/3"], correct: 0},
+        {id: 77, q: "Value of 14! is:", a: ["87178291200", "6227020800", "479001600", "39916800"], correct: 0},
+        {id: 78, q: "Value of 9! is:", a: ["362880", "40320", "5040", "3628800"], correct: 0},
+        {id: 79, q: "Ways to arrange 12 books on a shelf is:", a: ["479001600", "39916800", "3628800", "362880"], correct: 0},
+        {id: 80, q: "Ways to choose 6 from 12 is:", a: ["924", "462", "1386", "1848"], correct: 0},
+        {id: 81, q: "sin 240° is:", a: ["-√3/2", "√3/2", "-1/2", "1/2"], correct: 0},
+        {id: 82, q: "cos 240° is:", a: ["-1/2", "1/2", "√3/2", "-√3/2"], correct: 0},
+        {id: 83, q: "tan 240° is:", a: ["√3", "-√3", "1/√3", "-1/√3"], correct: 0},
+        {id: 84, q: "sin 330° is:", a: ["-1/2", "1/2", "-√3/2", "√3/2"], correct: 0},
+        {id: 85, q: "cos 330° is:", a: ["√3/2", "-√3/2", "1/2", "-1/2"], correct: 0},
+        {id: 86, q: "tan 330° is:", a: ["-1/√3", "1/√3", "-√3", "√3"], correct: 0},
+        {id: 87, q: "Derivative of eˣ is:", a: ["eˣ", "x eˣ", "1/eˣ", "0"], correct: 0},
+        {id: 88, q: "Integral of eˣ dx is:", a: ["eˣ + C", "ln x + C", "x + C", "sin x + C"], correct: 0},
+        {id: 89, q: "Derivative of cot x is:", a: ["-csc² x", "csc² x", "-sec² x", "sec² x"], correct: 0},
+        {id: 90, q: "Integral of csc² x dx is:", a: ["-cot x + C", "cot x + C", "tan x + C", "-tan x + C"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 91–100) - ECAT Standard (No repetition) -----
+    const eng = [
+        {id: 91, q: "Synonym of 'Abhor' is:", a: ["Hate", "Love", "Like", "Adore"], correct: 0},
+        {id: 92, q: "Antonym of 'Benevolent' is:", a: ["Malevolent", "Kind", "Benign", "Gracious"], correct: 0},
+        {id: 93, q: "Synonym of 'Concur' is:", a: ["Agree", "Disagree", "Differ", "Oppose"], correct: 0},
+        {id: 94, q: "Antonym of 'Dexterous' is:", a: ["Clumsy", "Skillful", "Adroit", "Adept"], correct: 0},
+        {id: 95, q: "Synonym of 'Ephemeral' is:", a: ["Short-lived", "Permanent", "Eternal", "Forever"], correct: 0},
+        {id: 96, q: "Antonym of 'Fervent' is:", a: ["Apathetic", "Passionate", "Intense", "Ardent"], correct: 0},
+        {id: 97, q: "Synonym of 'Garrulous' is:", a: ["Talkative", "Silent", "Quiet", "Reticent"], correct: 0},
+        {id: 98, q: "Antonym of 'Hazardous' is:", a: ["Safe", "Risky", "Dangerous", "Perilous"], correct: 0},
+        {id: 99, q: "Synonym of 'Inevitable' is:", a: ["Unavoidable", "Avoidable", "Preventable", "Optional"], correct: 0},
+        {id: 100, q: "Antonym of 'Jubilant' is:", a: ["Mournful", "Joyful", "Elated", "Delighted"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...phys, ...chem, ...math, ...eng].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 7200; // 2 hours
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] === undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 1;
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<table>
+            <tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let correctAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAT Practice Tests - Index</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            font-family: 'Segoe UI', Arial;
+            text-align: center;
+            padding: 10px 15px 20px 15px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .main-title {
+            font-size: 30px;
+            color: #ffeb3b;
+            font-weight: bold;
+            text-shadow: 0 0 20px #ffeb3b;
+            margin-bottom: 5px;
+        }
+
+        .main-subtitle {
+            font-size: 17px;
+            color: #d1c5e8;
+            margin-bottom: 15px;
+        }
+
+        /* Main Gate Box */
+        .box {
+            background: linear-gradient(135deg, #1a0033, #3d0099);
+            border: 2px solid #bb86fc;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 10px auto;
+            width: 100%;
+            max-width: 600px;
+            transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(123, 0, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .box:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(187, 134, 252, 0.4);
+        }
+
+        .box h2 {
+            font-size: 22px;
+            color: #ffeb3b;
+            margin-bottom: 4px;
+        }
+
+        .box p {
+            font-size: 15px;
+            color: #d1c5e8;
+            margin: 3px 0;
+        }
+
+        .box b {
+            color: #bb86fc;
+        }
+
+        /* Level Buttons (Tests) */
+        .level-btn {
+            display: block;
+            background: linear-gradient(135deg, #7f00ff, #e100ff);
+            color: white;
+            border: none;
+            padding: 12px;
+            margin: 6px auto;
+            border-radius: 10px;
+            font-size: 17px;
+            width: 90%;
+            max-width: 500px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .level-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Made By Box */
+        .madeby-box {
+            background: linear-gradient(135deg, #1a0033, #3d0099);
+            border: 2px solid #ffeb3b;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 15px auto;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+        }
+
+        .madeby-box h3 {
+            font-size: 18px;
+            color: #ffeb3b;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .madeby-box .qualification {
+            font-size: 14px;
+            color: #bb86fc;
+            margin-bottom: 8px;
+        }
+
+        .madeby-box .contact {
+            font-size: 14px;
+            color: #d1c5e8;
+            margin: 3px 0;
+        }
+
+        .madeby-box .contact b {
+            color: #bb86fc;
+        }
+
+        .feedback {
+            color: #ffeb3b;
+            font-weight: bold;
+            margin-top: 6px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 500px) {
+            .main-title {
+                font-size: 24px;
+            }
+            .box h2 {
+                font-size: 19px;
+            }
+            .level-btn {
+                font-size: 15px;
+                padding: 10px;
+            }
+            .madeby-box h3 {
+                font-size: 16px;
+            }
+            .madeby-box .contact {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="main-title">🧑‍⚖️ LAT Practice Tests</h1>
+    <p class="main-subtitle">10 Full-Length Tests · 100 Marks Each</p>
+
+    <!-- ========================================================== -->
+    <!-- MAIN GATE (Single Gate) -->
+    <!-- ========================================================== -->
+    <div class="box" onclick="toggleLevels()">
+        <h2>📚 LAT Test Series</h2>
+        <p>Click to expand · 10 Practice Tests</p>
+    </div>
+
+    <div id="testLevels" class="hidden">
+        <button class="level-btn" onclick="openTest('Level1.html')">📘 Test-1</button>
+        <button class="level-btn" onclick="openTest('Level2.html')">📗 Test-2</button>
+        <button class="level-btn" onclick="openTest('Level3.html')">📙 Test-3</button>
+        <button class="level-btn" onclick="openTest('Level4.html')">📘 Test-4</button>
+        <button class="level-btn" onclick="openTest('Level5.html')">📕 Test-5</button>
+        <button class="level-btn" onclick="openTest('Level6.html')">📒 Test-6</button>
+        <button class="level-btn" onclick="openTest('Level7.html')">📓 Test-7</button>
+        <button class="level-btn" onclick="openTest('Level8.html')">📔 Test-8</button>
+        <button class="level-btn" onclick="openTest('Level9.html')">📖 Test-9</button>
+        <button class="level-btn" onclick="openTest('Level10.html')">📚 Test-10</button>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MADE BY BOX (Aap ka naam, qualification, contact) -->
+    <!-- ========================================================== -->
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) / B.Ed / DIT / LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<script>
+    function toggleLevels() {
+        var x = document.getElementById("testLevels");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function openTest(testFile) {
+        window.location.href = testFile;
+    }
+</script>
+
+</body>
+</html>

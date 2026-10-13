@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FSc Mathematics Part-1 (Level-1 - Basic) ECAT MCQs</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Arial;
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white;
+            padding: 2px 20px 20px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 5px auto;
+            text-align: center;
+        }
+        .main-heading {
+            font-size: 26px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px #ffeb3b;
+        }
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+            color: #bb86fc;
+        }
+        .subtitle {
+            color: #d1c5e8;
+            font-size: 15px;
+            margin: 8px 0 15px 0;
+        }
+        .instructions-box {
+            background: rgba(187, 134, 252, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0 20px 0;
+            text-align: left;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .instructions-box h3 {
+            color: #ffeb3b;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        .instructions-box p {
+            margin: 10px 0;
+            font-size: 17px;
+        }
+        .instructions-box b {
+            color: #bb86fc;
+        }
+        .note-red {
+            color: #FF4500;
+            font-weight: bold;
+        }
+        .startBtn,
+        .restartBtn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            border: none;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 60px;
+            transition: 0.3s;
+        }
+        .startBtn:hover,
+        .restartBtn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px #7f00ff;
+        }
+        #quiz,
+        #result {
+            display: none;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .timer {
+            font-size: 20px;
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        .qno-display {
+            font-size: 20px;
+            font-weight: bold;
+            background: #7f00ff;
+            padding: 5px 15px;
+            border-radius: 30px;
+            border: 1px solid #bb86fc;
+            letter-spacing: 1px;
+        }
+        .qno-display span {
+            color: #ffeb3b;
+        }
+        .score-bar {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .score-bar span {
+            color: #bb86fc;
+        }
+        .question-box {
+            background: rgba(187, 134, 252, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid rgba(187, 134, 252, 0.3);
+        }
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .q-id {
+            color: #ffeb3b;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        .repeated-tag {
+            background: #7f00ff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: left;
+            font-weight: 400;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 8px 0;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(187, 134, 252, 0.3);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .options button:hover {
+            background: #2e0059;
+        }
+        .correct {
+            background: #00c853 !important;
+            border: 2px solid #00e676 !important;
+        }
+        .wrong {
+            background: #d50000 !important;
+            border: 2px solid #ff1744 !important;
+        }
+        .options button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .nav button {
+            flex: 1;
+            max-width: 48%;
+            padding: 12px;
+            background: #2e0059;
+            border: 1px solid #bb86fc;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+        }
+        .nav button:hover {
+            background: #7f00ff;
+        }
+        #result h2 {
+            color: #ffeb3b;
+        }
+        #summaryBox {
+            background: rgba(255, 235, 59, 0.15);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border: 2px solid #ffeb3b;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 14px;
+        }
+        th {
+            background: linear-gradient(90deg, #7f00ff, #e100ff);
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid rgba(187, 134, 252, 0.2);
+            text-align: left;
+        }
+        .qno-col {
+            width: 70px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        #toast {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00c853;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.05);
+            pointer-events: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 5px 10px;
+            }
+            .main-heading {
+                font-size: 20px;
+            }
+            .question {
+                font-size: 16px;
+            }
+            .options button {
+                font-size: 14px;
+                padding: 12px;
+            }
+            .score-bar {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">📐 FSc Mathematics Part-1</h1>
+        <h2>Level-1 (Basic) · 200 MCQs</h2>
+        <p class="subtitle">ECAT / NUST / GIKI / LUMS Pattern</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 2 hours (120 minutes)</p>
+            <p><b>📝 Total Questions:</b> 200</p>
+            <p><b>🏆 Total Marks:</b> 800</p>
+            <p><b>✅ Correct Answer:</b> +4 marks</p>
+            <p><b>❌ Wrong Answer:</b> -1 mark</p>
+            <p><b>⏭ Skipped Question:</b> 0 marks</p>
+            <span style="font-size: 15px; color: #FFD700; font-weight: bold;">
+               💡 Note: (Save for Later) option is available if you want to solve that question at the end
+            </span>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review with correct answers at the end.</p>
+            <p class="note-red">❌ Calculator Not Allowed</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">02:00:00</span></div>
+            <div class="qno-display">📌 ID: <span id="qno">001</span> / <span id="totalQ">200</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review - All 200 Questions</h3>
+        <div id="wrongTable"></div>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    // ============================================================
+    // Helper functions
+    // ============================================================
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ============================================================
+    // MATHEMATICS PART-1 LEVEL-1 (BASIC) - 200 MCQs
+    // Sets, Trigonometry, Algebra, Matrices, Sequences
+    // ============================================================
+    const mcqs = [
+        // Sets (1-20)
+        {id:1, q:"A = {1,2,3}, B = {3,4,5}, A∩B = ?", a:shuffleArray(["{3}", "{1,2,3,4,5}", "{1,2,4,5}", "∅"]), correct:0},
+        {id:2, q:"A = {1,2,3}, B = {3,4,5}, A∪B = ?", a:shuffleArray(["{1,2,3,4,5}", "{3}", "{1,2,3}", "{4,5}"]), correct:0},
+        {id:3, q:"If A ⊆ B, then A ∩ B = ?", a:shuffleArray(["A", "B", "∅", "A∪B"]), correct:0},
+        {id:4, q:"If A ⊆ B, then A ∪ B = ?", a:shuffleArray(["B", "A", "∅", "A∩B"]), correct:0},
+        {id:5, q:"Empty set is subset of every set.", a:shuffleArray(["Yes", "No", "Only finite sets", "Only infinite sets"]), correct:0},
+        {id:6, q:"Power set of {a,b} has how many elements?", a:shuffleArray(["4", "2", "3", "1"]), correct:0},
+        {id:7, q:"If A = {1,2,3}, B = {2,3,4}, A - B = ?", a:shuffleArray(["{1}", "{2,3}", "{4}", "{1,2,3,4}"]), correct:0},
+        {id:8, q:"If A = {1,2,3}, B = {2,3,4}, B - A = ?", a:shuffleArray(["{4}", "{2,3}", "{1}", "{1,2,3,4}"]), correct:0},
+        {id:9, q:"A ∩ A' = ?", a:shuffleArray(["∅", "U", "A", "A'"]), correct:0},
+        {id:10, q:"A ∪ A' = ?", a:shuffleArray(["U", "∅", "A", "A'"]), correct:0},
+        {id:11, q:"If A = {1,2,3,4}, B = {3,4,5,6}, A△B = ?", a:shuffleArray(["{1,2,5,6}", "{3,4}", "{1,2,3,4,5,6}", "∅"]), correct:0},
+        {id:12, q:"Number of subsets of a set with n elements is?", a:shuffleArray(["2^n", "n^2", "2n", "n!"]), correct:0},
+        {id:13, q:"Set of all positive integers is called?", a:shuffleArray(["N", "Z", "Q", "R"]), correct:0},
+        {id:14, q:"Set of all rational numbers is called?", a:shuffleArray(["Q", "N", "Z", "R"]), correct:0},
+        {id:15, q:"Set of all real numbers is called?", a:shuffleArray(["R", "Q", "Z", "N"]), correct:0},
+        {id:16, q:"If A = {1,2}, B = {a,b}, A×B has how many elements?", a:shuffleArray(["4", "2", "3", "1"]), correct:0},
+        {id:17, q:"If A has 3 elements, B has 4 elements, then A×B has?", a:shuffleArray(["12", "7", "1", "24"]), correct:0},
+        {id:18, q:"A ∩ (B ∪ C) = ?", a:shuffleArray(["(A∩B) ∪ (A∩C)", "(A∪B) ∩ (A∪C)", "A∩B∩C", "A∪B∪C"]), correct:0},
+        {id:19, q:"A ∪ (B ∩ C) = ?", a:shuffleArray(["(A∪B) ∩ (A∪C)", "(A∩B) ∪ (A∩C)", "A∩B∩C", "A∪B∪C"]), correct:0},
+        {id:20, q:"De Morgan's law: (A∪B)' = ?", a:shuffleArray(["A' ∩ B'", "A' ∪ B'", "A ∩ B", "A ∪ B"]), correct:0},
+        // Trigonometry (21-40)
+        {id:21, q:"sin 0° = ?", a:shuffleArray(["0", "1", "√2/2", "1/2"]), correct:0},
+        {id:22, q:"cos 0° = ?", a:shuffleArray(["1", "0", "√2/2", "1/2"]), correct:0},
+        {id:23, q:"sin 30° = ?", a:shuffleArray(["1/2", "√3/2", "√2/2", "1"]), correct:0},
+        {id:24, q:"cos 30° = ?", a:shuffleArray(["√3/2", "1/2", "√2/2", "1"]), correct:0},
+        {id:25, q:"sin 45° = ?", a:shuffleArray(["√2/2", "1/2", "√3/2", "1"]), correct:0},
+        {id:26, q:"cos 45° = ?", a:shuffleArray(["√2/2", "1/2", "√3/2", "1"]), correct:0},
+        {id:27, q:"sin 60° = ?", a:shuffleArray(["√3/2", "1/2", "√2/2", "1"]), correct:0},
+        {id:28, q:"cos 60° = ?", a:shuffleArray(["1/2", "√3/2", "√2/2", "1"]), correct:0},
+        {id:29, q:"sin 90° = ?", a:shuffleArray(["1", "0", "√2/2", "1/2"]), correct:0},
+        {id:30, q:"cos 90° = ?", a:shuffleArray(["0", "1", "√2/2", "1/2"]), correct:0},
+        {id:31, q:"tan 45° = ?", a:shuffleArray(["1", "0", "√3", "1/√3"]), correct:0},
+        {id:32, q:"tan 30° = ?", a:shuffleArray(["1/√3", "√3", "1", "0"]), correct:0},
+        {id:33, q:"tan 60° = ?", a:shuffleArray(["√3", "1/√3", "1", "0"]), correct:0},
+        {id:34, q:"cosec 30° = ?", a:shuffleArray(["2", "1/2", "√2", "√3"]), correct:0},
+        {id:35, q:"sec 60° = ?", a:shuffleArray(["2", "1/2", "√2", "√3"]), correct:0},
+        {id:36, q:"cot 45° = ?", a:shuffleArray(["1", "0", "√3", "1/√3"]), correct:0},
+        {id:37, q:"sin²θ + cos²θ = ?", a:shuffleArray(["1", "0", "-1", "2"]), correct:0},
+        {id:38, q:"1 + tan²θ = ?", a:shuffleArray(["sec²θ", "cosec²θ", "cot²θ", "1"]), correct:0},
+        {id:39, q:"1 + cot²θ = ?", a:shuffleArray(["cosec²θ", "sec²θ", "tan²θ", "1"]), correct:0},
+        {id:40, q:"sin(90° - θ) = ?", a:shuffleArray(["cosθ", "sinθ", "tanθ", "cotθ"]), correct:0},
+        // Algebra (41-60)
+        {id:41, q:"(a+b)² = ?", a:shuffleArray(["a²+2ab+b²", "a²-2ab+b²", "a²+b²", "a²-b²"]), correct:0},
+        {id:42, q:"(a-b)² = ?", a:shuffleArray(["a²-2ab+b²", "a²+2ab+b²", "a²+b²", "a²-b²"]), correct:0},
+        {id:43, q:"(a+b)(a-b) = ?", a:shuffleArray(["a²-b²", "a²+b²", "a²+2ab+b²", "a²-2ab+b²"]), correct:0},
+        {id:44, q:"(a+b)³ = ?", a:shuffleArray(["a³+3a²b+3ab²+b³", "a³-3a²b+3ab²-b³", "a³+b³", "a³-b³"]), correct:0},
+        {id:45, q:"(a-b)³ = ?", a:shuffleArray(["a³-3a²b+3ab²-b³", "a³+3a²b+3ab²+b³", "a³-b³", "a³+b³"]), correct:0},
+        {id:46, q:"a³+b³ = ?", a:shuffleArray(["(a+b)(a²-ab+b²)", "(a-b)(a²+ab+b²)", "(a+b)³", "(a-b)³"]), correct:0},
+        {id:47, q:"a³-b³ = ?", a:shuffleArray(["(a-b)(a²+ab+b²)", "(a+b)(a²-ab+b²)", "(a+b)³", "(a-b)³"]), correct:0},
+        {id:48, q:"Quadratic formula: x = ?", a:shuffleArray(["(-b±√(b²-4ac))/2a", "(-b±√(b²+4ac))/2a", "(b±√(b²-4ac))/2a", "(-b±√(b²-4ac))/a"]), correct:0},
+        {id:49, q:"Discriminant of quadratic equation is?", a:shuffleArray(["b²-4ac", "b²+4ac", "√(b²-4ac)", "-b±√(b²-4ac)"]), correct:0},
+        {id:50, q:"If discriminant > 0, roots are?", a:shuffleArray(["Real and unequal", "Real and equal", "Imaginary", "Rational"]), correct:0},
+        {id:51, q:"If discriminant = 0, roots are?", a:shuffleArray(["Real and equal", "Real and unequal", "Imaginary", "Irrational"]), correct:0},
+        {id:52, q:"If discriminant < 0, roots are?", a:shuffleArray(["Complex/Imaginary", "Real", "Rational", "Equal"]), correct:0},
+        {id:53, q:"Sum of roots = ?", a:shuffleArray(["-b/a", "c/a", "b/a", "-c/a"]), correct:0},
+        {id:54, q:"Product of roots = ?", a:shuffleArray(["c/a", "-b/a", "b/a", "-c/a"]), correct:0},
+        {id:55, q:"x² - 5x + 6 = 0 roots are?", a:shuffleArray(["2,3", "-2,-3", "2,-3", "-2,3"]), correct:0},
+        {id:56, q:"x² - 4 = 0 roots are?", a:shuffleArray(["2,-2", "2", "-2", "4,-4"]), correct:0},
+        {id:57, q:"x² + 4 = 0 roots are?", a:shuffleArray(["2i,-2i", "2,-2", "2i", "-2i"]), correct:0},
+        {id:58, q:"2x² - 8 = 0 solution is?", a:shuffleArray(["x=±2", "x=±4", "x=±√2", "x=±8"]), correct:0},
+        {id:59, q:"4x² - 4x + 1 = 0 roots are?", a:shuffleArray(["1/2 (double)", "1,-1", "1/2, -1/2", "-1/2"]), correct:0},
+        {id:60, q:"x² - 3x + 2 = 0 roots are?", a:shuffleArray(["1,2", "-1,-2", "1,-2", "-1,2"]), correct:0},
+        // Matrices (61-80)
+        {id:61, q:"A matrix with m rows and n columns is order?", a:shuffleArray(["m×n", "n×m", "m+n", "m-n"]), correct:0},
+        {id:62, q:"Identity matrix of order 2 is?", a:shuffleArray(["[[1,0],[0,1]]", "[[0,1],[1,0]]", "[[1,1],[1,1]]", "[[0,0],[0,0]]"]), correct:0},
+        {id:63, q:"Identity matrix of order 3 is?", a:shuffleArray(["diagonal with 1s", "diagonal with 0s", "all 1s", "all 0s"]), correct:0},
+        {id:64, q:"Transpose of matrix A = [[1,2],[3,4]] is?", a:shuffleArray(["[[1,3],[2,4]]", "[[1,2],[3,4]]", "[[2,1],[4,3]]", "[[3,1],[4,2]]"]), correct:0},
+        {id:65, q:"A matrix which has all elements zero is called?", a:shuffleArray(["Null matrix", "Identity matrix", "Diagonal matrix", "Scalar matrix"]), correct:0},
+        {id:66, q:"A matrix in which all non-diagonal elements are zero is called?", a:shuffleArray(["Diagonal matrix", "Null matrix", "Identity matrix", "Scalar matrix"]), correct:0},
+        {id:67, q:"If A = [[1,2],[3,4]], then |A| = ?", a:shuffleArray(["-2", "2", "5", "-5"]), correct:0},
+        {id:68, q:"If A = [[a,b],[c,d]], then |A| = ?", a:shuffleArray(["ad-bc", "ab-cd", "ac-bd", "ad+bc"]), correct:0},
+        {id:69, q:"A square matrix is symmetric if A = ?", a:shuffleArray(["A^T", "-A^T", "A^2", "A^{-1}"]), correct:0},
+        {id:70, q:"A square matrix is skew-symmetric if A = ?", a:shuffleArray(["-A^T", "A^T", "A^2", "A^{-1}"]), correct:0},
+        {id:71, q:"A matrix that has 3 rows and 2 columns is of order?", a:shuffleArray(["3×2", "2×3", "3×3", "2×2"]), correct:0},
+        {id:72, q:"[[1,2],[3,4]] + [[5,6],[7,8]] = ?", a:shuffleArray(["[[6,8],[10,12]]", "[[5,12],[21,32]]", "[[1,2],[3,4]]", "[[0,0],[0,0]]"]), correct:0},
+        {id:73, q:"2 × [[1,2],[3,4]] = ?", a:shuffleArray(["[[2,4],[6,8]]", "[[1,2],[3,4]]", "[[0,0],[0,0]]", "[[4,6],[8,10]]"]), correct:0},
+        {id:74, q:"A matrix with equal number of rows and columns is called?", a:shuffleArray(["Square matrix", "Rectangular matrix", "Null matrix", "Identity matrix"]), correct:0},
+        {id:75, q:"A matrix that has only one row is called?", a:shuffleArray(["Row matrix", "Column matrix", "Square matrix", "Null matrix"]), correct:0},
+        {id:76, q:"A matrix that has only one column is called?", a:shuffleArray(["Column matrix", "Row matrix", "Square matrix", "Null matrix"]), correct:0},
+        {id:77, q:"If A = [[1,0],[0,1]], A is called?", a:shuffleArray(["Identity matrix", "Null matrix", "Diagonal matrix", "Scalar matrix"]), correct:0},
+        {id:78, q:"If A = [[2,0],[0,2]], A is called?", a:shuffleArray(["Scalar matrix", "Identity matrix", "Null matrix", "Diagonal matrix"]), correct:0},
+        {id:79, q:"Matrix multiplication is commutative?", a:shuffleArray(["No", "Yes", "Sometimes", "Always"]), correct:0},
+        {id:80, q:"Matrix addition is commutative?", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        // Sequences & Series (81-100)
+        {id:81, q:"Arithmetic progression formula for nth term?", a:shuffleArray(["a+(n-1)d", "a+(n)d", "a+(n+1)d", "a+(n-2)d"]), correct:0},
+        {id:82, q:"Sum of n terms of AP = ?", a:shuffleArray(["n/2[2a+(n-1)d]", "n[2a+(n-1)d]", "n/2[a+(n-1)d]", "n/2[2a+(n+1)d"]), correct:0},
+        {id:83, q:"Geometric progression nth term = ?", a:shuffleArray(["ar^(n-1)", "ar^n", "a/r^(n-1)", "a+r(n-1)"]), correct:0},
+        {id:84, q:"Sum of n terms of GP (r≠1) = ?", a:shuffleArray(["a(r^n-1)/(r-1)", "a(r^n+1)/(r-1)", "a(r^n-1)/(r+1)", "a(r^n+1)/(r+1)"]), correct:0},
+        {id:85, q:"Sum of infinite GP (|r|<1) = ?", a:shuffleArray(["a/(1-r)", "a/(r-1)", "a(1-r)", "a(r-1)"]), correct:0},
+        {id:86, q:"2,4,6,8,... is an AP. Common difference?", a:shuffleArray(["2", "4", "6", "8"]), correct:0},
+        {id:87, q:"1,3,5,7,... is an AP. 10th term?", a:shuffleArray(["19", "20", "21", "18"]), correct:0},
+        {id:88, q:"Sum of first 10 natural numbers = ?", a:shuffleArray(["55", "50", "45", "60"]), correct:0},
+        {id:89, q:"2,4,8,16,... is a GP. Common ratio?", a:shuffleArray(["2", "4", "8", "16"]), correct:0},
+        {id:90, q:"1,1/2,1/4,1/8,... is GP. Sum to infinity = ?", a:shuffleArray(["2", "1", "3", "1/2"]), correct:0},
+        {id:91, q:"Arithmetic mean between a and b is?", a:shuffleArray(["(a+b)/2", "√(ab)", "2ab/(a+b)", "a+b"]), correct:0},
+        {id:92, q:"Geometric mean between a and b is?", a:shuffleArray(["√(ab)", "(a+b)/2", "2ab/(a+b)", "ab"]), correct:0},
+        {id:93, q:"Harmonic mean between a and b is?", a:shuffleArray(["2ab/(a+b)", "(a+b)/2", "√(ab)", "ab"]), correct:0},
+        {id:94, q:"Sum of first n natural numbers = ?", a:shuffleArray(["n(n+1)/2", "n(n-1)/2", "n(n+1)", "n²"]), correct:0},
+        {id:95, q:"Sum of squares of first n natural numbers = ?", a:shuffleArray(["n(n+1)(2n+1)/6", "n(n+1)/2", "n(n+1)(2n+1)/3", "n²(n+1)²/4"]), correct:0},
+        {id:96, q:"Sum of cubes of first n natural numbers = ?", a:shuffleArray(["[n(n+1)/2]²", "n(n+1)/2", "n(n+1)(2n+1)/6", "n²"]), correct:0},
+        {id:97, q:"In an AP, a=2, d=3, find 5th term.", a:shuffleArray(["14", "17", "11", "8"]), correct:0},
+        {id:98, q:"In a GP, a=2, r=3, find 4th term.", a:shuffleArray(["54", "18", "6", "162"]), correct:0},
+        {id:99, q:"Sum of first 20 natural numbers = ?", a:shuffleArray(["210", "200", "190", "220"]), correct:0},
+        {id:100, q:"1+2+3+...+100 = ?", a:shuffleArray(["5050", "5000", "5100", "4950"]), correct:0},
+        // Permutations & Combinations (101-120)
+        {id:101, q:"n! (n factorial) means?", a:shuffleArray(["n(n-1)(n-2)...3.2.1", "n+n-1+...", "n²", "2n"]), correct:0},
+        {id:102, q:"0! = ?", a:shuffleArray(["1", "0", "undefined", "2"]), correct:0},
+        {id:103, q:"3! = ?", a:shuffleArray(["6", "3", "9", "1"]), correct:0},
+        {id:104, q:"5! = ?", a:shuffleArray(["120", "60", "24", "25"]), correct:0},
+        {id:105, q:"P(n,r) = ?", a:shuffleArray(["n!/(n-r)!", "n!/(r!(n-r)!)", "n!/r!", "(n-r)!"]), correct:0},
+        {id:106, q:"C(n,r) = ?", a:shuffleArray(["n!/(r!(n-r)!)", "n!/(n-r)!", "n!/r!", "r!/(n-r)!"]), correct:0},
+        {id:107, q:"C(n,r) = C(n, ?)", a:shuffleArray(["n-r", "r", "n", "1"]), correct:0},
+        {id:108, q:"P(5,2) = ?", a:shuffleArray(["20", "10", "25", "5"]), correct:0},
+        {id:109, q:"C(5,2) = ?", a:shuffleArray(["10", "20", "25", "5"]), correct:0},
+        {id:110, q:"C(6,4) = ?", a:shuffleArray(["15", "24", "10", "6"]), correct:0},
+        {id:111, q:"Number of ways to arrange 3 books on a shelf = ?", a:shuffleArray(["6", "3", "9", "27"]), correct:0},
+        {id:112, q:"Number of ways to select 2 from 4 = ?", a:shuffleArray(["6", "12", "4", "8"]), correct:0},
+        {id:113, q:"C(n,0) = ?", a:shuffleArray(["1", "0", "n", "n!"]), correct:0},
+        {id:114, q:"C(n,n) = ?", a:shuffleArray(["1", "0", "n", "n!"]), correct:0},
+        {id:115, q:"P(6,3) = ?", a:shuffleArray(["120", "60", "20", "6"]), correct:0},
+        {id:116, q:"C(7,3) = ?", a:shuffleArray(["35", "21", "210", "7"]), correct:0},
+        {id:117, q:"Number of ways to arrange 5 different letters = ?", a:shuffleArray(["120", "25", "5", "10"]), correct:0},
+        {id:118, q:"C(4,2) + C(4,3) = ?", a:shuffleArray(["10", "6", "4", "12"]), correct:0},
+        {id:119, q:"P(n,1) = ?", a:shuffleArray(["n", "1", "n!", "n-1"]), correct:0},
+        {id:120, q:"C(n,1) = ?", a:shuffleArray(["n", "1", "n!", "n-1"]), correct:0},
+        // Binomial Theorem (121-140)
+        {id:121, q:"(1+x)^n = Σ ?", a:shuffleArray(["C(n,r)x^r", "P(n,r)x^r", "n!x^r", "n^r"]), correct:0},
+        {id:122, q:"In (1+x)^n, coefficient of x^r is?", a:shuffleArray(["C(n,r)", "P(n,r)", "n!/r!", "n^r"]), correct:0},
+        {id:123, q:"(1+x)^4 expanded = ?", a:shuffleArray(["1+4x+6x²+4x³+x⁴", "1+4x+4x²+x³", "1+x+x²+x³+x⁴", "1+2x+3x²+4x³"]), correct:0},
+        {id:124, q:"In (1+x)^4, coefficient of x² is?", a:shuffleArray(["6", "4", "1", "3"]), correct:0},
+        {id:125, q:"In (1+x)^5, coefficient of x³ is?", a:shuffleArray(["10", "5", "15", "20"]), correct:0},
+        {id:126, q:"(1-x)^n expansion has alternate signs.", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:127, q:"In (1+x)^n, number of terms is?", a:shuffleArray(["n+1", "n", "2n", "n-1"]), correct:0},
+        {id:128, q:"(a+b)^3 = ?", a:shuffleArray(["a³+3a²b+3ab²+b³", "a³-3a²b+3ab²-b³", "a³+b³", "a³-b³"]), correct:0},
+        {id:129, q:"(a+b)^4 = ?", a:shuffleArray(["a⁴+4a³b+6a²b²+4ab³+b⁴", "a⁴+4a³b+4a²b²+b⁴", "a⁴+b⁴", "a⁴+2a³b+2ab³+b⁴"]), correct:0},
+        {id:130, q:"Middle term of (1+x)^4 is?", a:shuffleArray(["6x²", "4x", "x⁴", "4x³"]), correct:0},
+        {id:131, q:"Coefficients of (1+x)^4 are?", a:shuffleArray(["1,4,6,4,1", "1,4,4,1", "1,2,3,4,5", "1,3,5,3,1"]), correct:0},
+        {id:132, q:"Sum of coefficients in (1+x)^n = ?", a:shuffleArray(["2^n", "n^2", "2n", "n!"]), correct:0},
+        {id:133, q:"Sum of coefficients in (1+x)^4 = ?", a:shuffleArray(["16", "8", "4", "2"]), correct:0},
+        {id:134, q:"In (1+x)^6, coefficient of x³ is?", a:shuffleArray(["20", "15", "6", "10"]), correct:0},
+        {id:135, q:"In (1+x)^6, term containing x⁴ is?", a:shuffleArray(["15x⁴", "20x⁴", "6x⁴", "10x⁴"]), correct:0},
+        {id:136, q:"(1+x)^2 = ?", a:shuffleArray(["1+2x+x²", "1+x+x²", "1-x+x²", "1+2x+2x²"]), correct:0},
+        {id:137, q:"(1-x)^2 = ?", a:shuffleArray(["1-2x+x²", "1+2x+x²", "1-x-x²", "1-2x-2x²"]), correct:0},
+        {id:138, q:"In (1+x)^3, coefficient of x is?", a:shuffleArray(["3", "1", "6", "2"]), correct:0},
+        {id:139, q:"In (1+x)^3, coefficient of x² is?", a:shuffleArray(["3", "1", "6", "2"]), correct:0},
+        {id:140, q:"(1+x)^5 = ?", a:shuffleArray(["1+5x+10x²+10x³+5x⁴+x⁵", "1+5x+5x²+5x³+x⁵", "1+x+x²+x³+x⁴+x⁵", "1+2x+3x²+4x³+5x⁴"]), correct:0},
+        // Trigonometry II (141-160)
+        {id:141, q:"sin 180° = ?", a:shuffleArray(["0", "1", "-1", "√2/2"]), correct:0},
+        {id:142, q:"cos 180° = ?", a:shuffleArray(["-1", "0", "1", "√2/2"]), correct:0},
+        {id:143, q:"sin 270° = ?", a:shuffleArray(["-1", "0", "1", "√2/2"]), correct:0},
+        {id:144, q:"cos 270° = ?", a:shuffleArray(["0", "1", "-1", "√2/2"]), correct:0},
+        {id:145, q:"sin 360° = ?", a:shuffleArray(["0", "1", "-1", "√2/2"]), correct:0},
+        {id:146, q:"cos 360° = ?", a:shuffleArray(["1", "0", "-1", "√2/2"]), correct:0},
+        {id:147, q:"sin 2θ = ?", a:shuffleArray(["2sinθcosθ", "sin²θ+cos²θ", "2sin²θ", "cos²θ-sin²θ"]), correct:0},
+        {id:148, q:"cos 2θ = ?", a:shuffleArray(["cos²θ - sin²θ", "2sinθcosθ", "sin²θ+cos²θ", "2cos²θ"]), correct:0},
+        {id:149, q:"tan 2θ = ?", a:shuffleArray(["2tanθ/(1-tan²θ)", "2tanθ/(1+tan²θ)", "(1-tan²θ)/2tanθ", "(1+tan²θ)/2tanθ"]), correct:0},
+        {id:150, q:"sin(α+β) = ?", a:shuffleArray(["sinαcosβ + cosαsinβ", "sinαcosβ - cosαsinβ", "cosαcosβ - sinαsinβ", "cosαcosβ + sinαsinβ"]), correct:0},
+        {id:151, q:"sin(α-β) = ?", a:shuffleArray(["sinαcosβ - cosαsinβ", "sinαcosβ + cosαsinβ", "cosαcosβ - sinαsinβ", "cosαcosβ + sinαsinβ"]), correct:0},
+        {id:152, q:"cos(α+β) = ?", a:shuffleArray(["cosαcosβ - sinαsinβ", "cosαcosβ + sinαsinβ", "sinαcosβ + cosαsinβ", "sinαcosβ - cosαsinβ"]), correct:0},
+        {id:153, q:"cos(α-β) = ?", a:shuffleArray(["cosαcosβ + sinαsinβ", "cosαcosβ - sinαsinβ", "sinαcosβ + cosαsinβ", "sinαcosβ - cosαsinβ"]), correct:0},
+        {id:154, q:"tan(α+β) = ?", a:shuffleArray(["(tanα+tanβ)/(1-tanαtanβ)", "(tanα-tanβ)/(1+tanαtanβ)", "(tanα+tanβ)/(1+tanαtanβ)", "(tanα-tanβ)/(1-tanαtanβ)"]), correct:0},
+        {id:155, q:"tan(α-β) = ?", a:shuffleArray(["(tanα-tanβ)/(1+tanαtanβ)", "(tanα+tanβ)/(1-tanαtanβ)", "(tanα+tanβ)/(1+tanαtanβ)", "(tanα-tanβ)/(1-tanαtanβ)"]), correct:0},
+        {id:156, q:"sin 2x = 2sinxcosx", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:157, q:"cos 2x = 2cos²x - 1", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:158, q:"sin 15° = ?", a:shuffleArray(["√3-1/2√2", "√3+1/2√2", "1/2", "√3/2"]), correct:0},
+        {id:159, q:"cos 75° = ?", a:shuffleArray(["√3-1/2√2", "√3+1/2√2", "1/2", "√3/2"]), correct:0},
+        {id:160, q:"sin 75° = ?", a:shuffleArray(["√3+1/2√2", "√3-1/2√2", "1/2", "√3/2"]), correct:0},
+        // Matrices & Determinants (161-180)
+        {id:161, q:"If A is a 3x3 matrix, |A| is called?", a:shuffleArray(["Determinant", "Transpose", "Adjoint", "Inverse"]), correct:0},
+        {id:162, q:"If |A| = 0, matrix is called?", a:shuffleArray(["Singular", "Non-singular", "Identity", "Null"]), correct:0},
+        {id:163, q:"If |A| ≠ 0, matrix is called?", a:shuffleArray(["Non-singular", "Singular", "Identity", "Null"]), correct:0},
+        {id:164, q:"A^{-1} = ?", a:shuffleArray(["adj(A)/|A|", "adj(A)×|A|", "adj(A)+|A|", "|A|/adj(A)"]), correct:0},
+        {id:165, q:"If A is a 2x2 matrix [[a,b],[c,d]], adj(A) = ?", a:shuffleArray(["[[d,-b],[-c,a]]", "[[a,b],[c,d]]", "[[-d,b],[c,-a]]", "[[d,b],[c,a]]"]), correct:0},
+        {id:166, q:"A × A^{-1} = ?", a:shuffleArray(["I", "0", "A", "A^T"]), correct:0},
+        {id:167, q:"A^{-1} × A = ?", a:shuffleArray(["I", "0", "A", "A^T"]), correct:0},
+        {id:168, q:"If A = [[1,2],[3,4]], find |A|", a:shuffleArray(["-2", "2", "5", "-5"]), correct:0},
+        {id:169, q:"If A = [[1,2],[3,4]], find adj(A)", a:shuffleArray(["[[4,-2],[-3,1]]", "[[1,2],[3,4]]", "[[4,2],[3,1]]", "[[-4,2],[3,-1]]"]), correct:0},
+        {id:170, q:"If A = [[1,2],[3,4]], A^{-1} = ?", a:shuffleArray(["[[-2,1],[1.5,-0.5]]", "[[1,2],[3,4]]", "[[4,-2],[-3,1]]", "[[-4,2],[3,-1]]"]), correct:0},
+        {id:171, q:"Cramer's rule is used to solve?", a:shuffleArray(["Linear equations", "Quadratic equations", "Cubic equations", "Trigonometric equations"]), correct:0},
+        {id:172, q:"System of equations is consistent if?", a:shuffleArray(["Has solution", "No solution", "Infinite solutions", "None"]), correct:0},
+        {id:173, q:"Inverse of matrix exists only if matrix is?", a:shuffleArray(["Non-singular", "Singular", "Identity", "Null"]), correct:0},
+        {id:174, q:"If A = [[1,0],[0,2]], then |A| = ?", a:shuffleArray(["2", "1", "0", "3"]), correct:0},
+        {id:175, q:"If A = [[1,2],[0,3]], then |A| = ?", a:shuffleArray(["3", "2", "1", "0"]), correct:0},
+        {id:176, q:"Matrix multiplication is associative?", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:177, q:"Matrix addition is associative?", a:shuffleArray(["Yes", "No", "Sometimes", "Never"]), correct:0},
+        {id:178, q:"If A and B are square matrices of same order, (AB)^T = ?", a:shuffleArray(["B^T A^T", "A^T B^T", "AB", "BA"]), correct:0},
+        {id:179, q:"If A is symmetric, then A^T = ?", a:shuffleArray(["A", "-A", "A^{-1}", "I"]), correct:0},
+        {id:180, q:"If A is skew-symmetric, then A^T = ?", a:shuffleArray(["-A", "A", "A^{-1}", "I"]), correct:0},
+        // Functions & Groups (181-200)
+        {id:181, q:"A function is a relation where each input has exactly how many outputs?", a:shuffleArray(["One", "Two", "Zero", "Infinite"]), correct:0},
+        {id:182, q:"Domain of f(x) = √x is?", a:shuffleArray(["x ≥ 0", "x > 0", "x ≤ 0", "All real"]), correct:0},
+        {id:183, q:"Domain of f(x) = 1/x is?", a:shuffleArray(["x ≠ 0", "x > 0", "x < 0", "All real"]), correct:0},
+        {id:184, q:"Range of f(x) = √x is?", a:shuffleArray(["y ≥ 0", "y > 0", "y ≤ 0", "All real"]), correct:0},
+        {id:185, q:"f(x) = x² is which type of function?", a:shuffleArray(["Quadratic", "Linear", "Cubic", "Exponential"]), correct:0},
+        {id:186, q:"f(x) = mx + c is which type of function?", a:shuffleArray(["Linear", "Quadratic", "Cubic", "Exponential"]), correct:0},
+        {id:187, q:"A group is a set with one operation that is?", a:shuffleArray(["Associative and has identity/inverse", "Commutative", "Distributive", "Not associative"]), correct:0},
+        {id:188, q:"Set of integers with addition forms a group.", a:shuffleArray(["Yes", "No", "Only with multiplication", "Never"]), correct:0},
+        {id:189, q:"Set of integers with multiplication forms a group?", a:shuffleArray(["No", "Yes", "Sometimes", "Always"]), correct:0},
+        {id:190, q:"Identity element for addition is?", a:shuffleArray(["0", "1", "-1", "2"]), correct:0},
+        {id:191, q:"Identity element for multiplication is?", a:shuffleArray(["1", "0", "-1", "2"]), correct:0},
+        {id:192, q:"Inverse of 2 under addition is?", a:shuffleArray(["-2", "2", "1/2", "0"]), correct:0},
+        {id:193, q:"Inverse of 2 under multiplication is?", a:shuffleArray(["1/2", "-2", "2", "0"]), correct:0},
+        {id:194, q:"Binary operation '*' is associative if (a*b)*c = ?", a:shuffleArray(["a*(b*c)", "(a*c)*b", "a*b*c", "b*(a*c)"]), correct:0},
+        {id:195, q:"Binary operation is commutative if a*b = ?", a:shuffleArray(["b*a", "a+b", "a-b", "a/b"]), correct:0},
+        {id:196, q:"Set of even integers with addition forms a group?", a:shuffleArray(["Yes", "No", "Only with multiplication", "Never"]), correct:0},
+        {id:197, q:"Set of odd integers with addition forms a group?", a:shuffleArray(["No", "Yes", "Sometimes", "Always"]), correct:0},
+        {id:198, q:"Identity element in group of integers under addition is?", a:shuffleArray(["0", "1", "-1", "2"]), correct:0},
+        {id:199, q:"If every element in a group has inverse, it is called?", a:shuffleArray(["Group", "Semi-group", "Monoid", "Abelian group"]), correct:0},
+        {id:200, q:"If group operation is commutative, it is called?", a:shuffleArray(["Abelian group", "Group", "Semi-group", "Monoid"]), correct:0}
+    ];
+
+    // ============================================================
+    // CORRECT VALUES MAPPING
+    // ============================================================
+    const correctValues = {
+        1: "{3}", 2: "{1,2,3,4,5}", 3: "A", 4: "B", 5: "Yes",
+        6: "4", 7: "{1}", 8: "{4}", 9: "∅", 10: "U",
+        11: "{1,2,5,6}", 12: "2^n", 13: "N", 14: "Q", 15: "R",
+        16: "4", 17: "12", 18: "(A∩B) ∪ (A∩C)", 19: "(A∪B) ∩ (A∪C)", 20: "A' ∩ B'",
+        21: "0", 22: "1", 23: "1/2", 24: "√3/2", 25: "√2/2",
+        26: "√2/2", 27: "√3/2", 28: "1/2", 29: "1", 30: "0",
+        31: "1", 32: "1/√3", 33: "√3", 34: "2", 35: "2",
+        36: "1", 37: "1", 38: "sec²θ", 39: "cosec²θ", 40: "cosθ",
+        41: "a²+2ab+b²", 42: "a²-2ab+b²", 43: "a²-b²", 44: "a³+3a²b+3ab²+b³", 45: "a³-3a²b+3ab²-b³",
+        46: "(a+b)(a²-ab+b²)", 47: "(a-b)(a²+ab+b²)", 48: "(-b±√(b²-4ac))/2a", 49: "b²-4ac", 50: "Real and unequal",
+        51: "Real and equal", 52: "Complex/Imaginary", 53: "-b/a", 54: "c/a", 55: "2,3",
+        56: "2,-2", 57: "2i,-2i", 58: "x=±2", 59: "1/2 (double)", 60: "1,2",
+        61: "m×n", 62: "[[1,0],[0,1]]", 63: "diagonal with 1s", 64: "[[1,3],[2,4]]", 65: "Null matrix",
+        66: "Diagonal matrix", 67: "-2", 68: "ad-bc", 69: "A^T", 70: "-A^T",
+        71: "3×2", 72: "[[6,8],[10,12]]", 73: "[[2,4],[6,8]]", 74: "Square matrix", 75: "Row matrix",
+        76: "Column matrix", 77: "Identity matrix", 78: "Scalar matrix", 79: "No", 80: "Yes",
+        81: "a+(n-1)d", 82: "n/2[2a+(n-1)d]", 83: "ar^(n-1)", 84: "a(r^n-1)/(r-1)", 85: "a/(1-r)",
+        86: "2", 87: "19", 88: "55", 89: "2", 90: "2",
+        91: "(a+b)/2", 92: "√(ab)", 93: "2ab/(a+b)", 94: "n(n+1)/2", 95: "n(n+1)(2n+1)/6",
+        96: "[n(n+1)/2]²", 97: "14", 98: "54", 99: "210", 100: "5050",
+        101: "n(n-1)(n-2)...3.2.1", 102: "1", 103: "6", 104: "120", 105: "n!/(n-r)!",
+        106: "n!/(r!(n-r)!)", 107: "n-r", 108: "20", 109: "10", 110: "15",
+        111: "6", 112: "6", 113: "1", 114: "1", 115: "120",
+        116: "35", 117: "120", 118: "10", 119: "n", 120: "n",
+        121: "C(n,r)x^r", 122: "C(n,r)", 123: "1+4x+6x²+4x³+x⁴", 124: "6", 125: "10",
+        126: "Yes", 127: "n+1", 128: "a³+3a²b+3ab²+b³", 129: "a⁴+4a³b+6a²b²+4ab³+b⁴", 130: "6x²",
+        131: "1,4,6,4,1", 132: "2^n", 133: "16", 134: "20", 135: "15x⁴",
+        136: "1+2x+x²", 137: "1-2x+x²", 138: "3", 139: "3", 140: "1+5x+10x²+10x³+5x⁴+x⁵",
+        141: "0", 142: "-1", 143: "-1", 144: "0", 145: "0",
+        146: "1", 147: "2sinθcosθ", 148: "cos²θ - sin²θ", 149: "2tanθ/(1-tan²θ)", 150: "sinαcosβ + cosαsinβ",
+        151: "sinαcosβ - cosαsinβ", 152: "cosαcosβ - sinαsinβ", 153: "cosαcosβ + sinαsinβ", 154: "(tanα+tanβ)/(1-tanαtanβ)", 155: "(tanα-tanβ)/(1+tanαtanβ)",
+        156: "Yes", 157: "Yes", 158: "√3-1/2√2", 159: "√3-1/2√2", 160: "√3+1/2√2",
+        161: "Determinant", 162: "Singular", 163: "Non-singular", 164: "adj(A)/|A|", 165: "[[d,-b],[-c,a]]",
+        166: "I", 167: "I", 168: "-2", 169: "[[4,-2],[-3,1]]", 170: "[[-2,1],[1.5,-0.5]]",
+        171: "Linear equations", 172: "Has solution", 173: "Non-singular", 174: "2", 175: "3",
+        176: "Yes", 177: "Yes", 178: "B^T A^T", 179: "A", 180: "-A",
+        181: "One", 182: "x ≥ 0", 183: "x ≠ 0", 184: "y ≥ 0", 185: "Quadratic",
+        186: "Linear", 187: "Associative and has identity/inverse", 188: "Yes", 189: "No", 190: "0",
+        191: "1", 192: "-2", 193: "1/2", 194: "a*(b*c)", 195: "b*a",
+        196: "Yes", 197: "No", 198: "0", 199: "Group", 200: "Abelian group"
+    };
+
+    // Apply correct values
+    mcqs.forEach(q => {
+        if (correctValues[q.id] !== undefined) {
+            const ans = correctValues[q.id];
+            const idx = q.a.indexOf(ans);
+            if (idx !== -1) q.correct = idx;
+        }
+    });
+
+    // ============================================================
+    // TEST ENGINE
+    // ============================================================
+    let current = 0, answers = [], laterList = [], reviewedLater = [], isReviewing = false, time = 7200, timerInterval;
+
+    function startTest() {
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ(); timer();
+    }
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0; answers = []; laterList = []; reviewedLater = []; isReviewing = false; time = 7200;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+    function loadQ() {
+        updateScore();
+        let id = mcqs[current].id;
+        let paddedId = String(id).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "", disabled = "";
+            if (answers[current] != undefined) {
+                disabled = "disabled";
+                if (i == answers[current]) {
+                    if (i == mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+    function checkAns(i) {
+        if (answers[current] != undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+    function updateScore() {
+        let attempted = answers.filter(a => a != undefined).length;
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score;
+    }
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] == undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] != undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        let correct = answers.filter((a, i) => a == mcqs[i].correct).length;
+        let attempted = answers.filter(a => a != undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = correct * 4 - wrongCount * 1;
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score}</strong> / ${mcqs.length * 4} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+        let table = "<table><tr><th class='qno-col'>Q-ID</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>";
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+            if (answers[i] == q.correct) {
+                status = "✅ CORRECT"; yourAns = q.a[answers[i]]; color = "#00e676";
+            } else if (answers[i] != undefined) {
+                status = "❌ WRONG"; yourAns = q.a[answers[i]]; color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED"; yourAns = "SKIPPED"; color = "#FFA500";
+            }
+            table += `<tr><td class='qno-col'>Q-${qId}</td><td>${q.q}</td><td style="color:${color}; font-weight:bold;">${status}</td><td style="color:${color}; font-weight:bold;">${yourAns}</td><td style="color:#00e676; font-weight:bold;">${q.a[q.correct]}</td></tr>`;
+        });
+        table += "</table>";
+        document.getElementById("wrongTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>
