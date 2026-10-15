@@ -3,55 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>12 Educational Apps - Nakhat Tarin</title>
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/2232/2232688.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<title>12 Educational Apps - By Akbar Ali Khan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#eef2ff;padding:16px}
-.header{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:20px;border-radius:20px;text-align:center;margin-bottom:20px}
-.header h1{margin:0;font-size:22px}
-.header p{margin:5px 0 0;opacity:0.9;font-size:14px}
-.section{background:white;border-radius:20px;padding:16px;margin-bottom:16px;box-shadow:0 4px 15px rgba(0,0,0,0.05)}
-.section-title{font-weight:700;margin-bottom:12px;font-size:16px;color:#333}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.app{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:#333;background:#f8f9ff;border-radius:16px;padding:12px 6px;transition:0.2s}
-.app:active{transform:scale(0.95)}
-.app-icon{width:48px;height:48px;background:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 2px 8px rgba(0,0,0,0.08);margin-bottom:6px}
-.app-name{font-size:11px;font-weight:600;line-height:1.2}
-.app-count{font-size:9px;color:#888;margin-top:2px}
-.badge{background:#667eea;color:white;font-size:9px;padding:2px 6px;border-radius:20px;margin-bottom:5px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,#1e1b4b 40%,#312e81 100%);min-height:100vh;padding:14px;color:white}
+.container{max-width:420px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#ffffff,#e0e7ff);border-radius:26px;padding:18px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+.hero h1{font-size:24px;font-weight:800;color:#0f172a;line-height:1.1}
+.hero h1 span{background:linear-gradient(90deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero .by{color:#4338ca;font-size:12px;font-weight:700;margin-top:6px;background:#eef2ff;display:inline-block;padding:4px 12px;border-radius:100px}
+.stats{display:flex;gap:8px;margin:12px 0}
+.stat{flex:1;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:8px;text-align:center}
+.stat b{font-size:16px;display:block;color:#fbbf24}
+.stat span{font-size:9px;opacity:0.8}
+.title{font-size:13px;font-weight:800;margin:16px 0 10px 4px;display:flex;align-items:center;gap:6px}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.card{border-radius:18px;padding:13px;text-decoration:none;display:block;position:relative;transition:0.2s;box-shadow:0 6px 18px rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.2)}
+.card:active{transform:scale(0.97)}
+.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(255,255,255,0.95);margin-bottom:8px;overflow:hidden}
+.card h3{font-size:12px;font-weight:800;color:#0f172a;line-height:1.2}
+.card p{font-size:10px;font-weight:600;color:#334155;margin-top:2px}
+.badge{position:absolute;top:10px;right:10px;font-size:8px;font-weight:800;padding:3px 7px;border-radius:100px;color:white}
+.arrow{position:absolute;bottom:10px;right:10px;width:20px;height:20px;background:#0f172a;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
+.c1{background:linear-gradient(135deg,#fef3c7,#fde68a)}.c1 .badge{background:#f59e0b}
+.c2{background:linear-gradient(135deg,#dbeafe,#bfdbfe)}.c2 .badge{background:#3b82f6}
+.c3{background:linear-gradient(135deg,#fce7f3,#fbcfe8)}.c3 .badge{background:#ec4899}
+.c4{background:linear-gradient(135deg,#dcfce7,#bbf7d0)}.c4 .badge{background:#22c55e}
+.c5{background:linear-gradient(135deg,#e0e7ff,#c7d2fe)}.c5 .badge{background:#6366f1}
+.c6{background:linear-gradient(135deg,#ffedd5,#fed7aa)}.c6 .badge{background:#f97316}
+.c7{background:linear-gradient(135deg,#f3e8ff,#e9d5ff)}.c7 .badge{background:#a855f7}
+.c8{background:linear-gradient(135deg,#ccfbf1,#99f6e0)}.c8 .badge{background:#14b8a6}
+.c9{background:linear-gradient(135deg,#fef9c3,#fde047)}.c9 .badge{background:#eab308}
+.c10{background:linear-gradient(135deg,#ffffff,#dcfce7);border:2px solid #16a34a}.c10 .badge{background:#006400}
+.c11{background:linear-gradient(135deg,#ede9fe,#ddd6fe)}.c11 .badge{background:#8b5cf6}
+.c12{background:linear-gradient(135deg,#fee2e2,#fecaca)}.c12 .badge{background:#ef4444}
+.footer{text-align:center;margin-top:16px;padding:10px;background:rgba(0,0,0,0.3);border-radius:12px;font-size:10px}
 </style>
 </head>
 <body>
-
-<div class="header">
-<h1>⭐ 12 Educational Apps</h1>
-<p>By Nakhat Tarin - All Entry Tests Preparation</p>
+<div class="container">
+<div class="hero">
+<h1>🎓 My Educational<br><span>Apps For Everyone!</span></h1>
+<div class="by">By Akbar Ali Khan • SCT GCMHS No.3 Mardan</div>
+</div>
+<div class="stats">
+<div class="stat"><b>12</b><span>APPS</span></div>
+<div class="stat"><b>14K+</b><span>MCQs</span></div>
+<div class="stat"><b>100%</b><span>FREE</span></div>
+<div class="stat"><b>ALL</b><span>DEVICES</span></div>
 </div>
 
-<div class="section">
-<div class="section-title">⭐ TOP ENTRY TESTS</div>
+<div class="title"><span class="dot"></span> ENTRY TESTS PREPARATION</div>
 <div class="grid">
-<a class="app" href="./mdcat/"><div class="app-icon">🩺</div><div class="app-name">MDCAT</div><div class="app-count">10 Tests</div></a>
-<a class="app" href="./ecat/"><div class="app-icon">⚙️</div><div class="app-name">ECAT</div><div class="app-count">10 Tests</div></a>
-<a class="app" href="./lat/"><div class="app-icon">⚖️</div><div class="app-name">LAT</div><div class="app-count">10 Tests</div></a>
-<a class="app" href="./logical/"><div class="app-icon">🧠</div><div class="app-name">Logical</div><div class="app-count">1000 MCQs</div></a>
-</div>
+<a class="card c1" href="./mdcat/"><div class="badge">10 TESTS</div><div class="icon">🩺</div><h3>MDCAT</h3><p>Medical Entry Test</p><div class="arrow">→</div></a>
+<a class="card c2" href="./ecat/"><div class="badge">10 TESTS</div><div class="icon">⚙️</div><h3>ECAT</h3><p>Engineering Test</p><div class="arrow">→</div></a>
+<a class="card c3" href="./lat/"><div class="badge">10 TESTS</div><div class="icon">⚖️</div><h3>LAT</h3><p>Law Admission Test</p><div class="arrow">→</div></a>
+<a class="card c4" href="./logical/"><div class="badge">1000 MCQs</div><div class="icon">🧠</div><h3>Logical Reasoning</h3><p>Reasoning Test</p><div class="arrow">→</div></a>
 </div>
 
-<div class="section">
+<div class="title"><span class="dot"></span> FSc / HSSC - 2000 MCQs EACH</div>
 <div class="grid">
-<a class="app" href="./fsc-biology/"><div class="app-icon">🧬</div><div class="app-name">FSc Biology</div><div class="app-count">2000 MCQs</div></a>
-<a class="app" href="./fsc-chemistry/"><div class="app-icon">🧪</div><div class="app-name">FSc Chemistry</div><div class="app-count">2000 MCQs</div></a>
-<a class="app" href="./fsc-physics/"><div class="app-icon">🚀</div><div class="app-name">FSc Physics</div><div class="app-count">2000 MCQs</div></a>
-<a class="app" href="./fsc-maths/"><div class="app-icon">🔢</div><div class="app-name">FSc Maths</div><div class="app-count">2000 MCQs</div></a>
+<a class="card c5" href="./fsc-biology/"><div class="badge">2000 MCQs</div><div class="icon">🧬</div><h3>FSc Biology</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c6" href="./fsc-chemistry/"><div class="badge">2000 MCQs</div><div class="icon">🧪</div><h3>FSc Chemistry</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c7" href="./fsc-physics/"><div class="badge">2000 MCQs</div><div class="icon">🚀</div><h3>FSc Physics</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c8" href="./fsc-maths/"><div class="badge">2000 MCQs</div><div class="icon">🔢</div><h3>FSc Maths</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c9" href="./hssc-english/"><div class="badge">2000 MCQs</div><div class="icon">📝</div><h3>HSSC English</h3><p>Grammar & Vocab</p><div class="arrow">→</div></a>
 
-<a class="app" href="./hssc-english/"><div class="app-icon">📝</div><div class="app-name">HSSC English</div><div class="app-count">2000 MCQs</div></a>
-<a class="app" href="./constitution/"><div class="app-icon">🇵🇰</div><div class="app-name">Constitution Pakistan</div><div class="app-count"></div></a>
-<a class="app" href="./translator/"><div class="app-icon">🌍</div><div class="app-name">Global Translator</div><div class="app-count"></div></a>
-<a class="app" href="./converter/"><div class="app-icon">🔄</div><div class="app-name">Unit Converter</div><div class="app-count"></div></a>
-</div>
+<a class="card c10" href="./constitution/"><div class="badge">🇵🇰 1973</div><div class="icon" style="background:white;padding:0"><img src="https://flagcdn.com/w80/pk.png" style="width:100%;height:100%;object-fit:cover"></div><h3>Constitution</h3><p>Pakistan 1973 🇵🇰</p><div class="arrow">→</div></a>
+
+<a class="card c11" href="./translator/"><div class="badge">50+ LANGS</div><div class="icon">🌍</div><h3>Global Translator</h3><p>50+ Languages</p><div class="arrow">→</div></a>
+<a class="card c12" href="./converter/"><div class="badge">ALL UNITS</div><div class="icon">🔄</div><h3>Unit Converter</h3><p>Universal Converter</p><div class="arrow">→</div></a>
 </div>
 
+<div class="footer">No Play Store Needed | iPhone • Android • Laptop • PC<br>By Akbar Ali Khan SCT GCMHS No.3 Mardan</div>
+</div>
 </body>
 </html>
