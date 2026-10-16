@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Universal WPS V4 - Real Office Suite - 15 Languages</title>
+
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.4/tesseract.min.js"></script>
+
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;color:#fff;overflow-x:hidden}
+
+/* Language Modal */
+#langModal{position:fixed;inset:0;background:rgba(0,0,0,0.96);display:flex;align-items:center;justify-content:center;z-index:99999;padding:12px}
+.lang-win{background:linear-gradient(135deg,#fff,#f0f0ff);color:#222;border-radius:24px;padding:16px;max-width:420px;width:100%;max-height:92vh;overflow-y:auto;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.7)}
+.lang-btn{width:100%;padding:11px 14px;margin:4px 0;border:2px solid #e8e8ff;border-radius:12px;background:#fff;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:0.2s;font-size:14px;color:#222}
+.lang-btn:hover{transform:scale(1.02);border-color:#6c5ce7;background:#f8f7ff}
+.lang-btn.sel{background:linear-gradient(135deg,#6c5ce7,#a29bfe);color:#fff;border-color:#6c5ce7}
+
+/* Header */
+.header{text-align:center;padding:14px 12px;background:linear-gradient(135deg,rgba(0,0,0,0.4),rgba(48,43,99,0.6));border-bottom:2px solid rgba(255,179,0,0.3)}
+.logo{font-size:24px;font-weight:900;color:#ffb300;text-shadow:0 2px 8px rgba(255,179,0,0.4)}
+.sub{font-size:11px;opacity:0.85;margin-top:2px}
+.top-bar{font-size:11px;margin-top:6px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.top-bar span,.top-bar a{text-decoration:none;color:#ffb300;cursor:pointer;padding:2px 6px;border-radius:6px;transition:0.2s}
+.top-bar a:hover,.top-bar span:hover{background:rgba(255,179,0,0.15)}
+
+/* Main */
+.main{max-width:560px;margin:auto;padding:12px;padding-bottom:40px}
+.voice-btn{background:linear-gradient(90deg,#ff416c,#ff4b2b,#ffb300);border:none;padding:14px;border-radius:28px;color:#fff;width:100%;font-weight:800;cursor:pointer;font-size:14px;box-shadow:0 6px 20px rgba(255,65,108,0.4);transition:0.2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.voice-btn:active{transform:scale(0.98)}
+.voice-btn.rec{animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 6px 20px rgba(255,65,108,0.4)}50%{box-shadow:0 6px 30px rgba(255,65,108,0.9)}}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.big-btn{border-radius:18px;padding:14px;cursor:pointer;border:1.5px solid rgba(255,255,255,0.2);transition:0.25s;user-select:none;position:relative;overflow:hidden}
+.big-btn:active{transform:scale(0.97)}
+.c1{background:linear-gradient(135deg,#667eea,#764ba2)}
+.c2{background:linear-gradient(135deg,#f093fb,#f5576c)}
+.c3{background:linear-gradient(135deg,#4facfe,#00f2fe)}
+.c4{background:linear-gradient(135deg,#43e97b,#38f9d7);color:#0a2e1a}
+.c5{background:linear-gradient(135deg,#fa709a,#fee140);color:#3a1a00}
+.c6{background:linear-gradient(135deg,#30cfd0,#330867)}
+.c7{background:linear-gradient(135deg,#ff9a9e,#fecfef);color:#3a0030}
+.c8{background:linear-gradient(135deg,#a18cd1,#fbc2eb);color:#2a0040}
+.c9{background:linear-gradient(135deg,#f6d365,#fda085);color:#3a1a00}
+.c10{background:linear-gradient(135deg,#84fab0,#8fd3f4);color:#0a2e1a}
+
+.big-icon{font-size:28px;background:rgba(0,0,0,0.18);width:50px;height:50px;display:flex;align-items:center;justify-content:center;border-radius:12px;margin-bottom:8px}
+.big-btn .title{font-weight:800;font-size:13px;line-height:1.35}
+.big-btn .sub-t{font-size:10px;opacity:0.9;margin-top:2px}
+
+/* Badges */
+.badge{font-size:9px;padding:3px 7px;border-radius:10px;margin-left:6px;font-weight:900;vertical-align:middle;letter-spacing:0.5px;display:inline-block;line-height:1}
+.off{background:#00e676;color:#000;box-shadow:0 2px 6px rgba(0,230,118,0.5)}
+.on{background:#ffb300;color:#000;box-shadow:0 2px 6px rgba(255,179,0,0.5)}
+
+/* ============ CREDIT CARD (Akbar Sb) ============ */
+.credit-card{
+  margin-top: 22px;
+  padding: 18px 16px;
+  background: linear-gradient(135deg, #1a1040, #2a1a5e, #1a1040);
+  border: 2px solid #ffb300;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(255,179,0,0.25), inset 0 0 30px rgba(255,179,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+.credit-card::before{
+  content:'';
+  position:absolute;
+  top:-50%; left:-50%;
+  width:200%; height:200%;
+  background: radial-gradient(circle, rgba(255,179,0,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.credit-title{
+  font-size: 16px;
+  font-weight: 900;
+  color: #ffb300;
+  text-shadow: 0 0 12px rgba(255,179,0,0.6);
+  margin-bottom: 6px;
+  position: relative;
+}
+.credit-deg{
+  font-size: 12px;
+  color: #c8c8e8;
+  margin-bottom: 10px;
+  position: relative;
+}
+.credit-inst{
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  padding: 6px 10px;
+  background: rgba(108,92,231,0.25);
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
+}
+.credit-links{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 12px 0;
+  position: relative;
+}
+.credit-link{
+  color: #a29bfe;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  background: rgba(108,92,231,0.15);
+  border-radius: 10px;
+  border: 1px solid rgba(108,92,231,0.35);
+  transition: 0.25s;
+  word-break: break-all;
+}
+.credit-link:hover, .credit-link:active{
+  background: rgba(108,92,231,0.4);
+  color: #fff;
+  transform: scale(1.02);
+  border-color: #6c5ce7;
+}
+.credit-feedback{
+  display: block;
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #ff416c, #ff4b2b, #ffb300);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(255,65,108,0.4);
+  transition: 0.25s;
+  position: relative;
+}
+.credit-feedback:hover, .credit-feedback:active{
+  transform: scale(1.03);
+  box-shadow: 0 8px 28px rgba(255,65,108,0.7);
+}
+
+/* Notification */
+.notify{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:14px 20px;border-radius:28px;display:none;z-index:9999;max-width:92%;font-size:13px;text-align:center;border:1px solid rgba(255,255,255,0.3);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.notify.show{display:block}
+
+/* Progress */
+#progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,#ffb300,#ff416c);width:0%;transition:width 0.3s;z-index:99998;box-shadow:0 0 10px #ffb300}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:99997;padding:16px}
+.modal-win{background:#1a1a2e;border:2px solid #6c5ce7;border-radius:20px;padding:20px;max-width:500px;width:100%;max-height:85vh;overflow-y:auto}
+.modal-win h3{margin:0 0 12px;color:#ffb300}
+.modal-win textarea{width:100%;min-height:120px;padding:10px;border-radius:10px;border:1px solid #444;background:#0f0f1e;color:#fff;font-family:inherit;font-size:14px;resize:vertical}
+.modal-win select,.modal-win input{width:100%;padding:10px;border-radius:10px;border:1px solid #444;background:#0f0f1e;color:#fff;margin:6px 0;font-size:14px}
+.modal-win button{padding:12px 18px;border-radius:12px;border:none;font-weight:700;cursor:pointer;margin:4px;font-size:14px}
+.btn-p{background:linear-gradient(135deg,#6c5ce7,#a29bfe);color:#fff}
+.btn-s{background:#333;color:#fff}
+.btn-c{background:#ff416c;color:#fff}
+
+@media(max-width:360px){.logo{font-size:20px}.big-icon{font-size:24px;width:44px;height:44px}.big-btn{padding:10px}.badge{font-size:8px;padding:2px 5px}.credit-title{font-size:14px}}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- Language Modal -->
+<div id="langModal"><div class="lang-win">
+<h2 style="margin:0 0 4px;color:#302b63">🌍 Choose Language</h2>
+<p style="font-size:11px;opacity:0.6;margin:0 0 12px">V4 REAL — 15 Languages</p>
+<div id="langList"></div>
+</div></div>
+
+<!-- Header -->
+<div class="header">
+<div class="logo" id="appTitle">Universal WPS V4</div>
+<div class="sub" id="appSub">REAL Office Suite — 15 Languages</div>
+<div class="top-bar">
+<span id="netStatus">● Online</span>
+<span onclick="openLang()" id="chg">🌐 Language</span>
+<a href="index.html">← Store</a>
+<span>V4.0</span>
+</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+<!-- Voice Button -->
+<button class="voice-btn" id="voiceBtn" onclick="startVoice()">
+  🎙️ <span id="vTxt">Tap to Speak</span>
+  <span class="badge on">ONLINE</span>
+</button>
+
+<div class="grid">
+
+  <div class="big-btn c1" onclick="img2pdf()">
+    <div class="big-icon">🖼️</div>
+    <div class="title" id="t1">Photo to PDF <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s1">REAL Colorful</div>
+  </div>
+
+  <div class="big-btn c2" onclick="imgConv()">
+    <div class="big-icon">🔄</div>
+    <div class="title" id="t2">JPG ↔ PNG <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s2">REAL Convert</div>
+  </div>
+
+  <div class="big-btn c3" onclick="mergePDFs()">
+    <div class="big-icon">📑</div>
+    <div class="title" id="t3">Merge PDFs <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s3">REAL Combine</div>
+  </div>
+
+  <div class="big-btn c4" onclick="word2pdf()">
+    <div class="big-icon">📝</div>
+    <div class="title" id="t4">Word to PDF <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s4">DOCX → PDF REAL</div>
+  </div>
+
+  <div class="big-btn c5" onclick="excel2pdf()">
+    <div class="big-icon">📊</div>
+    <div class="title" id="t5">Excel to PDF <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s5">XLSX → PDF REAL</div>
+  </div>
+
+  <div class="big-btn c6" onclick="ppt2pdf()">
+    <div class="big-icon">📈</div>
+    <div class="title" id="t6">PPT to PDF <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s6">PPTX → PDF REAL</div>
+  </div>
+
+  <div class="big-btn c7" onclick="handleScan()">
+    <div class="big-icon">📸</div>
+    <div class="title" id="t7">Scan OCR <span class="badge on">ONLINE</span></div>
+    <div class="sub-t" id="s7">REAL — Tesseract</div>
+  </div>
+
+  <div class="big-btn c8" onclick="handleTranslate()">
+    <div class="big-icon">🌍</div>
+    <div class="title" id="t8">Translate <span class="badge on">ONLINE</span></div>
+    <div class="sub-t" id="s8">REAL — 15 Lang</div>
+  </div>
+
+  <div class="big-btn c9" onclick="text2pdf()">
+    <div class="big-icon">✍️</div>
+    <div class="title" id="t9">Text to PDF <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s9">Type & Save</div>
+  </div>
+
+  <div class="big-btn c10" onclick="pdfSplit()">
+    <div class="big-icon">✂️</div>
+    <div class="title" id="t10">Split PDF <span class="badge off">OFFLINE</span></div>
+    <div class="sub-t" id="s10">REAL Split</div>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     AKBAR ALI KHAN — FOOTER CREDIT CARD
+     ============================================================ -->
+<div class="credit-card">
+  <div class="credit-title">👨‍🏫 Made By: Akbar Ali Khan (SCT)</div>
+  <div class="credit-deg">MA (Economics) · B.Ed · DIT · LLB</div>
+  <div class="credit-inst">🏫 Institute: GCMHS No:3 MARDAN</div>
+  
+  <div class="credit-links">
+    <a href="mailto:akbarmdn72@gmail.com" class="credit-link">
+      📧 akbarmdn72@gmail.com
+    </a>
+    <a href="tel:+923068183790" class="credit-link">
+      📞 +92 306 8183790
+    </a>
+    <a href="tel:+923339840801" class="credit-link">
+      📞 +92 333 9840801
+    </a>
+    <a href="https://wa.me/923068183790?text=Assalam%20o%20Alaikum%20Akbar%20Sb%2C%20WPS%20V4%20ke%20baare%20mein%20feedback%3A" class="credit-link" target="_blank">
+      💬 WhatsApp: +92 306 8183790
+    </a>
+  </div>
+  
+  <a href="mailto:akbarmdn72@gmail.com?subject=WPS%20V4%20Feedback&body=Assalam%20o%20Alaikum%20Akbar%20Sb%2C%0A%0AMeri%20feedback%3A%0A" class="credit-feedback">
+    📢 Send Your Feedback & Suggestions
+  </a>
+</div>
+
+</div>
+
+<!-- Hidden Inputs -->
+<input type="file" id="f" style="display:none">
+
+<!-- Text Modal -->
+<div class="modal" id="textModal"><div class="modal-win">
+<h3>✍️ Text to PDF</h3>
+<textarea id="textInput" placeholder="Yahan apna text likhein..."></textarea>
+<input type="text" id="textFilename" placeholder="File name (e.g. MyDocument)" value="MyDocument">
+<div style="text-align:right;margin-top:8px">
+<button class="btn-s" onclick="closeModal('textModal')">Cancel</button>
+<button class="btn-p" onclick="saveTextPDF()">💾 Save PDF</button>
+</div>
+</div></div>
+
+<!-- Translate Modal -->
+<div class="modal" id="transModal"><div class="modal-win">
+<h3>🌍 Translate</h3>
+<textarea id="transInput" placeholder="Text likhein..."></textarea>
+<div style="display:flex;gap:8px;align-items:center;margin:8px 0">
+<select id="fromLang" style="flex:1"></select>
+<span style="font-size:20px">→</span>
+<select id="toLang" style="flex:1"></select>
+</div>
+<textarea id="transOutput" placeholder="Translation yahan aayega..." readonly></textarea>
+<div style="text-align:right;margin-top:8px">
+<button class="btn-s" onclick="closeModal('transModal')">Close</button>
+<button class="btn-p" onclick="doTranslate()">🌍 Translate</button>
+<button class="btn-c" onclick="copyTranslation()">📋 Copy</button>
+</div>
+</div></div>
+
+<!-- Scan Modal -->
+<div class="modal" id="scanModal"><div class="modal-win">
+<h3>📸 Scan OCR</h3>
+<p style="font-size:13px;opacity:0.8">Image select karein — text nikal kar PDF banayenge</p>
+<div id="scanPreview" style="text-align:center;margin:12px 0"></div>
+<textarea id="scanOutput" placeholder="OCR result yahan aayega..." style="min-height:100px"></textarea>
+<div style="text-align:right;margin-top:8px">
+<button class="btn-s" onclick="closeModal('scanModal')">Close</button>
+<button class="btn-p" onclick="pickScanImage()">🖼️ Pick Image</button>
+<button class="btn-p" onclick="saveScanPDF()">💾 Save as PDF</button>
+</div>
+</div></div>
+
+<div class="notify" id="nt"></div>
+
+<script>
+/* ============================================================
+   UNIVERSAL WPS V4 — FULL VERSION WITH CREDIT CARD
+   ============================================================ */
+
+const D = {
+  en:{name:"🇬🇧 English",appTitle:"Universal WPS V4",appSub:"REAL Office Suite — 15 Languages",vTxt:"Tap to Speak",t1:"Photo to PDF",s1:"REAL Colorful",t2:"JPG ↔ PNG",s2:"REAL Convert",t3:"Merge PDFs",s3:"REAL Combine",t4:"Word to PDF",s4:"DOCX → PDF REAL",t5:"Excel to PDF",s5:"XLSX → PDF REAL",t6:"PPT to PDF",s6:"PPTX → PDF REAL",t7:"Scan OCR",s7:"REAL — Tesseract",t8:"Translate",s8:"REAL — 15 Lang",t9:"Text to PDF",s9:"Type & Save",t10:"Split PDF",s10:"REAL Split",chg:"🌐 Language"},
+  ur:{name:"🇵🇰 اردو",appTitle:"یونیورسل WPS V4",appSub:"مکمل آفس سوٹ — 15 زبانیں",vTxt:"بولیں",t1:"تصویر سے PDF",s1:"اصل رنگین",t2:"JPG ↔ PNG",s2:"اصل تبدیلی",t3:"PDF جوڑیں",s3:"اصل اکٹھا",t4:"Word سے PDF",s4:"DOCX → PDF اصلی",t5:"Excel سے PDF",s5:"XLSX → PDF اصلی",t6:"PPT سے PDF",s6:"PPTX → PDF اصلی",t7:"اسکین OCR",s7:"اصل — Tesseract",t8:"ترجمہ",s8:"اصل — 15 زبانیں",t9:"متن سے PDF",s9:"لکھیں اور محفوظ",t10:"PDF تقسیم",s10:"اصل تقسیم",chg:"🌐 زبان"},
+  ps:{name:"🇦🇫 پښتو",appTitle:"یونیورسل WPS V4",appSub:"بشپړ آفس سویټ — 15 ژبې",vTxt:"خبرې وکړئ",t1:"عکس څخه PDF",s1:"اصلي رنګین",t2:"JPG ↔ PNG",s2:"اصلي بدلون",t3:"PDF یوځای",s3:"اصلي یوځای",t4:"Word څخه PDF",s4:"DOCX → PDF اصلي",t5:"Excel څخه PDF",s5:"XLSX → PDF اصلي",t6:"PPT څخه PDF",s6:"PPTX → PDF اصلي",t7:"سکین OCR",s7:"اصلي — Tesseract",t8:"ژباړه",s8:"اصلي — 15 ژبې",t9:"متن څخه PDF",s9:"لیک او خوندي",t10:"PDF ویشل",s10:"اصلي ویشل",chg:"🌐 ژبه"},
+  ar:{name:"🇸🇦 العربية",appTitle:"يونيفرسال WPS V4",appSub:"مجموعة مكتبية — 15 لغة",vTxt:"اضغط للتحدث",t1:"صورة إلى PDF",s1:"حقيقي ملون",t2:"JPG ↔ PNG",s2:"تحويل حقيقي",t3:"دمج PDF",s3:"دمج حقيقي",t4:"Word إلى PDF",s4:"DOCX → PDF حقيقي",t5:"Excel إلى PDF",s5:"XLSX → PDF حقيقي",t6:"PPT إلى PDF",s6:"PPTX → PDF حقيقي",t7:"مسح OCR",s7:"حقيقي — Tesseract",t8:"ترجمة",s8:"حقيقي — 15 لغة",t9:"نص إلى PDF",s9:"اكتب واحفظ",t10:"تقسيم PDF",s10:"تقسيم حقيقي",chg:"🌐 اللغة"},
+  hi:{name:"🇮🇳 हिन्दी",appTitle:"यूनिवर्सल WPS V4",appSub:"पूर्ण ऑफिस सूट — 15 भाषाएँ",vTxt:"बोलने के लिए टैप करें",t1:"फोटो से PDF",s1:"असली रंगीन",t2:"JPG ↔ PNG",s2:"असली कन्वर्ट",t3:"PDF मर्ज",s3:"असली मर्ज",t4:"Word से PDF",s4:"DOCX → PDF असली",t5:"Excel से PDF",s5:"XLSX → PDF असली",t6:"PPT से PDF",s6:"PPTX → PDF असली",t7:"स्कैन OCR",s7:"असली — Tesseract",t8:"अनुवाद",s8:"असली — 15 भाषाएँ",t9:"टेक्स्ट से PDF",s9:"लिखें और सेव",t10:"PDF स्प्लिट",s10:"असली स्प्लिट",chg:"🌐 भाषा"},
+  bn:{name:"🇧🇩 বাংলা",appTitle:"ইউনিভার্সাল WPS V4",appSub:"সম্পূর্ণ অফিস স্যুট — ১৫ ভাষা",vTxt:"কথা বলতে ট্যাপ করুন",t1:"ছবি থেকে PDF",s1:"আসল রঙিন",t2:"JPG ↔ PNG",s2:"আসল কনভার্ট",t3:"PDF মার্জ",s3:"আসল মার্জ",t4:"Word থেকে PDF",s4:"DOCX → PDF আসল",t5:"Excel থেকে PDF",s5:"XLSX → PDF আসল",t6:"PPT থেকে PDF",s6:"PPTX → PDF আসল",t7:"স্ক্যান OCR",s7:"আসল — Tesseract",t8:"অনুবাদ",s8:"আসল — ১৫ ভাষা",t9:"টেক্সট থেকে PDF",s9:"লিখুন ও সেভ",t10:"PDF স্প্লিট",s10:"আসল স্প্লিট",chg:"🌐 ভাষা"},
+  fa:{name:"🇮🇷 فارسی",appTitle:"یونیورسال WPS V4",appSub:"مجموعه کامل اداری — 15 زبان",vTxt:"برای صحبت ضربه بزنید",t1:"تصویر به PDF",s1:"واقعی رنگی",t2:"JPG ↔ PNG",s2:"تبدیل واقعی",t3:"ادغام PDF",s3:"ادغام واقعی",t4:"Word به PDF",s4:"DOCX → PDF واقعی",t5:"Excel به PDF",s5:"XLSX → PDF واقعی",t6:"PPT به PDF",s6:"PPTX → PDF واقعی",t7:"اسکن OCR",s7:"واقعی — Tesseract",t8:"ترجمه",s8:"واقعی — 15 زبان",t9:"متن به PDF",s9:"تایپ و ذخیره",t10:"تقسیم PDF",s10:"تقسیم واقعی",chg:"🌐 زبان"},
+  tr:{name:"🇹🇷 Türkçe",appTitle:"Universal WPS V4",appSub:"Gerçek Ofis Paketi — 15 Dil",vTxt:"Konuşmak için dokun",t1:"Fotoğraf → PDF",s1:"Gerçek Renkli",t2:"JPG ↔ PNG",s2:"Gerçek Dönüşüm",t3:"PDF Birleştir",s3:"Gerçek Birleştir",t4:"Word → PDF",s4:"DOCX → PDF GERÇEK",t5:"Excel → PDF",s5:"XLSX → PDF GERÇEK",t6:"PPT → PDF",s6:"PPTX → PDF GERÇEK",t7:"Tara OCR",s7:"GERÇEK — Tesseract",t8:"Çevir",s8:"GERÇEK — 15 Dil",t9:"Metin → PDF",s9:"Yaz ve Kaydet",t10:"PDF Böl",s10:"GERÇEK Böl",chg:"🌐 Dil"},
+  zh:{name:"🇨🇳 中文",appTitle:"万能 WPS V4",appSub:"真实办公套件 — 15 种语言",vTxt:"点击说话",t1:"图片转 PDF",s1:"真实彩色",t2:"JPG ↔ PNG",s2:"真实转换",t3:"合并 PDF",s3:"真实合并",t4:"Word 转 PDF",s4:"DOCX → PDF 真实",t5:"Excel 转 PDF",s5:"XLSX → PDF 真实",t6:"PPT 转 PDF",s6:"PPTX → PDF 真实",t7:"扫描 OCR",s7:"真实 — Tesseract",t8:"翻译",s8:"真实 — 15 种语言",t9:"文本转 PDF",s9:"输入并保存",t10:"拆分 PDF",s10:"真实拆分",chg:"🌐 语言"},
+  es:{name:"🇪🇸 Español",appTitle:"Universal WPS V4",appSub:"Suite Oficina Real — 15 Idiomas",vTxt:"Toca para hablar",t1:"Foto a PDF",s1:"Real Colorido",t2:"JPG ↔ PNG",s2:"Conversión Real",t3:"Unir PDFs",s3:"Unión Real",t4:"Word a PDF",s4:"DOCX → PDF REAL",t5:"Excel a PDF",s5:"XLSX → PDF REAL",t6:"PPT a PDF",s6:"PPTX → PDF REAL",t7:"Escanear OCR",s7:"REAL — Tesseract",t8:"Traducir",s8:"REAL — 15 Idiomas",t9:"Texto a PDF",s9:"Escribe y Guarda",t10:"Dividir PDF",s10:"División Real",chg:"🌐 Idioma"},
+  fr:{name:"🇫🇷 Français",appTitle:"Universal WPS V4",appSub:"Suite Bureautique Réelle — 15 Langues",vTxt:"Touchez pour parler",t1:"Photo en PDF",s1:"Réel Coloré",t2:"JPG ↔ PNG",s2:"Conversion Réelle",t3:"Fusionner PDFs",s3:"Fusion Réelle",t4:"Word en PDF",s4:"DOCX → PDF RÉEL",t5:"Excel en PDF",s5:"XLSX → PDF RÉEL",t6:"PPT en PDF",s6:"PPTX → PDF RÉEL",t7:"Scanner OCR",s7:"RÉEL — Tesseract",t8:"Traduire",s8:"RÉEL — 15 Langues",t9:"Texte en PDF",s9:"Tapez et Enregistrez",t10:"Diviser PDF",s10:"Division Réelle",chg:"🌐 Langue"},
+  de:{name:"🇩🇪 Deutsch",appTitle:"Universal WPS V4",appSub:"Echte Office-Suite — 15 Sprachen",vTxt:"Zum Sprechen tippen",t1:"Foto zu PDF",s1:"Echt Bunt",t2:"JPG ↔ PNG",s2:"Echte Konvertierung",t3:"PDFs zusammenfügen",s3:"Echt Zusammenfügen",t4:"Word zu PDF",s4:"DOCX → PDF ECHT",t5:"Excel zu PDF",s5:"XLSX → PDF ECHT",t6:"PPT zu PDF",s6:"PPTX → PDF ECHT",t7:"Scan OCR",s7:"ECHT — Tesseract",t8:"Übersetzen",s8:"ECHT — 15 Sprachen",t9:"Text zu PDF",s9:"Tippen & Speichern",t10:"PDF teilen",s10:"Echt Teilen",chg:"🌐 Sprache"},
+  ru:{name:"🇷🇺 Русский",appTitle:"Универсальный WPS V4",appSub:"Настоящий офис — 15 языков",vTxt:"Нажмите чтобы говорить",t1:"Фото в PDF",s1:"Настоящий Цветной",t2:"JPG ↔ PNG",s2:"Настоящая Конвертация",t3:"Объединить PDF",s3:"Настоящее Объединение",t4:"Word в PDF",s4:"DOCX → PDF НАСТОЯЩИЙ",t5:"Excel в PDF",s5:"XLSX → PDF НАСТОЯЩИЙ",t6:"PPT в PDF",s6:"PPTX → PDF НАСТОЯЩИЙ",t7:"Сканировать OCR",s7:"НАСТОЯЩИЙ — Tesseract",t8:"Перевести",s8:"НАСТОЯЩИЙ — 15 языков",t9:"Текст в PDF",s9:"Введите и сохраните",t10:"Разделить PDF",s10:"Настоящее Разделение",chg:"🌐 Язык"},
+  id:{name:"🇮🇩 Indonesia",appTitle:"Universal WPS V4",appSub:"Suite Kantor Nyata — 15 Bahasa",vTxt:"Ketuk untuk bicara",t1:"Foto ke PDF",s1:"Nyata Berwarna",t2:"JPG ↔ PNG",s2:"Konversi Nyata",t3:"Gabung PDF",s3:"Gabung Nyata",t4:"Word ke PDF",s4:"DOCX → PDF NYATA",t5:"Excel ke PDF",s5:"XLSX → PDF NYATA",t6:"PPT ke PDF",s6:"PPTX → PDF NYATA",t7:"Scan OCR",s7:"NYATA — Tesseract",t8:"Terjemahkan",s8:"NYATA — 15 Bahasa",t9:"Teks ke PDF",s9:"Ketik & Simpan",t10:"Pisah PDF",s10:"Pisah Nyata",chg:"🌐 Bahasa"},
+  ms:{name:"🇲🇾 Melayu",appTitle:"Universal WPS V4",appSub:"Suite Pejabat Sebenar — 15 Bahasa",vTxt:"Ketik untuk bercakap",t1:"Foto ke PDF",s1:"Sebenar Berwarna",t2:"JPG ↔ PNG",s2:"Penukaran Sebenar",t3:"Gabung PDF",s3:"Gabung Sebenar",t4:"Word ke PDF",s4:"DOCX → PDF SEBENAR",t5:"Excel ke PDF",s5:"XLSX → PDF SEBENAR",t6:"PPT ke PDF",s6:"PPTX → PDF SEBENAR",t7:"Imbas OCR",s7:"SEBENAR — Tesseract",t8:"Terjemah",s8:"SEBENAR — 15 Bahasa",t9:"Teks ke PDF",s9:"Taip & Simpan",t10:"Pisah PDF",s10:"Pisah Sebenar",chg:"🌐 Bahasa"}
+};
+
+let L = 'en';
+let recognition = null;
+let isRecording = false;
+let scanImageFile = null;
+
+/* ---------- Offline Check ---------- */
+function requireOnline(featureName){
+  if(!navigator.onLine){
+    showNotif('⚠️ ' + featureName + ' ke liye internet zaroori hai. Aap offline hain!', 4500);
+    return false;
+  }
+  return true;
+}
+
+/* ---------- Language Functions ---------- */
+function buildLangList(){
+  const list = document.getElementById('langList');
+  list.innerHTML = '';
+  Object.keys(D).forEach(k=>{
+    const b = document.createElement('button');
+    b.className = 'lang-btn';
+    b.innerHTML = `<span>${D[k].name}</span><span style="font-size:11px;opacity:0.7">${k.toUpperCase()}</span>`;
+    b.onclick = ()=>setLang(k, b);
+    list.appendChild(b);
+  });
+}
+function setLang(l, el){
+  L = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('sel'));
+  if(el) el.classList.add('sel');
+  setTimeout(()=>{
+    document.getElementById('langModal').style.display='none';
+    apply();
+    showNotif('✅ ' + D[l].name);
+  }, 200);
+}
+function openLang(){ document.getElementById('langModal').style.display='flex'; }
+
+function apply(){
+  const d = D[L] || D.en;
+  document.getElementById('appTitle').innerText = d.appTitle;
+  document.getElementById('appSub').innerText = d.appSub;
+  document.getElementById('vTxt').innerText = d.vTxt;
+  document.getElementById('s1').innerText = d.s1;
+  document.getElementById('s2').innerText = d.s2;
+  document.getElementById('s3').innerText = d.s3;
+  document.getElementById('s4').innerText = d.s4;
+  document.getElementById('s5').innerText = d.s5;
+  document.getElementById('s6').innerText = d.s6;
+  document.getElementById('s7').innerText = d.s7;
+  document.getElementById('s8').innerText = d.s8;
+  document.getElementById('s9').innerText = d.s9;
+  document.getElementById('s10').innerText = d.s10;
+  document.getElementById('chg').innerText = d.chg;
+  document.documentElement.dir = (L==='ur'||L==='ar'||L==='fa'||L==='ps') ? 'rtl' : 'ltr';
+  upd();
+  buildTranslateLangs();
+}
+
+/* ---------- Notification ---------- */
+function showNotif(m, dur=3500){
+  const n = document.getElementById('nt');
+  n.innerText = m;
+  n.classList.add('show');
+  clearTimeout(n._t);
+  n._t = setTimeout(()=>n.classList.remove('show'), dur);
+}
+
+/* ---------- Progress ---------- */
+function setProgress(p){
+  document.getElementById('progress').style.width = p + '%';
+  if(p >= 100) setTimeout(()=>document.getElementById('progress').style.width='0%', 800);
+}
+
+/* ---------- Network ---------- */
+function upd(){
+  const e = document.getElementById('netStatus');
+  if(!e) return;
+  e.innerText = navigator.onLine ? '● Online' : '● Offline';
+  e.style.color = navigator.onLine ? '#00e676' : '#ff5252';
+}
+window.addEventListener('online', upd);
+window.addEventListener('offline', upd);
+
+/* ---------- Modal Helpers ---------- */
+function closeModal(id){ document.getElementById(id).style.display='none'; }
+function openModal(id){ document.getElementById(id).style.display='flex'; }
+
+/* ---------- Filename Sanitizer ---------- */
+function sanitize(name){
+  return String(name).replace(/[\\/:*?"<>|]+/g,'_').replace(/\s+/g,'_').substring(0,80) || 'file';
+}
+
+/* ---------- PDF Builder ---------- */
+async function createPDFfromText(text, filename){
+  const { PDFDocument, StandardFonts, rgb } = PDFLib;
+  const pdfDoc = await PDFDocument.create();
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const A4W = 595, A4H = 842;
+  const margin = 40, fontSize = 11, lineHeight = 15;
+  const maxWidth = A4W - margin * 2;
+  let page = pdfDoc.addPage([A4W, A4H]);
+  let y = A4H - margin;
+
+  function newPageIfNeeded(){
+    if(y < margin + lineHeight){ page = pdfDoc.addPage([A4W, A4H]); y = A4H - margin; }
+  }
+  function safeText(s){ return s.replace(/[^\x00-\xFF]/g, '?'); }
+  function wrapLine(line){
+    const words = line.split(' ');
+    const out = []; let cur = '';
+    for(const w of words){
+      const test = cur ? cur + ' ' + w : w;
+      if(font.widthOfTextAtSize(test, fontSize) > maxWidth){
+        if(cur) out.push(cur);
+        if(font.widthOfTextAtSize(w, fontSize) > maxWidth){
+          let chunk = '';
+          for(const ch of w){
+            if(font.widthOfTextAtSize(chunk + ch, fontSize) > maxWidth){ out.push(chunk); chunk = ch; }
+            else chunk += ch;
+          }
+          cur = chunk;
+        } else cur = w;
+      } else cur = test;
+    }
+    if(cur) out.push(cur);
+    return out;
+  }
+
+  const lines = text.split('\n');
+  for(const rawLine of lines){
+    const line = safeText(rawLine);
+    if(line.length === 0){ newPageIfNeeded(); y -= lineHeight; continue; }
+    const wrapped = wrapLine(line);
+    for(const w of wrapped){
+      newPageIfNeeded();
+      page.drawText(w, { x: margin, y, size: fontSize, font, color: rgb(0,0,0) });
+      y -= lineHeight;
+    }
+  }
+  const bytes = await pdfDoc.save();
+  downloadBlob(new Blob([bytes], { type: 'application/pdf' }), sanitize(filename) + '.pdf');
+}
+
+function downloadBlob(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+}
+
+/* ---------- 1. Image → PDF ---------- */
+async function img2pdf(){
+  const inp = document.getElementById('f');
+  inp.accept = 'image/*'; inp.multiple = true; inp.value = '';
+  inp.onchange = async e => {
+    const files = Array.from(e.target.files || []);
+    if(!files.length) return;
+    try{
+      showNotif('⚙️ ' + files.length + ' image(s) processing...');
+      setProgress(10);
+      const { PDFDocument } = PDFLib;
+      const pdfDoc = await PDFDocument.create();
+      const A4W = 595, A4H = 842;
+      for(let i = 0; i < files.length; i++){
+        const buf = await files[i].arrayBuffer();
+        let img;
+        try{ img = await pdfDoc.embedJpg(buf); }
+        catch{ img = await pdfDoc.embedPng(buf); }
+        const margin = 20;
+        const scale = Math.min((A4W - margin*2) / img.width, (A4H - margin*2) / img.height);
+        const w = img.width * scale, h = img.height * scale;
+        const page = pdfDoc.addPage([A4W, A4H]);
+        page.drawImage(img, { x: (A4W - w)/2, y: (A4H - h)/2, width: w, height: h });
+        setProgress(10 + Math.floor((i+1)/files.length * 80));
+      }
+      const bytes = await pdfDoc.save();
+      downloadBlob(new Blob([bytes], {type:'application/pdf'}), 'Photos-WPS-V4.pdf');
+      setProgress(100);
+      showNotif('✅ PDF Saved! (' + files.length + ' pages)');
+    }catch(err){ showNotif('❌ ' + err.message); setProgress(0); }
+  };
+  inp.click();
+}
+
+/* ---------- 2. JPG ↔ PNG ---------- */
+function imgConv(){
+  const inp = document.getElementById('f');
+  inp.accept = 'image/*'; inp.multiple = false; inp.value = '';
+  inp.onchange = e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      const im = new Image();
+      im.onload = () => {
+        const c = document.createElement('canvas');
+        c.width = im.width; c.height = im.height;
+        const ctx = c.getContext('2d');
+        const isPng = file.type.includes('png');
+        if(!isPng){ ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,c.width,c.height); }
+        ctx.drawImage(im, 0, 0);
+        const outType = isPng ? 'image/jpeg' : 'image/png';
+        c.toBlob(b => {
+          const name = file.name.replace(/\.(png|jpe?g|webp|gif)$/i,'') + '.' + (isPng ? 'jpg' : 'png');
+          downloadBlob(b, sanitize(name));
+          showNotif('✅ Converted!');
+        }, outType, 0.95);
+      };
+      im.src = r.result;
+    };
+    r.readAsDataURL(file);
+  };
+  inp.click();
+}
+
+/* ---------- 3. Merge PDFs ---------- */
+async function mergePDFs(){
+  const inp = document.getElementById('f');
+  inp.accept = 'application/pdf'; inp.multiple = true; inp.value = '';
+  inp.onchange = async e => {
+    const files = Array.from(e.target.files || []);
+    if(files.length < 2){ showNotif('❌ Kam az kam 2 PDF select karein'); return; }
+    try{
+      showNotif('⚙️ Merging ' + files.length + ' PDFs...');
+      setProgress(10);
+      const { PDFDocument } = PDFLib;
+      const merged = await PDFDocument.create();
+      for(let i = 0; i < files.length; i++){
+        const buf = await files[i].arrayBuffer();
+        const src = await PDFDocument.load(buf, { ignoreEncryption: true });
+        const pages = await merged.copyPages(src, src.getPageIndices());
+        pages.forEach(p => merged.addPage(p));
+        setProgress(10 + Math.floor((i+1)/files.length * 80));
+      }
+      const bytes = await merged.save();
+      downloadBlob(new Blob([bytes], {type:'application/pdf'}), 'Merged-WPS-V4.pdf');
+      setProgress(100);
+      showNotif('✅ ' + files.length + ' PDFs merged!');
+    }catch(err){ showNotif('❌ ' + err.message); setProgress(0); }
+  };
+  inp.click();
+}
+
+/* ---------- 4. Word → PDF ---------- */
+async function word2pdf(){
+  const inp = document.getElementById('f');
+  inp.accept = '.docx,.doc'; inp.multiple = false; inp.value = '';
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      showNotif('📖 Reading Word file...');
+      setProgress(20);
+      const buf = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer: buf });
+      setProgress(60);
+      const text = "UNIVERSAL WPS V4 — Word to PDF\nBy: Akbar Ali Khan (SCT)\nFile: " + file.name + "\n\n" + result.value;
+      await createPDFfromText(text, file.name.replace(/\.(docx|doc)$/i,'') + '-WPS');
+      setProgress(100);
+      showNotif('✅ Word → PDF done!');
+    }catch(err){ showNotif('❌ ' + err.message); setProgress(0); }
+  };
+  inp.click();
+}
+
+/* ---------- 5. Excel → PDF ---------- */
+async function excel2pdf(){
+  const inp = document.getElementById('f');
+  inp.accept = '.xlsx,.xls,.csv'; inp.multiple = false; inp.value = '';
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      showNotif('📊 Reading Excel file...');
+      setProgress(20);
+      const buf = await file.arrayBuffer();
+      const wb = XLSX.read(buf, { type: 'array' });
+      setProgress(60);
+      let txt = "UNIVERSAL WPS V4 — Excel to PDF\nBy: Akbar Ali Khan (SCT)\nFile: " + file.name + "\n\n";
+      wb.SheetNames.forEach(n => {
+        txt += "=== SHEET: " + n + " ===\n" + XLSX.utils.sheet_to_csv(wb.Sheets[n]) + "\n\n";
+      });
+      await createPDFfromText(txt, file.name.replace(/\.(xlsx|xls|csv)$/i,'') + '-WPS');
+      setProgress(100);
+      showNotif('✅ Excel → PDF done!');
+    }catch(err){ showNotif('❌ ' + err.message); setProgress(0); }
+  };
+  inp.click();
+}
+
+/* ---------- 6. PPT → PDF ---------- */
+async function ppt2pdf(){
+  const inp = document.getElementById('f');
+  inp.accept = '.pptx'; inp.multiple = false; inp.value = '';
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      showNotif('📈 Reading PowerPoint...');
+      setProgress(20);
+      const buf = await file.arrayBuffer();
+      const zip = await JSZip.loadAsync(buf);
+      setProgress(50);
+      const slideFiles = Object.keys(zip.files).filter(f => /^ppt\/slides\/slide\d+\.xml$/.test(f))
+        .sort((a,b)=>parseInt(a.match(/slide(\d+)/)[1]) - parseInt(b.match(/slide(\d+)/)[1]));
+      let txt = "UNIVERSAL WPS V4 — PPT to PDF\nBy: Akbar Ali Khan (SCT)\nFile: " + file.name + "\n\n";
+      for(let i = 0; i < slideFiles.length; i++){
+        const xml = await zip.files[slideFiles[i]].async('string');
+        const matches = xml.match(/<a:t>([^<]*)<\/a:t>/g) || [];
+        const lines = matches.map(m => m.replace(/<\/?a:t>/g,''));
+        txt += "=== SLIDE " + (i+1) + " ===\n" + lines.join('\n') + "\n\n";
+      }
+      if(slideFiles.length === 0) txt += "(No slides found — file may be old .ppt format)\n";
+      setProgress(80);
+      await createPDFfromText(txt, file.name.replace(/\.pptx$/i,'') + '-WPS');
+      setProgress(100);
+      showNotif('✅ PPT → PDF done! (' + slideFiles.length + ' slides)');
+    }catch(err){ showNotif('❌ ' + err.message + ' — PPTX only'); setProgress(0); }
+  };
+  inp.click();
+}
+
+/* ---------- 7. Scan OCR ---------- */
+function handleScan(){
+  if(!requireOnline('Scan OCR')) return;
+  openModal('scanModal');
+  document.getElementById('scanOutput').value = '';
+  document.getElementById('scanPreview').innerHTML = '';
+  scanImageFile = null;
+}
+function pickScanImage(){
+  const inp = document.createElement('input');
+  inp.type = 'file'; inp.accept = 'image/*';
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    scanImageFile = file;
+    const url = URL.createObjectURL(file);
+    document.getElementById('scanPreview').innerHTML =
+      `<img src="${url}" style="max-width:100%;max-height:150px;border-radius:10px;border:2px solid #6c5ce7">`;
+    showNotif('🔍 OCR running... (10-30 sec)');
+    setProgress(10);
+    try{
+      const worker = await Tesseract.createWorker('eng+urd+ara', 1, {
+        logger: m => { if(m.status === 'recognizing text') setProgress(10 + Math.floor(m.progress * 80)); }
+      });
+      const { data: { text } } = await worker.recognize(file);
+      await worker.terminate();
+      document.getElementById('scanOutput').value = text;
+      setProgress(100);
+      showNotif('✅ OCR complete!');
+    }catch(err){ showNotif('❌ OCR error: ' + err.message); setProgress(0); }
+  };
+  inp.click();
+}
+async function saveScanPDF(){
+  const text = document.getElementById('scanOutput').value.trim();
+  if(!text){ showNotif('❌ No text to save'); return; }
+  await createPDFfromText("UNIVERSAL WPS V4 — Scanned Text\nBy: Akbar Ali Khan (SCT)\n\n" + text, 'Scanned-WPS');
+  showNotif('✅ Scan PDF saved!');
+}
+
+/* ---------- 8. Translate ---------- */
+function buildTranslateLangs(){
+  const map = {en:'English', ur:'Urdu', ps:'Pashto', ar:'Arabic', hi:'Hindi', bn:'Bangla', fa:'Persian', tr:'Turkish', zh:'Chinese', es:'Spanish', fr:'French', de:'German', ru:'Russian', id:'Indonesian', ms:'Malay'};
+  const from = document.getElementById('fromLang');
+  const to = document.getElementById('toLang');
+  if(!from || !to) return;
+  from.innerHTML = '<option value="auto">🔍 Auto Detect</option>';
+  to.innerHTML = '';
+  Object.keys(map).forEach(k=>{
+    from.innerHTML += `<option value="${k}">${map[k]}</option>`;
+    to.innerHTML   += `<option value="${k}">${map[k]}</option>`;
+  });
+  to.value = (L && map[L]) ? L : 'en';
+}
+function handleTranslate(){
+  if(!requireOnline('Translate')) return;
+  openModal('transModal');
+  document.getElementById('transInput').value = '';
+  document.getElementById('transOutput').value = '';
+  buildTranslateLangs();
+}
+async function doTranslate(){
+  if(!requireOnline('Translate')) return;
+  const text = document.getElementById('transInput').value.trim();
+  if(!text){ showNotif('❌ Text likhein'); return; }
+  const from = document.getElementById('fromLang').value;
+  const to = document.getElementById('toLang').value;
+  if(from === to && from !== 'auto'){ document.getElementById('transOutput').value = text; return; }
+  showNotif('🌍 Translating...');
+  setProgress(20);
+  try{
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    const out = (data[0] || []).map(x => x[0]).join('');
+    document.getElementById('transOutput').value = out;
+    setProgress(100);
+    showNotif('✅ Translated!');
+  }catch(err){ showNotif('❌ Translation failed — internet check karein'); setProgress(0); }
+}
+function copyTranslation(){
+  const out = document.getElementById('transOutput');
+  if(!out.value){ showNotif('❌ Nothing to copy'); return; }
+  out.select();
+  document.execCommand('copy');
+  showNotif('📋 Copied!');
+}
+
+/* ---------- 9. Text → PDF ---------- */
+function text2pdf(){
+  openModal('textModal');
+  document.getElementById('textInput').value = '';
+  document.getElementById('textFilename').value = 'MyDocument';
+}
+async function saveTextPDF(){
+  const text = document.getElementById('textInput').value.trim();
+  if(!text){ showNotif('❌ Text likhein'); return; }
+  const name = document.getElementById('textFilename').value.trim() || 'MyDocument';
+  await createPDFfromText(text, name);
+  closeModal('textModal');
+  showNotif('✅ PDF saved!');
+}
+
+/* ---------- 10. Split PDF ---------- */
+function pdfSplit(){
+  const inp = document.getElementById('f');
+  inp.accept = 'application/pdf'; inp.multiple = false; inp.value = '';
+  inp.onchange = async e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      showNotif('✂️ Splitting PDF...');
+      setProgress(20);
+      const buf = await file.arrayBuffer();
+      const src = await PDFDocument.load(buf, { ignoreEncryption: true });
+      const total = src.getPageCount();
+      if(total < 2){ showNotif('❌ PDF mein sirf 1 page hai'); return; }
+      setProgress(40);
+      for(let i = 0; i < total; i++){
+        const newDoc = await PDFDocument.create();
+        const [p] = await newDoc.copyPages(src, [i]);
+        newDoc.addPage(p);
+        const bytes = await newDoc.save();
+        downloadBlob(new Blob([bytes], {type:'application/pdf'}),
+          sanitize(file.name.replace(/\.pdf$/i,'')) + `-page${i+1}.pdf`);
+        setProgress(40 + Math.floor((i+1)/total * 50));
+        await new Promise(r => setTimeout(r, 200));
+      }
+      setProgress(100);
+      showNotif('✅ ' + total + ' pages split!');
+    }catch(err){ showNotif('❌ ' + err.message); setProgress(0); }
+  };
+  inp.click();
+}
+
+/* ---------- Voice ---------- */
+function startVoice(){
+  if(!requireOnline('Voice input')) return;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ showNotif('❌ Voice not supported in this browser'); return; }
+  if(isRecording && recognition){ recognition.stop(); return; }
+  recognition = new SR();
+  const langMap = {en:'en-US', ur:'ur-PK', ps:'ps-AF', ar:'ar-SA', hi:'hi-IN', bn:'bn-BD', fa:'fa-IR', tr:'tr-TR', zh:'zh-CN', es:'es-ES', fr:'fr-FR', de:'de-DE', ru:'ru-RU', id:'id-ID', ms:'ms-MY'};
+  recognition.lang = langMap[L] || 'en-US';
+  recognition.continuous = false;
+  recognition.interimResults = false;
+  recognition.onstart = () => {
+    isRecording = true;
+    document.getElementById('voiceBtn').classList.add('rec');
+    showNotif('🎙️ Listening... (' + recognition.lang + ')');
+  };
+  recognition.onresult = async (e) => {
+    const text = e.results[0][0].transcript;
+    showNotif('✅ Heard: "' + text.substring(0,40) + '..."');
+    await createPDFfromText("Voice Note\nBy: Akbar Ali Khan (SCT)\n\n" + text, 'Voice-Note');
+  };
+  recognition.onerror = (e) => {
+    showNotif('❌ Voice error: ' + e.error);
+    isRecording = false;
+    document.getElementById('voiceBtn').classList.remove('rec');
+  };
+  recognition.onend = () => {
+    isRecording = false;
+    document.getElementById('voiceBtn').classList.remove('rec');
+  };
+  recognition.start();
+}
+
+/* ---------- Init ---------- */
+window.addEventListener('load', () => {
+  buildLangList();
+  buildTranslateLangs();
+  upd();
+});
+</script>
+
+</body>
+</html>
