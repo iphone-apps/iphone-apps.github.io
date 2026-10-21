@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SST IT Test – 07</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .note-red { color: #ff6b6b; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .subject-tag { background: #00c853; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; margin-top: 12px; }
+        table { border-collapse: collapse; width: 100%; min-width: 600px; background: rgba(0,0,0,0.4); font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        .madeby-box { background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 20px auto; width: 100%; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1); }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- FRONT PAGE -->
+    <div id="frontPage">
+        <h1 class="main-heading">💻 SST IT Test – 07</h1>
+        <h2>NTS / ETEA Pattern · 100 MCQs</h2>
+        <p class="subtitle">Computer Science 60 · English 20 · Pedagogy 20</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 90 Minutes</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-red">-0.25</span> (Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno-display">📌 Q: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="subjectTag" class="subject-tag"></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+    <!-- MADE BY BOX -->
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // SST IT TEST 7: 100 MCQs (ALL NEW — different from Test 1-6)
+    // ================================================================
+    const mcqs = [];
+
+    // ----- COMPUTER SCIENCE (ID 1–60) — ALL NEW -----
+    const cs = [
+        {id: 1, q: "What is the full form of 'GUI'?", a: ["Graphical User Interface", "General User Interface", "Graphical Utility Interface", "General Utility Interface"], correct: 0},
+        {id: 2, q: "What is 'CLI' in computing?", a: ["Command Line Interface", "Common Line Interface", "Command Logic Interface", "Common Logic Interface"], correct: 0},
+        {id: 3, q: "Which of the following is a Windows shortcut to open Run dialog?", a: ["Win + R", "Win + E", "Win + D", "Win + L"], correct: 0},
+        {id: 4, q: "What does 'Ctrl + Alt + Del' do?", a: ["Open security options screen", "Copy text", "Paste text", "Close window"], correct: 0},
+        {id: 5, q: "What is the full form of 'FAT' in file systems?", a: ["File Allocation Table", "File Access Table", "Folder Allocation Table", "Folder Access Table"], correct: 0},
+        {id: 6, q: "What is 'NTFS'?", a: ["New Technology File System", "New Transfer File System", "Network Technology File System", "Network Transfer File System"], correct: 0},
+        {id: 7, q: "What is a 'File Extension'?", a: ["Suffix indicating file type", "Prefix of file name", "Folder name", "Disk name"], correct: 0},
+        {id: 8, q: "What is the extension of a Windows executable file?", a: [".exe", ".docx", ".pdf", ".jpg"], correct: 0},
+        {id: 9, q: "What is 'Recycle Bin' in Windows?", a: ["Temporary storage for deleted files", "A type of folder", "A program", "A network tool"], correct: 0},
+        {id: 10, q: "What is the full form of 'OSI' in networking?", a: ["Open Systems Interconnection", "Open System Interconnection", "Operating System Interconnection", "Operating Systems Interconnection"], correct: 0},
+        {id: 11, q: "How many layers are in the OSI model?", a: ["5", "6", "7", "8"], correct: 2},
+        {id: 12, q: "Which OSI layer handles physical connections?", a: ["Physical Layer", "Data Link Layer", "Network Layer", "Transport Layer"], correct: 0},
+        {id: 13, q: "Which OSI layer is responsible for end-to-end communication?", a: ["Transport Layer", "Network Layer", "Data Link Layer", "Physical Layer"], correct: 0},
+        {id: 14, q: "What is a 'MAC Address'?", a: ["Physical hardware address of a NIC", "Logical address of a device", "Domain name", "Port number"], correct: 0},
+        {id: 15, q: "What is 'Unicast' communication?", a: ["One-to-one communication", "One-to-many", "Many-to-many", "Broadcast only"], correct: 0},
+        {id: 16, q: "What is 'Broadcast' communication?", a: ["One-to-all in a network", "One-to-one", "Many-to-one", "Point-to-point"], correct: 0},
+        {id: 17, q: "What is 'Multicast' communication?", a: ["One-to-many specific group", "One-to-all", "One-to-one", "Point-to-point"], correct: 0},
+        {id: 18, q: "What is the full form of 'ARP'?", a: ["Address Resolution Protocol", "Address Routing Protocol", "Automatic Resolution Protocol", "Automatic Routing Protocol"], correct: 0},
+        {id: 19, q: "What is the full form of 'ICMP'?", a: ["Internet Control Message Protocol", "Internal Control Message Protocol", "Internet Communication Message Protocol", "Internal Communication Message Protocol"], correct: 0},
+        {id: 20, q: "What is 'Ping' used for?", a: ["Testing network connectivity", "Encrypting data", "Storing files", "Printing"], correct: 0},
+        {id: 21, q: "What is 'Traceroute' used for?", a: ["Tracking path of packets to destination", "Encrypting data", "Storing files", "Printing"], correct: 0},
+        {id: 22, q: "What is the full form of 'NAT'?", a: ["Network Address Translation", "Network Access Translation", "Node Address Translation", "Node Access Translation"], correct: 0},
+        {id: 23, q: "What is 'Port Forwarding'?", a: ["Redirecting network traffic from one port to another", "Blocking ports", "Encrypting data", "Printing"], correct: 0},
+        {id: 24, q: "Which port does HTTP use by default?", a: ["80", "443", "21", "25"], correct: 0},
+        {id: 25, q: "Which port does HTTPS use by default?", a: ["443", "80", "21", "25"], correct: 0},
+        {id: 26, q: "Which port does FTP use by default?", a: ["21", "80", "443", "25"], correct: 0},
+        {id: 27, q: "Which port does SMTP use by default?", a: ["25", "80", "443", "21"], correct: 0},
+        {id: 28, q: "Which port does SSH use by default?", a: ["22", "80", "443", "25"], correct: 0},
+        {id: 29, q: "What is the full form of 'SMTP'?", a: ["Simple Mail Transfer Protocol", "Secure Mail Transfer Protocol", "Simple Message Transfer Protocol", "Secure Message Transfer Protocol"], correct: 0},
+        {id: 30, q: "What is the full form of 'POP3'?", a: ["Post Office Protocol version 3", "Post Office Program version 3", "Public Office Protocol version 3", "Public Office Program version 3"], correct: 0},
+        {id: 31, q: "What is the full form of 'IMAP'?", a: ["Internet Message Access Protocol", "Internal Message Access Protocol", "Internet Mail Access Protocol", "Internal Mail Access Protocol"], correct: 0},
+        {id: 32, q: "What is 'Spam' in email?", a: ["Unwanted bulk email", "Important email", "Encrypted email", "Deleted email"], correct: 0},
+        {id: 33, q: "What is a 'Digital Signature'?", a: ["Electronic verification of document authenticity", "A type of password", "A type of firewall", "A type of antivirus"], correct: 0},
+        {id: 34, q: "What is 'Public Key Cryptography'?", a: ["Encryption using two keys (public and private)", "Encryption using one key", "No encryption", "Manual encryption"], correct: 0},
+        {id: 35, q: "What is the full form of 'AES'?", a: ["Advanced Encryption Standard", "Automatic Encryption Standard", "Advanced Electronic Standard", "Automatic Electronic Standard"], correct: 0},
+        {id: 36, q: "What is the full form of 'RSA'?", a: ["Rivest-Shamir-Adleman", "Rivest-Shamir-Anderson", "Rivest-Smith-Adleman", "Rivest-Smith-Anderson"], correct: 0},
+        {id: 37, q: "What is 'Hashing' in computing?", a: ["Converting data into fixed-length value", "Encrypting data", "Compressing data", "Deleting data"], correct: 0},
+        {id: 38, q: "Which algorithm is used for hashing?", a: ["SHA-256", "AES", "RSA", "DES"], correct: 0},
+        {id: 39, q: "What is the full form of 'SHA'?", a: ["Secure Hash Algorithm", "Simple Hash Algorithm", "Secure Hashing Application", "Simple Hashing Application"], correct: 0},
+        {id: 40, q: "What is 'Salting' in password hashing?", a: ["Adding random data to passwords before hashing", "Removing data from passwords", "Encrypting passwords", "Storing passwords"], correct: 0},
+        {id: 41, q: "What is 'SQL Injection'?", a: ["Attack inserting malicious SQL code", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 42, q: "What is 'Cross-Site Scripting' (XSS)?", a: ["Injecting malicious scripts into web pages", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 43, q: "What is 'CSRF'?", a: ["Cross-Site Request Forgery", "Cross-Site Request Fraud", "Common-Site Request Forgery", "Common-Site Request Fraud"], correct: 0},
+        {id: 44, q: "What is 'Penetration Testing'?", a: ["Authorized simulated attack to find vulnerabilities", "A type of virus", "A type of firewall", "A type of encryption"], correct: 0},
+        {id: 45, q: "What is 'Ethical Hacking'?", a: ["Authorized hacking to improve security", "Illegal hacking", "A type of virus", "A type of firewall"], correct: 0},
+        {id: 46, q: "What is a 'Sandbox' in cybersecurity?", a: ["Isolated environment for testing code", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 47, q: "What is 'Zero-Day Exploit'?", a: ["Attack exploiting an unknown vulnerability", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 48, q: "What is 'Social Engineering'?", a: ["Manipulating people to reveal confidential information", "Building social networks", "A type of firewall", "A type of antivirus"], correct: 0},
+        {id: 49, q: "What is 'Two-Factor Authentication'?", a: ["Using two different authentication methods", "Using two passwords", "Using two usernames", "Using two devices"], correct: 0},
+        {id: 50, q: "What is 'Biometrics'?", a: ["Authentication using physical characteristics", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 51, q: "What is 'VPN'?", a: ["Virtual Private Network", "Virtual Public Network", "Verified Private Network", "Verified Public Network"], correct: 0},
+        {id: 52, q: "What is 'Proxy Server'?", a: ["An intermediary server between client and internet", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 53, q: "What is 'TOR' in cybersecurity?", a: ["Anonymity network", "A type of firewall", "A type of antivirus", "A type of encryption"], correct: 0},
+        {id: 54, q: "What is 'Dark Web'?", a: ["Part of internet not indexed by search engines", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 55, q: "What is 'Blockchain'?", a: ["Distributed ledger technology", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 56, q: "What is 'Bitcoin'?", a: ["A decentralized digital currency", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 57, q: "What is 'Smart Contract'?", a: ["Self-executing contract with terms in code", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 58, q: "What is 'Web 3.0'?", a: ["Decentralized internet", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 59, q: "What is 'Metaverse'?", a: ["A virtual reality space", "A type of firewall", "A strong password", "A type of encryption"], correct: 0},
+        {id: 60, q: "What is 'Quantum Computing'?", a: ["Computing using quantum mechanical phenomena", "A type of firewall", "A strong password", "A type of encryption"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 61–80) — ALL NEW -----
+    const eng = [
+        {id: 61, q: "The synonym of 'Eloquent' is:", a: ["Silent", "Fluent", "Slow", "Dumb"], correct: 1},
+        {id: 62, q: "The antonym of 'Humble' is:", a: ["Modest", "Arrogant", "Simple", "Shy"], correct: 1},
+        {id: 63, q: "Choose the correct spelling:", a: ["Maintenance", "Maintainance", "Maintenence", "Maintenence"], correct: 0},
+        {id: 64, q: "The plural of 'Crisis' is:", a: ["Crisises", "Crises", "Crisis", "Crisis's"], correct: 1},
+        {id: 65, q: "She is responsible _____ the project.", a: ["for", "at", "on", "in"], correct: 0},
+        {id: 66, q: "The past tense of 'Lead' is:", a: ["Leaded", "Led", "Lead", "Leading"], correct: 1},
+        {id: 67, q: "The synonym of 'Candid' is:", a: ["Dishonest", "Frank", "Deceptive", "Hiding"], correct: 1},
+        {id: 68, q: "The antonym of 'Scarce' is:", a: ["Rare", "Plentiful", "Limited", "Short"], correct: 1},
+        {id: 69, q: "Choose the correct sentence:", a: ["He has went home.", "He has gone home.", "He have went home.", "He have gone home."], correct: 1},
+        {id: 70, q: "The idiom 'Spill the beans' means:", a: ["Cook beans", "Reveal a secret", "Hide something", "Waste food"], correct: 1},
+        {id: 71, q: "The synonym of 'Futile' is:", a: ["Useful", "Useless", "Helpful", "Effective"], correct: 1},
+        {id: 72, q: "The antonym of 'Rigid' is:", a: ["Stiff", "Flexible", "Firm", "Hard"], correct: 1},
+        {id: 73, q: "He is _____ LLB graduate.", a: ["a", "an", "the", "no article"], correct: 1},
+        {id: 74, q: "The plural of 'Appendix' is:", a: ["Appendixes", "Appendices", "Appendix", "Appendixs"], correct: 1},
+        {id: 75, q: "The past tense of 'Fight' is:", a: ["Fighted", "Fought", "Fighting", "Fights"], correct: 1},
+        {id: 76, q: "The synonym of 'Intelligent' is:", a: ["Stupid", "Clever", "Slow", "Dull"], correct: 1},
+        {id: 77, q: "The antonym of 'Assist' is:", a: ["Help", "Hinder", "Support", "Aid"], correct: 1},
+        {id: 78, q: "The train leaves _____ 5 PM.", a: ["in", "at", "on", "for"], correct: 1},
+        {id: 79, q: "The synonym of 'Purchase' is:", a: ["Sell", "Buy", "Trade", "Exchange"], correct: 1},
+        {id: 80, q: "The antonym of 'Expand' is:", a: ["Enlarge", "Contract", "Grow", "Stretch"], correct: 1}
+    ];
+
+    // ----- PEDAGOGY (ID 81–100) — ALL NEW -----
+    const ped = [
+        {id: 81, q: "What is 'Active Learning'?", a: ["Learning through active participation", "Passive listening", "Silent reading", "No participation"], correct: 0},
+        {id: 82, q: "What is 'Passive Learning'?", a: ["Learning by listening/watching only", "Learning by doing", "Learning by discussing", "Learning by projects"], correct: 0},
+        {id: 83, q: "What is 'Learning Styles'?", a: ["Individual preferences for learning", "A punishment", "A test", "A register"], correct: 0},
+        {id: 84, q: "Which is NOT a common learning style?", a: ["Visual", "Auditory", "Kinesthetic", "Sleepy"], correct: 3},
+        {id: 85, q: "What is 'VARK' model?", a: ["Visual, Auditory, Reading/Writing, Kinesthetic", "Visual, Audio, Real, Knowledge", "Verbal, Auditory, Real, Kinesthetic", "Visual, Audio, Reading, Knowledge"], correct: 0},
+        {id: 86, q: "What is 'Metacognition'?", a: ["Thinking about one's own thinking", "Thinking about others", "Not thinking", "Sleeping"], correct: 0},
+        {id: 87, q: "What is 'Critical Thinking'?", a: ["Analyzing and evaluating information", "Accepting everything", "Memorizing", "Ignoring"], correct: 0},
+        {id: 88, q: "What is 'Creative Thinking'?", a: ["Generating new and original ideas", "Copying others", "Memorizing", "Ignoring"], correct: 0},
+        {id: 89, q: "What is 'Collaboration' in learning?", a: ["Working together with others", "Working alone", "Ignoring others", "Sleeping"], correct: 0},
+        {id: 90, q: "What is 'Communication' skill?", a: ["Ability to convey ideas effectively", "Silence", "Writing only", "Ignoring"], correct: 0},
+        {id: 91, q: "What are '21st Century Skills'?", a: ["Critical thinking, creativity, collaboration, communication", "Memorization only", "Writing only", "Reading only"], correct: 0},
+        {id: 92, q: "What is 'Digital Literacy'?", a: ["Ability to use digital tools effectively", "Ability to read books", "Ability to write", "Ability to sleep"], correct: 0},
+        {id: 93, q: "What is 'Media Literacy'?", a: ["Ability to analyze and evaluate media", "Ability to watch TV", "Ability to read newspapers", "Ability to sleep"], correct: 0},
+        {id: 94, q: "What is 'Global Citizenship'?", a: ["Awareness of being part of global community", "Citizenship of a country", "Being alone", "No awareness"], correct: 0},
+        {id: 95, q: "What is 'Lifelong Learning'?", a: ["Continuous learning throughout life", "Learning only in school", "Learning only in college", "No learning"], correct: 0},
+        {id: 96, q: "What is 'Self-Directed Learning'?", a: ["Learning driven by the learner", "Teacher-driven only", "No learning", "Parents-driven only"], correct: 0},
+        {id: 97, q: "What is 'Informal Learning'?", a: ["Learning from daily experiences", "Learning in formal school", "Learning in college", "Learning online only"], correct: 0},
+        {id: 98, q: "What is 'Formal Learning'?", a: ["Structured learning in institutions", "Learning from daily life", "Learning from friends", "Learning online randomly"], correct: 0},
+        {id: 99, q: "What is 'Non-Formal Learning'?", a: ["Organized learning outside formal system", "Learning in school", "Learning in college", "No learning"], correct: 0},
+        {id: 100, q: "What is 'Andragogy'?", a: ["Art and science of teaching adults", "Teaching children", "No teaching", "Punishment"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...cs, ...eng, ...ped].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    function getSubject(qid) {
+        if (qid >= 1 && qid <= 60) return "Computer";
+        if (qid >= 61 && qid <= 80) return "English";
+        if (qid >= 81 && qid <= 100) return "Pedagogy";
+        return "";
+    }
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    const TOTAL_TIME = 5400;
+    let timeLeft = TOTAL_TIME;
+    let endTime = 0;
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        endTime = Date.now() + TOTAL_TIME * 1000;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        if (!confirm("Are you sure you want to restart? Your current progress will be lost.")) return;
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        document.getElementById("subjectTag").innerText = getSubject(qid);
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = (correct * 1) - (wrongCount * 0.25);
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score.toFixed(2);
+    }
+
+    function nextQ() {
+        if (current < mcqs.length - 1) {
+            current++;
+            isReviewing = false;
+            loadQ();
+        } else {
+            if (laterList.length > 0) {
+                reviewLater();
+            } else {
+                showToast("⏳ Please wait... calculating result");
+                setTimeout(showResult, 500);
+            }
+        }
+    }
+
+    function saveLater() {
+        if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered — no need to save.");
+            return;
+        }
+        if (laterList.includes(current)) {
+            showToast("ℹ️ Already saved for later.");
+            return;
+        }
+        laterList.push(current);
+        showToast("✅ Saved! You can attempt it at the end.");
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            if (!reviewedLater.includes(current)) reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 All done! Calculating result...");
+            setTimeout(showResult, 500);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+            let h = Math.floor(timeLeft / 3600);
+            let m = Math.floor((timeLeft % 3600) / 60);
+            let s = timeLeft % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showToast("⏰ Time is up! Submitting...");
+                setTimeout(showResult, 800);
+            }
+        }, 250);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        window.scrollTo(0, 0);
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = (correct * 1) - (wrongCount * 0.25);
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score.toFixed(2)}</strong> / ${mcqs.length}<br>
+            ✅ Correct: ${correct} &nbsp;|&nbsp; ❌ Wrong: ${wrongCount} &nbsp;|&nbsp; ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<div class="table-wrap"><table>
+            <thead><tr><th class='qno-col'>Q-ID</th><th>Subject</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", correctAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "—";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${getSubject(q.id)}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</tbody></table></div>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>
