@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AT (Arabic Teacher) Practice Tests</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
+            color: white; font-family: 'Segoe UI', Arial; text-align: center;
+            padding: 10px 15px 20px 15px; min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+        .container { max-width: 700px; margin: 0 auto; width: 100%; }
+        .main-title { font-size: 30px; color: #ffeb3b; font-weight: bold; text-shadow: 0 0 20px #ffeb3b; margin-bottom: 5px; }
+        .main-subtitle { font-size: 17px; color: #d1c5e8; margin-bottom: 5px; }
+        .pattern-info {
+            font-size: 13px; color: #00e676; font-weight: bold;
+            background: rgba(0, 230, 118, 0.1); padding: 8px 15px;
+            border-radius: 10px; display: inline-block; margin-bottom: 15px;
+            border: 1px solid rgba(0, 230, 118, 0.3);
+        }
+        .disclaimer {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin: 10px auto 20px auto;
+            width: 100%; max-width: 600px;
+            font-size: 13px; color: #ffe082; line-height: 1.6;
+            text-align: left;
+        }
+        .disclaimer b { color: #ffd54f; }
+        .box {
+            background: linear-gradient(135deg, #1a0033, #3d0099);
+            border: 2px solid #bb86fc; border-radius: 14px; padding: 16px;
+            margin: 10px auto; width: 100%; max-width: 600px;
+            transition: 0.3s; box-shadow: 0 4px 20px rgba(123, 0, 255, 0.2);
+            cursor: pointer; display: block; color: white;
+        }
+        .box:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(187, 134, 252, 0.4); }
+        .box h2 { font-size: 22px; color: #ffeb3b; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .box p { font-size: 15px; color: #d1c5e8; margin: 3px 0; }
+        .box .stats {
+            font-size: 13px; color: #00e676; font-weight: bold; margin-top: 6px;
+            background: rgba(0, 230, 118, 0.1); padding: 5px 10px; border-radius: 8px; display: inline-block;
+        }
+        .box .arrow { font-size: 14px; color: #bb86fc; margin-top: 6px; display: block; }
+        .expand-content { display: none; margin: 0 auto 10px auto; width: 90%; max-width: 550px; text-align: left; }
+        .expand-content.show { display: block; }
+        .level-btn {
+            display: block;
+            background: linear-gradient(135deg, #7f00ff, #e100ff);
+            color: white; border: none; padding: 12px; margin: 6px auto;
+            border-radius: 10px; font-size: 16px; width: 100%; max-width: 500px;
+            cursor: pointer; font-weight: bold; transition: 0.3s;
+        }
+        .level-btn:hover { transform: scale(1.03); box-shadow: 0 0 20px #7f00ff; }
+        .madeby-box {
+            background: linear-gradient(135deg, #1a0033, #3d0099);
+            border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px;
+            margin: 25px auto 0; width: 100%; max-width: 600px;
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+        }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        .back-btn {
+            display: inline-block; margin-top: 20px; padding: 10px 20px;
+            background: #7f00ff; color: white; text-decoration: none; border-radius: 10px;
+            font-weight: bold; font-size: 14px;
+        }
+        @media (max-width: 500px) {
+            .main-title { font-size: 24px; }
+            .box h2 { font-size: 19px; }
+            .level-btn { font-size: 15px; padding: 10px; }
+            .madeby-box h3 { font-size: 16px; }
+            .madeby-box .contact { font-size: 13px; }
+            .disclaimer { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1 class="main-title">🕌 AT (Arabic Teacher) Tests</h1>
+    <p class="main-subtitle">Arabic Teacher Practice Test Series</p>
+    <div class="pattern-info">Arabic 60 · English 20 · Pedagogy 20</div>
+
+    <div class="disclaimer">
+        <b>⚠️ Disclaimer:</b> These practice tests are <b>NOT</b> affiliated with any official source, government body, or NTS/ETEA. They are created solely for <b>practice and self-assessment</b> purposes. Questions and answers have been cross-checked, but please verify with your own books and official syllabus for final preparation. The user assumes full responsibility for any loss or damage arising from the use of these tests.
+    </div>
+
+    <div class="box" onclick="toggleTests(this)">
+        <h2>📚 AT Test Series</h2>
+        <p>Click to expand · 10 Practice Tests</p>
+        <div class="stats">100 MCQs · 90 Minutes · Negative Marking -0.25</div>
+        <span class="arrow">▼ Click to expand</span>
+    </div>
+
+    <div id="testLevels" class="expand-content">
+        <button class="level-btn" onclick="openTest('test1.html')">📘 Test-1 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test2.html')">📗 Test-2 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test3.html')">📙 Test-3 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test4.html')">📘 Test-4 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test5.html')">📕 Test-5 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test6.html')">📒 Test-6 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test7.html')">📓 Test-7 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test8.html')">📔 Test-8 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test9.html')">📖 Test-9 (Full Syllabus)</button>
+        <button class="level-btn" onclick="openTest('test10.html')">📚 Test-10 (Full Syllabus)</button>
+    </div>
+
+    <a href="../index.html" class="back-btn">← Back to Categories</a>
+
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<script>
+    function toggleTests(btn) {
+        var content = document.getElementById("testLevels");
+        var arrow = btn.querySelector('.arrow');
+        if (content.classList.contains('show')) {
+            content.classList.remove('show');
+            arrow.innerHTML = '▼ Click to expand';
+        } else {
+            content.classList.add('show');
+            arrow.innerHTML = '▲ Click to collapse';
+        }
+    }
+
+    function openTest(testFile) {
+        window.location.href = testFile;
+    }
+</script>
+
+</body>
+</html>
