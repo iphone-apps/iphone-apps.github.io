@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PET Test – 04</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .note-red { color: #ff6b6b; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .subject-tag { background: #00c853; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; margin-top: 12px; }
+        table { border-collapse: collapse; width: 100%; min-width: 600px; background: rgba(0,0,0,0.4); font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        .madeby-box { background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 20px auto; width: 100%; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1); }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- FRONT PAGE -->
+    <div id="frontPage">
+        <h1 class="main-heading">🏃 PET Test – 04</h1>
+        <h2>NTS / ETEA Pattern · 100 MCQs</h2>
+        <p class="subtitle">Physical Education 60 · English 20 · Pedagogy 20</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 90 Minutes</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-red">-0.25</span> (Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno-display">📌 Q: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="subjectTag" class="subject-tag"></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+    <!-- MADE BY BOX -->
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // PET TEST 4: 100 MCQs (ALL NEW)
+    // Physical Education 60 | English 20 | Pedagogy 20
+    // ================================================================
+    const mcqs = [];
+
+    // ----- PHYSICAL EDUCATION (ID 1–60) — ALL NEW -----
+    const pe = [
+        {id: 1, q: "What is the aim of physical education?", a: ["To develop physical fitness", "To develop social skills", "To develop mental health", "All of these"], correct: 3},
+        {id: 2, q: "What is the term used for the scientific study of body movement?", a: ["Kinesiology", "Biology", "Anatomy", "Physiology"], correct: 0},
+        {id: 3, q: "What are the three types of muscles in the human body?", a: ["Skeletal, smooth, cardiac", "Skeletal, nervous, cardiac", "Smooth, nervous, skeletal", "Cardiac, nervous, smooth"], correct: 0},
+        {id: 4, q: "What is the largest bone in the human body?", a: ["Tibia", "Femur", "Fibula", "Humerus"], correct: 1},
+        {id: 5, q: "The main function of the skeletal system is:", a: ["Support and movement", "Digestion", "Breathing", "Circulation"], correct: 0},
+        {id: 6, q: "How many bones are there in the human body?", a: ["200", "206", "210", "220"], correct: 1},
+        {id: 7, q: "The muscles that work without our conscious control are:", a: ["Skeletal muscles", "Smooth muscles", "Cardiac muscles", "Both smooth and cardiac"], correct: 3},
+        {id: 8, q: "What is the normal resting heart rate of a healthy adult?", a: ["40–60 bpm", "60–100 bpm", "100–140 bpm", "140–180 bpm"], correct: 1},
+        {id: 9, q: "Which of the following is a type of joint?", a: ["Ball and socket", "Hinge", "Pivot", "All of these"], correct: 3},
+        {id: 10, q: "The knee joint is an example of:", a: ["Ball and socket joint", "Hinge joint", "Pivot joint", "Gliding joint"], correct: 1},
+        {id: 11, q: "The hip joint is an example of:", a: ["Ball and socket joint", "Hinge joint", "Pivot joint", "Gliding joint"], correct: 0},
+        {id: 12, q: "What is the main function of red blood cells?", a: ["Fight infection", "Transport oxygen", "Clot blood", "Store nutrients"], correct: 1},
+        {id: 13, q: "The blood vessels that carry blood away from the heart are:", a: ["Veins", "Arteries", "Capillaries", "Ventricles"], correct: 1},
+        {id: 14, q: "The heart has how many chambers?", a: ["2", "3", "4", "5"], correct: 2},
+        {id: 15, q: "What is the main function of lungs?", a: ["Digestion", "Exchange of gases", "Filtration", "Circulation"], correct: 1},
+        {id: 16, q: "The process of breathing is called:", a: ["Respiration", "Digestion", "Circulation", "Excretion"], correct: 0},
+        {id: 17, q: "What is the normal body temperature of a healthy adult?", a: ["35°C", "37°C", "39°C", "40°C"], correct: 1},
+        {id: 18, q: "The main function of the digestive system is:", a: ["Breakdown of food", "Circulation", "Breathing", "Movement"], correct: 0},
+        {id: 19, q: "Which vitamin is produced in the body by sunlight?", a: ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"], correct: 3},
+        {id: 20, q: "What is the main source of energy for the body?", a: ["Carbohydrates", "Proteins", "Vitamins", "Minerals"], correct: 0},
+        {id: 21, q: "What is 'aerobic exercise'?", a: ["Exercise with oxygen", "Exercise without oxygen", "Only stretching", "Only weight lifting"], correct: 0},
+        {id: 22, q: "What is 'anaerobic exercise'?", a: ["Exercise without oxygen", "Exercise with oxygen", "Only yoga", "Only swimming"], correct: 0},
+        {id: 23, q: "A 'sit-up' primarily strengthens which muscles?", a: ["Arm muscles", "Abdominal muscles", "Leg muscles", "Neck muscles"], correct: 1},
+        {id: 24, q: "A 'push-up' primarily strengthens which muscles?", a: ["Chest and arms", "Legs", "Abdominal", "Neck"], correct: 0},
+        {id: 25, q: "A 'squat' primarily strengthens which muscles?", a: ["Legs", "Arms", "Chest", "Neck"], correct: 0},
+        {id: 26, q: "What is 'flexibility'?", a: ["Range of motion of joints", "Heart rate", "Body weight", "Muscle size"], correct: 0},
+        {id: 27, q: "What is 'muscular endurance'?", a: ["Ability to exert force", "Ability to sustain effort over time", "Range of motion", "Body composition"], correct: 1},
+        {id: 28, q: "What is 'body composition'?", a: ["Muscle vs fat ratio", "Heart rate", "Blood pressure", "Flexibility"], correct: 0},
+        {id: 29, q: "A 'balanced diet' should include:", a: ["Only carbohydrates", "Only proteins", "All nutrient groups", "Only fats"], correct: 2},
+        {id: 30, q: "Water is important for athletes because:", a: ["It cools the body", "It transports nutrients", "It prevents dehydration", "All of these"], correct: 3},
+        {id: 31, q: "What is 'BMI'?", a: ["Body Mass Index", "Basic Muscle Index", "Body Movement Index", "Basic Mass Index"], correct: 0},
+        {id: 32, q: "A healthy BMI range for adults is approximately:", a: ["10–15", "18.5–24.9", "30–40", "45–55"], correct: 1},
+        {id: 33, q: "What is 'hygiene' in physical education?", a: ["Cleanliness for good health", "Punishment", "Exercise", "Sleep"], correct: 0},
+        {id: 34, q: "Which of the following is a good health habit?", a: ["Regular exercise", "Balanced diet", "Adequate sleep", "All of these"], correct: 3},
+        {id: 35, q: "What is 'first aid'?", a: ["Immediate help for injury", "Punishment", "Exercise", "Sleep"], correct: 0},
+        {id: 36, q: "The 'RICE' method is used for:", a: ["First aid for injuries", "Diet plan", "Warm-up", "Cool-down"], correct: 0},
+        {id: 37, q: "In the 'RICE' method, what does 'R' stand for?", a: ["Run", "Rest", "Repeat", "Rotate"], correct: 1},
+        {id: 38, q: "The main function of warm-up is:", a: ["Prevent injury", "Prepare body", "Increase heart rate", "All of these"], correct: 3},
+        {id: 39, q: "The main function of cool-down is:", a: ["Return body to rest", "Increase heart rate", "Increase body temperature", "Increase fatigue"], correct: 0},
+        {id: 40, q: "What is 'sportsmanship'?", a: ["Fair play and respect", "Cheating", "Fighting", "Arguing"], correct: 0},
+        {id: 41, q: "What is the meaning of 'Olympic spirit'?", a: ["Participation more important than winning", "Only winning matters", "Competition only", "No sportsmanship"], correct: 0},
+        {id: 42, q: "The first modern Olympics were held in:", a: ["Athens 1896", "Paris 1900", "London 1908", "Rome 1960"], correct: 0},
+        {id: 43, q: "The Olympic flag has how many rings?", a: ["3", "4", "5", "6"], correct: 2},
+        {id: 44, q: "The 'Asian Games' are held every:", a: ["2 years", "3 years", "4 years", "5 years"], correct: 2},
+        {id: 45, q: "The 'Commonwealth Games' are held every:", a: ["2 years", "3 years", "4 years", "5 years"], correct: 2},
+        {id: 46, q: "The 'SAF Games' are for countries of:", a: ["South Asia", "South Africa", "Southeast Asia", "South America"], correct: 0},
+        {id: 47, q: "The 'Pakistan Olympic Association' was founded in:", a: ["1947", "1948", "1950", "1960"], correct: 1},
+        {id: 48, q: "Who was the first Pakistani to win an individual Olympic gold medal?", a: ["Muhammad Yousuf", "Arshad Nadeem", "Jahangir Khan", "Imran Khan"], correct: 1},
+        {id: 49, q: "Arshad Nadeem won Olympic gold in which event?", a: ["Javelin throw", "Shot put", "Discus throw", "Hammer throw"], correct: 0},
+        {id: 50, q: "Pakistan won its first Olympic gold medal in hockey in:", a: ["1948", "1952", "1960", "1968"], correct: 2},
+        {id: 51, q: "Jahangir Khan was a famous player of:", a: ["Squash", "Cricket", "Tennis", "Hockey"], correct: 0},
+        {id: 52, q: "Imran Khan was a famous player of:", a: ["Cricket", "Squash", "Tennis", "Hockey"], correct: 0},
+        {id: 53, q: "The 'Wazir Ali' is a famous name in:", a: ["Cricket", "Hockey", "Squash", "Football"], correct: 1},
+        {id: 54, q: "Hockey is the national sport of Pakistan and was known as:", a: ["National game", "National pride", "National sport", "National pastime"], correct: 2},
+        {id: 55, q: "The 'Pakistan Hockey Team' won the World Cup in:", a: ["1971", "1978", "1982", "1994"], correct: 2},
+        {id: 56, q: "The 'Squash World Open' was dominated by:", a: ["Pakistan and Egypt", "India and Pakistan", "USA and UK", "Australia and England"], correct: 0},
+        {id: 57, q: "Which Pakistani squash player won the World Open 8 times?", a: ["Jansher Khan", "Jahangir Khan", "Hashim Khan", "Qamar Zaman"], correct: 1},
+        {id: 58, q: "The 'National Games of Pakistan' were first held in:", a: ["1948", "1950", "1955", "1960"], correct: 2},
+        {id: 59, q: "Sports help in developing:", a: ["Physical fitness", "Mental health", "Social skills", "All of these"], correct: 3},
+        {id: 60, q: "The term 'fair play' in sports means:", a: ["Following rules and respecting opponents", "Cheating", "Only winning", "Arguing"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 61–80) — ALL NEW -----
+    const eng = [
+        {id: 61, q: "Choose the correct spelling:", a: ["Exercise", "Exercize", "Exersize", "Exercis"], correct: 0},
+        {id: 62, q: "The synonym of 'Muscular' is:", a: ["Weak", "Strong", "Thin", "Frail"], correct: 1},
+        {id: 63, q: "The antonym of 'Physically fit' is:", a: ["Healthy", "Unfit", "Strong", "Active"], correct: 1},
+        {id: 64, q: "The plural of 'Foot' is:", a: ["Foots", "Feet", "Footes", "Foot"], correct: 1},
+        {id: 65, q: "He is interested _____ athletics.", a: ["in", "at", "on", "for"], correct: 0},
+        {id: 66, q: "The past tense of 'Run' is:", a: ["Runned", "Ran", "Running", "Runs"], correct: 1},
+        {id: 67, q: "The synonym of 'Agile' is:", a: ["Slow", "Quick", "Lazy", "Weak"], correct: 1},
+        {id: 68, q: "The antonym of 'Heavy' is:", a: ["Big", "Light", "Strong", "Solid"], correct: 1},
+        {id: 69, q: "Choose the correct sentence:", a: ["She runs very fast.", "She run very fast.", "She running very fast.", "She is run very fast."], correct: 0},
+        {id: 70, q: "The idiom 'A sound mind in a sound body' means:", a: ["Only body matters", "Health and mind are connected", "Only mind matters", "No relation"], correct: 1},
+        {id: 71, q: "The synonym of 'Vigorous' is:", a: ["Weak", "Energetic", "Slow", "Tired"], correct: 1},
+        {id: 72, q: "The antonym of 'Fit' is:", a: ["Healthy", "Unfit", "Strong", "Active"], correct: 1},
+        {id: 73, q: "He is _____ excellent coach.", a: ["a", "an", "the", "no article"], correct: 1},
+        {id: 74, q: "The plural of 'Woman' is:", a: ["Womans", "Women", "Woman's", "Womenses"], correct: 1},
+        {id: 75, q: "The past tense of 'Lose' is:", a: ["Losed", "Lost", "Losing", "Loses"], correct: 1},
+        {id: 76, q: "The synonym of 'Brave' is:", a: ["Coward", "Courageous", "Weak", "Timid"], correct: 1},
+        {id: 77, q: "The antonym of 'Win' is:", a: ["Succeed", "Lose", "Triumph", "Beat"], correct: 1},
+        {id: 78, q: "He has been training here _____ last year.", a: ["since", "for", "from", "at"], correct: 0},
+        {id: 79, q: "The synonym of 'Champion' is:", a: ["Loser", "Winner", "Runner", "Spectator"], correct: 1},
+        {id: 80, q: "The antonym of 'Start' is:", a: ["Begin", "Finish", "Open", "Launch"], correct: 1}
+    ];
+
+    // ----- PEDAGOGY (ID 81–100) — ALL NEW -----
+    const ped = [
+        {id: 81, q: "What is 'peer teaching'?", a: ["Students teaching students", "Teachers teaching only", "No teaching", "Parents teaching"], correct: 0},
+        {id: 82, q: "What is 'drill method' in PE?", a: ["Repetitive practice", "Punishment", "Silence", "Register"], correct: 0},
+        {id: 83, q: "What is 'play-way method'?", a: ["Learning through play", "Lectures only", "Punishment", "Silence"], correct: 0},
+        {id: 84, q: "What is 'drill and practice'?", a: ["Repetition to improve skill", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 85, q: "What is 'motor learning'?", a: ["Learning physical skills", "Learning theory", "Punishment", "Register"], correct: 0},
+        {id: 86, q: "What is 'skill acquisition'?", a: ["Learning a new physical skill", "Punishment", "Silence", "Register"], correct: 0},
+        {id: 87, q: "What is 'motor skill'?", a: ["Physical movement skill", "Reading skill", "Math skill", "Writing skill"], correct: 0},
+        {id: 88, q: "What is 'perceptual motor skill'?", a: ["Skill involving perception and movement", "Only reading", "Only writing", "Only listening"], correct: 0},
+        {id: 89, q: "What is 'group instruction'?", a: ["Teaching a group of students", "Only individual", "Only lecture", "No teaching"], correct: 0},
+        {id: 90, q: "What is 'individual instruction'?", a: ["Teaching one student at a time", "Group teaching", "Lecture only", "No teaching"], correct: 0},
+        {id: 91, q: "What is 'safety education' in PE?", a: ["Teaching safe practices", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 92, q: "What is 'first aid'?", a: ["Immediate care for injury", "Punishment", "Silence", "Register"], correct: 0},
+        {id: 93, q: "What is 'sports medicine'?", a: ["Medical care for athletes", "Punishment", "Silence", "Register"], correct: 0},
+        {id: 94, q: "What is 'sports psychology'?", a: ["Study of mental aspects of sports", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 95, q: "What is 'sports nutrition'?", a: ["Study of diet for athletes", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 96, q: "What is 'sports biomechanics'?", a: ["Study of mechanical aspects of sports", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 97, q: "What is 'sports physiology'?", a: ["Study of body's response to exercise", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 98, q: "What is 'sports sociology'?", a: ["Study of social aspects of sports", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 99, q: "What is 'sports management'?", a: ["Managing sports events and organizations", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 100, q: "What is 'physical fitness testing'?", a: ["Assessing fitness levels", "Punishment", "Silence", "Register"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...pe, ...eng, ...ped].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    function getSubject(qid) {
+        if (qid >= 1 && qid <= 60) return "Physical Education";
+        if (qid >= 61 && qid <= 80) return "English";
+        if (qid >= 81 && qid <= 100) return "Pedagogy";
+        return "";
+    }
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    const TOTAL_TIME = 5400;
+    let timeLeft = TOTAL_TIME;
+    let endTime = 0;
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        endTime = Date.now() + TOTAL_TIME * 1000;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        if (!confirm("Are you sure you want to restart? Your current progress will be lost.")) return;
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        document.getElementById("subjectTag").innerText = getSubject(qid);
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = (correct * 1) - (wrongCount * 0.25);
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score.toFixed(2);
+    }
+
+    function nextQ() {
+        if (current < mcqs.length - 1) {
+            current++;
+            isReviewing = false;
+            loadQ();
+        } else {
+            if (laterList.length > 0) {
+                reviewLater();
+            } else {
+                showToast("⏳ Please wait... calculating result");
+                setTimeout(showResult, 500);
+            }
+        }
+    }
+
+    function saveLater() {
+        if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered — no need to save.");
+            return;
+        }
+        if (laterList.includes(current)) {
+            showToast("ℹ️ Already saved for later.");
+            return;
+        }
+        laterList.push(current);
+        showToast("✅ Saved! You can attempt it at the end.");
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            if (!reviewedLater.includes(current)) reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 All done! Calculating result...");
+            setTimeout(showResult, 500);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+            let h = Math.floor(timeLeft / 3600);
+            let m = Math.floor((timeLeft % 3600) / 60);
+            let s = timeLeft % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showToast("⏰ Time is up! Submitting...");
+                setTimeout(showResult, 800);
+            }
+        }, 250);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        window.scrollTo(0, 0);
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = (correct * 1) - (wrongCount * 0.25);
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score.toFixed(2)}</strong> / ${mcqs.length}<br>
+            ✅ Correct: ${correct} &nbsp;|&nbsp; ❌ Wrong: ${wrongCount} &nbsp;|&nbsp; ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<div class="table-wrap"><table>
+            <thead><tr><th class='qno-col'>Q-ID</th><th>Subject</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", correctAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "—";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${getSubject(q.id)}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</tbody></table></div>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>
