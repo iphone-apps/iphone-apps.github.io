@@ -8,51 +8,34 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(180deg, #000428 0%, #004e92 100%);
-            color: white;
-            font-family: 'Arial';
-            text-align: center;
-            padding: 15px 10px;
-            min-height: 100vh;
+            color: white; font-family: 'Arial'; text-align: center;
+            padding: 15px 10px; min-height: 100vh;
         }
         .main-title { font-size: 28px; color: #FF8C00; font-weight: bold; margin-bottom: 5px; }
-        .main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 15px; }
-
+        .main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 10px; }
+        .disclaimer-top {
+            background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 8px; padding: 6px 10px; margin: 0 auto 10px auto; width: 90%; max-width: 400px;
+            font-size: 11px; color: #FFD700; line-height: 1.4;
+        }
         .box {
             background: linear-gradient(180deg, #001a4d 0%, #003399 100%);
-            border: 2px solid #FFD700;
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px auto;
-            cursor: pointer;
-            width: 90%;
-            max-width: 400px;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            border: 2px solid #FFD700; border-radius: 15px; padding: 15px;
+            margin: 10px auto; cursor: pointer; width: 90%; max-width: 400px;
+            transition: 0.3s; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
         .box:active { transform: scale(0.98); }
-
         .icon { font-size: 30px; margin-bottom: 8px; }
         .box h2 { font-size: 20px; color: #FF8C00; margin-bottom: 5px; }
         .box p { font-size: 14px; color: white; }
-
         .madeby-box { padding: 12px; margin-top: 15px; }
         .madeby-box h3 { font-size: 16px; color: #FFD700; font-weight: bold; }
         .contact { font-size: 13px; color: white; margin: 3px 0; }
         .feedback { color: #FFD700; font-weight: bold; margin-top: 8px; font-size: 13px; }
-
         .level-btn {
-            display: none; /* SHURU ME CHUPE HONGE */
-            background: #FFD700;
-            color: #000;
-            border: none;
-            padding: 12px;
-            margin: 6px auto;
-            border-radius: 10px;
-            font-size: 15px;
-            width: 90%;
-            max-width: 380px;
-            cursor: pointer;
-            font-weight: bold;
+            display: none; background: #FFD700; color: #000; border: none; padding: 12px;
+            margin: 6px auto; border-radius: 10px; font-size: 15px; width: 90%; max-width: 380px;
+            cursor: pointer; font-weight: bold;
         }
         .level-btn:active { background: #FFA500; }
     </style>
@@ -62,7 +45,10 @@
 <h1 class="main-title">🧠 Logical Reasoning MCQs</h1>
 <p class="main-subtitle">5 Levels | Total 1000 MCQs</p>
 
-<!-- Main Gate -->
+<div class="disclaimer-top">
+    ⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with any official authority. For self-study.
+</div>
+
 <div class="box" onclick="showLevels('main')">
     <div class="icon">📘</div>
     <h2>Logical Reasoning</h2>
@@ -77,7 +63,6 @@
     <button class="level-btn" onclick="openLevel('Level5.html')">Level 5 (Expert) - 200 MCQs</button>
 </div>
 
-<!-- Made By -->
 <div class="box madeby-box">
     <h3>Made By: Akbar Ali Khan (SCT)</h3>
     <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
@@ -85,6 +70,7 @@
     <p class="contact"><b>Phone 1:</b> +923068183790</p>
     <p class="contact"><b>Phone 2:</b> +923339840801</p>
     <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    <p style="font-size:10px; color:#E0E0FF; margin-top:8px; border-top:1px solid rgba(255,215,0,0.2); padding-top:6px;">Independent educational resource. Not affiliated with any authority. For practice only.</p>
 </div>
 
 <script>
@@ -95,10 +81,9 @@
             btns[i].style.display = (btns[i].style.display === "block")? "none" : "block";
         }
     }
-    function openLevel(levelFile) {
-        window.location.href = "file:///android_asset/" + levelFile;
-    }
+    function openLevel(levelFile) { window.location.href = "file:///android_asset/" + levelFile; }
 </script>
+<!-- GoatCounter - SAFE -->
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
