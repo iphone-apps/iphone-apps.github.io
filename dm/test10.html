@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DM Test – 10</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .note-red { color: #ff6b6b; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .subject-tag { background: #00c853; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; margin-top: 12px; }
+        table { border-collapse: collapse; width: 100%; min-width: 600px; background: rgba(0,0,0,0.4); font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        .madeby-box { background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 20px auto; width: 100%; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1); }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- FRONT PAGE -->
+    <div id="frontPage">
+        <h1 class="main-heading">🎨 DM Test – 10</h1>
+        <h2>NTS / ETEA Pattern · 100 MCQs</h2>
+        <p class="subtitle">Art 60 · English 20 · Pedagogy 20</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 90 Minutes</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-red">-0.25</span> (Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno-display">📌 Q: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="subjectTag" class="subject-tag"></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+    <!-- MADE BY BOX -->
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // DM TEST 10: 100 MCQs (ALL NEW)
+    // Art 60 | English 20 | Pedagogy 20
+    // ================================================================
+    const mcqs = [];
+
+    // ----- ART (ID 1–60) — ALL NEW -----
+    const art = [
+        {id: 1, q: "What is 'visual literacy'?", a: ["Ability to interpret visual images", "Reading only", "Writing only", "Speaking only"], correct: 0},
+        {id: 2, q: "What is 'visual communication'?", a: ["Communicating through visuals", "Speaking only", "Writing only", "Listening only"], correct: 0},
+        {id: 3, q: "What is 'information design'?", a: ["Designing information for clarity", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 4, q: "What is 'data visualization'?", a: ["Visual representation of data", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 5, q: "What is 'infographic'?", a: ["Visual representation of information", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 6, q: "What is 'chart'?", a: ["Visual representation of data", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 7, q: "What is 'graph'?", a: ["Visual representation of data", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 8, q: "What is 'diagram'?", a: ["Visual representation of structure", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 9, q: "What is 'map'?", a: ["Visual representation of a place", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 10, q: "What is 'infographic design'?", a: ["Designing visual information", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 11, q: "What is 'poster design'?", a: ["Designing posters", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 12, q: "What is 'book cover design'?", a: ["Designing book covers", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 13, q: "What is 'magazine layout'?", a: ["Designing magazine pages", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 14, q: "What is 'web design'?", a: ["Designing websites", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 15, q: "What is 'UI design'?", a: ["Designing user interfaces", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 16, q: "What is 'UX design'?", a: ["Designing user experience", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 17, q: "What is 'wireframe'?", a: ["Skeleton layout for design", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 18, q: "What is 'mockup'?", a: ["Visual model of design", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 19, q: "What is 'prototype'?", a: ["Early model of design", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 20, q: "What is 'usability'?", a: ["Ease of use of design", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 21, q: "Who painted 'The Scream'?", a: ["Edvard Munch", "Picasso", "Monet", "Van Gogh"], correct: 0},
+        {id: 22, q: "Who painted 'The Great Wave off Kanagawa'?", a: ["Hokusai", "Hiroshige", "Utamaro", "Picasso"], correct: 0},
+        {id: 23, q: "Who painted 'Girl with a Pearl Earring'?", a: ["Vermeer", "Rembrandt", "Monet", "Van Gogh"], correct: 0},
+        {id: 24, q: "Who painted 'American Gothic'?", a: ["Grant Wood", "Picasso", "Monet", "Van Gogh"], correct: 0},
+        {id: 25, q: "Who painted 'The Persistence of Memory'?", a: ["Salvador Dali", "Picasso", "Monet", "Van Gogh"], correct: 0},
+        {id: 26, q: "Who painted 'The Starry Night'?", a: ["Vincent van Gogh", "Picasso", "Monet", "Dali"], correct: 0},
+        {id: 27, q: "Who painted 'Water Lilies'?", a: ["Claude Monet", "Van Gogh", "Picasso", "Dali"], correct: 0},
+        {id: 28, q: "Who painted 'The Kiss'?", a: ["Gustav Klimt", "Picasso", "Monet", "Van Gogh"], correct: 0},
+        {id: 29, q: "Who painted 'Guernica'?", a: ["Pablo Picasso", "Monet", "Van Gogh", "Dali"], correct: 0},
+        {id: 30, q: "Who painted 'The Last Supper'?", a: ["Leonardo da Vinci", "Michelangelo", "Raphael", "Botticelli"], correct: 0},
+        {id: 31, q: "What is 'tempera'?", a: ["Egg-based paint", "Oil paint", "Acrylic", "Watercolour"], correct: 0},
+        {id: 32, q: "What is 'fresco'?", a: ["Painting on wet plaster", "Oil painting", "Print", "Sculpture"], correct: 0},
+        {id: 33, q: "What is 'encaustic'?", a: ["Wax-based paint", "Oil paint", "Acrylic", "Watercolour"], correct: 0},
+        {id: 34, q: "What is 'gouache'?", a: ["Opaque watercolour", "Oil paint", "Acrylic", "Encaustic"], correct: 0},
+        {id: 35, q: "What is 'ink wash'?", a: ["Diluted ink technique", "Oil paint", "Acrylic", "Watercolour"], correct: 0},
+        {id: 36, q: "What is 'pastel'?", a: ["Pigment stick", "Oil paint", "Acrylic", "Watercolour"], correct: 0},
+        {id: 37, q: "What is 'charcoal'?", a: ["Burnt wood drawing material", "Oil paint", "Acrylic", "Watercolour"], correct: 0},
+        {id: 38, q: "What is 'graphite'?", a: ["Pencil lead material", "Oil paint", "Acrylic", "Watercolour"], correct: 0},
+        {id: 39, q: "What is 'watercolour'?", a: ["Water-based paint", "Oil paint", "Acrylic", "Encaustic"], correct: 0},
+        {id: 40, q: "What is 'oil paint'?", a: ["Oil-based paint", "Water-based", "Acrylic", "Encaustic"], correct: 0},
+        {id: 41, q: "What is 'collage'?", a: ["Art from paper pieces", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 42, q: "What is 'montage'?", a: ["Combining images", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 43, q: "What is 'photomontage'?", a: ["Combining photos", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 44, q: "What is 'assemblage'?", a: ["Art from found objects", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 45, q: "What is 'installation'?", a: ["3D environment art", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 46, q: "What is 'sculpture in the round'?", a: ["Free-standing sculpture", "Relief sculpture", "Painting", "Print"], correct: 0},
+        {id: 47, q: "What is 'relief sculpture'?", a: ["Sculpture projecting from background", "Free-standing", "Painting", "Print"], correct: 0},
+        {id: 48, q: "What is 'bas-relief'?", a: ["Low relief", "High relief", "Free-standing", "Painting"], correct: 0},
+        {id: 49, q: "What is 'high relief'?", a: ["Sculpture with deep projection", "Low relief", "Free-standing", "Painting"], correct: 0},
+        {id: 50, q: "What is 'sunken relief'?", a: ["Sculpture carved into surface", "High relief", "Free-standing", "Painting"], correct: 0},
+        {id: 51, q: "What is 'visual arts'?", a: ["Art forms that are primarily visual", "Music only", "Dance only", "Theatre only"], correct: 0},
+        {id: 52, q: "What is 'fine arts'?", a: ["Art for aesthetic enjoyment", "Commercial only", "Craft only", "Design only"], correct: 0},
+        {id: 53, q: "What is 'applied arts'?", a: ["Art with practical use", "Fine arts", "Sculpture", "Painting"], correct: 0},
+        {id: 54, q: "What is 'graphic arts'?", a: ["Art involving design and print", "Painting", "Sculpture", "Dance"], correct: 0},
+        {id: 55, q: "What is 'decorative arts'?", a: ["Art for beauty and function", "Fine arts", "Painting", "Sculpture"], correct: 0},
+        {id: 56, q: "What is 'performing arts'?", a: ["Art performed live", "Visual arts", "Painting", "Sculpture"], correct: 0},
+        {id: 57, q: "What is 'media arts'?", a: ["Art using technology", "Painting", "Sculpture", "Print"], correct: 0},
+        {id: 58, q: "What is 'craft'?", a: ["Skilled making of objects", "Fine arts", "Painting", "Sculpture"], correct: 0},
+        {id: 59, q: "What is 'design'?", a: ["Plan for creating something", "Randomness", "Chaos", "No structure"], correct: 0},
+        {id: 60, q: "What is 'aesthetics'?", a: ["Study of beauty", "Study of numbers", "Study of language", "Study of history"], correct: 0}
+    ];
+
+    // ----- ENGLISH (ID 61–80) — ALL NEW -----
+    const eng = [
+        {id: 61, q: "Choose the correct spelling:", a: ["Composition", "Composision", "Compositian", "Composishun"], correct: 0},
+        {id: 62, q: "The synonym of 'Exquisite' is:", a: ["Ugly", "Beautiful", "Dull", "Plain"], correct: 1},
+        {id: 63, q: "The antonym of 'Exquisite' is:", a: ["Elegant", "Crude", "Fine", "Graceful"], correct: 1},
+        {id: 64, q: "The plural of 'Datum' is:", a: ["Datums", "Data", "Datas", "Datum"], correct: 1},
+        {id: 65, q: "He is skilled _____ sculpture.", a: ["in", "at", "on", "for"], correct: 1},
+        {id: 66, q: "The past tense of 'Illustrate' is:", a: ["Illustrated", "Illustrates", "Illustrating", "Illustrate"], correct: 0},
+        {id: 67, q: "The synonym of 'Subtle' is:", a: ["Obvious", "Delicate", "Bold", "Loud"], correct: 1},
+        {id: 68, q: "The antonym of 'Subtle' is:", a: ["Delicate", "Obvious", "Fine", "Nuanced"], correct: 1},
+        {id: 69, q: "Choose the correct sentence:", a: ["She has finished the work.", "She have finished the work.", "She having finished the work.", "She is have finished the work."], correct: 0},
+        {id: 70, q: "The idiom 'To go back to the drawing board' means:", a: ["To draw", "To start over", "To quit", "To fail"], correct: 1},
+        {id: 71, q: "The synonym of 'Elegant' is:", a: ["Ugly", "Graceful", "Rough", "Coarse"], correct: 1},
+        {id: 72, q: "The antonym of 'Bright' is:", a: ["Shiny", "Dim", "Glowing", "Clear"], correct: 1},
+        {id: 73, q: "She is _____ skilled artist.", a: ["a", "an", "the", "no article"], correct: 0},
+        {id: 74, q: "The plural of 'Portrait' is:", a: ["Portraits", "Portrait's", "Portraitures", "Portrait"], correct: 0},
+        {id: 75, q: "The past tense of 'Draw' is:", a: ["Drew", "Drawed", "Drawn", "Drawing"], correct: 0},
+        {id: 76, q: "The synonym of 'Skillful' is:", a: ["Clumsy", "Expert", "Weak", "Slow"], correct: 1},
+        {id: 77, q: "The antonym of 'Complex' is:", a: ["Difficult", "Simple", "Hard", "Intricate"], correct: 1},
+        {id: 78, q: "They have been painting _____ morning.", a: ["since", "for", "from", "at"], correct: 0},
+        {id: 79, q: "The synonym of 'Masterpiece' is:", a: ["Ordinary work", "Great work", "Copy", "Sketch"], correct: 1},
+        {id: 80, q: "The antonym of 'Permanent' is:", a: ["Stable", "Temporary", "Fixed", "Constant"], correct: 1}
+    ];
+
+    // ----- PEDAGOGY (ID 81–100) — ALL NEW -----
+    const ped = [
+        {id: 81, q: "What is 'instructional design'?", a: ["Designing learning experiences", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 82, q: "What is 'learning objective'?", a: ["What students should learn", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 83, q: "What is 'SMART objective'?", a: ["Specific, Measurable, Achievable, Relevant, Time-bound", "Simple, Manageable, Applicable, Real, Timely", "Specific, Manageable, Achievable, Reliable, Timely", "Simple, Measurable, Applicable, Real, Time-bound"], correct: 0},
+        {id: 84, q: "What is 'formative assessment'?", a: ["Assessment during learning", "Assessment at end", "Punishment", "Register"], correct: 0},
+        {id: 85, q: "What is 'summative assessment'?", a: ["Assessment at end of course", "Assessment during learning", "Punishment", "Register"], correct: 0},
+        {id: 86, q: "What is 'rubric'?", a: ["Scoring guide with criteria", "Textbook", "Test", "Register"], correct: 0},
+        {id: 87, q: "What is 'portfolio'?", a: ["Collection of student work", "Punishment", "Register", "Test"], correct: 0},
+        {id: 88, q: "What is 'peer assessment'?", a: ["Students assess each other", "Teacher only", "Parents only", "No assessment"], correct: 0},
+        {id: 89, q: "What is 'self-assessment'?", a: ["Students assess themselves", "Teacher only", "Parents only", "No assessment"], correct: 0},
+        {id: 90, q: "What is 'feedback'?", a: ["Information to improve learning", "Punishment", "Register", "Silence"], correct: 0},
+        {id: 91, q: "What is 'constructive feedback'?", a: ["Specific, actionable feedback", "Vague feedback", "Negative only", "No feedback"], correct: 0},
+        {id: 92, q: "What is 'descriptive feedback'?", a: ["Describing what student did", "Praising only", "Criticizing only", "No feedback"], correct: 0},
+        {id: 93, q: "What is 'feed-forward'?", a: ["Feedback to guide future learning", "Feedback on past only", "No feedback", "Punishment"], correct: 0},
+        {id: 94, q: "What is 'differentiated instruction'?", a: ["Tailoring to individual needs", "Same for all", "Punishment", "Register"], correct: 0},
+        {id: 95, q: "What is 'inclusive classroom'?", a: ["Welcoming all students", "Only bright", "Only weak", "No students"], correct: 0},
+        {id: 96, q: "What is 'cooperative learning'?", a: ["Learning together", "Learning alone", "No learning", "Testing"], correct: 0},
+        {id: 97, q: "What is 'collaborative learning'?", a: ["Learning through collaboration", "Learning alone", "No learning", "Testing"], correct: 0},
+        {id: 98, q: "What is 'flipped classroom'?", a: ["Learn at home, practice in class", "Lectures only", "No homework", "No class"], correct: 0},
+        {id: 99, q: "What is 'blended learning'?", a: ["Online + offline learning", "Only online", "Only offline", "No learning"], correct: 0},
+        {id: 100, q: "What is 'gamification'?", a: ["Adding game elements to learning", "Punishing", "Silence", "Register"], correct: 0}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...art, ...eng, ...ped].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    function getSubject(qid) {
+        if (qid >= 1 && qid <= 60) return "Art";
+        if (qid >= 61 && qid <= 80) return "English";
+        if (qid >= 81 && qid <= 100) return "Pedagogy";
+        return "";
+    }
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    const TOTAL_TIME = 5400;
+    let timeLeft = TOTAL_TIME;
+    let endTime = 0;
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        endTime = Date.now() + TOTAL_TIME * 1000;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        if (!confirm("Are you sure you want to restart? Your current progress will be lost.")) return;
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        document.getElementById("subjectTag").innerText = getSubject(qid);
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = (correct * 1) - (wrongCount * 0.25);
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score.toFixed(2);
+    }
+
+    function nextQ() {
+        if (current < mcqs.length - 1) {
+            current++;
+            isReviewing = false;
+            loadQ();
+        } else {
+            if (laterList.length > 0) {
+                reviewLater();
+            } else {
+                showToast("⏳ Please wait... calculating result");
+                setTimeout(showResult, 500);
+            }
+        }
+    }
+
+    function saveLater() {
+        if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered — no need to save.");
+            return;
+        }
+        if (laterList.includes(current)) {
+            showToast("ℹ️ Already saved for later.");
+            return;
+        }
+        laterList.push(current);
+        showToast("✅ Saved! You can attempt it at the end.");
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            if (!reviewedLater.includes(current)) reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 All done! Calculating result...");
+            setTimeout(showResult, 500);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+            let h = Math.floor(timeLeft / 3600);
+            let m = Math.floor((timeLeft % 3600) / 60);
+            let s = timeLeft % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showToast("⏰ Time is up! Submitting...");
+                setTimeout(showResult, 800);
+            }
+        }, 250);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        window.scrollTo(0, 0);
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = (correct * 1) - (wrongCount * 0.25);
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score.toFixed(2)}</strong> / ${mcqs.length}<br>
+            ✅ Correct: ${correct} &nbsp;|&nbsp; ❌ Wrong: ${wrongCount} &nbsp;|&nbsp; ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<div class="table-wrap"><table>
+            <thead><tr><th class='qno-col'>Q-ID</th><th>Subject</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", correctAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "—";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${getSubject(q.id)}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</tbody></table></div>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>
