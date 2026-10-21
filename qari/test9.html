@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qari/Qaria Test – 09</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .note-red { color: #ff6b6b; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .subject-tag { background: #00c853; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .question { font-size: 18px; margin-bottom: 12px; text-align: left; font-weight: 400; direction: rtl; }
+        .question.ltr { direction: ltr; text-align: left; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button.rtl { direction: rtl; text-align: right; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; margin-top: 12px; }
+        table { border-collapse: collapse; width: 100%; min-width: 600px; background: rgba(0,0,0,0.4); font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        .madeby-box { background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 20px auto; width: 100%; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1); }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">📖 Qari/Qaria Test – 09</h1>
+        <h2>NTS / ETEA Pattern · 100 MCQs</h2>
+        <p class="subtitle">Tajweed 60 · English 20 · Pedagogy 20</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 90 Minutes</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-red">-0.25</span> (Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno-display">📌 Q: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="subjectTag" class="subject-tag"></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    const mcqs = [];
+
+    // ----- TAJWEED (ID 1–60) — Test 9: Advanced Topics -----
+    const tajweed = [
+        {id: 1, q: "علم التجوید کی تدوین کا دور کون سا ہے؟", a: ["نبی کریمﷺ کا دور", "صحابہ کرام کا دور", "تابعین کا دور", "بعد کے دور"], correct: 2},
+        {id: 2, q: "قرآن مجید کی سات قرأتیں کس حدیث میں بیان ہوئی ہیں؟", a: ["حدیثِ سبعۃ احرف", "حدیثِ جبریل", "حدیثِ معراج", "حدیثِ ہجرت"], correct: 0},
+        {id: 3, q: "قرآن کی مشہور قرأتوں کی تعداد کتنی ہے؟", a: ["7", "10", "14", "20"], correct: 1},
+        {id: 4, q: "رسم الخط عثمانی کیا ہے؟", a: ["قرآن کی عثمانی رسم الخط", "عربی گرامر", "تجوید کے قواعد", "حدیث کی کتاب"], correct: 0},
+        {id: 5, q: "متشابہات القرآن کا مطلب کیا ہے؟", a: ["قرآن میں ملتے جلتے الفاظ", "قرآن کا ترجمہ", "قرآن کی تفسیر", "قرآن کی جمع"], correct: 0},
+        {id: 6, q: "علم الوقف و الابتداء کا موضوع کیا ہے؟", a: ["کہاں رکنا اور کہاں شروع کرنا", "حروف کی صفات", "مد کے احکام", "سجدے"], correct: 0},
+        {id: 7, q: "قرآن مجید کو جمع کرنے والے تیسرے خلیفہ کون تھے؟", a: ["حضرت ابوبکرؓ", "حضرت عمرؓ", "حضرت عثمانؓ", "حضرت علیؓ"], correct: 2},
+        {id: 8, q: "حروفِ استعلا کی تعداد کتنی ہے؟", a: ["4", "5", "6", "7"], correct: 3},
+        {id: 9, q: "حروفِ اطباق کی تعداد کتنی ہے؟", a: ["3", "4", "5", "6"], correct: 1},
+        {id: 10, q: "حروفِ انفتاح کی تعداد کتنی ہے؟", a: ["20", "21", "22", "23"], correct: 1},
+        {id: 11, q: "حروفِ اذلاق کی تعداد کتنی ہے؟", a: ["4", "5", "6", "7"], correct: 2},
+        {id: 12, q: "حروفِ اصمات کی تعداد کتنی ہے؟", a: ["20", "21", "22", "23"], correct: 2},
+        {id: 13, q: "حروفِ ہمس کی تعداد کتنی ہے؟", a: ["4", "5", "6", "10"], correct: 3},
+        {id: 14, q: "حروفِ جہر کی تعداد کتنی ہے؟", a: ["10", "15", "18", "20"], correct: 2},
+        {id: 15, q: "حروفِ شدہ کی تعداد کتنی ہے؟", a: ["6", "7", "8", "9"], correct: 2},
+        {id: 16, q: "حروفِ رخوہ کی تعداد کتنی ہے؟", a: ["12", "13", "14", "15"], correct: 1},
+        {id: 17, q: "حروفِ قلقلہ کون سے ہیں؟", a: ["ق، ط، ب، ج، د", "ص، ض، ط، ظ", "م، ن، ر، ل", "ہ، ع، ح، غ"], correct: 0},
+        {id: 18, q: "حروفِ صفیریہ کون سے ہیں؟", a: ["ص، س، ز", "ق، ک، ج", "م، ن، ر", "ب، ف، و"], correct: 0},
+        {id: 19, q: "حروفِ لین کون سے ہیں؟", a: ["و، ی", "ا، و", "ی، ا", "و، م"], correct: 0},
+        {id: 20, q: "حروفِ مستعلیہ کون سے ہیں؟", a: ["ق، ص، ض، ط، ظ، ع، خ، غ", "ب، ت، ث، ج، ح", "س، ش، ص، ز", "م، ن، و، ی"], correct: 0},
+        {id: 21, q: "مدِ بدل کی مقدار کتنی ہے؟", a: ["1 الف", "2 الف", "3 الف", "4 الف"], correct: 0},
+        {id: 22, q: "مدِ عارض میں کتنی الف تک گنجائش ہے؟", a: ["2 الف", "3 الف", "4 الف", "2 سے 6 الف"], correct: 3},
+        {id: 23, q: "مدِ لازم کی مقدار کتنی ہے؟", a: ["2 الف", "3 الف", "4 الف", "5 الف"], correct: 2},
+        {id: 24, q: "مدِ متصل کی مقدار کتنی ہے؟", a: ["2 الف", "3 الف", "4 الف", "5 الف"], correct: 2},
+        {id: 25, q: "مدِ منفصل کی مقدار کتنی ہے؟", a: ["2 الف", "3 الف", "4 الف", "5 الف"], correct: 1},
+        {id: 26, q: "نون ساکن کے حروفِ حلق پر کیا حکم ہے؟", a: ["اظہار", "ادغام", "اقلاب", "اخفا"], correct: 0},
+        {id: 27, q: "نون ساکن کے 'ی، ر، ل، و، م، ن' پر کیا حکم ہے؟", a: ["اظہار", "ادغام", "اقلاب", "اخفا"], correct: 1},
+        {id: 28, q: "نون ساکن کا 'ب' پر کیا حکم ہے؟", a: ["اظہار", "ادغام", "اقلاب", "اخفا"], correct: 2},
+        {id: 29, q: "نون ساکن کے باقی حروف پر کیا حکم ہے؟", a: ["اظہار", "ادغام", "اقلاب", "اخفا"], correct: 3},
+        {id: 30, q: "میم ساکن کے 'ب' پر کیا حکم ہے؟", a: ["اظہار", "ادغام", "اقلاب شفوی", "اخفا شفوی"], correct: 3},
+        {id: 31, q: "میم ساکن کے 'م' پر کیا حکم ہے؟", a: ["اظہار شفوی", "ادغام شفوی", "اقلاب", "اخفا"], correct: 1},
+        {id: 32, q: "وقفِ لازم کی علامت کون سی ہے؟", a: ["م", "لا", "ط", "ج"], correct: 0},
+        {id: 33, q: "وقفِ ممنوع کی علامت کون سی ہے؟", a: ["م", "لا", "ط", "ج"], correct: 1},
+        {id: 34, q: "وقفِ مطلق کی علامت کون سی ہے؟", a: ["م", "لا", "ط", "ج"], correct: 2},
+        {id: 35, q: "وقفِ جائز کی علامت کون سی ہے؟", a: ["م", "لا", "ط", "ج"], correct: 3},
+        {id: 36, q: "وقفِ معانقہ کسے کہتے ہیں؟", a: ["دو جگہوں پر وقف", "ایک جگہ وقف", "وقف نہ کرنا", "درمیان سے پڑھنا"], correct: 0},
+        {id: 37, q: "تلاوت میں 'ترتیل' کا مطلب کیا ہے؟", a: ["جلدی پڑھنا", "ٹھہر ٹھہر کر پڑھنا", "خاموش رہنا", "اچھی آواز"], correct: 1},
+        {id: 38, q: "تلاوت میں 'حدر' کا مطلب کیا ہے؟", a: ["جلد پڑھنا", "ٹھہر ٹھہر کر", "خاموشی", "اچھی آواز"], correct: 0},
+        {id: 39, q: "تلاوت میں 'تدویر' کا مطلب کیا ہے؟", a: ["درمیانی رفتار", "جلدی", "خاموشی", "اچھی آواز"], correct: 0},
+        {id: 40, q: "قرآن کو اچھی آواز میں پڑھنے کا حکم کیا ہے؟", a: ["مستحب", "فرض", "واجب", "حرام"], correct: 0},
+        {id: 41, q: "سجدہ تلاوت کی کل تعداد کتنی ہے؟", a: ["10", "12", "14", "15"], correct: 3},
+        {id: 42, q: "قرآن مجید کے کل پارے کتنے ہیں؟", a: ["20", "25", "30", "35"], correct: 2},
+        {id: 43, q: "قرآن مجید میں کل سورتیں کتنی ہیں؟", a: ["100", "110", "114", "120"], correct: 2},
+        {id: 44, q: "کس سورت کو 'قرآن کا دل' کہا جاتا ہے؟", a: ["البقرہ", "یٰسین", "الکہف", "الرحمٰن"], correct: 1},
+        {id: 45, q: "کس سورت میں بسم اللہ دو بار آئی ہے؟", a: ["النمل", "البقرہ", "الفاتحہ", "الاخلاص"], correct: 0},
+        {id: 46, q: "قرآن کی سب سے لمبی سورت کون سی ہے؟", a: ["سورۃ البقرہ", "سورۃ آل عمران", "سورۃ النساء", "سورۃ المائدہ"], correct: 0},
+        {id: 47, q: "قرآن کی سب سے چھوٹی سورت کون سی ہے؟", a: ["سورۃ الکوثر", "سورۃ الاخلاص", "سورۃ الناس", "سورۃ الفلق"], correct: 0},
+        {id: 48, q: "قرآن کی کون سی سورت 'مکی' ہے؟", a: ["سورۃ البقرہ", "سورۃ الفاتحہ", "سورۃ النساء", "سورۃ المائدہ"], correct: 1},
+        {id: 49, q: "قرآن کی کون سی سورت 'مدنی' ہے؟", a: ["سورۃ العلق", "سورۃ البقرہ", "سورۃ الفلق", "سورۃ الناس"], correct: 1},
+        {id: 50, q: "حروفِ مدہ کی تعداد کتنی ہے؟", a: ["2", "3", "4", "5"], correct: 1},
+        {id: 51, q: "نون ساکن اور تنوین کے کتنے احکام ہیں؟", a: ["2", "3", "4", "5"], correct: 2},
+        {id: 52, q: "میم ساکن کے کتنے احکام ہیں؟", a: ["2", "3", "4", "5"], correct: 2},
+        {id: 53, q: "اظہار کا مطلب کیا ہے؟", a: ["ملانا", "ظاہر کرنا", "چھپانا", "بدلنا"], correct: 1},
+        {id: 54, q: "ادغام کا مطلب کیا ہے؟", a: ["ملانا", "ظاہر کرنا", "چھپانا", "بدلنا"], correct: 0},
+        {id: 55, q: "اقلاب کا مطلب کیا ہے؟", a: ["ملانا", "ظاہر کرنا", "بدلنا", "چھپانا"], correct: 2},
+        {id: 56, q: "اخفا کا مطلب کیا ہے؟", a: ["ملانا", "ظاہر کرنا", "بدلنا", "چھپانا"], correct: 3},
+        {id: 57, q: "علم تجوید کا لغوی معنی کیا ہے؟", a: ["خوبصورت کرنا", "ترتیب دینا", "صاف کرنا", "پڑھنا"], correct: 0},
+        {id: 58, q: "قرآن مجید کا نزول کس ماہ میں ہوا؟", a: ["محرم", "رمضان", "شعبان", "رجب"], correct: 1},
+        {id: 59, q: "حروف تہجی کی کل تعداد کتنی ہے؟", a: ["26", "28", "29", "30"], correct: 2},
+        {id: 60, q: "مخارج کی کل تعداد کتنی ہے؟", a: ["5", "6", "7", "17"], correct: 3}
+    ];
+
+    // ----- ENGLISH (ID 61–80) — Test 9: Grammar & Vocabulary -----
+    const eng = [
+        {id: 61, q: "Choose the correct spelling:", a: ["Recitation", "Recitasion", "Recitatian", "Recitashun"], correct: 0},
+        {id: 62, q: "The synonym of 'Beautiful' is:", a: ["Pretty", "Ugly", "Dirty", "Rough"], correct: 0},
+        {id: 63, q: "The antonym of 'Difficult' is:", a: ["Easy", "Hard", "Tough", "Complex"], correct: 0},
+        {id: 64, q: "The plural of 'Child' is:", a: ["Children", "Childs", "Childes", "Child"], correct: 0},
+        {id: 65, q: "He is good _____ Tajweed.", a: ["at", "in", "on", "for"], correct: 0},
+        {id: 66, q: "The past tense of 'Read' is:", a: ["Read", "Readed", "Reading", "Reads"], correct: 0},
+        {id: 67, q: "The synonym of 'Great' is:", a: ["Big", "Small", "Tiny", "Little"], correct: 0},
+        {id: 68, q: "The antonym of 'Open' is:", a: ["Close", "Wide", "Start", "Free"], correct: 0},
+        {id: 69, q: "Choose the correct sentence:", a: ["She reads the Quran daily.", "She read the Quran daily.", "She reading the Quran daily.", "She is read the Quran daily."], correct: 0},
+        {id: 70, q: "The idiom 'A piece of cake' means:", a: ["Very easy task", "A sweet dish", "Very difficult task", "A birthday gift"], correct: 0},
+        {id: 71, q: "The synonym of 'Diligent' is:", a: ["Hardworking", "Lazy", "Idle", "Slow"], correct: 0},
+        {id: 72, q: "The antonym of 'Success' is:", a: ["Failure", "Achievement", "Victory", "Win"], correct: 0},
+        {id: 73, q: "He is _____ honest Qari.", a: ["an", "a", "the", "no article"], correct: 0},
+        {id: 74, q: "The plural of 'Qari' is:", a: ["Qura", "Qaris", "Qaries", "Qari's"], correct: 0},
+        {id: 75, q: "The past tense of 'Teach' is:", a: ["Taught", "Teached", "Teaching", "Teach"], correct: 0},
+        {id: 76, q: "The synonym of 'Holy' is:", a: ["Sacred", "Impure", "Dirty", "Unclean"], correct: 0},
+        {id: 77, q: "The antonym of 'Pure' is:", a: ["Impure", "Clean", "Fresh", "Clear"], correct: 0},
+        {id: 78, q: "He has been reciting the Quran _____ two hours.", a: ["for", "since", "from", "at"], correct: 0},
+        {id: 79, q: "The synonym of 'Reward' is:", a: ["Prize", "Punish", "Pain", "Loss"], correct: 0},
+        {id: 80, q: "The antonym of 'Good' is:", a: ["Bad", "Nice", "Kind", "Fine"], correct: 0}
+    ];
+
+    // ----- PEDAGOGY (ID 81–100) — Test 9: Teaching Methods & Assessment -----
+    const ped = [
+        {id: 81, q: "Piaget کے مطابق بچے کس مرحلے میں علامتی سوچ شروع کرتے ہیں؟", a: ["Preoperational", "Sensorimotor", "Concrete operational", "Formal operational"], correct: 0},
+        {id: 82, q: "Bruner کا 'Discovery Learning' کیا ہے؟", a: ["خود دریافت کر کے سیکھنا", "استاد کی ہدایت پر سیکھنا", "رتّا لگانا", "سزا سے سیکھنا"], correct: 0},
+        {id: 83, q: "Skinner کا نظریہ کس پر مبنی ہے؟", a: ["Behaviourism", "Constructivism", "Humanism", "Cognitivism"], correct: 0},
+        {id: 84, q: "'Demonstration Method' میں استاد کیا کرتا ہے؟", a: ["عملی طور پر دکھاتا ہے", "صرف لیکچر", "امتحان لیتا ہے", "خاموش رہتا ہے"], correct: 0},
+        {id: 85, q: "'Project Method' کا بانی کون ہے؟", a: ["Kilpatrick", "Skinner", "Piaget", "Bruner"], correct: 0},
+        {id: 86, q: "تشخیصی اسیسمنٹ کا مقصد کیا ہے؟", a: ["کمزوریوں کی نشاندہی", "درجہ بندی", "سزا", "رپورٹ"], correct: 0},
+        {id: 87, q: "سمیٹیو اسیسمنٹ کب ہوتا ہے؟", a: ["تعلیم کے اختتام پر", "تعلیم کے دوران", "شروع میں", "کبھی نہیں"], correct: 0},
+        {id: 88, q: "کلاس روم مینجمنٹ کا بہترین طریقہ کیا ہے؟", a: ["مثبت رویہ اور نظم", "سزا", "شور", "ڈرانا"], correct: 0},
+        {id: 89, q: "طلبہ کی حوصلہ افزائی کا بہترین طریقہ کیا ہے؟", a: ["تعریف اور انعام", "سزا", "نظر انداز", "ڈانٹ"], correct: 0},
+        {id: 90, q: "جامع تعلیم کا مطلب کیا ہے؟", a: ["سب کے لیے تعلیم", "صرف امیروں کے لیے", "صرف غریبوں کے لیے", "کوئی تعلیم نہیں"], correct: 0},
+        {id: 91, q: "تشخیص کا بنیادی مقصد کیا ہے؟", a: ["تعلیم کو بہتر بنانا", "درجہ بندی", "سزا", "رپورٹ"], correct: 0},
+        {id: 92, q: "اکیسویں صدی کی اہم مہارت کون سی ہے؟", a: ["تنقیدی سوچ", "حفظ", "رتّا", "خاموشی"], correct: 0},
+        {id: 93, q: "اچھے قاری استاد کو کیسا ہونا چاہیے؟", a: ["صابر اور حوصلہ افزا", "سخت", "غصے والا", "سست"], correct: 0},
+        {id: 94, q: "چھوٹے بچوں کو قرآن سکھانے کا بہترین طریقہ کیا ہے؟", a: ["تکرار اور مشق", "لیکچر", "امتحانات", "خاموشی"], correct: 0},
+        {id: 95, q: "کس نظریے کے مطابق طالب علم اپنے علم کی تعمیر خود کرتا ہے؟", a: ["Constructivism", "Behaviourism", "Cognitivism", "Humanism"], correct: 0},
+        {id: 96, q: "فارماتیو اسیسمنٹ کا بنیادی مقصد کیا ہے؟", a: ["تعلیم کے دوران رائے دے کر بہتری", "درجہ بندی", "آخری نمبر", "ناکام کرنا"], correct: 0},
+        {id: 97, q: "Vygotsky کے 'ZPD' کا مفہوم کیا ہے؟", a: ["موجودہ اور ممکنہ صلاحیت کے درمیان فرق", "ذہنی عمر", "IQ لیول", "کلاس کا سائز"], correct: 0},
+        {id: 98, q: "تجوید کی تدریس میں 'ٹاسک بیسڈ لرننگ' کا مطلب کیا ہے؟", a: ["عملی تلاوت کے ٹاسک دے کر سکھانا", "صرف لیکچر", "امتحان", "خاموشی"], correct: 0},
+        {id: 99, q: "کس assessment کو 'assessment for learning' کہا جاتا ہے؟", a: ["Formative", "Summative", "Diagnostic", "Placement"], correct: 0},
+        {id: 100, q: "قرآن/تجوید کی کلاس میں 'differentiated instruction' کا مطلب کیا ہے؟", a: ["ہر طالب علم کی سطح کے مطابق طریقہ", "سب کو ایک ہی طریقہ", "صرف بہترین طلبہ", "صرف کمزوروں"], correct: 0}
+    ];
+
+    mcqs.push(...tajweed, ...eng, ...ped);
+
+    let current = 0, score = 0, correctCount = 0, wrongCount = 0, attempted = 0;
+    let answers = new Array(mcqs.length).fill(null);
+    let saved = [];
+    let timerInterval, timeLeft = 90 * 60;
+
+    function startTest() {
+        document.getElementById('frontPage').style.display = 'none';
+        document.getElementById('quiz').style.display = 'block';
+        document.getElementById('totalQ').innerText = mcqs.length;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let h = String(Math.floor(timeLeft/3600)).padStart(2,'0');
+            let m = String(Math.floor((timeLeft%3600)/60)).padStart(2,'0');
+            let s = String(timeLeft%60).padStart(2,'0');
+            document.getElementById('time').innerText = h+':'+m+':'+s;
+            if(timeLeft<=0){ clearInterval(timerInterval); endTest(); }
+        },1000);
+        showQ();
+    }
+
+    function showQ() {
+        let q = mcqs[current];
+        document.getElementById('qno').innerText = String(current+1).padStart(3,'0');
+        document.getElementById('qNumber').innerText = q.id;
+        document.getElementById('question').innerText = q.q;
+        document.getElementById('subjectTag').innerText = q.id<=60?'Tajweed':(q.id<=80?'English':'Pedagogy');
+        let optDiv = document.getElementById('options');
+        optDiv.innerHTML = '';
+        q.a.forEach((opt, i) => {
+            let btn = document.createElement('button');
+            btn.innerText = opt;
+            if(q.id>60 && q.id<=80) btn.classList.add('rtl');
+            if(answers[current] !== null) {
+                btn.disabled = true;
+                if(i === q.correct) btn.classList.add('correct');
+                if(answers[current] === i && i !== q.correct) btn.classList.add('wrong');
+            }
+            btn.onclick = () => selectOpt(i);
+            optDiv.appendChild(btn);
+        });
+        updateScore();
+    }
+
+    function selectOpt(i) {
+        if(answers[current] !== null) return;
+        answers[current] = i;
+        let q = mcqs[current];
+        let btns = document.querySelectorAll('#options button');
+        btns.forEach(b => b.disabled = true);
+        btns[q.correct].classList.add('correct');
+        if(i !== q.correct) btns[i].classList.add('wrong');
+        attempted++;
+        if(i === q.correct){ correctCount++; score += 1; }
+        else { wrongCount++; score -= 0.25; }
+        updateScore();
+    }
+
+    function updateScore() {
+        document.getElementById('attempted').innerText = attempted;
+        document.getElementById('correct').innerText = correctCount;
+        document.getElementById('wrong').innerText = wrongCount;
+        document.getElementById('liveScore').innerText = score.toFixed(2);
+    }
+
+    function nextQ() {
+        if(current < mcqs.length-1){ current++; showQ(); }
+        else { endTest(); }
+    }
+
+    function saveLater() {
+        if(!saved.includes(current)) saved.push(current);
+        showToast('💾 Saved for later');
+        nextQ();
+    }
+
+    function endTest() {
+        clearInterval(timerInterval);
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('score').innerHTML = 'Score: <b style="color:#00e676">'+score.toFixed(2)+'</b> / 100<br>Attempted: '+attempted+' | Correct: '+correctCount+' | Wrong: '+wrongCount;
+        let tbl = '<div class="table-wrap"><table><tr><th>Q#</th><th>Question</th><th>Your Ans</th><th>Correct</th></tr>';
+        mcqs.forEach((q,i) => {
+            let yr = answers[i]!==null ? q.a[answers[i]] : '—';
+            let cr = q.a[q.correct];
+            let ok = answers[i]===q.correct;
+            tbl += '<tr><td class="qno-col">'+q.id+'</td><td>'+q.q+'</td><td style="color:'+(ok?'#00e676':'#ff6b6b')+'">'+yr+'</td><td style="color:#00e676">'+cr+'</td></tr>';
+        });
+        tbl += '</table></div>';
+        document.getElementById('resultTable').innerHTML = tbl;
+    }
+
+    function restartTest() {
+        current=0; score=0; correctCount=0; wrongCount=0; attempted=0;
+        answers = new Array(mcqs.length).fill(null);
+        saved = []; timeLeft = 90*60;
+        document.getElementById('result').style.display='none';
+        document.getElementById('frontPage').style.display='block';
+    }
+</script>
+</body>
+</html>
