@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SST General Test – 01</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .note-red { color: #ff6b6b; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .subject-tag { background: #00c853; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .question { font-size: 17px; margin-bottom: 12px; text-align: left; font-weight: 400; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 15px; text-align: left; transition: 0.2s; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        table { border-collapse: collapse; width: 100%; margin-top: 12px; background: rgba(0,0,0,0.4); border-radius: 10px; overflow: hidden; font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        .madeby-box { background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 20px auto; width: 100%; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1); }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); pointer-events: none; }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 15px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- FRONT PAGE -->
+    <div id="frontPage">
+        <h1 class="main-heading">👨‍🏫 SST General Test – 01</h1>
+        <h2>NTS / ETEA Pattern · 100 MCQs</h2>
+        <p class="subtitle">English 60 · Pedagogy 20 · GK/Islamiat 20</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 90 Minutes</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-red">-0.25</span> (Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno-display">📌 Q: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="subjectTag" class="subject-tag"></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+    <!-- MADE BY BOX -->
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // SST GENERAL TEST 1: 100 MCQs (Grade 16 - Advanced)
+    // ================================================================
+    const mcqs = [];
+
+    // ----- ENGLISH (ID 1–60) -----
+    const eng = [
+        {id: 1, q: "Identify the correct spelling:", a: ["Bureaucracy", "Buraucracy", "Bureacracy", "Burocracy"], correct: 0},
+        {id: 2, q: "The synonym of 'Meticulous' is:", a: ["Careless", "Extremely careful", "Hasty", "Sloppy"], correct: 1},
+        {id: 3, q: "The antonym of 'Benevolent' is:", a: ["Kind", "Malevolent", "Generous", "Helpful"], correct: 1},
+        {id: 4, q: "Choose the correct idiom meaning 'to accept defeat':", a: ["To bite the dust", "To bite the bullet", "To burn the midnight oil", "To let the cat out of the bag"], correct: 0},
+        {id: 5, q: "The plural of 'Stratum' is:", a: ["Stratums", "Strata", "Strates", "Strati"], correct: 1},
+        {id: 6, q: "She was accused _____ stealing the money.", a: ["for", "of", "with", "from"], correct: 1},
+        {id: 7, q: "The past participle of 'Forsake' is:", a: ["Forsaked", "Forsaken", "Forsook", "Forsaking"], correct: 1},
+        {id: 8, q: "Choose the correct passive voice: 'They are building a new hospital.'", a: ["A new hospital is built by them.", "A new hospital is being built by them.", "A new hospital was being built by them.", "A new hospital has been built by them."], correct: 1},
+        {id: 9, q: "The word 'Ubiquitous' means:", a: ["Rare", "Present everywhere", "Hidden", "Scarce"], correct: 1},
+        {id: 10, q: "Identify the adverb in the sentence: 'He runs very fast.'", a: ["He", "runs", "very", "fast"], correct: 2},
+        {id: 11, q: "The antonym of 'Transparent' is:", a: ["Clear", "Opaque", "Visible", "Bright"], correct: 1},
+        {id: 12, q: "He said, 'I am going to Lahore.' (Change to indirect speech)", a: ["He said that he is going to Lahore.", "He said that he was going to Lahore.", "He says that he was going to Lahore.", "He said that I am going to Lahore."], correct: 1},
+        {id: 13, q: "The synonym of 'Candid' is:", a: ["Secretive", "Frank", "Deceptive", "Evasive"], correct: 1},
+        {id: 14, q: "The plural of 'Larva' is:", a: ["Larvas", "Larvae", "Larvum", "Larvs"], correct: 1},
+        {id: 15, q: "Choose the correct preposition: 'He is devoid _____ common sense.'", a: ["from", "of", "with", "in"], correct: 1},
+        {id: 16, q: "The past tense of 'Withstand' is:", a: ["Withstanded", "Withstood", "Withstands", "Withstanding"], correct: 1},
+        {id: 17, q: "The word 'Ephemeral' means:", a: ["Eternal", "Short-lived", "Permanent", "Everlasting"], correct: 1},
+        {id: 18, q: "Identify the error: 'One of my friend is a doctor.'", a: ["One of", "my friend", "is", "a doctor"], correct: 1},
+        {id: 19, q: "The synonym of 'Prudent' is:", a: ["Reckless", "Wise", "Foolish", "Careless"], correct: 1},
+        {id: 20, q: "The antonym of 'Obscure' is:", a: ["Hidden", "Clear", "Vague", "Dark"], correct: 1},
+        {id: 21, q: "Complete the sentence: 'Hardly had I reached the station _____ the train left.'", a: ["than", "when", "then", "that"], correct: 1},
+        {id: 22, q: "The plural of 'Fungus' is:", a: ["Funguses", "Fungi", "Fungae", "Fungas"], correct: 1},
+        {id: 23, q: "The past tense of 'Strive' is:", a: ["Strived", "Strove", "Striven", "Striving"], correct: 1},
+        {id: 24, q: "The synonym of 'Tenacious' is:", a: ["Weak", "Persistent", "Yielding", "Fragile"], correct: 1},
+        {id: 25, q: "The antonym of 'Amateur' is:", a: ["Novice", "Professional", "Beginner", "Learner"], correct: 1},
+        {id: 26, q: "Choose the correct spelling:", a: ["Maintenance", "Maintainance", "Maintenence", "Maintanance"], correct: 0},
+        {id: 27, q: "The synonym of 'Impartial' is:", a: ["Biased", "Unbiased", "Prejudiced", "Partial"], correct: 1},
+        {id: 28, q: "They have lived here _____ five years.", a: ["since", "for", "from", "in"], correct: 1},
+        {id: 29, q: "The antonym of 'Abundant' is:", a: ["Plentiful", "Scarce", "Ample", "Copious"], correct: 1},
+        {id: 30, q: "The plural of 'Formula' is:", a: ["Formulas", "Formulae", "Formulai", "Formulas"], correct: 1},
+        {id: 31, q: "She is fond _____ playing chess.", a: ["to", "of", "for", "at"], correct: 1},
+        {id: 32, q: "The past participle of 'Swear' is:", a: ["Swore", "Sworn", "Swearing", "Swears"], correct: 1},
+        {id: 33, q: "The synonym of 'Hostile' is:", a: ["Friendly", "Unfriendly", "Warm", "Cordial"], correct: 1},
+        {id: 34, q: "The antonym of 'Zenith' is:", a: ["Peak", "Nadir", "Summit", "Top"], correct: 1},
+        {id: 35, q: "Choose the correct sentence:", a: ["Neither of the boys were present.", "Neither of the boys was present.", "Neither of the boys are present.", "Neither of the boys have been present."], correct: 1},
+        {id: 36, q: "The synonym of 'Profound' is:", a: ["Shallow", "Deep", "Superficial", "Simple"], correct: 1},
+        {id: 37, q: "The antonym of 'Generous' is:", a: ["Kind", "Miserly", "Liberal", "Bountiful"], correct: 1},
+        {id: 38, q: "He has been working here _____ 2015.", a: ["for", "since", "from", "at"], correct: 1},
+        {id: 39, q: "The plural of 'Nucleus' is:", a: ["Nucleuses", "Nuclei", "Nucleus", "Nuclea"], correct: 1},
+        {id: 40, q: "The past tense of 'Flee' is:", a: ["Fleed", "Fled", "Fleen", "Fleeing"], correct: 1},
+        {id: 41, q: "The synonym of 'Resilient' is:", a: ["Rigid", "Flexible", "Brittle", "Stiff"], correct: 1},
+        {id: 42, q: "The antonym of 'Concise' is:", a: ["Brief", "Verbose", "Short", "Compact"], correct: 1},
+        {id: 43, q: "She is brilliant _____ mathematics.", a: ["in", "at", "on", "for"], correct: 1},
+        {id: 44, q: "The synonym of 'Inevitable' is:", a: ["Avoidable", "Unavoidable", "Preventable", "Escapable"], correct: 1},
+        {id: 45, q: "The antonym of 'Optimist' is:", a: ["Idealist", "Pessimist", "Realist", "Fatalist"], correct: 1},
+        {id: 46, q: "By the time we reached, the movie _____.", a: ["started", "had started", "starts", "is starting"], correct: 1},
+        {id: 47, q: "The plural of 'Appendix' is:", a: ["Appendixes", "Appendices", "Appendices", "Appendix"], correct: 1},
+        {id: 48, q: "The past tense of 'Bind' is:", a: ["Binded", "Bound", "Binding", "Binds"], correct: 1},
+        {id: 49, q: "The synonym of 'Arduous' is:", a: ["Easy", "Difficult", "Simple", "Effortless"], correct: 1},
+        {id: 50, q: "The antonym of 'Transient' is:", a: ["Temporary", "Permanent", "Fleeting", "Momentary"], correct: 1},
+        {id: 51, q: "Choose the correct spelling:", a: ["Parliment", "Parliament", "Parlament", "Parliamant"], correct: 1},
+        {id: 52, q: "The synonym of 'Comprehensive' is:", a: ["Incomplete", "Thorough", "Partial", "Limited"], correct: 1},
+        {id: 53, q: "I have been living in this city _____ 10 years.", a: ["since", "for", "from", "at"], correct: 1},
+        {id: 54, q: "The antonym of 'Frugal' is:", a: ["Thrifty", "Extravagant", "Economical", "Careful"], correct: 1},
+        {id: 55, q: "The plural of 'Phenomenon' is:", a: ["Phenomenons", "Phenomena", "Phenomenae", "Phenomenon"], correct: 1},
+        {id: 56, q: "He is extremely good _____ English.", a: ["in", "at", "on", "for"], correct: 1},
+        {id: 57, q: "The past participle of 'Hide' is:", a: ["Hid", "Hidden", "Hiding", "Hides"], correct: 1},
+        {id: 58, q: "The synonym of 'Cordial' is:", a: ["Hostile", "Friendly", "Cold", "Distant"], correct: 1},
+        {id: 59, q: "The antonym of 'Scrutinize' is:", a: ["Examine", "Ignore", "Inspect", "Study"], correct: 1},
+        {id: 60, q: "Choose the correct sentence:", a: ["Each of the students have a book.", "Each of the students has a book.", "Each of the students are having a book.", "Each of the students were having a book."], correct: 1}
+    ];
+
+    // ----- PEDAGOGY (ID 61–80) — 20 MCQs -----
+    const ped = [
+        {id: 61, q: "Who is considered the father of modern pedagogy?", a: ["John Dewey", "B.F. Skinner", "Jean Piaget", "Johann Heinrich Pestalozzi"], correct: 0},
+        {id: 62, q: "In Bloom's Taxonomy, which level involves breaking information into parts?", a: ["Understanding", "Applying", "Analyzing", "Evaluating"], correct: 2},
+        {id: 63, q: "The 'Zone of Proximal Development' (ZPD) is a concept given by:", a: ["Piaget", "Vygotsky", "Erikson", "Kohlberg"], correct: 1},
+        {id: 64, q: "Which assessment is conducted during the learning process?", a: ["Summative", "Formative", "Diagnostic", "Placement"], correct: 1},
+        {id: 65, q: "The term 'Hidden Curriculum' refers to:", a: ["Unofficial lessons learned in school", "Secret syllabus", "Extra classes", "Hidden books"], correct: 0},
+        {id: 66, q: "A teaching strategy where students work together in small groups is called:", a: ["Lecture method", "Cooperative learning", "Rote learning", "Demonstration"], correct: 1},
+        {id: 67, q: "According to Piaget, a child in the 'Concrete Operational Stage' (7-11 years) can:", a: ["Think abstractly", "Perform logical operations on concrete objects", "Only use senses", "Understand hypothetical situations"], correct: 1},
+        {id: 68, q: "What is the main purpose of a 'Lesson Plan'?", a: ["To fill the register", "To ensure organized and effective teaching", "To punish students", "To waste time"], correct: 1},
+        {id: 69, q: "The theory of 'Operant Conditioning' was proposed by:", a: ["Pavlov", "Skinner", "Thorndike", "Bandura"], correct: 1},
+        {id: 70, q: "In teaching, 'Scaffolding' means:", a: ["Punishing weak students", "Providing temporary support to learners", "Giving extra homework", "Making students memorize"], correct: 1},
+        {id: 71, q: "Which is the highest level of cognitive domain in Bloom's Taxonomy?", a: ["Knowledge", "Comprehension", "Synthesis", "Evaluation"], correct: 3},
+        {id: 72, q: "The term 'Pedagogy' literally means:", a: ["Study of children", "Art of teaching", "School management", "Child psychology"], correct: 1},
+        {id: 73, q: "A teacher's primary role in a student-centered classroom is that of a:", a: ["Lecturer", "Facilitator", "Dictator", "Examiner"], correct: 1},
+        {id: 74, q: "What is 'Peer Assessment'?", a: ["Teacher assessing students", "Students assessing each other", "Self-assessment", "Parental assessment"], correct: 1},
+        {id: 75, q: "The concept of 'Multiple Intelligences' was introduced by:", a: ["Howard Gardner", "Jean Piaget", "B.F. Skinner", "Abraham Maslow"], correct: 0},
+        {id: 76, q: "Which of the following is a '21st Century Skill'?", a: ["Rote memorization", "Critical thinking", "Silence in class", "Copying from board"], correct: 1},
+        {id: 77, q: "The main goal of 'Inclusive Education' is to:", a: ["Separate special children", "Provide education to all children together", "Only teach rich students", "Exclude weak students"], correct: 1},
+        {id: 78, q: "A 'Rubric' is used for:", a: ["Grading students with clear criteria", "Writing lesson plans", "Classroom decoration", "Giving homework"], correct: 0},
+        {id: 79, q: "The 'Socratic Method' of teaching involves:", a: ["Lecturing", "Asking probing questions", "Rote learning", "Silent reading"], correct: 1},
+        {id: 80, q: "Which learning theory emphasizes observation and imitation?", a: ["Behaviorism", "Cognitivism", "Social Learning Theory", "Constructivism"], correct: 2}
+    ];
+
+    // ----- GK / ISLAMIAT (ID 81–100) — 20 MCQs -----
+    const gk = [
+        {id: 81, q: "The Battle of Yarmouk (636 AD) was fought between Muslims and:", a: ["Sassanid Empire", "Byzantine Empire", "Roman Empire", "Mongols"], correct: 1},
+        {id: 82, q: "Who was the first woman to accept Islam?", a: ["Hazrat Aisha (R.A)", "Hazrat Khadija (R.A)", "Hazrat Fatima (R.A)", "Hazrat Zainab (R.A)"], correct: 1},
+        {id: 83, q: "The 'Treaty of Hudaybiyyah' was signed in which year?", a: ["6 AH", "5 AH", "7 AH", "8 AH"], correct: 0},
+        {id: 84, q: "Who is known as 'Saif Ullah' (Sword of Allah)?", a: ["Hazrat Umar (R.A)", "Hazrat Khalid bin Waleed (R.A)", "Hazrat Ali (R.A)", "Hazrat Hamza (R.A)"], correct: 1},
+        {id: 85, q: "Which mountain pass connects Pakistan and Afghanistan?", a: ["Bolan Pass", "Khyber Pass", "Khunjerab Pass", "Gomal Pass"], correct: 1},
+        {id: 86, q: "The first constitution of Pakistan was enforced in:", a: ["1947", "1956", "1962", "1973"], correct: 1},
+        {id: 87, q: "Who was the founder of the Mughal Empire in India?", a: ["Akbar", "Babur", "Humayun", "Shah Jahan"], correct: 1},
+        {id: 88, q: "The 'Objective Resolution' was passed by the Constituent Assembly of Pakistan in:", a: ["1947", "1948", "1949", "1950"], correct: 2},
+        {id: 89, q: "Hazrat Umar (R.A) was assassinated by:", a: ["A Persian slave (Abu Lulu)", "A Roman soldier", "A Mongol", "A hypocrite"], correct: 0},
+        {id: 90, q: "Which Pakistani scientist won the Nobel Prize in Physics?", a: ["Dr. Abdul Qadeer Khan", "Dr. Abdus Salam", "Dr. Aafia Siddiqui", "Dr. Atta-ur-Rahman"], correct: 1},
+        {id: 91, q: "The 'Treaty of Versailles' was signed after which war?", a: ["World War I", "World War II", "Cold War", "Napoleonic Wars"], correct: 0},
+        {id: 92, q: "Who was the first Muslim ruler of the subcontinent to issue coins?", a: ["Muhammad bin Qasim", "Mahmud of Ghazni", "Iltutmish", "Qutb-ud-din Aibak"], correct: 2},
+        {id: 93, q: "The 'Balfour Declaration' (1917) was related to:", a: ["Creation of Pakistan", "Jewish homeland in Palestine", "Partition of India", "Suez Canal"], correct: 1},
+        {id: 94, q: "How many times did the Holy Prophet (PBUH) perform Umrah?", a: ["1", "2", "3", "4"], correct: 1},
+        {id: 95, q: "The 'Indus Waters Treaty' was signed in 1960 between Pakistan and:", a: ["China", "Afghanistan", "India", "Iran"], correct: 2},
+        {id: 96, q: "Which Surah of the Quran is called the 'Heart of the Quran'?", a: ["Surah Yaseen", "Surah Al-Fatiha", "Surah Al-Ikhlas", "Surah Al-Kahf"], correct: 0},
+        {id: 97, q: "Who was the last Mughal Emperor of India?", a: ["Aurangzeb", "Shah Alam II", "Bahadur Shah Zafar", "Akbar II"], correct: 2},
+        {id: 98, q: "The 'Fourteen Points' of Quaid-e-Azam were presented in:", a: ["1928", "1929", "1930", "1931"], correct: 1},
+        {id: 99, q: "Which is the oldest civilization of the subcontinent?", a: ["Indus Valley Civilization", "Mauryan Civilization", "Gupta Civilization", "Mughal Civilization"], correct: 0},
+        {id: 100, q: "The 'Doctrine of Lapse' was introduced by:", a: ["Lord Curzon", "Lord Dalhousie", "Lord Canning", "Lord Ripon"], correct: 1}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...eng, ...ped, ...gk].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    // Subject mapping for display
+    function getSubject(qid) {
+        if (qid >= 1 && qid <= 60) return "English";
+        if (qid >= 61 && qid <= 80) return "Pedagogy";
+        if (qid >= 81 && qid <= 100) return "GK/Islamiat";
+        return "";
+    }
+
+    // ================================================================
+    // TEST ENGINE
+    // ================================================================
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    let time = 5400; // 90 Mins in seconds
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 5400;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        clearInterval(timerInterval);
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        time = 5400;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        document.getElementById("subjectTag").innerText = getSubject(qid);
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        document.getElementById("question").innerText = mcqs[current].q;
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            opts += `<button class="${cls}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = (correct * 1) - (wrongCount * 0.25);
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score.toFixed(2);
+    }
+
+    function nextQ() {
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function saveLater() {
+        if (!laterList.includes(current) && answers[current] === undefined) {
+            laterList.push(current);
+            showToast("✅ Question saved for review!");
+        } else if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered!");
+        } else {
+            showToast("ℹ️ Already saved!");
+        }
+        if (isReviewing) { reviewLater(); return; }
+        if (current < mcqs.length - 1) { current++; loadQ(); } else { reviewLater(); }
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 No saved questions left!");
+            setTimeout(() => showResult(), 300);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            time--;
+            let h = Math.floor(time / 3600);
+            let m = Math.floor((time % 3600) / 60);
+            let s = time % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (time <= 0) { clearInterval(timerInterval); showResult(); }
+        }, 1000);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = (correct * 1) - (wrongCount * 0.25);
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score.toFixed(2)}</strong> / ${mcqs.length} | ✅ Correct: ${correct} | ❌ Wrong: ${wrongCount} | ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<table>
+            <tr><th class='qno-col'>Q-ID</th><th>Subject</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "";
+            let yourAns = "";
+            let correctAns = "";
+            let color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "SKIPPED";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${getSubject(q.id)}</td>
+                <td>${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</table>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>

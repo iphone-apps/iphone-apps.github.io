@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AT Test – 02</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial; background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%); color: white; padding: 2px 20px 20px 20px; min-height: 100vh; }
+        .container { max-width: 700px; margin: 5px auto; text-align: center; }
+        .main-heading { font-size: 26px; margin-bottom: 5px; font-weight: bold; color: #ffeb3b; text-shadow: 0 0 10px #ffeb3b; }
+        h2 { font-size: 20px; margin-top: 0; color: #bb86fc; }
+        .subtitle { color: #d1c5e8; font-size: 15px; margin: 8px 0 15px 0; }
+        .instructions-box { background: rgba(187, 134, 252, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 15px; margin: 10px 0 15px 0; text-align: left; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .instructions-box h3 { color: #ffeb3b; text-align: center; margin-bottom: 12px; font-size: 22px; }
+        .instructions-box p { margin: 8px 0; font-size: 16px; }
+        .instructions-box b { color: #bb86fc; }
+        .note-green { color: #00e676; font-weight: bold; }
+        .note-red { color: #ff6b6b; font-weight: bold; }
+        .startBtn, .restartBtn { width: 100%; padding: 16px; background: linear-gradient(90deg, #7f00ff, #e100ff); border: none; color: white; font-size: 20px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-top: 8px; margin-bottom: 20px; transition: 0.3s; }
+        .startBtn:hover, .restartBtn:hover { transform: scale(1.02); box-shadow: 0 0 20px #7f00ff; }
+        #quiz, #result { display: none; }
+        .top-bar { display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); padding: 10px 15px; border-radius: 12px; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+        .timer { font-size: 18px; color: #ffeb3b; font-weight: bold; }
+        .qno-display { font-size: 18px; font-weight: bold; background: #7f00ff; padding: 4px 14px; border-radius: 30px; border: 1px solid #bb86fc; letter-spacing: 1px; }
+        .qno-display span { color: #ffeb3b; }
+        .score-bar { display: flex; justify-content: space-around; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 12px; margin-bottom: 15px; font-size: 13px; font-weight: bold; gap: 10px; flex-wrap: wrap; }
+        .score-bar span { color: #bb86fc; }
+        .question-box { background: rgba(187, 134, 252, 0.1); padding: 18px; border-radius: 15px; margin: 15px 0; border: 1px solid rgba(187, 134, 252, 0.3); }
+        .q-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 14px; flex-wrap: wrap; gap: 5px; }
+        .q-id { color: #ffeb3b; font-weight: bold; background: rgba(0,0,0,0.3); padding: 2px 12px; border-radius: 20px; font-size: 15px; }
+        .repeated-tag { background: #7f00ff; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .subject-tag { background: #00c853; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; color: white; }
+        .question { font-size: 18px; margin-bottom: 12px; text-align: left; font-weight: 400; direction: rtl; }
+        .question.ltr { direction: ltr; text-align: left; }
+        .options button { display: block; width: 100%; margin: 6px 0; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(187, 134, 252, 0.3); color: white; border-radius: 10px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button.rtl { direction: rtl; text-align: right; }
+        .options button:hover { background: #2e0059; }
+        .correct { background: #00c853 !important; border: 2px solid #00e676 !important; }
+        .wrong { background: #d50000 !important; border: 2px solid #ff1744 !important; }
+        .options button:disabled { cursor: not-allowed; opacity: 0.7; }
+        .nav { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .nav button { flex: 1; max-width: 48%; padding: 12px; background: #2e0059; border: 1px solid #bb86fc; border-radius: 10px; cursor: pointer; color: white; font-weight: bold; }
+        .nav button:hover { background: #7f00ff; }
+        #result h2 { color: #ffeb3b; }
+        #summaryBox { background: rgba(255, 235, 59, 0.15); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 2px solid #ffeb3b; }
+        .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; margin-top: 12px; }
+        table { border-collapse: collapse; width: 100%; min-width: 600px; background: rgba(0,0,0,0.4); font-size: 13px; }
+        th { background: linear-gradient(90deg, #7f00ff, #e100ff); color: white; padding: 10px; font-size: 14px; }
+        td { padding: 8px; border-bottom: 1px solid rgba(187, 134, 252, 0.2); text-align: left; }
+        .qno-col { width: 65px; text-align: center; font-weight: bold; color: #ffeb3b; }
+        .madeby-box { background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 20px auto; width: 100%; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1); }
+        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
+        .madeby-box .qualification { font-size: 14px; color: #bb86fc; margin-bottom: 8px; }
+        .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
+        .madeby-box .contact b { color: #bb86fc; }
+        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #00c853; color: white; padding: 10px 25px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 20px rgba(0,0,0,0.6); z-index: 9999; opacity: 0; transition: opacity 0.4s ease, transform 0.4s ease; pointer-events: none; font-size: 15px; }
+        #toast.show { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        @media (max-width: 600px) { body { padding: 5px 10px; } .main-heading { font-size: 20px; } .question { font-size: 16px; } .options button { font-size: 14px; padding: 10px; } .score-bar { font-size: 11px; } .instructions-box { padding: 15px; } .instructions-box p { font-size: 14px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="frontPage">
+        <h1 class="main-heading">🕌 AT Test – 02</h1>
+        <h2>NTS / ETEA Pattern · 100 MCQs</h2>
+        <p class="subtitle">Arabic 60 · English 20 · Pedagogy 20</p>
+
+        <div class="instructions-box">
+            <h3>📋 INSTRUCTIONS</h3>
+            <p><b>⏱ Time:</b> 90 Minutes</p>
+            <p><b>📝 Total Questions:</b> 100</p>
+            <p><b>🏆 Total Marks:</b> 100</p>
+            <p><b>✅ Correct Answer:</b> <span class="note-green">+1</span> mark</p>
+            <p><b>❌ Wrong Answer:</b> <span class="note-red">-0.25</span> (Negative Marking)</p>
+            <p><b>⏭ Skipped:</b> <span class="note-green">0</span> marks</p>
+            <p style="color: #FFD700; font-weight: bold; margin-top: 6px;">💡 Use "Save for Later" to attempt at the end</p>
+            <p style="color: #00FF00; font-weight: bold;">📖 Complete review at the end</p>
+        </div>
+
+        <button class="startBtn" onclick="startTest()">🚀 START TEST</button>
+    </div>
+
+    <div id="quiz">
+        <div class="top-bar">
+            <div class="timer">⏳ <span id="time">01:30:00</span></div>
+            <div class="qno-display">📌 Q: <span id="qno">001</span> / <span id="totalQ">100</span></div>
+        </div>
+        <div class="score-bar">
+            <div>📝 Attempted: <span id="attempted">0</span></div>
+            <div>✅ Correct: <span id="correct">0</span></div>
+            <div>❌ Wrong: <span id="wrong">0</span></div>
+            <div>⭐ Score: <span id="liveScore">0</span></div>
+        </div>
+        <div class="question-box">
+            <div class="q-header">
+                <span class="q-id">🔖 Q-ID: <span id="qNumber">001</span></span>
+                <span id="subjectTag" class="subject-tag"></span>
+                <span id="repeatedTag"></span>
+            </div>
+            <p class="question" id="question"></p>
+            <div class="options" id="options"></div>
+        </div>
+        <div class="nav">
+            <button onclick="saveLater()">💾 Save for Later</button>
+            <button onclick="nextQ()">➡️ Next</button>
+        </div>
+    </div>
+
+    <div id="result">
+        <div id="summaryBox">
+            <h2>🏁 Test Result</h2>
+            <p id="score" style="font-size: 20px; margin: 15px 0;"></p>
+            <button class="restartBtn" onclick="restartTest()">🔄 START AGAIN</button>
+        </div>
+        <h3 style="color: #ffeb3b; margin-top: 20px;">📊 Full Review — All Questions</h3>
+        <div id="resultTable"></div>
+    </div>
+
+    <div class="madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+    function shuffleArray(arr) {
+        let a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function showToast(msg) {
+        let t = document.getElementById("toast");
+        t.innerText = msg;
+        t.classList.add("show");
+        clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => { t.classList.remove("show"); }, 1500);
+    }
+
+    // ================================================================
+    // AT TEST 2: 100 MCQs — Arabic Language Focused
+    // Arabic 60 (Nahw/Sarf, Translation, Vocabulary) | English 20 | Pedagogy 20
+    // ================================================================
+    const mcqs = [];
+
+    // ----- ARABIC (ID 1–60) — ALL NEW -----
+    const arabic = [
+        {id: 1, q: "عربی میں اسم کی کتنی اقسام ہیں؟", a: ["دو", "تین", "چار", "پانچ"], correct: 1},
+        {id: 2, q: "'الرَّجُل' کس قسم کا اسم ہے؟", a: ["اسم معرفہ", "اسم نکرہ", "اسم موصول", "اسم اشارہ"], correct: 0},
+        {id: 3, q: "'رَجُل' کس قسم کا اسم ہے؟", a: ["اسم معرفہ", "اسم نکرہ", "اسم موصول", "اسم اشارہ"], correct: 1},
+        {id: 4, q: "'هَذَا' کس قسم کا اسم ہے؟", a: ["اسم معرفہ", "اسم نکرہ", "اسم موصول", "اسم اشارہ"], correct: 3},
+        {id: 5, q: "'الَّذِي' کس قسم کا اسم ہے؟", a: ["اسم معرفہ", "اسم نکرہ", "اسم موصول", "اسم اشارہ"], correct: 2},
+        {id: 6, q: "جملہ 'جَاءَ الْمُعَلِّمُ' میں 'الْمُعَلِّمُ' کی ترکیب کیا ہے؟", a: ["فاعل", "مفعول", "مبتدأ", "خبر"], correct: 0},
+        {id: 7, q: "جملہ 'ضَرَبَ زَيْدٌ عَمْرًا' میں 'عَمْرًا' کی ترکیب کیا ہے؟", a: ["فاعل", "مفعول بہ", "مبتدأ", "خبر"], correct: 1},
+        {id: 8, q: "جملہ 'الطَّالِبُ مُجْتَهِدٌ' میں 'مُجْتَهِدٌ' کی ترکیب کیا ہے؟", a: ["مبتدأ", "خبر", "فاعل", "مفعول"], correct: 1},
+        {id: 9, q: "'فِي الْبَيْتِ' میں 'الْبَيْتِ' کی ترکیب کیا ہے؟", a: ["مبتدأ", "خبر", "مجرور", "مفعول"], correct: 2},
+        {id: 10, q: "'سَلَّمْتُ عَلَى الْمُعَلِّمِ' میں 'الْمُعَلِّمِ' کی ترکیب کیا ہے؟", a: ["مجرور", "منصوب", "مرفوع", "مجزوم"], correct: 0},
+        {id: 11, q: "عربی میں 'مرفوع' کا مطلب کیا ہے؟", a: ["زیر والا", "پیش والا", "زبر والا", "سکون والا"], correct: 1},
+        {id: 12, q: "عربی میں 'منصوب' کا مطلب کیا ہے؟", a: ["زیر والا", "پیش والا", "زبر والا", "سکون والا"], correct: 2},
+        {id: 13, q: "عربی میں 'مجرور' کا مطلب کیا ہے؟", a: ["زیر والا", "پیش والا", "زبر والا", "سکون والا"], correct: 0},
+        {id: 14, q: "'کَتَبَ' کا مضارع کیا ہے؟", a: ["کَاتِب", "یَکْتُبُ", "مَکْتُوب", "کِتَابَة"], correct: 1},
+        {id: 15, q: "'کَتَبَ' کا امر کیا ہے؟", a: ["کَاتِب", "یَکْتُبُ", "اُکْتُبْ", "مَکْتُوب"], correct: 2},
+        {id: 16, q: "'کَتَبَ' کا اسم فاعل کیا ہے؟", a: ["کَاتِب", "مَکْتُوب", "کِتَابَة", "مَکْتَب"], correct: 0},
+        {id: 17, q: "'کَتَبَ' کا اسم مفعول کیا ہے؟", a: ["کَاتِب", "مَکْتُوب", "کِتَابَة", "مَکْتَب"], correct: 1},
+        {id: 18, q: "'فَتَحَ' کا مضارع کیا ہے؟", a: ["فَاتِح", "یَفْتَحُ", "اِفْتَحْ", "مَفْتُوح"], correct: 1},
+        {id: 19, q: "'فَتَحَ' کا امر کیا ہے؟", a: ["فَاتِح", "یَفْتَحُ", "اِفْتَحْ", "مَفْتُوح"], correct: 2},
+        {id: 20, q: "'فَتَحَ' کا اسم فاعل کیا ہے؟", a: ["فَاتِح", "مَفْتُوح", "فَتْح", "مَفْتَح"], correct: 0},
+        {id: 21, q: "'نَصَرَ' کا مضارع کیا ہے؟", a: ["نَاصِر", "یَنْصُرُ", "اُنْصُرْ", "مَنْصُور"], correct: 1},
+        {id: 22, q: "'نَصَرَ' کا اسم مفعول کیا ہے؟", a: ["نَاصِر", "مَنْصُور", "نَصْر", "مَنْصَر"], correct: 1},
+        {id: 23, q: "'سَمِعَ' کا مضارع کیا ہے؟", a: ["سَامِع", "یَسْمَعُ", "اِسْمَعْ", "مَسْمُوع"], correct: 1},
+        {id: 24, q: "'سَمِعَ' کا اسم فاعل کیا ہے؟", a: ["سَامِع", "مَسْمُوع", "سَمْع", "مَسْمَع"], correct: 0},
+        {id: 25, q: "'ذَهَبَ' کا مضارع کیا ہے؟", a: ["ذَاهِب", "یَذْهَبُ", "اِذْهَبْ", "مَذْهُوب"], correct: 1},
+        {id: 26, q: "'ذَهَبَ' کا اسم فاعل کیا ہے؟", a: ["ذَاهِب", "مَذْهُوب", "ذَهَاب", "مَذْهَب"], correct: 0},
+        {id: 27, q: "'الْمُعَلِّمَة' کا مذکر کیا ہے؟", a: ["الْمُعَلِّم", "الْمُعَلِّمُون", "الْمُعَلِّمِین", "الْمُعَلِّمَات"], correct: 0},
+        {id: 28, q: "'الطَّالِبَة' کا مذکر کیا ہے؟", a: ["الطَّالِب", "الطُّلَّاب", "الطَّالِبَات", "الطَّالِبَان"], correct: 0},
+        {id: 29, q: "'الْكُتُب' کا واحد کیا ہے؟", a: ["الْكَاتِب", "الْكِتَاب", "الْمَكْتَب", "الْكِتَابَة"], correct: 1},
+        {id: 30, q: "'الْأَقْلَام' کا واحد کیا ہے؟", a: ["الْقَلَام", "الْقَلَم", "الْقَلَمَة", "الْقَلَامَة"], correct: 1},
+        {id: 31, q: "'الرِّجَال' کا واحد کیا ہے؟", a: ["الرَّجُل", "الرَّجُلَة", "الرَّجُلَان", "الرَّجُلُون"], correct: 0},
+        {id: 32, q: "'النِّسَاء' کا واحد کیا ہے؟", a: ["الْمَرْأَتَان", "الْمَرْأَة", "الْمَرْأَتَات", "الْمَرْأَة"], correct: 1},
+        {id: 33, q: "'الْأَوْلَاد' کا واحد کیا ہے؟", a: ["الْوَلَدَة", "الْوَلَد", "الْوَلَدَان", "الْوَلَدُون"], correct: 1},
+        {id: 34, q: "'الْبَنَات' کا واحد کیا ہے؟", a: ["الْبِنْت", "الْبِنْتَان", "الْبِنْتُون", "الْبِنْتَة"], correct: 0},
+        {id: 35, q: "'الْأُسْتَاذَان' کس قسم کا صیغہ ہے؟", a: ["واحد", "تثنیہ", "جمع", "مؤنث"], correct: 1},
+        {id: 36, q: "'الْمُعَلِّمُونَ' کس قسم کا صیغہ ہے؟", a: ["واحد", "تثنیہ", "جمع مذکر", "جمع مؤنث"], correct: 2},
+        {id: 37, q: "'الْمُعَلِّمَات' کس قسم کا صیغہ ہے؟", a: ["واحد مذکر", "واحد مؤنث", "جمع مذکر", "جمع مؤنث"], correct: 3},
+        {id: 38, q: "'الْبِنْتَان' کس قسم کا صیغہ ہے؟", a: ["واحد", "تثنیہ", "جمع", "مؤنث"], correct: 1},
+        {id: 39, q: "'الْكِتَابَة' کا معنی کیا ہے؟", a: ["پڑھنا", "لکھنا", "سننا", "بولنا"], correct: 1},
+        {id: 40, q: "'الْقِرَاءَة' کا معنی کیا ہے؟", a: ["لکھنا", "پڑھنا", "سننا", "بولنا"], correct: 1},
+        {id: 41, q: "'السَّمَاع' کا معنی کیا ہے؟", a: ["لکھنا", "پڑھنا", "سننا", "بولنا"], correct: 2},
+        {id: 42, q: "'الْكَلَام' کا معنی کیا ہے؟", a: ["لکھنا", "پڑھنا", "سننا", "کلام/بولنا"], correct: 3},
+        {id: 43, q: "'الْمَكْتَب' کا معنی کیا ہے؟", a: ["کتاب", "میز/دفتر", "کتب خانہ", "سکول"], correct: 1},
+        {id: 44, q: "'الْكُرْسِيّ' کا معنی کیا ہے؟", a: ["کرسی", "میز", "کتاب", "قلم"], correct: 0},
+        {id: 45, q: "'الْبَاب' کا معنی کیا ہے؟", a: ["کھڑکی", "دروازہ", "دیوار", "چھت"], correct: 1},
+        {id: 46, q: "'النَّافِذَة' کا معنی کیا ہے؟", a: ["دروازہ", "کھڑکی", "دیوار", "چھت"], correct: 1},
+        {id: 47, q: "'السَّاعَة' کا معنی کیا ہے؟", a: ["گھڑی", "منٹ", "سیکنڈ", "دن"], correct: 0},
+        {id: 48, q: "'الْيَوْم' کا معنی کیا ہے؟", a: ["کل", "آج", "پرسوں", "رات"], correct: 1},
+        {id: 49, q: "'أَمْس' کا معنی کیا ہے؟", a: ["کل (آنے والا)", "کل (گزرا ہوا)", "آج", "پرسوں"], correct: 1},
+        {id: 50, q: "'غَدًا' کا معنی کیا ہے؟", a: ["کل (آنے والا)", "کل (گزرا ہوا)", "آج", "پرسوں"], correct: 0},
+        {id: 51, q: "'صَبَاحًا' کا معنی کیا ہے؟", a: ["صبح", "دوپہر", "شام", "رات"], correct: 0},
+        {id: 52, q: "'مَسَاءً' کا معنی کیا ہے؟", a: ["صبح", "دوپہر", "شام", "رات"], correct: 2},
+        {id: 53, q: "'لَيْلًا' کا معنی کیا ہے؟", a: ["صبح", "دوپہر", "شام", "رات"], correct: 3},
+        {id: 54, q: "'أَحَد' کا معنی کیا ہے؟", a: ["ایک", "دو", "تین", "چار"], correct: 0},
+        {id: 55, q: "'اِثْنَان' کا معنی کیا ہے؟", a: ["ایک", "دو", "تین", "چار"], correct: 1},
+        {id: 56, q: "'ثَلَاثَة' کا معنی کیا ہے؟", a: ["ایک", "دو", "تین", "چار"], correct: 2},
+        {id: 57, q: "'أَرْبَعَة' کا معنی کیا ہے؟", a: ["ایک", "دو", "تین", "چار"], correct: 3},
+        {id: 58, q: "'خَمْسَة' کا معنی کیا ہے؟", a: ["تین", "چار", "پانچ", "چھ"], correct: 2},
+        {id: 59, q: "'سِتَّة' کا معنی کیا ہے؟", a: ["پانچ", "چھ", "سات", "آٹھ"], correct: 1},
+        {id: 60, q: "'عَشَرَة' کا معنی کیا ہے؟", a: ["پانچ", "سات", "نو", "دس"], correct: 3}
+    ];
+
+    // ----- ENGLISH (ID 61–80) — ALL NEW -----
+    const eng = [
+        {id: 61, q: "Choose the correct spelling:", a: ["Grammar", "Grammer", "Gramar", "Grammor"], correct: 0},
+        {id: 62, q: "The synonym of 'Comprehend' is:", a: ["Ignore", "Understand", "Confuse", "Forget"], correct: 1},
+        {id: 63, q: "The antonym of 'Ancient' is:", a: ["Old", "Modern", "Antique", "Past"], correct: 1},
+        {id: 64, q: "The plural of 'Analysis' is:", a: ["Analysises", "Analyses", "Analysis", "Analysi"], correct: 1},
+        {id: 65, q: "She is good _____ Arabic grammar.", a: ["in", "at", "on", "for"], correct: 1},
+        {id: 66, q: "The past tense of 'Speak' is:", a: ["Speaked", "Spoke", "Spoken", "Speaking"], correct: 1},
+        {id: 67, q: "The synonym of 'Fluent' is:", a: ["Halting", "Smooth", "Rough", "Slow"], correct: 1},
+        {id: 68, q: "The antonym of 'Difficult' is:", a: ["Hard", "Easy", "Tough", "Complex"], correct: 1},
+        {id: 69, q: "Choose the correct sentence:", a: ["He speaks Arabic well.", "He speak Arabic well.", "He speaking Arabic well.", "He is speak Arabic well."], correct: 0},
+        {id: 70, q: "The idiom 'Practice makes perfect' means:", a: ["Practice is useless", "Repeated practice leads to mastery", "Perfect is impossible", "Practice is easy"], correct: 1},
+        {id: 71, q: "The synonym of 'Accurate' is:", a: ["Wrong", "Precise", "Vague", "Loose"], correct: 1},
+        {id: 72, q: "The antonym of 'Active' is:", a: ["Busy", "Passive", "Energetic", "Dynamic"], correct: 1},
+        {id: 73, q: "She is _____ excellent student.", a: ["a", "an", "the", "no article"], correct: 1},
+        {id: 74, q: "The plural of 'Phenomenon' is:", a: ["Phenomenons", "Phenomena", "Phenomenae", "Phenomenon"], correct: 1},
+        {id: 75, q: "The past tense of 'Understand' is:", a: ["Understanded", "Understood", "Understanding", "Understands"], correct: 1},
+        {id: 76, q: "The synonym of 'Significant' is:", a: ["Trivial", "Important", "Small", "Minor"], correct: 1},
+        {id: 77, q: "The antonym of 'Common' is:", a: ["Usual", "Rare", "Normal", "Frequent"], correct: 1},
+        {id: 78, q: "I have been learning Arabic _____ six months.", a: ["since", "for", "from", "at"], correct: 1},
+        {id: 79, q: "The synonym of 'Skill' is:", a: ["Weakness", "Expertise", "Inability", "Ignorance"], correct: 1},
+        {id: 80, q: "The antonym of 'Free' is:", a: ["Open", "Bound", "Loose", "Wide"], correct: 1}
+    ];
+
+    // ----- PEDAGOGY (ID 81–100) — ALL NEW -----
+    const ped = [
+        {id: 81, q: "عربی زبان سکھانے میں سب سے اہم عنصر کیا ہے؟", a: ["حفظ", "مشق اور تکرار", "سزا", "رجسٹر"], correct: 1},
+        {id: 82, q: "عربی الفاظ سکھانے کا بہترین طریقہ کیا ہے؟", a: ["صرف لکھنا", "تصویر اور سیاق و سباق کے ذریعے", "صرف پڑھنا", "خاموشی"], correct: 1},
+        {id: 83, q: "طلبہ کو عربی بولنے کی ترغیب کیسے دی جائے؟", a: ["سزا سے", "بات چیت کے مواقع فراہم کر کے", "خاموشی سے", "ڈانٹ سے"], correct: 1},
+        {id: 84, q: "عربی گرامر کا سب سے مشکل حصہ کون سا ہے؟", a: ["اسم", "فعل", "نحو (ترکیب)", "حروف"], correct: 2},
+        {id: 85, q: "نحو (ترکیب) سکھانے کا بہترین طریقہ کیا ہے؟", a: ["صرف قواعد یاد کرانا", "مثالیں دے کر سمجھانا", "سزا دینا", "خاموشی"], correct: 1},
+        {id: 86, q: "طلبہ کو عربی سکھانے میں سب سے بڑی رکاوٹ کیا ہے؟", a: ["دلچسپی", "عربی زبان کی مشکل", "اردو سے مشابہت", "کوئی نہیں"], correct: 2},
+        {id: 87, q: "عربی سکھانے میں اردو کا استعمال کیسا ہے؟", a: ["مفید", "مضر", "غیر ضروری", "ممنوع"], correct: 0},
+        {id: 88, q: "عربی زبان سکھانے کے لیے کون سا طریقہ سب سے مؤثر ہے؟", a: ["صرف لیکچر", "مذاکرہ اور مشق", "خاموشی", "سزا"], correct: 1},
+        {id: 89, q: "عربی الفاظ کو یاد رکھنے کا بہترین طریقہ کیا ہے؟", a: ["دہرانا", "روزمرہ زندگی میں استعمال", "صرف پڑھنا", "صرف لکھنا"], correct: 1},
+        {id: 90, q: "عربی سکھانے میں کہانیوں کا کردار کیا ہے؟", a: ["دلچسپی بڑھانا", "وقت ضائع کرنا", "سزا", "خاموشی"], correct: 0},
+        {id: 91, q: "طلبہ کو عربی زبان سے محبت دلانے کا طریقہ کیا ہے؟", a: ["سزا", "حوصلہ افزائی", "ڈانٹ", "نظر اندازی"], correct: 1},
+        {id: 92, q: "عربی سکھانے میں گروپ ورک کا کردار کیا ہے؟", a: ["تعاون اور مشق", "سزا", "خاموشی", "رجسٹر"], correct: 0},
+        {id: 93, q: "عربی زبان کی اہمیت کیا ہے؟", a: ["صرف مذہبی", "دینی اور دنیاوی", "صرف دنیاوی", "کوئی نہیں"], correct: 1},
+        {id: 94, q: "طلبہ کو عربی پڑھنے کی ترغیب کیسے دی جائے؟", a: ["مشکل کتابیں دے کر", "آسان اور دلچسپ مواد دے کر", "سزا دے کر", "نظر انداز کر کے"], correct: 1},
+        {id: 95, q: "عربی سکھانے میں ٹیکنالوجی کا استعمال کیسا ہے؟", a: ["مفید", "مضر", "غیر ضروری", "ممنوع"], correct: 0},
+        {id: 96, q: "عربی زبان سکھانے میں سب سے پہلے کیا سکھایا جانا چاہیے؟", a: ["گرامر", "حروف تہجی اور تلفظ", "نحو", "ادب"], correct: 1},
+        {id: 97, q: "عربی سکھانے کے لیے کون سی مہارت سب سے اہم ہے؟", a: ["سننا", "بولنا", "پڑھنا", "لکھنا"], correct: 1},
+        {id: 98, q: "طلبہ کو عربی سکھانے میں استاد کا کردار کیا ہے؟", a: ["سہولت کار", "آمر", "سزا دینے والا", "خاموش ناظر"], correct: 0},
+        {id: 99, q: "عربی زبان سکھانے میں سب سے مشکل کیا ہے؟", a: ["حروف", "الفاظ", "نحو (ترکیب)", "تلفظ"], correct: 2},
+        {id: 100, q: "عربی زبان سکھانے کا بنیادی مقصد کیا ہے؟", a: ["صرف قرآن سمجھنا", "عربی زبان میں مہارت", "صرف الفاظ یاد کرانا", "صرف گرامر"], correct: 1}
+    ];
+
+    // ----- COMBINE ALL WITH SHUFFLED OPTIONS -----
+    [...arabic, ...eng, ...ped].forEach(q => {
+        const shuffledOptions = shuffleArray(q.a);
+        const correctAnswer = q.a[q.correct];
+        const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+        mcqs.push({
+            id: q.id,
+            q: q.q,
+            a: shuffledOptions,
+            correct: newCorrectIndex
+        });
+    });
+
+    function getSubject(qid) {
+        if (qid >= 1 && qid <= 60) return "Arabic";
+        if (qid >= 61 && qid <= 80) return "English";
+        if (qid >= 81 && qid <= 100) return "Pedagogy";
+        return "";
+    }
+
+    let current = 0;
+    let answers = [];
+    let laterList = [];
+    let reviewedLater = [];
+    let isReviewing = false;
+    const TOTAL_TIME = 5400;
+    let timeLeft = TOTAL_TIME;
+    let endTime = 0;
+    let timerInterval;
+
+    function startTest() {
+        current = 0;
+        answers = new Array(mcqs.length).fill(undefined);
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        endTime = Date.now() + TOTAL_TIME * 1000;
+        document.getElementById("frontPage").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("quiz").style.display = "block";
+        document.getElementById("totalQ").innerText = mcqs.length;
+        loadQ();
+        timer();
+    }
+
+    function restartTest() {
+        if (!confirm("Are you sure you want to restart? Your current progress will be lost.")) return;
+        clearInterval(timerInterval);
+        current = 0;
+        answers = [];
+        laterList = [];
+        reviewedLater = [];
+        isReviewing = false;
+        timeLeft = TOTAL_TIME;
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "none";
+        document.getElementById("frontPage").style.display = "block";
+    }
+
+    function loadQ() {
+        updateScore();
+        let qid = mcqs[current].id;
+        let paddedId = String(qid).padStart(3, '0');
+        document.getElementById("qno").innerText = paddedId;
+        document.getElementById("qNumber").innerText = paddedId;
+        document.getElementById("subjectTag").innerText = getSubject(qid);
+
+        if (reviewedLater.includes(current)) {
+            document.getElementById("repeatedTag").innerHTML = '<span class="repeated-tag">🔄 REVIEW</span>';
+        } else {
+            document.getElementById("repeatedTag").innerHTML = '';
+        }
+
+        const qEl = document.getElementById("question");
+        qEl.innerText = mcqs[current].q;
+        if (qid >= 1 && qid <= 60) {
+            qEl.className = "question";
+        } else if (qid >= 81 && qid <= 100) {
+            qEl.className = "question";
+        } else {
+            qEl.className = "question ltr";
+        }
+
+        let opts = "";
+        mcqs[current].a.forEach((opt, i) => {
+            let cls = "";
+            let disabled = "";
+            if (answers[current] !== undefined) {
+                disabled = "disabled";
+                if (i === answers[current]) {
+                    if (i === mcqs[current].correct) cls = "correct";
+                    else cls = "wrong";
+                }
+            }
+            let rtlClass = (qid <= 60 || (qid >= 81 && qid <= 100)) ? "rtl" : "";
+            opts += `<button class="${cls} ${rtlClass}" ${disabled} onclick="checkAns(${i})">${String.fromCharCode(97 + i)}) ${opt}</button>`;
+        });
+        document.getElementById("options").innerHTML = opts;
+    }
+
+    function checkAns(i) {
+        if (answers[current] !== undefined) return;
+        answers[current] = i;
+        loadQ();
+    }
+
+    function updateScore() {
+        let attempted = answers.filter(a => a !== undefined).length;
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let wrongCount = attempted - correct;
+        let score = (correct * 1) - (wrongCount * 0.25);
+        document.getElementById("attempted").innerText = attempted;
+        document.getElementById("correct").innerText = correct;
+        document.getElementById("wrong").innerText = wrongCount;
+        document.getElementById("liveScore").innerText = score.toFixed(2);
+    }
+
+    function nextQ() {
+        if (current < mcqs.length - 1) {
+            current++;
+            isReviewing = false;
+            loadQ();
+        } else {
+            if (laterList.length > 0) {
+                reviewLater();
+            } else {
+                showToast("⏳ Please wait... calculating result");
+                setTimeout(showResult, 500);
+            }
+        }
+    }
+
+    function saveLater() {
+        if (answers[current] !== undefined) {
+            showToast("⚠️ Already answered — no need to save.");
+            return;
+        }
+        if (laterList.includes(current)) {
+            showToast("ℹ️ Already saved for later.");
+            return;
+        }
+        laterList.push(current);
+        showToast("✅ Saved! You can attempt it at the end.");
+    }
+
+    function reviewLater() {
+        isReviewing = true;
+        if (laterList.length > 0) {
+            current = laterList.shift();
+            if (!reviewedLater.includes(current)) reviewedLater.push(current);
+            loadQ();
+        } else {
+            showToast("🎉 All done! Calculating result...");
+            setTimeout(showResult, 500);
+        }
+    }
+
+    function timer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+            let h = Math.floor(timeLeft / 3600);
+            let m = Math.floor((timeLeft % 3600) / 60);
+            let s = timeLeft % 60;
+            document.getElementById("time").innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                showToast("⏰ Time is up! Submitting...");
+                setTimeout(showResult, 800);
+            }
+        }, 250);
+    }
+
+    function showResult() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz").style.display = "none";
+        document.getElementById("result").style.display = "block";
+        window.scrollTo(0, 0);
+
+        let correct = answers.filter((a, i) => a === mcqs[i].correct).length;
+        let attempted = answers.filter(a => a !== undefined).length;
+        let wrongCount = attempted - correct;
+        let skippedCount = mcqs.length - attempted;
+        let score = (correct * 1) - (wrongCount * 0.25);
+
+        document.getElementById("score").innerHTML =
+            `Your Score: <strong>${score.toFixed(2)}</strong> / ${mcqs.length}<br>
+            ✅ Correct: ${correct} &nbsp;|&nbsp; ❌ Wrong: ${wrongCount} &nbsp;|&nbsp; ⏭ Skipped: ${skippedCount}`;
+
+        let table = `<div class="table-wrap"><table>
+            <thead><tr><th class='qno-col'>Q-ID</th><th>Subject</th><th>Question</th><th>Status</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>`;
+
+        mcqs.forEach((q, i) => {
+            let status = "", yourAns = "", correctAns = "", color = "";
+            let qId = String(q.id).padStart(3, '0');
+
+            if (answers[i] === q.correct) {
+                status = "✅ CORRECT";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#00e676";
+            } else if (answers[i] !== undefined) {
+                status = "❌ WRONG";
+                yourAns = q.a[answers[i]];
+                correctAns = q.a[q.correct];
+                color = "#ff1744";
+            } else {
+                status = "⏭ SKIPPED";
+                yourAns = "—";
+                correctAns = q.a[q.correct];
+                color = "#FFA500";
+            }
+
+            table += `<tr>
+                <td class='qno-col'>${qId}</td>
+                <td>${getSubject(q.id)}</td>
+                <td style="text-align: ${(q.id <= 60 || q.id >= 81) ? 'right' : 'left'}; direction: ${(q.id <= 60 || q.id >= 81) ? 'rtl' : 'ltr'};">${q.q}</td>
+                <td style="color:${color}; font-weight:bold;">${status}</td>
+                <td style="color:${color}; font-weight:bold;">${yourAns}</td>
+                <td style="color:#00e676; font-weight:bold;">${correctAns}</td>
+            </tr>`;
+        });
+        table += "</tbody></table></div>";
+        document.getElementById("resultTable").innerHTML = table;
+    }
+</script>
+</body>
+</html>
