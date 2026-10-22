@@ -21,7 +21,6 @@
         .main-title { font-size: 30px; color: #ffeb3b; font-weight: bold; text-shadow: 0 0 20px #ffeb3b; margin-bottom: 5px; margin-top: 20px; }
         .main-subtitle { font-size: 17px; color: #d1c5e8; margin-bottom: 15px; }
 
-        /* Disclaimer (Soft Yellow) */
         .disclaimer {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid rgba(255, 193, 7, 0.4);
@@ -37,7 +36,6 @@
         }
         .disclaimer b { color: #ffd54f; }
 
-        /* Main Expand Box */
         .main-box {
             background: linear-gradient(135deg, #1a0033, #3d0099);
             border: 2px solid #bb86fc;
@@ -59,7 +57,6 @@
         .main-box p { font-size: 15px; color: #d1c5e8; }
         .main-box .arrow { font-size: 16px; color: #bb86fc; margin-top: 8px; display: block; }
 
-        /* Categories Content (Hidden by default) */
         .categories-content {
             display: none;
             margin: 0 auto;
@@ -69,7 +66,6 @@
         }
         .categories-content.show { display: block; }
 
-        /* Category Boxes (PST, CT, etc.) */
         .cat-box {
             background: linear-gradient(135deg, #1a0033, #3d0099);
             border: 2px solid #bb86fc;
@@ -95,7 +91,6 @@
             background: rgba(0, 230, 118, 0.1); padding: 4px 10px; border-radius: 8px; display: inline-block;
         }
 
-        /* Sub-boxes for SST */
         .sub-box {
             background: rgba(187, 134, 252, 0.1);
             border: 1px solid rgba(187, 134, 252, 0.3);
@@ -120,7 +115,6 @@
         .section-title { font-size: 16px; color: #ffeb3b; margin-top: 15px; margin-bottom: 5px; text-shadow: 0 0 10px #ffeb3b; text-align: center; }
         .divider { height: 1px; background: rgba(255,255,255,0.1); margin: 12px auto; max-width: 580px; }
 
-        /* Made By */
         .madeby-box {
             background: linear-gradient(135deg, #1a0033, #3d0099);
             border: 2px solid #ffeb3b;
@@ -152,29 +146,24 @@
     <h1 class="main-title">🎓 NTS Teacher Tests</h1>
     <p class="main-subtitle">Complete Preparation Guide</p>
 
-    <!-- Disclaimer -->
     <div class="disclaimer">
         <b>⚠️ Disclaimer:</b> These practice tests are <b>NOT</b> affiliated with any official source, government body, or NTS/ETEA. They are created solely for <b>practice and self-assessment</b> purposes. Questions and answers have been cross-checked, but please verify with your own books and official syllabus for final preparation. The user assumes full responsibility for any loss or damage arising from the use of these tests.
     </div>
 
-    <!-- LEVEL 1: Click to Expand Categories -->
     <div class="main-box" onclick="toggleMain(this)">
         <h2>📚 Select Your Category</h2>
         <p>Click to see all teacher test categories</p>
         <span class="arrow">▼ Click to expand</span>
     </div>
 
-    <!-- LEVEL 2: Categories (Hidden by default) -->
     <div class="categories-content" id="categoriesContent">
 
-        <!-- PST (Primary School Teacher) -->
         <a href="pst/index.html" class="cat-box">
             <h2>👶 PST</h2>
             <p>Primary School Teacher (Class 1-5)</p>
             <div class="stats">10 Full Tests · 100 MCQs Each</div>
         </a>
 
-        <!-- CT (Computer Teacher) -->
         <a href="ct/index.html" class="cat-box">
             <h2>🧑‍🎓 CT</h2>
             <p>Computer Teacher (BPS-15)</p>
@@ -184,7 +173,6 @@
         <div class="divider"></div>
         <h2 class="section-title">👨‍🏫 SST (Secondary School Teacher)</h2>
 
-        <!-- SST Categories -->
         <a href="sst/general/index.html" class="sub-box">
             <h3>📚 SST (General)</h3>
             <p>English Focused (60% English)</p>
@@ -197,7 +185,7 @@
             <span class="stats">10 Tests · 100 MCQs</span>
         </a>
 
-        <a href="sst/math-phy/index.html" class="sub-box">
+        <a href="sst/phy-math/index.html" class="sub-box">
             <h3>📐 SST (Maths/Physics)</h3>
             <p>Mathematics & Physics Focused</p>
             <span class="stats">10 Tests · 100 MCQs</span>
@@ -211,7 +199,6 @@
 
         <div class="divider"></div>
 
-        <!-- Other Categories -->
         <a href="dm/index.html" class="cat-box">
             <h2>🎨 DM</h2>
             <p>Drawing Master</p>
@@ -244,7 +231,6 @@
 
     </div>
 
-    <!-- Made By Box -->
     <div class="madeby-box">
         <h3>Made By: Akbar Ali Khan (SCT)</h3>
         <p class="qualification">MA (Economics) · B.Ed · DIT · LLB</p>
