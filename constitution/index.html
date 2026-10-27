@@ -6,8 +6,8 @@
     <title>Constitution of Pakistan - 27th Amendment 2025</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#1a0033">
-    <link rel="icon" href="../icons-constitution.png">
-    <link rel="apple-touch-icon" href="../icons-constitution.png">
+    <link rel="icon" href="icons-constitution.png">
+    <link rel="apple-touch-icon" href="icons-constitution.png">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{
@@ -73,7 +73,6 @@
         .gate:hover{transform:scale(1.02);box-shadow:0 5px 30px rgba(255,235,59,0.6)}
         .gate span{font-size:13px;display:block;font-weight:600;margin-top:2px}
         
-        /* INSTALL BUTTON STYLE */
         #installBtn{
           display:none;
           background:linear-gradient(90deg,#00ff66,#00aa33);
@@ -162,7 +161,7 @@
 <div class="container">
     <h1 class="main-title">📜 CONSTITUTION OF PAKISTAN</h1>
     <div class="badge27">✅ UPDATED TILL 27TH AMENDMENT ACT, 2025 — INCLUDES FCC</div>
-    <p class="sub">1973 Constitution with Federal Constitutional Court (Art 175B-175L) &amp; Field Marshal (Art 243)</p>
+    <p class="sub">1973 Constitution with Federal Constitutional Court (Art 175B-175L) & Field Marshal (Art 243)</p>
     <div class="disclaimer">
         <h4>⚠️ Disclaimer — Educational Purpose Only</h4>
         <p>Not an official app of any Court/Govt. Official Source: <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">National Assembly PDF</a>. We do NOT guarantee 100% accuracy. Cross-check with official books.</p>
@@ -172,7 +171,6 @@
         <span>13 Parts • 280 Articles • 7 Schedules • Click to Expand</span>
     </div>
 
-    <!-- NAYA INSTALL BUTTON -->
     <button id="installBtn">📲 INSTALL APP - اصلی آئیکون کے ساتھ</button>
 
     <div id="chaptersList" class="chapters">
@@ -181,14 +179,14 @@
         <a href="part3.html" class="chapter-btn"><span class="left">📙 Part II Ch2 — Principles of Policy (Art 29-40)</span><span class="right updated">Art 38 — Riba 2028</span></a>
         <a href="part4.html" class="chapter-btn"><span class="left">📘 Part III — The Federation (Art 41-100)</span><span class="right new">NEW Art 63A FCC</span></a>
         <a href="part5.html" class="chapter-btn"><span class="left">📕 Part IV — Provinces (Art 101-140A)</span><span class="right normal">101-140A</span></a>
-        <a href="part6.html" class="chapter-btn"><span class="left">📒 Part V — Federation &amp; Provinces (Art 141-159)</span><span class="right normal">141-159</span></a>
+        <a href="part6.html" class="chapter-btn"><span class="left">📒 Part V — Federation & Provinces (Art 141-159)</span><span class="right normal">141-159</span></a>
         <a href="part7.html" class="chapter-btn"><span class="left">📓 Part VI — Finance (Art 160-175)</span><span class="right normal">160-175</span></a>
         <a href="part8.html" class="chapter-btn"><span class="left">📔 Part VII — The Judicature (Art 175-203)</span><span class="right new">FCC 175B-175L</span></a>
         <a href="part9.html" class="chapter-btn"><span class="left">📖 Part VII — Federal Shariat Court + SJC (Art 203A-212B)</span><span class="right normal">203A-212B</span></a>
         <a href="part10.html" class="chapter-btn"><span class="left">📚 Part VIII — Elections (Art 213-226)</span><span class="right normal">213-226</span></a>
         <a href="part11.html" class="chapter-btn"><span class="left">📖 Part IX — Islamic Provisions (Art 227-231)</span><span class="right normal">227-231</span></a>
         <a href="part11b.html" class="chapter-btn"><span class="left">📓 Part X — Emergency Provisions (Art 232-237)</span><span class="right normal">232-237</span></a>
-        <a href="part12.html" class="chapter-btn"><span class="left">📔 Part XI &amp; XII — Amendment &amp; Misc (Art 238-280)</span><span class="right new">NEW Art 243</span></a>
+        <a href="part12.html" class="chapter-btn"><span class="left">📔 Part XI & XII — Amendment & Misc (Art 238-280)</span><span class="right new">NEW Art 243</span></a>
         <a href="part13.html" class="chapter-btn part13"><span class="left">📜 SCHEDULES (1-7) — Oaths, Lists, Amendment Rules</span><span class="right new">FCC Oath</span></a>
     </div>
     <div class="madeby">
@@ -220,7 +218,7 @@
     });
 
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
+      navigator.serviceWorker.register('sw.js', {scope: '/constitution/'});
     }
     function toggleChapters(){
       document.getElementById('chaptersList').classList.toggle('show');
