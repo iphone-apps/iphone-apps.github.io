@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>15 Educational Apps - By Akbar Ali Khan</title>
+<title>Educational Apps By Akbar Ali Khan</title>
 
-<!-- PWA MANIFEST - YEH 4 LINES ADD KI HAIN -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f172a">
 <link rel="icon" type="image/png" href="icons-converter.png">
@@ -20,6 +19,7 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 .hero h1{font-size:24px;font-weight:800;color:#0f172a;line-height:1.1}
 .hero h1 span{background:linear-gradient(90deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero .by{color:#4338ca;font-size:12px;font-weight:700;margin-top:6px;background:#eef2ff;display:inline-block;padding:4px 12px;border-radius:100px}
+.install-main-btn{display:none; width:100%; margin:12px 0; background:#00d26a; color:#000; font-weight:800; padding:14px; border-radius:25px; border:none; font-size:16px; box-shadow:0 8px 20px rgba(0,210,106,0.4); cursor:pointer;}
 .stats{display:flex;gap:8px;margin:12px 0}
 .stat{flex:1;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:8px;text-align:center}
 .stat b{font-size:16px;display:block;color:#fbbf24}
@@ -60,8 +60,12 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 <h1>🎓 My Educational<br><span>Apps For Everyone!</span></h1>
 <div class="by">By Akbar Ali Khan • SCT GCMHS No.3 Mardan</div>
 </div>
+
+<!-- GREEN INSTALL BUTTON FOR MAIN APP -->
+<button id="installMainBtn" class="install-main-btn">📲 INSTALL Educational Apps - اصلی آئیکون کے ساتھ</button>
+
 <div class="stats">
-<div class="stat"><b>15</b><span>APPS</span></div>
+<div class="stat"><b id="appCount">0</b><span>APPS</span></div>
 <div class="stat"><b>15K+</b><span>MCQs</span></div>
 <div class="stat"><b>100%</b><span>FREE</span></div>
 <div class="stat"><b>ALL</b><span>DEVICES</span></div>
@@ -98,8 +102,50 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 <a class="card c12" href="./converter/"><div class="badge">ALL UNITS</div><div class="icon"><img src="icons-converter.png" alt="Converter"></div><h3>Unit Converter</h3><p>Universal Converter</p><div class="arrow">→</div></a>
 </div>
 
-<div class="footer">15 APPS • No Play Store Needed | iPhone • Android • Laptop • PC<br>By Akbar Ali Khan SCT GCMHS No.3 Mardan • Study Abroad Added • 15/15 LIVE</div>
+<div class="footer"><span id="footerCount">0</span> APPS • No Play Store Needed | iPhone • Android • Laptop • PC<br>By Akbar Ali Khan SCT GCMHS No.3 Mardan • Study Abroad Added • <span id="liveCount">0/0 LIVE</span></div>
 </div>
+
+<script>
+// AUTO COUNT APPS - NO VARIABLE NEEDED
+document.addEventListener('DOMContentLoaded', () => {
+  const totalCards = document.querySelectorAll('.card').length;
+  document.getElementById('appCount').textContent = totalCards;
+  document.getElementById('footerCount').textContent = totalCards;
+  document.getElementById('liveCount').textContent = totalCards + '/' + totalCards + ' LIVE';
+  document.title = totalCards + ' Educational Apps - By Akbar Ali Khan';
+});
+
+// PWA INSTALL BUTTON LOGIC FOR MAIN APP
+let mainDeferredPrompt;
+const mainInstallBtn = document.getElementById('installMainBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  mainDeferredPrompt = e;
+  mainInstallBtn.style.display = 'block';
+});
+
+mainInstallBtn.addEventListener('click', async () => {
+  if (mainDeferredPrompt) {
+    mainDeferredPrompt.prompt();
+    const { outcome } = await mainDeferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      mainInstallBtn.style.display = 'none';
+    }
+    mainDeferredPrompt = null;
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  mainInstallBtn.style.display = 'none';
+});
+
+// SERVICE WORKER
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
+</script>
+
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
