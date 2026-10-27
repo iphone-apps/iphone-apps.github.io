@@ -72,6 +72,29 @@
         }
         .gate:hover{transform:scale(1.02);box-shadow:0 5px 30px rgba(255,235,59,0.6)}
         .gate span{font-size:13px;display:block;font-weight:600;margin-top:2px}
+        
+        /* INSTALL BUTTON STYLE */
+        #installBtn{
+          display:none;
+          background:linear-gradient(90deg,#00ff66,#00aa33);
+          color:#000;
+          border:none;
+          padding:13px 24px;
+          border-radius:30px;
+          font-weight:900;
+          font-size:16px;
+          margin:14px auto;
+          cursor:pointer;
+          box-shadow:0 0 20px rgba(0,255,102,0.6);
+          animation:btnGlow 1.5s infinite;
+          width:95%;
+          max-width:600px;
+        }
+        @keyframes btnGlow{
+          0%,100%{transform:scale(1)}
+          50%{transform:scale(1.03)}
+        }
+
         .chapters{display:none;margin-top:12px}
         .chapters.show{display:block;animation:slide 0.4s ease}
         @keyframes slide{
@@ -148,6 +171,10 @@
         📖 TAP TO OPEN CONSTITUTION
         <span>13 Parts • 280 Articles • 7 Schedules • Click to Expand</span>
     </div>
+
+    <!-- NAYA INSTALL BUTTON -->
+    <button id="installBtn">📲 INSTALL APP - اصلی آئیکون کے ساتھ</button>
+
     <div id="chaptersList" class="chapters">
         <a href="part1.html" class="chapter-btn"><span class="left">📘 Part I — Introductory (Art 1-6, 2A + Preamble)</span><span class="right new">NEW Art 6</span></a>
         <a href="part2.html" class="chapter-btn"><span class="left">📗 Part II Ch1 — Fundamental Rights (Art 7-28)</span><span class="right new">NEW Art 17</span></a>
@@ -172,7 +199,26 @@
     </div>
 </div>
 <script>
-    // PWA ke liye zaroori hai
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js');
     }
