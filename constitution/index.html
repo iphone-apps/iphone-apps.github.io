@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Constitution of Pakistan - 27th Amendment 2025</title>
     <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1a0033">
-<link rel="icon" href="../icons-constitution.png">
-<link rel="apple-touch-icon" href="../icons-constitution.png">
+    <meta name="theme-color" content="#1a0033">
+    <link rel="icon" href="../icons-constitution.png">
+    <link rel="apple-touch-icon" href="../icons-constitution.png">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{
@@ -19,8 +19,6 @@
           min-height:100vh;
         }
         .container{max-width:720px;margin:0 auto}
-
-        /* ===== TITLE ===== */
         .main-title{
           font-size:30px;
           color:#ffeb3b;
@@ -47,8 +45,6 @@
           50%{box-shadow:0 0 25px rgba(0,255,102,0.8)}
         }
         .sub{color:#d1c5e8;font-size:14px;margin-bottom:14px;line-height:1.5}
-
-        /* ===== DISCLAIMER ===== */
         .disclaimer{
           background:rgba(26,15,46,0.8);
           border:1px solid #ffeb3b;
@@ -61,8 +57,6 @@
         .disclaimer h4{color:#ffeb3b;font-size:14px;margin-bottom:4px}
         .disclaimer p{color:#c4b5d6;font-size:12px;line-height:1.6}
         .disclaimer a{color:#ffeb3b}
-
-        /* ===== MAIN GATE ===== */
         .gate{
           background:linear-gradient(135deg,#ff6600,#ffeb3b);
           color:#000;
@@ -78,8 +72,6 @@
         }
         .gate:hover{transform:scale(1.02);box-shadow:0 5px 30px rgba(255,235,59,0.6)}
         .gate span{font-size:13px;display:block;font-weight:600;margin-top:2px}
-
-        /* ===== CHAPTERS LIST ===== */
         .chapters{display:none;margin-top:12px}
         .chapters.show{display:block;animation:slide 0.4s ease}
         @keyframes slide{
@@ -119,16 +111,10 @@
           white-space:nowrap;
           margin-left:8px;
         }
-
-        /* ===== BADGE COLORS ===== */
         .new{background:#00ff66;color:#000;box-shadow:0 0 10px #00ff66}
         .updated{background:#ffeb3b;color:#000}
         .normal{background:#333;color:#aaa}
-
-        /* ===== PART 13 SPECIAL ===== */
         .part13{background:linear-gradient(135deg,#004d00,#00cc00)!important;border:1px solid #00ff66!important}
-
-        /* ===== MADE BY BOX ===== */
         .madeby{
           background:linear-gradient(135deg,#1a0033,#3d0099);
           border:2px solid #ffeb3b;
@@ -140,8 +126,6 @@
         .madeby h3{color:#ffeb3b;font-size:18px;margin-bottom:4px}
         .madeby p{font-size:13px;color:#d1c5e8;line-height:1.5}
         .madeby .feedback{color:#ffeb3b;margin-top:8px;font-weight:bold}
-
-        /* ===== MOBILE ===== */
         @media (max-width:500px){
           .main-title{font-size:22px}
           .chapter-btn{font-size:13px;padding:10px 12px}
@@ -153,113 +137,45 @@
 </head>
 <body>
 <div class="container">
-
-    <!-- ===== TITLE ===== -->
     <h1 class="main-title">📜 CONSTITUTION OF PAKISTAN</h1>
     <div class="badge27">✅ UPDATED TILL 27TH AMENDMENT ACT, 2025 — INCLUDES FCC</div>
     <p class="sub">1973 Constitution with Federal Constitutional Court (Art 175B-175L) &amp; Field Marshal (Art 243)</p>
-
-    <!-- ===== DISCLAIMER ===== -->
     <div class="disclaimer">
         <h4>⚠️ Disclaimer — Educational Purpose Only</h4>
         <p>Not an official app of any Court/Govt. Official Source: <a href="https://na.gov.pk/uploads/documents/6926e060076ed_467.pdf" target="_blank">National Assembly PDF</a>. We do NOT guarantee 100% accuracy. Cross-check with official books.</p>
     </div>
-
-    <!-- ===== MAIN GATE ===== -->
     <div class="gate" onclick="toggleChapters()">
         📖 TAP TO OPEN CONSTITUTION
         <span>13 Parts • 280 Articles • 7 Schedules • Click to Expand</span>
     </div>
-
-    <!-- ===== CHAPTERS LIST ===== -->
     <div id="chaptersList" class="chapters">
-
-        <a href="part1.html" class="chapter-btn">
-            <span class="left">📘 Part I — Introductory (Art 1-6, 2A + Preamble)</span>
-            <span class="right new">NEW Art 6</span>
-        </a>
-
-        <a href="part2.html" class="chapter-btn">
-            <span class="left">📗 Part II Ch1 — Fundamental Rights (Art 7-28)</span>
-            <span class="right new">NEW Art 17</span>
-        </a>
-
-        <a href="part3.html" class="chapter-btn">
-            <span class="left">📙 Part II Ch2 — Principles of Policy (Art 29-40)</span>
-            <span class="right updated">Art 38 — Riba 2028</span>
-        </a>
-
-        <a href="part4.html" class="chapter-btn">
-            <span class="left">📘 Part III — The Federation (Art 41-100)</span>
-            <span class="right new">NEW Art 63A FCC</span>
-        </a>
-
-        <a href="part5.html" class="chapter-btn">
-            <span class="left">📕 Part IV — Provinces (Art 101-140A)</span>
-            <span class="right normal">101-140A</span>
-        </a>
-
-        <a href="part6.html" class="chapter-btn">
-            <span class="left">📒 Part V — Federation &amp; Provinces (Art 141-159)</span>
-            <span class="right normal">141-159</span>
-        </a>
-
-        <a href="part7.html" class="chapter-btn">
-            <span class="left">📓 Part VI — Finance (Art 160-175)</span>
-            <span class="right normal">160-175</span>
-        </a>
-
-        <a href="part8.html" class="chapter-btn">
-            <span class="left">📔 Part VII — The Judicature (Art 175-203)</span>
-            <span class="right new">FCC 175B-175L</span>
-        </a>
-
-        <a href="part9.html" class="chapter-btn">
-            <span class="left">📖 Part VII — Federal Shariat Court + SJC (Art 203A-212B)</span>
-            <span class="right normal">203A-212B</span>
-        </a>
-
-        <a href="part10.html" class="chapter-btn">
-            <span class="left">📚 Part VIII — Elections (Art 213-226)</span>
-            <span class="right normal">213-226</span>
-        </a>
-
-        <a href="part11.html" class="chapter-btn">
-            <span class="left">📖 Part IX — Islamic Provisions (Art 227-231)</span>
-            <span class="right normal">227-231</span>
-        </a>
-
-        <a href="part11b.html" class="chapter-btn">
-            <span class="left">📓 Part X — Emergency Provisions (Art 232-237)</span>
-            <span class="right normal">232-237</span>
-        </a>
-
-        <a href="part12.html" class="chapter-btn">
-            <span class="left">📔 Part XI &amp; XII — Amendment &amp; Misc (Art 238-280)</span>
-            <span class="right new">NEW Art 243</span>
-        </a>
-
-        <a href="part13.html" class="chapter-btn part13">
-            <span class="left">📜 SCHEDULES (1-7) — Oaths, Lists, Amendment Rules</span>
-            <span class="right new">FCC Oath</span>
-        </a>
-
+        <a href="part1.html" class="chapter-btn"><span class="left">📘 Part I — Introductory (Art 1-6, 2A + Preamble)</span><span class="right new">NEW Art 6</span></a>
+        <a href="part2.html" class="chapter-btn"><span class="left">📗 Part II Ch1 — Fundamental Rights (Art 7-28)</span><span class="right new">NEW Art 17</span></a>
+        <a href="part3.html" class="chapter-btn"><span class="left">📙 Part II Ch2 — Principles of Policy (Art 29-40)</span><span class="right updated">Art 38 — Riba 2028</span></a>
+        <a href="part4.html" class="chapter-btn"><span class="left">📘 Part III — The Federation (Art 41-100)</span><span class="right new">NEW Art 63A FCC</span></a>
+        <a href="part5.html" class="chapter-btn"><span class="left">📕 Part IV — Provinces (Art 101-140A)</span><span class="right normal">101-140A</span></a>
+        <a href="part6.html" class="chapter-btn"><span class="left">📒 Part V — Federation &amp; Provinces (Art 141-159)</span><span class="right normal">141-159</span></a>
+        <a href="part7.html" class="chapter-btn"><span class="left">📓 Part VI — Finance (Art 160-175)</span><span class="right normal">160-175</span></a>
+        <a href="part8.html" class="chapter-btn"><span class="left">📔 Part VII — The Judicature (Art 175-203)</span><span class="right new">FCC 175B-175L</span></a>
+        <a href="part9.html" class="chapter-btn"><span class="left">📖 Part VII — Federal Shariat Court + SJC (Art 203A-212B)</span><span class="right normal">203A-212B</span></a>
+        <a href="part10.html" class="chapter-btn"><span class="left">📚 Part VIII — Elections (Art 213-226)</span><span class="right normal">213-226</span></a>
+        <a href="part11.html" class="chapter-btn"><span class="left">📖 Part IX — Islamic Provisions (Art 227-231)</span><span class="right normal">227-231</span></a>
+        <a href="part11b.html" class="chapter-btn"><span class="left">📓 Part X — Emergency Provisions (Art 232-237)</span><span class="right normal">232-237</span></a>
+        <a href="part12.html" class="chapter-btn"><span class="left">📔 Part XI &amp; XII — Amendment &amp; Misc (Art 238-280)</span><span class="right new">NEW Art 243</span></a>
+        <a href="part13.html" class="chapter-btn part13"><span class="left">📜 SCHEDULES (1-7) — Oaths, Lists, Amendment Rules</span><span class="right new">FCC Oath</span></a>
     </div>
-
-    <!-- ===== MADE BY ===== -->
     <div class="madeby">
         <h3>👨‍🏫 Made By: Akbar Ali Khan (SCT)</h3>
         <p>MA Economics / B.Ed / DIT / LLB<br>GCMHS No:3 MARDAN, KPK</p>
-        <p style="margin-top:8px">
-            <b>Email:</b> akbarmdn72@gmail.com<br>
-            <b>Phone:</b> +92 306-8183790 / +92 333-9840801
-        </p>
+        <p style="margin-top:8px"><b>Email:</b> akbarmdn72@gmail.com<br><b>Phone:</b> +92 306-8183790 / +92 333-9840801</p>
         <p class="feedback">📢 Send Feedback — Updated till 27th Amendment 2025</p>
     </div>
-
 </div>
-
 <script>
+    // PWA ke liye zaroori hai
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
     function toggleChapters(){
       document.getElementById('chaptersList').classList.toggle('show');
     }
@@ -267,6 +183,6 @@
       setTimeout(toggleChapters, 500);
     };
 </script>
-    <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
