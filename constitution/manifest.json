@@ -1,8 +1,10 @@
 {
+  "id": "/constitution/",
   "name": "Constitution of Pakistan - 27th Amendment 2025",
   "short_name": "Constitution PK",
-  "description": "Constitution of Pakistan Updated Till 27th Amendment 2025 - By Akbar Ali Khan",
-  "start_url": "./",
+  "description": "Constitution of Pakistan Updated Till 27th Amendment 2025",
+  "start_url": "/constitution/",
+  "scope": "/constitution/",
   "display": "standalone",
   "background_color": "#0a0a1a",
   "theme_color": "#1a0033",
