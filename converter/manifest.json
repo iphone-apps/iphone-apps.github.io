@@ -1,0 +1,12 @@
+{
+  "name": "Unit Converter - By Akbar Ali Khan",
+  "short_name": "Converter",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fee2e2",
+  "theme_color": "#ef4444",
+  "icons": [
+    { "src": "./icons-converter.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icons-converter.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
