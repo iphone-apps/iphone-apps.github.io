@@ -61,7 +61,6 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 <div class="by">By Akbar Ali Khan • SCT GCMHS No.3 Mardan</div>
 </div>
 
-<!-- GREEN INSTALL BUTTON FOR MAIN APP -->
 <button id="installMainBtn" class="install-main-btn">📲 INSTALL Educational Apps - اصلی آئیکون کے ساتھ</button>
 
 <div class="stats">
@@ -73,7 +72,7 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 
 <div class="title"><span class="dot"></span> 🔥 NEW - OFFICE + STUDY ABROAD (2 in 1)</div>
 <div class="grid">
-<a class="card c13" href="./universal-wps.html"><div class="badge">🔥</div><div class="icon"><img src="Icons-universal-wps.png" alt="Universal WPS"></div><h3>Universal WPS</h3><p>Word, Excel, PPT to PDF REAL</p><div class="arrow">→</div></a>
+<a class="card c13" href="./universal-wps/"><div class="badge">🔥</div><div class="icon"><img src="./universal-wps/icons-universal-wps.png" alt="Universal WPS"></div><h3>Universal WPS</h3><p>Word, Excel, PPT to PDF REAL</p><div class="arrow">→</div></a>
 <a class="card c15" href="./study-abroad/"><div class="badge">🌍 NEW</div><div class="icon"><img src="icons-study-abroad.png" alt="Study Abroad"></div><h3>Study Abroad</h3><p>21 Countries - World Guide</p><div class="arrow">→</div></a>
 </div>
 
@@ -106,7 +105,6 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 </div>
 
 <script>
-// AUTO COUNT APPS - NO VARIABLE NEEDED
 document.addEventListener('DOMContentLoaded', () => {
   const totalCards = document.querySelectorAll('.card').length;
   document.getElementById('appCount').textContent = totalCards;
@@ -114,17 +112,13 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('liveCount').textContent = totalCards + '/' + totalCards + ' LIVE';
   document.title = totalCards + ' Educational Apps - By Akbar Ali Khan';
 });
-
-// PWA INSTALL BUTTON LOGIC FOR MAIN APP
 let mainDeferredPrompt;
 const mainInstallBtn = document.getElementById('installMainBtn');
-
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   mainDeferredPrompt = e;
   mainInstallBtn.style.display = 'block';
 });
-
 mainInstallBtn.addEventListener('click', async () => {
   if (mainDeferredPrompt) {
     mainDeferredPrompt.prompt();
@@ -135,17 +129,13 @@ mainInstallBtn.addEventListener('click', async () => {
     mainDeferredPrompt = null;
   }
 });
-
 window.addEventListener('appinstalled', () => {
   mainInstallBtn.style.display = 'none';
 });
-
-// SERVICE WORKER
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(()=>{});
 }
 </script>
-
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
