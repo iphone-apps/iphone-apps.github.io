@@ -1,5 +1,5 @@
-// Constitution SW - FIXED
-const CACHE_NAME = 'constitution-pk-v2';
+// Constitution SW - FINAL v3
+const CACHE_NAME = 'constitution-pk-v3';
 
 self.addEventListener('install', e => {
   self.skipWaiting();
@@ -8,23 +8,25 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys => Promise.all(
-      keys.map(k => { if(k !== CACHE_NAME) return caches.delete(k) })
+      keys.map(k => { 
+        if(k.startsWith('constitution-pk-') && k !== CACHE_NAME) {
+          return caches.delete(k);
+        }
+      })
     ))
   );
   self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.url.includes('/constitution/')) {
-    event.respondWith(
-      caches.match(event.request).then(res => {
-        return res || fetch(event.request).then(fetchRes => {
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(event.request, fetchRes.clone());
-            return fetchRes;
-          });
+  event.respondWith(
+    caches.match(event.request).then(res => {
+      return res || fetch(event.request).then(fetchRes => {
+        return caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, fetchRes.clone());
+          return fetchRes;
         });
-      })
-    );
-  }
+      });
+    })
+  );
 });
