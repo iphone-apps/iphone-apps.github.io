@@ -1,18 +1,7 @@
-// Educational Apps By Akbar Ali Khan - Main SW
-const CACHE_NAME = 'edu-apps-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icons-index-html.png'
-];
+// Educational Apps By Akbar Ali Khan - Main SW - FIXED
+const CACHE_NAME = 'edu-apps-v2-fixed';
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
-  );
   self.skipWaiting();
 });
 
@@ -32,6 +21,18 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // FIX: Constitution aur dosre sub-apps ko ignore karo
+  if (url.pathname.startsWith('/constitution/') || 
+      url.pathname.startsWith('/nts-teachers/') ||
+      url.pathname.startsWith('/study-abroad/') ||
+      url.pathname.startsWith('/mdcat/') ||
+      url.pathname.startsWith('/ecat/') ||
+      url.pathname.startsWith('/lat/')) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(response => {
       return response || fetch(event.request);
