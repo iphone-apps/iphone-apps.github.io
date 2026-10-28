@@ -1,9 +1,9 @@
 {
-  "id": "/",
+  "id": "/index.html",
   "name": "Educational Apps By Akbar Ali Khan",
   "short_name": "Educational Apps",
   "description": "All Free Educational Apps - Constitution, MDCAT, ECAT, FSc, Study Abroad by Akbar Ali Khan SCT GCMHS No.3 Mardan",
-  "start_url": "/",
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0f172a",
