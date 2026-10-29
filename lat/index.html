@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAT Practice Tests - Index</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a0033">
+    <link rel="icon" type="image/png" href="./icons-lat.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -45,6 +48,7 @@
         .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
         .madeby-box .contact b { color: #bb86fc; }
         .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        #installBtn{display:none;background:linear-gradient(90deg,#ffeb3b,#7f00ff);color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:15px;margin:0 auto 12px auto;cursor:pointer;width:100%;max-width:600px;box-shadow:0 4px 15px rgba(127,0,255,0.5);}
     </style>
 </head>
 <body>
@@ -55,6 +59,8 @@
     <div class="disclaimer-top">
         ⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with HEC, LAT, Pakistan Bar Council or any official authority. For self-study.
     </div>
+
+    <button id="installBtn">📲 INSTALL LAT App</button>
 
     <div class="box" onclick="toggleLevels()">
         <h2>📚 LAT Test Series</h2>
@@ -86,15 +92,18 @@
     </div>
 </div>
 <script>
-    function toggleLevels() {
-        var x = document.getElementById("testLevels");
+    const toggleLevels = () => {
+        const x = document.getElementById("testLevels");
         if (x.style.display === "none" || x.style.display === "") {
             x.style.display = "block"; x.classList.remove("hidden");
         } else { x.style.display = "none"; }
     }
-    function openTest(testFile) { window.location.href = testFile; }
+    const openTest = (testFile) => { window.location.href = testFile; }
+    let deferredPrompt; const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
+    installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { installBtn.style.display = 'none'; } deferredPrompt = null; } });
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js', {scope: './'}); }
 </script>
-<!-- GoatCounter - SAFE -->
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
