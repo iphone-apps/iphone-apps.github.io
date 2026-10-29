@@ -1,0 +1,16 @@
+{
+  "name": "ECAT Sample Tests",
+  "short_name": "ECAT",
+  "start_url": "/iphone-apps.github.io/ecat/",
+  "display": "standalone",
+  "background_color": "#0a0a1a",
+  "theme_color": "#0d47a1",
+  "icons": [
+    {
+      "src": "icons-ecat.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
