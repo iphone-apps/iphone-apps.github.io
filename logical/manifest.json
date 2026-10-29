@@ -1,0 +1,20 @@
+{
+  "name": "Logical Reasoning MCQs Test",
+  "short_name": "Logical Test",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000428",
+  "theme_color": "#004e92",
+  "icons": [
+    {
+      "src": "./icons-logical.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons-logical.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
