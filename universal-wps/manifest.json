@@ -1,0 +1,9 @@
+{
+  "name": "Universal WPS - Pro Office Suite",
+  "short_name": "WPS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f0c29",
+  "theme_color": "#302b63",
+  "icons": [{ "src": "./icons-universal-wps.png", "sizes": "512x512", "type": "image/png" }]
+}
