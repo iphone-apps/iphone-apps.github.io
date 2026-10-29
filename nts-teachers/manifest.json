@@ -1,0 +1,12 @@
+{
+  "name": "NTS Teacher Tests",
+  "short_name": "NTS Teachers",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a0033",
+  "theme_color": "#1a0033",
+  "icons": [
+    { "src": "./icons-nts-teachers.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icons-nts-teachers.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
