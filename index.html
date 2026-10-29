@@ -6,8 +6,8 @@
 <title>Educational Apps By Akbar Ali Khan</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f172a">
-<link rel="icon" type="image/png" href="icons-converter.png">
-<link rel="apple-touch-icon" href="icons-converter.png">
+<link rel="icon" type="image/png" href="icons-index-html.png">
+<link rel="apple-touch-icon" href="icons-index-html.png">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -17,7 +17,6 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 .hero h1{font-size:24px;font-weight:800;color:#0f172a;line-height:1.1}
 .hero h1 span{background:linear-gradient(90deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero .by{color:#4338ca;font-size:12px;font-weight:700;margin-top:6px;background:#eef2ff;display:inline-block;padding:4px 12px;border-radius:100px}
-.install-main-btn{display:none; width:100%; margin:12px 0; background:#00d26a; color:#000; font-weight:800; padding:14px; border-radius:25px; border:none; font-size:16px; box-shadow:0 8px 20px rgba(0,210,106,0.4); cursor:pointer;}
 .stats{display:flex;gap:8px;margin:12px 0}
 .stat{flex:1;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:8px;text-align:center}
 .stat b{font-size:16px;display:block;color:#fbbf24}
@@ -50,6 +49,18 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 .c15{background:linear-gradient(135deg,#fffbeb,#fde68a);border:2px solid #f59e0b}.c15 .badge{background:#d97706;animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.7}}
 .footer{text-align:center;margin-top:16px;padding:10px;background:rgba(0,0,0,0.3);border-radius:12px;font-size:10px}
+/* INSTALL GUIDE */
+.install-guide{background:#fff;border-radius:20px;padding:16px;margin-top:18px;color:#0f172a}
+.install-guide h2{font-size:14px;text-align:center;margin-bottom:12px;line-height:1.3}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tab{flex:1;padding:8px;border-radius:10px;border:none;font-weight:800;font-size:11px;cursor:pointer;background:#eef2ff;color:#4338ca}
+.tab.active{background:#4338ca;color:#fff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.step{display:flex;gap:10px;margin:8px 0;background:#f8fafc;padding:10px;border-radius:12px}
+.step b{width:26px;height:26px;background:#0f172a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.step p{font-size:11px;line-height:1.4}
+.lang{font-size:9px;color:#6366f1;font-weight:700;margin-top:10px;text-align:center;line-height:1.3}
 </style>
 </head>
 <body>
@@ -58,13 +69,14 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 <h1>🎓 My Educational<br><span>Apps For Everyone!</span></h1>
 <div class="by">By Akbar Ali Khan • SCT GCMHS No.3 Mardan</div>
 </div>
-<button id="installMainBtn" class="install-main-btn">📲 INSTALL Educational Apps - اصلی آئیکون کے ساتھ</button>
+
 <div class="stats">
 <div class="stat"><b id="appCount">0</b><span>APPS</span></div>
 <div class="stat"><b>15K+</b><span>MCQs</span></div>
 <div class="stat"><b>100%</b><span>FREE</span></div>
 <div class="stat"><b>ALL</b><span>DEVICES</span></div>
 </div>
+
 <div class="title"><span class="dot"></span> 🔥 NEW - OFFICE + STUDY ABROAD (2 in 1)</div>
 <div class="grid">
 <a class="card c13" href="./universal-wps/" target="_blank" rel="noopener"><div class="badge">🔥</div><div class="icon"><img src="icons-universal-wps.png" alt="Universal WPS"></div><h3>Universal WPS</h3><p>Word, Excel, PPT to PDF REAL</p><div class="arrow">→</div></a>
@@ -92,6 +104,30 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 <a class="card c11" href="./translator/" target="_blank" rel="noopener"><div class="badge">50+ LANGS</div><div class="icon"><img src="icons-translator.png" alt="Translator"></div><h3>Global Translator</h3><p>50+ Languages</p><div class="arrow">→</div></a>
 <a class="card c12" href="./converter/" target="_blank" rel="noopener"><div class="badge">ALL UNITS</div><div class="icon"><img src="icons-converter.png" alt="Converter"></div><h3>Unit Converter</h3><p>Universal Converter</p><div class="arrow">→</div></a>
 </div>
+
+<!-- HOW TO INSTALL GUIDE - 3 LANGUAGES -->
+<div class="install-guide">
+<h2>📲 How to Install / انسٹال کرنے کا طریقہ / نصب کولو طریقہ</h2>
+<div class="tabs">
+<button class="tab active" onclick="openTab(event,'android')">🤖 Android</button>
+<button class="tab" onclick="openTab(event,'iphone')">🍎 iPhone</button>
+<button class="tab" onclick="openTab(event,'pc')">💻 PC</button>
+</div>
+<div id="android" class="tab-content active">
+<div class="step"><b>1</b><p><strong>English:</strong> Open App → Tap Chrome 3 dots ⋮ → <strong>Add to Home Screen</strong> → Add<br><strong>اردو:</strong> ایپ کھولیں → کروم کے 3 نقطوں ⋮ پر کلک کریں → <strong>Add to Home Screen</strong> → Add<br><strong>پښتو:</strong> اپ خلاص کړئ → د کروم 3 نقطې ⋮ ووهئ → <strong>Add to Home Screen</strong></p></div>
+<div class="step"><b>2</b><p>✅ App icon with <strong>original icon</strong> will appear! Works offline!</p></div>
+</div>
+<div id="iphone" class="tab-content">
+<div class="step"><b>1</b><p><strong>English:</strong> Open in Safari → Tap Share ⎙ → <strong>Add to Home Screen</strong><br><strong>اردو:</strong> سفاری میں کھولیں → شیئر بٹن دبائیں → <strong>Add to Home Screen</strong><br><strong>پښتو:</strong> په سفاري کې خلاص کړئ → شریکولو تڼۍ ووهئ → <strong>Add to Home Screen</strong></p></div>
+<div class="step"><b>2</b><p>Tap <strong>Add</strong> → Icon appears on iPhone!</p></div>
+</div>
+<div id="pc" class="tab-content">
+<div class="step"><b>1</b><p><strong>English:</strong> Open in Chrome → Address bar Install icon or 3 dots ⋮ → <strong>Install</strong><br><strong>اردو:</strong> کروم میں کھولیں → ایڈریس بار میں Install آئیکون → <strong>Install</strong><br><strong>پښتو:</strong> په کروم کې خلاص کړئ → Install نښه ووهئ</p></div>
+<div class="step"><b>2</b><p>App works like computer software!</p></div>
+</div>
+<div class="lang">🇵🇰 No Play Store Needed • All Devices • By Akbar Ali Khan SCT GCMHS No.3 Mardan</div>
+</div>
+
 <div class="footer"><span id="footerCount">0</span> APPS • No Play Store Needed | iPhone • Android • Laptop • PC<br>By Akbar Ali Khan SCT GCMHS No.3 Mardan • Study Abroad Added • <span id="liveCount">0/0 LIVE</span></div>
 </div>
 <script>
@@ -102,24 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('liveCount').textContent = totalCards + '/' + totalCards + ' LIVE';
   document.title = totalCards + ' Educational Apps - By Akbar Ali Khan';
 });
-let mainDeferredPrompt;
-const mainInstallBtn = document.getElementById('installMainBtn');
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  mainDeferredPrompt = e;
-  mainInstallBtn.style.display = 'block';
-});
-mainInstallBtn.addEventListener('click', async () => {
-  if (mainDeferredPrompt) {
-    mainDeferredPrompt.prompt();
-    const { outcome } = await mainDeferredPrompt.userChoice;
-    if (outcome === 'accepted') { mainInstallBtn.style.display = 'none'; }
-    mainDeferredPrompt = null;
-  }
-});
-window.addEventListener('appinstalled', () => { mainInstallBtn.style.display = 'none'; });
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').then(()=>{}).catch(()=>{});
+function openTab(evt, name){
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  evt.currentTarget.classList.add('active');
 }
 </script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
