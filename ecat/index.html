@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ECAT Sample Tests</title>
+    
+    <!-- PWA FIX -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d47a1">
+    <link rel="icon" type="image/png" href="icons-ecat.png">
+    <link rel="apple-touch-icon" href="icons-ecat.png">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -59,7 +66,6 @@
     <h1 class="main-title">⚡ ECAT Sample Tests</h1>
     <p class="main-subtitle">10 Full-Length Tests · 100 MCQs Each</p>
 
-    <!-- SMALL DISCLAIMER FOR ECAT -->
     <div class="disclaimer-top">
         ⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with UET Lahore, ECAT or any official authority. For self-study.
     </div>
@@ -108,8 +114,12 @@
         } else { x.style.display = "none"; }
     }
     function openTest(testFile) { window.location.href = testFile; }
+
+    // PWA Service Worker Register
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
 </script>
-<!-- GoatCounter - SAFE -->
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
