@@ -13,7 +13,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,#1e1b4b 40%,#312e81 100%);min-height:100vh;padding:14px;color:white}
 .container{max-width:420px;margin:0 auto}
-.hero{background:linear-gradient(135deg,#ffffff,#e0e7ff);border-radius:26px;padding:18px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.4)}
+.hero{background:linear-gradient(135deg,#ffffff,#e0e7ff);border-radius:26px;padding:18px;text-align:center}
 .hero h1{font-size:24px;font-weight:800;color:#0f172a;line-height:1.1}
 .hero h1 span{background:linear-gradient(90deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .hero .by{color:#4338ca;font-size:12px;font-weight:700;margin-top:6px;background:#eef2ff;display:inline-block;padding:4px 12px;border-radius:100px}
@@ -25,7 +25,7 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .card{border-radius:18px;padding:13px;text-decoration:none;display:block;position:relative;box-shadow:0 6px 18px rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.2)}
-.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.95);margin-bottom:8px;overflow:hidden}
+.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#fff;margin-bottom:8px;overflow:hidden}
 .icon img{width:100%;height:100%;object-fit:contain;padding:3px}
 .card h3{font-size:12px;font-weight:800;color:#0f172a;line-height:1.2}
 .card p{font-size:10px;font-weight:600;color:#334155;margin-top:2px}
@@ -47,67 +47,68 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 .c14{background:linear-gradient(135deg,#bfdbfe,#93c5fd);border:2px solid #1e40af}.c14 .badge{background:#1e40af}
 .c15{background:linear-gradient(135deg,#fffbeb,#fde68a);border:2px solid #f59e0b}.c15 .badge{background:#d97706}
 .footer{text-align:center;margin-top:16px;padding:10px;background:rgba(0,0,0,0.3);border-radius:12px;font-size:10px}
+/* GUIDE */
 .install-guide{background:#fff;border-radius:22px;padding:16px;margin-top:18px;color:#0f172a}
 .install-guide h2{font-size:14px;text-align:center;font-weight:800}
-.device-tabs{display:flex;gap:6px;margin:12px 0 10px}
+.device-tabs{display:flex;gap:6px;margin:12px 0 8px}
 .device-tabs .tab{flex:1;padding:9px;border-radius:12px;border:none;font-weight:800;font-size:12px;cursor:pointer;background:#eef2ff;color:#4338ca}
 .device-tabs .tab.active{background:#4338ca;color:#fff}
 .lang-label{font-size:10px;font-weight:800;color:#64748b;margin:6px 0}
 .lang-tabs{display:flex;flex-wrap:wrap;gap:6px}
 .lang-tabs .ltab{padding:6px 10px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;font-size:10px;font-weight:700;cursor:pointer}
 .lang-tabs .ltab.active{background:#0f172a;color:#fff;border-color:#0f172a}
-.instr-box{background:#f8fafc;border-radius:16px;padding:12px;margin-top:12px}
-.step{display:flex;gap:10px;margin:10px 0}
+.instr-box{background:#f8fafc;border-radius:16px;padding:12px;margin-top:12px;border:1px solid #eef2ff}
+.step{display:flex;gap:10px;margin:12px 0}
 .step b{min-width:28px;height:28px;background:#0f172a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
 .step p{font-size:12px;line-height:1.5;font-weight:600}
-.dev-card{margin-top:14px;background:linear-gradient(135deg,#0f172a,#312e81);border-radius:16px;padding:14px;color:#fff;text-align:center}
-.dev-card h3{font-size:13px;color:#fbbf24}
-.dev-card p{font-size:10px;opacity:0.9;margin-top:4px;line-height:1.5}
+.dev-card{margin-top:16px;background:linear-gradient(180deg,#1a0b4a,#2d0a5a);border:2px solid #fbbf24;border-radius:18px;padding:16px;color:#fff;text-align:center}
+.dev-card h3{font-size:14px;color:#fde047;font-weight:800}
+.dev-card .qual{font-size:11px;color:#c4b5fd;margin:4px 0}
+.dev-card .info{font-size:11px;color:#e9d5ff;margin:2px 0}
+.dev-card .info b{color:#fbbf24}
+.dev-card .feed{margin-top:8px;background:rgba(251,191,36,0.15);padding:8px;border-radius:10px;font-size:11px;color:#fde047;font-weight:700}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="hero"><h1>🎓 My Educational<br><span>Apps For Everyone!</span></h1><div class="by">By Akbar Ali Khan • SCT GCMHS No.3 Mardan</div></div>
-<div class="stats"><div class="stat"><b>15</b><span>APPS</span></div><div class="stat"><b>15K+</b><span>MCQs</span></div><div class="stat"><b>100%</b><span>FREE</span></div><div class="stat"><b>ALL</b><span>DEVICES</span></div></div>
+<div class="stats"><div class="stat"><b>15</b><span>APPS</span></div><div class="stat"><b>15K+</b><span>MCQs</span></div><div class="stat"><b>2026</b><span>UPDATED</span></div><div class="stat"><b>ALL</b><span>DEVICES</span></div></div>
 
 <div class="title"><span class="dot"></span> 🔥 NEW - OFFICE + STUDY ABROAD</div>
 <div class="grid">
 <a class="card c13" href="./universal-wps/" target="_blank" rel="noopener"><div class="badge">🔥</div><div class="icon"><img src="icons-universal-wps.png"></div><h3>Universal WPS</h3><p>Word, Excel, PPT to PDF</p><div class="arrow">→</div></a>
 <a class="card c15" href="./study-abroad/" target="_blank" rel="noopener"><div class="badge">🌍 NEW</div><div class="icon"><img src="icons-study-abroad.png"></div><h3>Study Abroad</h3><p>21 Countries Guide</p><div class="arrow">→</div></a>
 </div>
-
 <div class="title"><span class="dot"></span> 🔥 NTS TEACHERS</div>
 <div class="grid"><a class="card c14" href="./nts-teachers/" target="_blank" rel="noopener"><div class="badge">8 TESTS</div><div class="icon"><img src="icons-nts-teachers.png"></div><h3>NTS Teachers</h3><p>PST, PET, Qari, SST</p><div class="arrow">→</div></a></div>
-
 <div class="title"><span class="dot"></span> ENTRY TESTS</div>
 <div class="grid">
-<a class="card c1" href="./mdcat/" target="_blank" rel="noopener"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-mdcat.png"></div><h3>MDCAT</h3><p>Medical Entry</p><div class="arrow">→</div></a>
-<a class="card c2" href="./ecat/" target="_blank" rel="noopener"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-ecat.png"></div><h3>ECAT</h3><p>Engineering</p><div class="arrow">→</div></a>
-<a class="card c3" href="./lat/" target="_blank" rel="noopener"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-lat.png"></div><h3>LAT</h3><p>Law Test</p><div class="arrow">→</div></a>
-<a class="card c4" href="./logical/" target="_blank" rel="noopener"><div class="badge">1000 MCQs</div><div class="icon"><img src="icons-logical.png"></div><h3>Logical Reasoning</h3><p>Reasoning</p><div class="arrow">→</div></a>
+<a class="card c1" href="./mdcat/" target="_blank"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-mdcat.png"></div><h3>MDCAT</h3><p>Medical Entry</p><div class="arrow">→</div></a>
+<a class="card c2" href="./ecat/" target="_blank"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-ecat.png"></div><h3>ECAT</h3><p>Engineering</p><div class="arrow">→</div></a>
+<a class="card c3" href="./lat/" target="_blank"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-lat.png"></div><h3>LAT</h3><p>Law Test</p><div class="arrow">→</div></a>
+<a class="card c4" href="./logical/" target="_blank"><div class="badge">1000 MCQs</div><div class="icon"><img src="icons-logical.png"></div><h3>Logical Reasoning</h3><p>Reasoning</p><div class="arrow">→</div></a>
 </div>
-
 <div class="title"><span class="dot"></span> FSc / HSSC</div>
 <div class="grid">
-<a class="card c5" href="./fsc-biology/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-biology.png"></div><h3>FSc Biology</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c6" href="./fsc-chemistry/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-chemistry.png"></div><h3>FSc Chemistry</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c7" href="./fsc-physics/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-physics.png"></div><h3>FSc Physics</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c8" href="./fsc-maths/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-maths.png"></div><h3>FSc Maths</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c9" href="./hssc-english/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-hssc-english.png"></div><h3>HSSC English</h3><p>Grammar & Vocab</p><div class="arrow">→</div></a>
-<a class="card c10" href="./constitution/" target="_blank" rel="noopener"><div class="badge">🇵🇰 1973</div><div class="icon"><img src="icons-constitution.png" style="padding:0"></div><h3>Constitution</h3><p>Pakistan 1973 🇵🇰</p><div class="arrow">→</div></a>
-<a class="card c11" href="./translator/" target="_blank" rel="noopener"><div class="badge">50+ LANGS</div><div class="icon"><img src="icons-translator.png"></div><h3>Global Translator</h3><p>50+ Languages</p><div class="arrow">→</div></a>
-<a class="card c12" href="./converter/" target="_blank" rel="noopener"><div class="badge">ALL UNITS</div><div class="icon"><img src="icons-converter.png"></div><h3>Unit Converter</h3><p>Universal</p><div class="arrow">→</div></a>
+<a class="card c5" href="./fsc-biology/" target="_blank"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-biology.png"></div><h3>FSc Biology</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c6" href="./fsc-chemistry/" target="_blank"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-chemistry.png"></div><h3>FSc Chemistry</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c7" href="./fsc-physics/" target="_blank"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-physics.png"></div><h3>FSc Physics</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c8" href="./fsc-maths/" target="_blank"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-maths.png"></div><h3>FSc Maths</h3><p>Class 11-12</p><div class="arrow">→</div></a>
+<a class="card c9" href="./hssc-english/" target="_blank"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-hssc-english.png"></div><h3>HSSC English</h3><p>Grammar</p><div class="arrow">→</div></a>
+<a class="card c10" href="./constitution/" target="_blank"><div class="badge">🇵🇰 1973</div><div class="icon"><img src="icons-constitution.png" style="padding:0"></div><h3>Constitution</h3><p>Pakistan 1973</p><div class="arrow">→</div></a>
+<a class="card c11" href="./translator/" target="_blank"><div class="badge">50+ LANGS</div><div class="icon"><img src="icons-translator.png"></div><h3>Global Translator</h3><p>50+ Languages</p><div class="arrow">→</div></a>
+<a class="card c12" href="./converter/" target="_blank"><div class="badge">ALL UNITS</div><div class="icon"><img src="icons-converter.png"></div><h3>Unit Converter</h3><p>Universal</p><div class="arrow">→</div></a>
 </div>
 
 <div class="install-guide">
-<h2>📲 How to Install - App Installation Guide</h2>
+<h2>📲 How to Install - 2 Methods</h2>
 <div class="device-tabs">
 <button class="tab active" data-device="android">🤖 Android</button>
 <button class="tab" data-device="iphone">🍎 iPhone</button>
 <button class="tab" data-device="pc">💻 PC</button>
 </div>
-<div class="lang-label">🌍 SELECT LANGUAGE / زبان منتخب کریں</div>
-<div class="lang-tabs" id="langTabs">
+<div class="lang-label">🌍 SELECT LANGUAGE</div>
+<div class="lang-tabs">
 <button class="ltab active" data-lang="en">English</button>
 <button class="ltab" data-lang="ur">اردو</button>
 <button class="ltab" data-lang="ps">پښتو</button>
@@ -120,9 +121,15 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 <button class="ltab" data-lang="hi">हिन्दी</button>
 </div>
 <div class="instr-box" id="instrBox"></div>
+
 <div class="dev-card">
-<h3>👨‍🏫 Developer - Akbar Ali Khan</h3>
-<p><strong>SCT (Senior Certified Teacher) - GCMHS No.3 Mardan, KP Pakistan</strong><br>15 Educational Apps • 15,000+ MCQs • MDCAT, ECAT, NTS, FSc, WPS, Translator<br>🎯 Mission: Free Quality Education For Everyone • No Play Store Needed<br>📍 Mardan, Khyber Pakhtunkhwa • 🇵🇰 Pakistan • 2024-2026<br>© All Apps Free - Educational Purpose</p>
+<h3>Made By: Akbar Ali Khan (SCT)</h3>
+<div class="qual">MA (Economics) · B.Ed · DIT · LLB</div>
+<div class="info"><b>Institute:</b> GCMHS No:3 MARDAN</div>
+<div class="info"><b>Email:</b> akbarmdn72@gmail.com</div>
+<div class="info"><b>Phone 1:</b> +923068183790</div>
+<div class="info"><b>Phone 2:</b> +923339840801</div>
+<div class="feed">📢 Send Your Feedback & Suggestions</div>
 </div>
 </div>
 
@@ -131,9 +138,42 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,
 
 <script>
 const DATA={
-android:{en:["Open any App in Chrome → Tap 3 dots ⋮ on top right → Add to Home Screen → Add","App icon will appear on home screen with original icon! Works offline like real app!"],ur:["کوئی بھی ایپ کروم میں کھولیں → اوپر دائیں 3 نقطوں ⋮ پر کلک کریں → Add to Home Screen → Add","ایپ آپ کی سکرین پر اصلی آئیکون کے ساتھ آ جائے گی! بغیر پلے سٹور کے کام کرے گی!"],ps:["هر اپ په کروم کې خلاص کړئ → پاس 3 نقطې ⋮ ووهئ → Add to Home Screen → Add","اپ به ستاسو په سکرین کې د اصلي آئیکون سره څرګند شي! آف لائن کار کوي!"],ar:["افتح أي تطبيق في كروم → اضغط على 3 نقاط ⋮ في الأعلى → إضافة إلى الشاشة الرئيسية → إضافة","سيظهر التطبيق على الشاشة بأيقونته الأصلية! يعمل بدون متجر!"],zh:["在 Chrome 中打开应用 → 点击右上角 3 个点 ⋮ → 添加到主屏幕 → 添加","应用将以原始图标显示在主屏幕上！离线可用！"],fr:["Ouvrez l'App dans Chrome → Appuyez sur 3 points ⋮ en haut → Ajouter à l'écran d'accueil → Ajouter","L'icône apparaîtra avec l'icône originale! Fonctionne hors ligne!"],es:["Abra la App en Chrome → Toque 3 puntos ⋮ arriba → Agregar a pantalla de inicio → Agregar","¡El icono aparecerá con su icono original! ¡Funciona sin conexión!"],de:["App in Chrome öffnen → Auf 3 Punkte ⋮ oben tippen → Zum Startbildschirm hinzufügen → Hinzufügen","App erscheint mit Original-Icon! Funktioniert offline!"],tr:["Uygulamayı Chrome'da aç → Sağ üstte 3 nokta ⋮ → Ana ekrana ekle → Ekle","Uygulama orijinal ikonla ana ekranda görünecek! Çevrimdışı çalışır!"],hi:["Chrome में कोई भी App खोलें → ऊपर 3 डॉट्स ⋮ पर टैप करें → होम स्क्रीन में जोड़ें → जोड़ें","App असली आइकन के साथ होम स्क्रीन पर आएगी! ऑफलाइन चलेगी!"]},
-iphone:{en:["Open App in Safari → Tap Share button ⎙ at bottom → Add to Home Screen","Tap Add on top right → Icon appears on iPhone home!"],ur:["سفاری میں ایپ کھولیں → نیچے شیئر بٹن ⎙ دبائیں → Add to Home Screen","اوپر Add دبائیں → آئیکون آئی فون پر آ جائے گا!"],ps:["اپ په سفاري کې خلاص کړئ → لاندې شریکولو تڼۍ ⎙ ووهئ → Add to Home Screen","پورته Add ووهئ → آئیکون به په آی فون کې ښکاره شي!"],ar:["افتح التطبيق في سفاري → اضغط زر المشاركة ⎙ في الأسفل → إضافة إلى الشاشة الرئيسية","اضغط إضافة في الأعلى → سيظهر على الآيفون!"],zh:["在 Safari 中打开应用 → 点击底部共享按钮 ⎙ → 添加到主屏幕","点击右上角添加 → 图标将出现在 iPhone 上！"],fr:["Ouvrez dans Safari → Appuyez sur Partager ⎙ en bas → Sur l'écran d'accueil","Appuyez Ajouter en haut → Icône apparaît sur iPhone!"],es:["Abra en Safari → Toque Compartir ⎙ abajo → Agregar a pantalla de inicio","Toque Agregar arriba → ¡Icono aparece en iPhone!"],de:["In Safari öffnen → Auf Teilen ⎙ unten tippen → Zum Home-Bildschirm","Oben Hinzufügen tippen → Icon erscheint auf iPhone!"],tr:["Safari'de aç → Altta Paylaş ⎙ düğmesine dokun → Ana Ekrana Ekle","Sağ üstte Ekle'ye dokun → Simge iPhone'da görünecek!"],hi:["Safari में App खोलें → नीचे Share ⎙ बटन दबाएं → होम स्क्रीन में जोड़ें","ऊपर Add दबाएं → आइकन iPhone पर आएगा!"]},
-pc:{en:["Open App in Chrome / Edge → Click Install icon in address bar OR 3 dots ⋮ → Install","App will work like computer software! Pin to taskbar, works offline!"],ur:["کروم / ایج میں ایپ کھولیں → ایڈریس بار میں Install آئیکون یا 3 نقطے ⋮ → Install","ایپ کمپیوٹر سافٹ ویئر کی طرح کام کرے گی! آف لائن بھی چلے گی!"],ps:["اپ په کروم کې خلاص کړئ → د ادرس بار کې Install نښه یا 3 نقطې ⋮ → Install","اپ به د کمپیوټر سافټویر په څیر کار وکړي! آف لائن کار کوي!"],ar:["افتح التطبيق في كروم / إيدج → اضغط أيقونة التثبيت في شريط العنوان أو 3 نقاط ⋮ → تثبيت","سيعمل كبرنامج كمبيوتر! يعمل بدون إنترنت!"],zh:["在 Chrome / Edge 中打开 → 点击地址栏安装图标或 3 个点 ⋮ → 安装","应用将像电脑软件一样工作！可离线使用！"],fr:["Ouvrez dans Chrome / Edge → Cliquez icône Installer dans barre d'adresse ou 3 points ⋮ → Installer","L'app fonctionne comme logiciel PC! Hors ligne!"],es:["Abra en Chrome / Edge → Clic en icono Instalar en barra o 3 puntos ⋮ → Instalar","¡Funciona como programa de PC! ¡Sin conexión!"],de:["In Chrome / Edge öffnen → Auf Install-Symbol in Adressleiste oder 3 Punkte ⋮ → Installieren","Funktioniert wie PC-Software! Offline!"],tr:["Chrome / Edge'de aç → Adres çubuğunda Yükle simgesi veya 3 nokta ⋮ → Yükle","Bilgisayar yazılımı gibi çalışır! Çevrimdışı!"],hi:["Chrome / Edge में खोलें → एड्रेस बार में Install आइकन या 3 डॉट्स ⋮ → Install","App कंप्यूटर सॉफ्टवेयर की तरह काम करेगी! ऑफलाइन!"]}
+android:{
+en:["<b>Method 1 - Full Store:</b> Open Main Store (this page) in Chrome → Tap 3 dots ⋮ → Add to Home Screen → You get all 15 Apps inside.<br><br><b>Method 2 - Single App Direct:</b> Open any App e.g. MDCAT / FSc / WPS directly → Tap 3 dots ⋮ → Add to Home Screen → That specific App installs directly!","✅ No Play Store needed. Icon with original logo appears. Works offline!"],
+ur:["<b>طریقہ 1 - مکمل سٹور:</b> یہ مین سٹور کروم میں کھولیں → 3 نقطے ⋮ دبائیں → Add to Home Screen → تمام 15 ایپس اندر ملیں گی۔<br><br><b>طریقہ 2 - اکیلی ایپ ڈائریکٹ:</b> کوئی بھی ایپ جیسے MDCAT / FSc / WPS ڈائریکٹ کھولیں → 3 نقطے ⋮ → Add to Home Screen → وہی ایپ ڈائریکٹ انسٹال ہو جائے گی!","✅ پلے سٹور کی ضرورت نہیں۔ اصلی لوگو کے ساتھ آئیکون آئے گا۔ آف لائن کام کرے گی!"],
+ps:["<b>طریقه 1 - مکمل سټور:</b> دا مین سټور په کروم کې خلاص کړئ → 3 نقطې ⋮ ووهئ → Add to Home Screen → ټول 15 اپس به دننه وي۔<br><br><b>طریقه 2 - یو اپ ډایرکټ:</b> هر اپ لکه MDCAT / FSc / WPS مستقیم خلاص کړئ → 3 نقطې ⋮ → Add to Home Screen → هغه اپ به مستقیم نصب شي!","✅ پلې سټور ته اړتیا نشته۔ اصلی لوګو سره آئیکون راځي۔ آف لائن کار کوي!"],
+ar:["<b>الطريقة 1 - المتجر الكامل:</b> افتح المتجر الرئيسي في كروم → 3 نقاط ⋮ → إضافة إلى الشاشة الرئيسية → ستحصل على كل التطبيقات.<br><br><b>الطريقة 2 - تطبيق واحد مباشر:</b> افتح أي تطبيق مثل MDCAT مباشرة → 3 نقاط ⋮ → إضافة → يتثبت مباشرة!","✅ بدون متجر. يعمل بدون إنترنت!"],
+zh:["<b>方法1 - 完整商店:</b> 在Chrome中打开主商店 → 3个点 ⋮ → 添加到主屏幕 → 获得全部15个应用。<br><br><b>方法2 - 单个应用直接安装:</b> 直接打开任一应用如MDCAT → 3个点 ⋮ → 添加到主屏幕 → 该应用直接安装！","✅ 无需应用商店，离线可用！"],
+fr:["<b>Méthode 1 - Store complet:</b> Ouvrez le Store principal dans Chrome → 3 points ⋮ → Ajouter à l'écran → Vous avez 15 Apps.<br><br><b>Méthode 2 - Une App directe:</b> Ouvrez n'importe quelle App comme MDCAT directement → 3 points ⋮ → Ajouter → Elle s'installe direct!","✅ Sans Play Store. Fonctionne hors ligne!"],
+es:["<b>Método 1 - Tienda completa:</b> Abra la tienda principal en Chrome → 3 puntos ⋮ → Agregar a inicio → Obtiene 15 Apps.<br><br><b>Método 2 - App individual directa:</b> Abra cualquier App como MDCAT directamente → 3 puntos ⋮ → Agregar → ¡Se instala directo!","✅ Sin Play Store. ¡Funciona sin conexión!"],
+de:["<b>Methode 1 - Vollständiger Store:</b> Haupt-Store in Chrome öffnen → 3 Punkte ⋮ → Zum Startbildschirm → Alle 15 Apps drin.<br><br><b>Methode 2 - Einzelne App direkt:</b> Eine App wie MDCAT direkt öffnen → 3 Punkte ⋮ → Hinzufügen → Direkt installiert!","✅ Kein Play Store nötig. Offline!"],
+tr:["<b>Yöntem 1 - Tam Mağaza:</b> Ana mağazayı Chrome'da aç → 3 nokta ⋮ → Ana ekrana ekle → Tüm 15 Uygulama içinde.<br><br><b>Yöntem 2 - Tek Uygulama Direkt:</b> Herhangi bir Uygulamayı örn. MDCAT direkt aç → 3 nokta ⋮ → Ana ekrana ekle → Direkt yüklenir!","✅ Play Store gerekmez. Çevrimdışı çalışır!"],
+hi:["<b>तरीका 1 - पूरा स्टोर:</b> Chrome में मुख्य स्टोर खोलें → 3 डॉट्स ⋮ → होम स्क्रीन में जोड़ें → सभी 15 Apps मिलेंगे।<br><br><b>तरीका 2 - सिंगल App डायरेक्ट:</b> कोई भी App जैसे MDCAT / FSc सीधे खोलें → 3 डॉट्स ⋮ → होम स्क्रीन में जोड़ें → वही App डायरेक्ट इंस्टॉल!","✅ Play Store की जरूरत नहीं। ऑफलाइन चलेगी!"]
+},
+iphone:{
+en:["<b>Method 1 - Full Store:</b> Open Main Store in Safari → Tap Share ⎙ → Add to Home Screen → You get all Apps.<br><br><b>Method 2 - Single App Direct:</b> Open any single App directly in Safari → Tap Share ⎙ → Add to Home Screen → That App installs direct!","Icon appears on iPhone home screen!"],
+ur:["<b>طریقہ 1 - مکمل سٹور:</b> مین سٹور سفاری میں کھولیں → شیئر ⎙ → Add to Home Screen<br><br><b>طریقہ 2 - اکیلی ایپ:</b> کوئی بھی ایپ سفاری میں ڈائریکٹ کھولیں → شیئر ⎙ → Add to Home Screen → ڈائریکٹ انسٹال!","آئیکون آئی فون پر آ جائے گا!"],
+ps:["<b>طریقه 1 - مکمل سټور:</b> مین سټور په سفاري کې خلاص کړئ → شریکول ⎙ → Add to Home Screen<br><br><b>طریقه 2 - یو اپ:</b> هر اپ په سفاري کې مستقیم خلاص کړئ → شریکول ⎙ → Add to Home Screen","آئیکون به په آی فون کې ښکاره شي!"],
+ar:["<b>الطريقة 1:</b> افتح المتجر في سفاري → مشاركة ⎙ → إضافة للشاشة الرئيسية<br><br><b>الطريقة 2:</b> افتح أي تطبيق مباشرة في سفاري → مشاركة ⎙ → إضافة","يظهر على الآيفون!"],
+zh:["<b>方法1:</b> 在Safari中打开主商店 → 共享 ⎙ → 添加到主屏幕<br><br><b>方法2:</b> 在Safari中直接打开单个应用 → 共享 ⎙ → 添加到主屏幕","图标将出现在iPhone上！"],
+fr:["<b>Méthode 1:</b> Store dans Safari → Partager ⎙ → Sur l'écran d'accueil<br><br><b>Méthode 2:</b> Ouvrez une App seule dans Safari → Partager ⎙ → Ajouter","Icône apparaît!"],
+es:["<b>Método 1:</b> Tienda en Safari → Compartir ⎙ → Agregar a inicio<br><br><b>Método 2:</b> Abra App sola en Safari → Compartir ⎙ → Agregar","¡Icono aparece!"],
+de:["<b>Methode 1:</b> Store in Safari → Teilen ⎙ → Zum Home-Bildschirm<br><br><b>Methode 2:</b> Einzelne App direkt in Safari öffnen → Teilen ⎙ → Hinzufügen","Icon erscheint!"],
+tr:["<b>Yöntem 1:</b> Mağazayı Safari'de aç → Paylaş ⎙ → Ana Ekrana Ekle<br><br><b>Yöntem 2:</b> Tek uygulamayı Safari'de direkt aç → Paylaş ⎙ → Ana Ekrana Ekle","Simge iPhone'da görünür!"],
+hi:["<b>तरीका 1:</b> Safari में मुख्य स्टोर खोलें → Share ⎙ → होम स्क्रीन में जोड़ें<br><br><b>तरीका 2:</b> Safari में कोई भी एक App सीधे खोलें → Share ⎙ → होम स्क्रीन में जोड़ें","आइकन iPhone पर आएगा!"]
+},
+pc:{
+en:["<b>Method 1 - Full Store:</b> Open Main Store in Chrome/Edge → Click Install icon ⊞ in address bar OR 3 dots ⋮ → Install → Full Store as PC app.<br><br><b>Method 2 - Single App Direct:</b> Open any App (MDCAT etc) directly → Click Install ⊞ → That App installs as separate PC software!","Works like real Windows software! Pin to taskbar!"],
+ur:["<b>طریقہ 1 - مکمل سٹور:</b> مین سٹور کروم/ایج میں کھولیں → ایڈریس بار میں Install ⊞ یا 3 نقطے ⋮ → Install → مکمل سٹور PC ایپ بن جائے گا۔<br><br><b>طریقہ 2 - اکیلی ایپ:</b> کوئی بھی ایپ جیسے MDCAT ڈائریکٹ کھولیں → Install ⊞ → وہ الگ PC سافٹ ویئر بن جائے گی!","حقیقی ونڈوز سافٹ ویئر کی طرح کام کرے گی!"],
+ps:["<b>طریقه 1:</b> مین سټور په کروم کې خلاص کړئ → Install نښه ⊞ یا 3 نقطې ⋮ → Install<br><br><b>طریقه 2:</b> هر اپ مستقیم خلاص کړئ → Install ⊞ → جلا PC سافټویر شي!","د وینډوز سافټویر په څیر کار کوي!"],
+ar:["<b>الطريقة 1:</b> افتح المتجر في كروم → أيقونة التثبيت ⊞ أو 3 نقاط → تثبيت<br><br><b>الطريقة 2:</b> افتح أي تطبيق مباشرة → أيقونة التثبيت ⊞ → يتثبت كبرنامج منفصل!","يعمل كبرنامج ويندوز!"],
+zh:["<b>方法1:</b> 在Chrome中打开主商店 → 地址栏安装图标 ⊞ 或 3个点 → 安装<br><br><b>方法2:</b> 直接打开任一应用 → 安装图标 ⊞ → 作为独立PC软件安装！","像真正的Windows软件一样工作！"],
+fr:["<b>Méthode 1:</b> Store dans Chrome → Icône Installer ⊞ ou 3 points → Installer<br><br><b>Méthode 2:</b> Ouvrez une App directe → Icône Installer ⊞ → Logiciel PC séparé!","Comme logiciel Windows!"],
+es:["<b>Método 1:</b> Tienda en Chrome → Icono Instalar ⊞ o 3 puntos → Instalar<br><br><b>Método 2:</b> Abra App directa → Icono Instalar ⊞ → ¡Software PC separado!","¡Como software Windows!"],
+de:["<b>Methode 1:</b> Store in Chrome → Install-Symbol ⊞ oder 3 Punkte → Installieren<br><br><b>Methode 2:</b> Einzelne App direkt öffnen → Install-Symbol ⊞ → Als separate PC-Software!","Wie echte Windows-Software!"],
+tr:["<b>Yöntem 1:</b> Mağazayı Chrome'da aç → Yükle simgesi ⊞ veya 3 nokta → Yükle<br><br><b>Yöntem 2:</b> Herhangi bir uygulamayı direkt aç → Yükle simgesi ⊞ → Ayrı PC yazılımı olarak!","Gerçek Windows yazılımı gibi!"],
+hi:["<b>तरीका 1:</b> Chrome में मुख्य स्टोर खोलें → Install आइकन ⊞ या 3 डॉट्स → Install<br><br><b>तरीका 2:</b> कोई भी App सीधे खोलें → Install आइकन ⊞ → अलग PC सॉफ्टवेयर की तरह इंस्टॉल!","असली Windows सॉफ्टवेयर की तरह काम करेगी!"]
+}
 };
 let curDevice='android',curLang='en';
 const instrBox=document.getElementById('instrBox');
