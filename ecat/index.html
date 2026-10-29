@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ECAT Sample Tests</title>
     
-    <!-- PWA FIX -->
-    <link rel="manifest" href="manifest.json">
+    <!-- PWA FIX - 100% WORKING LIKE CONVERTER -->
+    <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#0d47a1">
-    <link rel="icon" type="image/png" href="icons-ecat.png">
-    <link rel="apple-touch-icon" href="icons-ecat.png">
+    <link rel="icon" type="image/png" href="./icons-ecat.png">
+    <link rel="apple-touch-icon" href="./icons-ecat.png">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -115,9 +115,8 @@
     }
     function openTest(testFile) { window.location.href = testFile; }
 
-    // PWA Service Worker Register
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      navigator.serviceWorker.register('./sw.js');
     }
 </script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
