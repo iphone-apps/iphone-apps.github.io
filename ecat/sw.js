@@ -1,9 +1,9 @@
-const CACHE_NAME = "ecat-v1";
+const CACHE_NAME = "ecat-v2";
 const ASSETS = [
-  "/iphone-apps.github.io/ecat/",
-  "/iphone-apps.github.io/ecat/index.html",
-  "/iphone-apps.github.io/ecat/manifest.json",
-  "/iphone-apps.github.io/ecat/icons-ecat.png"
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icons-ecat.png"
 ];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
