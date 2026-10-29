@@ -1,7 +1,7 @@
-const CACHE='edu-main-v6';
-self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['./','./index.html','./manifest.json'])));});
+const CACHE='edu-main-final-v7';
+self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(CACHE).then(c=>c.addAll(['/','/index.html','/manifest.json'])));});
 self.addEventListener('fetch',e=>{
-  const url=e.request.url;
-  if(url.includes('/universal-wps/')||url.includes('/study-abroad/')||url.includes('/nts-teachers/')||url.includes('/mdcat/')||url.includes('/ecat/')||url.includes('/lat/')||url.includes('/logical/')||url.includes('/fsc-')||url.includes('/hssc-')||url.includes('/constitution/')||url.includes('/translator/')||url.includes('/converter/')) return;
+  const u=e.request.url;
+  if(u.includes('/universal-wps/')||u.includes('/study-abroad/')||u.includes('/nts-teachers/')||u.includes('/mdcat/')||u.includes('/ecat/')||u.includes('/lat/')||u.includes('/logical/')||u.includes('/fsc-')||u.includes('/hssc-')||u.includes('/constitution/')||u.includes('/translator/')||u.includes('/converter/')) return;
   e.respondWith(fetch(e.request).catch(()=>caches.match(e.request)));
 });
