@@ -1,8 +1,26 @@
-const CACHE_NAME = "ecat-v2";
-const urlsToCache = ["./", "./index.html", "./icons-ecat.png", "./manifest.json"];
-self.addEventListener("install", event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
+// ECAT SW - FINAL v5 - No Fail Install - Same as Constitution
+const CACHE_NAME = 'ecat-tests-v5';
+
+self.addEventListener('install', e => {
+  self.skipWaiting();
 });
-self.addEventListener("fetch", event => {
-  event.respondWith(caches.match(event.request).then(response => response || fetch(event.request)));
+
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys => Promise.all(
+      keys.map(k => {
+        if(k !== CACHE_NAME) return caches.delete(k);
+      })
+    ))
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', e => {
+  if(e.request.url.includes('goatcounter') || e.request.url.includes('zgo.at')){
+    return;
+  }
+  e.respondWith(
+    fetch(e.request).catch(()=> caches.match(e.request))
+  );
 });
