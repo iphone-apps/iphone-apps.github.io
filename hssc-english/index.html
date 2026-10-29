@@ -6,94 +6,94 @@
 <title>HSSC English MCQs Test P1+2</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#004e92">
-<link rel="icon" type="image/png" href="./icons-hssc-english.png">
-<link rel="apple-touch-icon" href="./icons-hssc-english.png">
+<link rel="icon" type="image/png" href="./icons-fsc-english.png">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     background: linear-gradient(180deg, #000428 0%, #004e92 100%);
     color: white; font-family: 'Arial'; text-align: center;
-    padding: 8px 10px; min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
+    padding: 8px 10px; min-height: 100vh; display: flex;
+    flex-direction: column; justify-content: center;
 }
 .main-title { font-size: 29px; color: #FF8C00; font-weight: bold; margin-bottom: 3px; }
-.main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 10px; }
-.disclaimer-top {
-    background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.4);
-    border-radius: 8px; padding: 6px 10px; margin: 0 auto 10px auto; width: 70%; max-width: 650px;
-    font-size: 11px; color: #FFD700; line-height: 1.4;
-}
+.main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 12px; }
 .box {
     background: linear-gradient(180deg, #001a4d 0%, #003399 100%);
     border: 2px solid #FFD700; border-radius: 12px; padding: 12px;
     margin: 7px auto; cursor: pointer; width: 70%; max-width: 650px; transition: 0.3s;
 }
 .box:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+.icon { font-size: 26px; margin-bottom: 5px; }
 .box h2 { font-size: 20px; color: #FF8C00; margin-bottom: 4px; }
 .box p { font-size: 13px; color: white; margin: 2px 0; }
 .madeby-box { padding: 10px; margin-top: 10px; }
 .madeby-box h3 { font-size: 15px; color: #FFD700; font-weight: bold; }
 .contact { font-size: 12px; color: white; margin: 2px 0; }
+.feedback { color: #FFD700; font-weight: bold; margin-top: 5px; font-size: 12px; }
 .level-btn {
-    display: block; background: #FFD700; color: #000; border: none; padding: 7px;
-    margin: 5px auto; border-radius: 6px; font-size: 14px; width: 65%; max-width: 600px;
-    cursor: pointer; font-weight: bold;
+    display: none; background: #FFD700; color: #000; border: none;
+    padding: 7px; margin: 5px auto; border-radius: 6px; font-size: 14px;
+    width: 65%; max-width: 600px; cursor: pointer; font-weight: bold;
 }
 .level-btn:hover { background: #FFA500; }
-#installBtn{ display:none; background:linear-gradient(90deg,#FF8C00,#ffeb3b); color:#000; border:none; padding:13px 24px; border-radius:30px; font-weight:900; font-size:16px; margin:14px auto; cursor:pointer; box-shadow:0 0 20px rgba(255,140,0,0.6); width:70%; max-width:650px; animation:btnGlow 1.5s infinite; }
-@keyframes btnGlow{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
+#installBtn{display:none;background:linear-gradient(90deg,#FF8C00,#ffeb3b);color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:15px;margin:0 auto 12px auto;cursor:pointer;width:70%;max-width:650px;box-shadow:0 4px 15px rgba(255,215,0,0.4);}
 </style>
 </head>
 <body>
 
-<h1 class="main-title">HSSC English MCQs</h1>
-<p class="main-subtitle">Part-1 + Part-2 | Grammar & Lessons</p>
+<h1 class="main-title">📚 HSSC English MCQs</h1>
+<p class="main-subtitle">Part-1 + Part-2 | Total 2000 MCQs</p>
 
-<div class="disclaimer-top">
-    ⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with FBISE, BISE. For HSSC self-study.
-</div>
-
-<button id="installBtn">📲 INSTALL English App - اصلی آئیکون کے ساتھ</button>
+<button id="installBtn">📲 INSTALL English App</button>
 
 <div class="box" onclick="showLevels('part1')">
-    <h2>📘 Part First - English</h2>
-    <p>Grammar + Lessons MCQs</p>
+    <div class="icon">📖</div>
+    <h2>Part First</h2>
+    <p>5 Level Tests | Each = 200 MCQs</p>
 </div>
-<div id="part1" style="display: block;">
-    <button class="level-btn" onclick="openLevel('Eng1-L1.html')">Lesson 1-5</button>
-    <button class="level-btn" onclick="openLevel('Eng1-L2.html')">Lesson 6-10</button>
-    <button class="level-btn" onclick="openLevel('Eng1-L3.html')">Lesson 11-15</button>
-    <button class="level-btn" onclick="openLevel('Eng1-G1.html')">Grammar Test 1</button>
-    <button class="level-btn" onclick="openLevel('Eng1-G2.html')">Grammar Test 2</button>
+<div id="part1">
+    <button class="level-btn" onclick="openLevel('Level1.html')">Level 1 (Basic)</button>
+    <button class="level-btn" onclick="openLevel('Level2.html')">Level 2 (Easy)</button>
+    <button class="level-btn" onclick="openLevel('Level3.html')">Level 3 (Medium)</button>
+    <button class="level-btn" onclick="openLevel('Level4.html')">Level 4 (Hard)</button>
+    <button class="level-btn" onclick="openLevel('Level5.html')">Level 5 (Expert)</button>
 </div>
 
 <div class="box" onclick="showLevels('part2')">
-    <h2>📗 Part Second - English</h2>
-    <p>Grammar + Lessons MCQs</p>
+    <div class="icon">📕</div>
+    <h2>Part Second</h2>
+    <p>5 Level Tests | Each = 200 MCQs</p>
 </div>
-<div id="part2" style="display: block;">
-    <button class="level-btn" onclick="openLevel('Eng2-L1.html')">Lesson 1-5</button>
-    <button class="level-btn" onclick="openLevel('Eng2-L2.html')">Lesson 6-10</button>
-    <button class="level-btn" onclick="openLevel('Eng2-L3.html')">Lesson 11-15</button>
-    <button class="level-btn" onclick="openLevel('Eng2-G1.html')">Grammar Test 1</button>
-    <button class="level-btn" onclick="openLevel('Eng2-G2.html')">Grammar Test 2</button>
+<div id="part2">
+    <button class="level-btn" onclick="openLevel('Level6.html')">Level 1 (Basic)</button>
+    <button class="level-btn" onclick="openLevel('Level7.html')">Level 2 (Easy)</button>
+    <button class="level-btn" onclick="openLevel('Level8.html')">Level 3 (Medium)</button>
+    <button class="level-btn" onclick="openLevel('Level9.html')">Level 4 (Hard)</button>
+    <button class="level-btn" onclick="openLevel('Level10.html')">Level 5 (Expert)</button>
 </div>
 
 <div class="box madeby-box">
     <h3>Made By: Akbar Ali Khan (SCT)</h3>
     <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
     <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+    <p class="contact"><b>Phone 1:</b> +923068183790</p>
+    <p class="contact"><b>Phone 2:</b> +923339840801</p>
+    <p class="feedback">📢 Send Your Feedback & Suggestions</p>
 </div>
 
 <script>
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
-    installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { installBtn.style.display = 'none'; } deferredPrompt = null; } });
-    window.addEventListener('appinstalled', () => { installBtn.style.display = 'none'; });
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js', {scope: './'}); }
-    function showLevels(part) { var x = document.getElementById(part); if (x.style.display === "none") { x.style.display = "block"; } else { x.style.display = "none"; } }
-    function openLevel(f) { window.location.href = f; }
+const showLevels = (part) => {
+    const x = document.getElementById(part);
+    const btns = x.getElementsByClassName("level-btn");
+    for(let i=0; i<btns.length; i++){
+        btns[i].style.display = (btns[i].style.display === "block") ? "none" : "block";
+    }
+}
+const openLevel = (levelFile) => { window.location.href = levelFile; }
+let deferredPrompt; const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
+installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { installBtn.style.display = 'none'; } deferredPrompt = null; } });
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js', {scope: './'}); }
 </script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
