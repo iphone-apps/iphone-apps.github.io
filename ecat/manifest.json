@@ -1,17 +1,12 @@
 {
-  "name": "ECAT Sample Tests",
+  "name": "ECAT Sample Tests - By Akbar Ali Khan",
   "short_name": "ECAT",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0a0a1a",
   "theme_color": "#0d47a1",
-  "scope": "./",
   "icons": [
-    {
-      "src": "./icons-ecat.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "./icons-ecat.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icons-ecat.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
