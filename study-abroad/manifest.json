@@ -1,0 +1,12 @@
+{
+  "name": "Study Abroad - Complete World Guide",
+  "short_name": "Study Abroad",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000428",
+  "theme_color": "#000428",
+  "icons": [
+    { "src": "./icons-study-abroad.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icons-study-abroad.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
