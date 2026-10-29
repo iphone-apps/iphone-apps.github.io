@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Study Abroad - Complete World Guide</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000428">
+<link rel="icon" type="image/png" href="./icons-study-abroad.png">
 <style>
 :root { --gold: #FFD700; --orange: #FF8C00; --bg-dark: #000428; --bg-light: #004e92; --box-dark: #001a4d; --box-light: #003399; }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -13,481 +16,79 @@ body{background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-light) 100%);c
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .sub{font-size:12px;color:#E0E0FF;margin-bottom:10px;line-height:1.5}
 .langs{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;padding:6px 0}
-.lang-btn{padding:5px 10px;border-radius:20px;border:1px solid var(--gold);background:transparent;color:var(--gold);font-size:11px;font-weight:bold;cursor:pointer;transition:0.3s}
-.lang-btn.active{background:var(--gold);color:#000}
-.stats-bar{display:flex;gap:6px;justify-content:center;margin:10px 0;flex-wrap:wrap}
-.stat{padding:8px 12px;border-radius:20px;font-size:11px;font-weight:bold;box-shadow:0 0 10px rgba(0,0,0,.3)}
-.stat1{background:linear-gradient(135deg,#FFD700,#FF8C00);color:#000}
-.stat2{background:linear-gradient(135deg,#00e676,#00c853);color:#000}
-.stat3{background:linear-gradient(135deg,#bb86fc,#7c4dff);color:#fff}
-.ticker{background:rgba(255,215,0,.1);border:1px solid var(--gold);border-radius:8px;padding:6px;margin:8px 0;overflow:hidden}
-.quick-filters{display:flex;gap:5px;justify-content:center;margin:8px 0;flex-wrap:wrap}
-.qf{padding:6px 12px;border-radius:15px;font-size:10px;font-weight:bold;cursor:pointer;transition:0.3s}
-.qf:hover{transform:scale(1.05)}
-.box{border:2px solid var(--gold);border-radius:12px;padding:12px;margin:10px auto;max-width:700px;text-align:left;font-size:11px;line-height:1.6;color:#E0E0FF;background:linear-gradient(180deg,var(--box-dark) 0%,var(--box-light) 100%)}
-.box b{color:var(--orange)}
-.main-gate{display:block;background:var(--gold);color:#000;border:none;padding:12px;margin:12px auto;border-radius:8px;font-size:16px;width:85%;max-width:400px;cursor:pointer;font-weight:bold;box-shadow:0 0 15px rgba(255,215,0,.4)}
-.screen{display:none;margin-top:10px;animation:fadeIn 0.5s}
-.screen.active{display:block}
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-@media(min-width:500px){.country-grid{grid-template-columns:1fr 1fr 1fr}}
-.c-card{background:linear-gradient(180deg,var(--box-dark),var(--box-light));border:1.5px solid var(--gold);border-radius:12px;padding:12px;cursor:pointer;transition:.3s;text-align:center;position:relative;overflow:hidden}
-.c-card::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.1) 50%,transparent 70%);transform:rotate(45deg) translateX(-100%);transition:.6s}
-.c-card:hover::before{transform:rotate(45deg) translateX(100%)}
-.c-card:hover{box-shadow:0 0 12px rgba(255,215,0,.4);transform:translateY(-3px)}
-.c-card .flag{font-size:28px}
-.c-card h3{font-size:13px;color:var(--orange);margin:4px 0}
-.c-card p{font-size:10px;color:#bb86fc}
-.uni-card{background:linear-gradient(180deg,var(--box-dark),#002a80);border:1px solid #bb86fc;border-left:4px solid var(--gold);border-radius:10px;padding:12px;margin:8px 0;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:0.3s}
-.uni-card:hover{border-color:var(--gold);transform:translateX(3px)}
-.uni-card h4{font-size:13px;color:var(--gold)}
-.uni-card span{font-size:10px;color:#00e676}
-.badge{font-size:8px;padding:2px 6px;border-radius:10px;margin-left:4px;font-weight:bold;display:inline-block}
-.detail{background:linear-gradient(180deg,var(--box-dark),var(--box-light));border:2px solid var(--gold);border-radius:12px;padding:14px;margin:10px 0;text-align:left}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 0}
-.item{background:rgba(255,255,255,.07);border-radius:8px;padding:8px}
-.item b{display:block;font-size:9px;color:var(--gold);margin-bottom:2px}
-.item span{font-size:11px}
-.btn-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-.btn1{flex:1;padding:8px;background:var(--gold);color:#000;border-radius:6px;font-size:11px;font-weight:bold;text-decoration:none;text-align:center;cursor:pointer;border:none}
-.btn2{flex:1;padding:8px;background:transparent;border:1px solid #00e676;color:#00e676;border-radius:6px;font-size:11px;font-weight:bold;text-decoration:none;text-align:center;cursor:pointer}
-.back{padding:6px 14px;border-radius:20px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;font-size:11px;margin:6px}
-.search{width:100%;padding:10px 14px;border-radius:25px;border:2px solid var(--gold);background:var(--box-dark);color:#fff;font-size:12px;margin:8px 0;outline:none}
-.saved-btn{padding:8px 15px;border-radius:20px;border:1px solid #ff5252;background:transparent;color:#ff5252;font-weight:bold;cursor:pointer;margin:10px auto;display:inline-block}
-#scrollTopBtn{display:none;position:fixed;bottom:20px;right:20px;z-index:99;border:none;outline:none;background:var(--gold);color:#000;cursor:pointer;padding:12px 15px;border-radius:50%;font-size:18px;box-shadow:0 0 10px rgba(0,0,0,0.5)}
+.lang-btn{padding:5px 10px;border-radius:15px;border:1px solid var(--gold);background:rgba(255,215,0,0.1);color:var(--gold);font-size:11px;cursor:pointer}
+.lang-btn.active{background:var(--gold);color:#000;font-weight:bold}
+.disclaimer{background:rgba(255,193,7,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:10px;margin:10px auto;max-width:600px;font-size:11px;color:#ffe082;text-align:left;line-height:1.5}
+.disclaimer b{color:#ffd54f}
+.main-box{background:linear-gradient(135deg,var(--box-dark),var(--box-light));border:2px solid var(--gold);border-radius:14px;padding:16px;margin:10px auto;width:100%;max-width:600px;cursor:pointer;transition:0.3s}
+.main-box:hover{transform:scale(1.02);box-shadow:0 0 20px rgba(255,215,0,0.3)}
+.main-box h2{font-size:20px;color:var(--gold)}
+.main-box p{font-size:13px;color:#d1c5e8;margin-top:4px}
+.countries{display:none;max-width:600px;margin:0 auto;text-align:left}
+.countries.show{display:block}
+.c-box{background:linear-gradient(135deg,#001a4d,#003399);border:1px solid rgba(255,215,0,0.4);border-radius:12px;padding:12px;margin:8px auto;display:block;text-decoration:none;color:#fff;transition:0.3s}
+.c-box:hover{background:linear-gradient(135deg,#002a7a,#0044cc)}
+.c-box h3{font-size:16px;color:var(--gold)} .c-box p{font-size:12px;color:#cbd5e0}
+.madeby{background:linear-gradient(135deg,#001a4d,#003399);border:2px solid var(--gold);border-radius:14px;padding:14px;margin:20px auto 0;max-width:600px}
+.madeby h3{color:var(--gold);font-size:16px} .madeby .c{font-size:12px;color:#d1c5e8;margin:2px 0}
+#installBtn{display:none;background:linear-gradient(90deg,var(--gold),var(--orange));color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:14px;margin:0 auto 12px auto;cursor:pointer;width:100%;max-width:600px;box-shadow:0 4px 15px rgba(255,215,0,0.4);}
 </style>
 </head>
 <body>
 <div class="container">
-<h1 class="main-title" id="lbl-title">🎓 STUDY ABROAD</h1>
-<div class="sub" id="lbl-sub">🌍 Complete World Guide - 30+ Countries<br>Pakistan, India, Arab & Worldwide<br>Built on Humanity - Education for All</div>
+<h1 class="main-title">✈️ Study Abroad - Complete World Guide</h1>
+<p class="sub">100% Free Guide · Scholarships · Visas · Universities</p>
 
-<div class="stats-bar">
-<div class="stat stat1">🌍 21 Countries</div>
-<div class="stat stat2">🎓 150+ Top Universities</div>
-<div class="stat stat3">💰 100% Free Guide</div>
+<div class="disclaimer">
+<b>⚠️ Disclaimer:</b> This guide is for <b>practice & information</b> only. NOT affiliated with any embassy or official authority. Please verify latest info from official embassy websites.
 </div>
 
-<div class="ticker">
-<marquee style="font-size:10px;color:#FFD700">🌟 Ali from Mardan got admission in IIUI → NUST → Germany! | 🌟 Ahmed got KSU Saudi Scholarship 2024! | 🌟 Fatima got Turkey Burslari! | 🌟 Your story next InshaAllah!</marquee>
-</div>
+<button id="installBtn">📲 INSTALL Study Abroad App</button>
 
 <div class="langs">
-<button class="lang-btn active" onclick="setLang('en', this)">English</button>
-<button class="lang-btn" onclick="setLang('ur', this)">اردو</button>
-<button class="lang-btn" onclick="setLang('ar', this)">العربية</button>
-<button class="lang-btn" onclick="setLang('tr', this)">Türkçe</button>
-<button class="lang-btn" onclick="setLang('hi', this)">हिन्दी</button>
+<button class="lang-btn active">🌐 English</button>
+<button class="lang-btn">🇸🇦 عربی</button>
+<button class="lang-btn">🇵🇰 اردو</button>
 </div>
 
-<div class="box" id="lbl-inst"><b>📌 INSTRUCTIONS:</b><br>1. Click Open Main Gate → 2. Select Country → 3. Select University → 4. Check Official Live Link. Cost & Deadlines are VARIABLE - Always verify via Live Check.</div>
-<div class="box" style="border-color:var(--orange)" id="lbl-disc"><b>⚠️ DISCLAIMER:</b> NOT affiliated with any govt/university. Guidance only. No fees, No guarantee. Verify via .gov/.edu official sites.</div>
-
-<button class="main-gate" id="gateBtn" onclick="openGate()">🔽 Open Main Gate - World Countries</button>
-<button class="saved-btn" id="savedBtn" onclick="showSaved()">❤️ My Saved Universities</button>
-
-<div id="countriesScreen" class="screen">
-<button class="back" onclick="closeGate()">⬅ Back</button>
-<div class="quick-filters">
-<button class="qf" id="qf-all" style="background:var(--gold);color:#000;border:1px solid var(--gold)" onclick="filterByQuick('all')">All</button>
-<button class="qf" id="qf-fully" style="background:transparent;color:#00e676;border:1px solid #00e676" onclick="filterByQuick('fully')">💚 Fully Funded</button>
-<button class="qf" id="qf-islamic" style="background:transparent;color:#00bcd4;border:1px solid #00bcd4" onclick="filterByQuick('islamic')">🕌 Islamic</button>
-<button class="qf" id="qf-free" style="background:transparent;color:#bb86fc;border:1px solid #bb86fc" onclick="filterByQuick('free')">🎓 Free</button>
-</div>
-<input class="search" id="countrySearch" placeholder="🔍 Search Country: Pakistan, Saudi, UK..." onkeyup="filterCountries()">
-<div class="country-grid" id="countryGrid"></div>
+<div class="main-box" onclick="toggleCountries(this)">
+<h2>🌍 Select Your Country</h2>
+<p>Click to see 25+ countries guide</p>
+<span style="color:var(--gold);font-size:12px;margin-top:6px;display:block">▼ Click to expand</span>
 </div>
 
-<div id="unisScreen" class="screen">
-<button class="back" onclick="showCountries()">⬅ Countries</button>
-<h3 id="selectedCountryTitle" style="color:var(--gold);margin:8px 0"></h3>
-<input class="search" id="uniSearch" placeholder="🔍 Search University..." onkeyup="filterUnis()">
-<div id="uniList"></div>
+<div class="countries" id="countries">
+<a href="usa/index.html" class="c-box"><h3>🇺🇸 USA</h3><p>Study in America - Top Universities & Scholarships</p></a>
+<a href="uk/index.html" class="c-box"><h3>🇬🇧 UK</h3><p>Study in United Kingdom - UKVI & Scholarships</p></a>
+<a href="canada/index.html" class="c-box"><h3>🇨🇦 Canada</h3><p>Study in Canada - SDS & PR Pathway</p></a>
+<a href="australia/index.html" class="c-box"><h3>🇦🇺 Australia</h3><p>Study in Australia - Top Courses</p></a>
+<a href="germany/index.html" class="c-box"><h3>🇩🇪 Germany</h3><p>Free Education in Germany - Public Universities</p></a>
+<a href="turkey/index.html" class="c-box"><h3>🇹🇷 Turkey</h3><p>Study in Turkey - Türkiye Burslari</p></a>
+<a href="china/index.html" class="c-box"><h3>🇨🇳 China</h3><p>Study in China - CSC Scholarship</p></a>
+<a href="saudi/index.html" class="c-box"><h3>🇸🇦 Saudi Arabia</h3><p>Study in KSA - Fully Funded</p></a>
 </div>
 
-<div id="detailScreen" class="screen">
-<button class="back" onclick="showUnis()">⬅ Universities</button>
-<div id="detailBox"></div>
-</div>
-
-<div id="savedScreen" class="screen">
-<button class="back" onclick="closeGate()">⬅ Back to Home</button>
-<h3 style="color:var(--gold);margin:8px 0">❤️ Saved Universities</h3>
-<div id="savedList"></div>
-</div>
-
-<div class="box" style="text-align:center" id="lbl-contact">
-<h3 style="color:var(--gold);font-size:13px">📞 Contact & Support</h3>
-<p><b>Made By:</b> Akbar Ali Khan (SCT) - GCMHS No:3 MARDAN</p>
-<p><b>Email:</b> <a href="mailto:akbarmdn72@gmail.com" style="color:#00e676">akbarmdn72@gmail.com</a></p>
-<p><b>Phone 1:</b> <a href="tel:+923068183790" style="color:#00e676">+923068183790</a> | <b>Phone 2:</b> <a href="tel:+923339840801" style="color:#00e676">+923339840801</a></p>
-<p style="color:var(--orange);font-weight:bold">📢 Send Your Feedback</p>
+<div class="madeby">
+<h3>Made By: Akbar Ali Khan (SCT)</h3>
+<p class="c"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+<p class="c"><b>Email:</b> akbarmdn72@gmail.com</p>
+<p class="c"><b>Phone:</b> +923068183790</p>
+<p class="c" style="color:var(--gold);font-weight:bold;margin-top:5px">📢 Send Your Feedback & Suggestions</p>
 </div>
 </div>
-
-<button onclick="topFunction()" id="scrollTopBtn" title="Go to top">⬆️</button>
 
 <script>
-const WORLD_DATA = {
-"Pakistan": {flag:"🇵🇰", count:"Top 6 Unis", tags:["islamic"], unis:[
-{name:"International Islamic University Islamabad (IIUI)", type:"Scholarships + Self", level:"Bachelor/Master/PhD", fee:"HEC Need-Based", link:"https://www.iiu.edu.pk/scholarships/", live:"https://www.iiu.edu.pk", tags:["islamic","popular"]},
-{name:"NUST - National University of Sciences & Technology", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"~PKR 300k/sem", link:"https://nust.edu.pk", live:"https://nust.edu.pk/admissions/", tags:["popular"]},
-{name:"LUMS Lahore", type:"Self + Aid (Need Based)", level:"Bachelor/Master", fee:"~PKR 600k/sem", link:"https://lums.edu.pk", live:"https://admission.lums.edu.pk", tags:[]},
-{name:"University of the Punjab", type:"Self Finance", level:"Bachelor/Master/PhD", fee:"Low", link:"http://pu.edu.pk", live:"http://pu.edu.pk", tags:[]},
-{name:"Quaid-i-Azam University", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Low", link:"https://qau.edu.pk", live:"https://qau.edu.pk", tags:[]},
-{name:"University of Karachi", type:"Self Finance", level:"Bachelor/Master/PhD", fee:"Low", link:"https://uok.edu.pk", live:"https://uok.edu.pk", tags:[]}
-]},
-"India": {flag:"🇮🇳", count:"Top 6 Unis", tags:[], unis:[
-{name:"IIT Delhi", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"~$1000/year", link:"https://home.iitd.ac.in", live:"https://home.iitd.ac.in", tags:[]},
-{name:"Jawaharlal Nehru University (JNU)", type:"Fully + Self", level:"Master/PhD", fee:"Low", link:"https://www.jnu.ac.in", live:"https://www.jnu.ac.in", tags:["fully"]},
-{name:"Aligarh Muslim University (AMU)", type:"Scholarships", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.amu.ac.in", live:"https://www.amu.ac.in", tags:["islamic"]},
-{name:"University of Delhi", type:"Self Finance", level:"Bachelor/Master/PhD", fee:"Low", link:"http://www.du.ac.in", live:"http://www.du.ac.in", tags:[]},
-{name:"IIT Bombay", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"~$1000/year", link:"https://www.iitb.ac.in", live:"https://www.iitb.ac.in", tags:[]},
-{name:"Banaras Hindu University", type:"Scholarships", level:"Bachelor/Master/PhD", fee:"Low", link:"https://www.bhu.ac.in", live:"https://www.bhu.ac.in", tags:[]}
-]},
-"Saudi Arabia": {flag:"🇸🇦", count:"Top 5 Unis", tags:["fully","islamic"], unis:[
-{name:"King Saud University (KSU)", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Free + Stipend + Hostel + Airfare", link:"https://dar.ksu.edu.sa/en/scholarships", live:"https://dar.ksu.edu.sa/en", tags:["fully","popular","islamic"]},
-{name:"Islamic University of Madinah", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full + Monthly + Hostel", focus:"Sharia, Quran, Hadith", link:"https://www.iu.edu.sa", live:"https://studyinsaudi.sa", tags:["fully","islamic"]},
-{name:"King Abdulaziz University", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Free + Stipend", link:"https://www.kau.edu.sa", live:"https://www.kau.edu.sa", tags:["fully","islamic"]},
-{name:"King Fahd University of Petroleum & Minerals", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Free + Stipend", link:"https://www.kfupm.edu.sa", live:"https://www.kfupm.edu.sa", tags:["fully","islamic"]},
-{name:"Imam Muhammad ibn Saud Islamic University", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Free + Stipend", link:"https://www.imamu.edu.sa", live:"https://www.imamu.edu.sa", tags:["fully","islamic"]}
-]},
-"Qatar": {flag:"🇶🇦", count:"Top 3 Unis", tags:["fully","islamic"], unis:[
-{name:"Qatar University - International Scholarship", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Tuition + Salary + Hostel + Airfare", link:"https://www.qu.edu.qa", live:"https://esc.qu.edu.qa/en-us/students/admission/scholarships/Pages/scholarships-timeline.aspx", tags:["fully","islamic"]},
-{name:"Hamad Bin Khalifa University", type:"Fully Funded", level:"Master/PhD", fee:"Full", link:"https://www.hbku.edu.qa", live:"https://www.hbku.edu.qa", tags:["fully","islamic"]},
-{name:"Texas A&M University at Qatar", type:"Fully Funded", level:"Bachelor", fee:"Full", link:"https://www.qatar.tamu.edu", live:"https://www.qatar.tamu.edu", tags:["fully","islamic"]}
-]},
-"UAE": {flag:"🇦🇪", count:"Top 4 Unis", tags:["fully","islamic"], unis:[
-{name:"United Arab Emirates University (UAEU)", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.uaeu.ac.ae", live:"https://www.uaeu.ac.ae", tags:["fully","islamic"]},
-{name:"Khalifa University", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full", link:"https://www.ku.ac.ae", live:"https://www.ku.ac.ae", tags:["fully","islamic"]},
-{name:"American University of Sharjah", type:"Self + Scholarships", level:"Bachelor/Master", fee:"Variable", link:"https://www.aus.edu", live:"https://www.aus.edu", tags:["islamic"]},
-{name:"University of Sharjah", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.sharjah.ac.ae", live:"https://www.sharjah.ac.ae", tags:["islamic"]}
-]},
-"Egypt": {flag:"🇪🇬", count:"Top 3 Unis", tags:["fully","islamic"], unis:[
-{name:"Al-Azhar University", type:"Fully Funded - Shariah", level:"Bachelor/Master/PhD", fee:"Scholarship for Shariah Sciences", link:"https://international.azu.edu.eg/", live:"https://www.hec.gov.pk/english/HECAnnouncements/Pages/AZU.aspx", tags:["fully","islamic"]},
-{name:"Cairo University", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Low", link:"https://cu.edu.eg", live:"https://cu.edu.eg", tags:["islamic"]},
-{name:"American University in Cairo", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"High", link:"https://www.aucegypt.edu", live:"https://www.aucegypt.edu", tags:["islamic"]}
-]},
-"Turkey": {flag:"🇹🇷", count:"Top 5 Unis", tags:["fully"], unis:[
-{name:"Turkiye Burslari Scholarship", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full + Stipend", link:"https://www.turkiyeburslari.gov.tr", live:"https://www.turkiyeburslari.gov.tr", tags:["fully","popular"]},
-{name:"Middle East Technical University", type:"Self Finance", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.metu.edu.tr", live:"https://www.metu.edu.tr", tags:[]},
-{name:"Bogazici University", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://bogazici.edu.tr", live:"https://bogazici.edu.tr", tags:[]},
-{name:"Istanbul Technical University", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.itu.edu.tr", live:"https://www.itu.edu.tr", tags:[]},
-{name:"Istanbul University", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.istanbul.edu.tr", live:"https://www.istanbul.edu.tr", tags:[]}
-]},
-"United Kingdom": {flag:"🇬🇧", count:"Top 10 Unis", tags:["fully"], unis:[
-{name:"University of Oxford - Rhodes / Chevening", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"£30k/year (Check Live)", link:"https://www.ox.ac.uk", live:"https://www.ox.ac.uk/admissions", tags:["fully","popular"]},
-{name:"University of Cambridge - Gates", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"£32k/year", link:"https://www.cam.ac.uk", live:"https://www.cam.ac.uk", tags:["fully","popular"]},
-{name:"Imperial College London", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£35k", link:"https://www.imperial.ac.uk", live:"https://www.imperial.ac.uk", tags:[]},
-{name:"University of Edinburgh", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£28k", link:"https://www.ed.ac.uk", live:"https://www.ed.ac.uk", tags:[]},
-{name:"University College London (UCL)", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£30k", link:"https://www.ucl.ac.uk", live:"https://www.ucl.ac.uk", tags:[]},
-{name:"King's College London", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£28k", link:"https://www.kcl.ac.uk", live:"https://www.kcl.ac.uk", tags:[]},
-{name:"University of Manchester", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£25k", link:"https://www.manchester.ac.uk", live:"https://www.manchester.ac.uk", tags:[]},
-{name:"University of Bristol", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£26k", link:"https://www.bristol.ac.uk", live:"https://www.bristol.ac.uk", tags:[]},
-{name:"University of Warwick", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£24k", link:"https://warwick.ac.uk", live:"https://warwick.ac.uk", tags:[]},
-{name:"University of Glasgow", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"£23k", link:"https://www.gla.ac.uk", live:"https://www.gla.ac.uk", tags:[]}
-]},
-"Germany": {flag:"🇩🇪", count:"Top 10 Unis", tags:["free"], unis:[
-{name:"Technical University of Munich (TUM)", type:"Self Finance - Low Fee", level:"Bachelor/Master/PhD", fee:"~€2k-3k/sem (Non-EU)", link:"https://www.tum.de/en/", live:"https://www.tum.de/en/studies/application", tags:["free"]},
-{name:"LMU Munich - Free Tuition", type:"Self Finance - Free", level:"Bachelor/Master/PhD", fee:"Free + €85/sem fee", link:"https://www.lmu.de/en/", live:"https://www.lmu.de/en/", tags:["free"]},
-{name:"Heidelberg University - Free", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.uni-heidelberg.de/en", live:"https://www.uni-heidelberg.de/en", tags:["free"]},
-{name:"RWTH Aachen - Free", type:"Free Tuition - Top Engineering", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.rwth-aachen.de", live:"https://www.rwth-aachen.de", tags:["free"]},
-{name:"Humboldt University of Berlin", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.hu-berlin.de/en", live:"https://www.hu-berlin.de/en", tags:["free"]},
-{name:"Freie Universität Berlin", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.fu-berlin.de/en/", live:"https://www.fu-berlin.de/en/", tags:["free"]},
-{name:"University of Bonn", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.uni-bonn.de/en", live:"https://www.uni-bonn.de/en", tags:["free"]},
-{name:"Goethe University Frankfurt", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.goethe-university-frankfurt.de/en", live:"https://www.goethe-university-frankfurt.de/en", tags:["free"]},
-{name:"University of Hamburg", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.uni-hamburg.de/en.html", live:"https://www.uni-hamburg.de/en.html", tags:["free"]},
-{name:"University of Freiburg", type:"Free Tuition", level:"Bachelor/Master/PhD", fee:"Free", link:"https://www.uni-freiburg.de/en", live:"https://www.uni-freiburg.de/en", tags:["free"]}
-]},
-"USA": {flag:"🇺🇸", count:"Top 8 Unis", tags:["fully"], unis:[
-{name:"Fulbright Scholarship", type:"Fully Funded", level:"Master/PhD", fee:"Full Tuition + $1500/month + Airfare", link:"https://foreign.fulbrightonline.org", live:"https://foreign.fulbrightonline.org", tags:["fully","popular"]},
-{name:"Yale University - Need Based Aid", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"Family <$200k = Free Tuition", link:"https://www.yale.edu", live:"https://admissions.yale.edu/international", tags:["free"]},
-{name:"University of Notre Dame - Need Aid", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"<$60k = All Free", link:"https://www.nd.edu", live:"https://admissions.nd.edu/international/", tags:["free"]},
-{name:"Harvard University", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"Need-Based Aid", link:"https://www.harvard.edu", live:"https://college.harvard.edu/admissions", tags:["free"]},
-{name:"MIT (Massachusetts Institute of Technology)", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"Need-Based Aid", link:"https://www.mit.edu", live:"https://mitadmissions.org", tags:["free"]},
-{name:"Stanford University", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"Need-Based Aid", link:"https://www.stanford.edu", live:"https://admission.stanford.edu", tags:["free"]},
-{name:"Princeton University", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"Need-Based Aid", link:"https://www.princeton.edu", live:"https://admission.princeton.edu", tags:["free"]},
-{name:"Columbia University", type:"Self + Aid", level:"Bachelor/Master/PhD", fee:"Need-Based Aid", link:"https://www.columbia.edu", live:"https://undergrad.admissions.columbia.edu", tags:["free"]}
-]},
-"China": {flag:"🇨🇳", count:"Top 5 Unis", tags:["fully"], unis:[
-{name:"CSC Scholarship - China", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full + Stipend + Hostel", link:"https://www.csc.edu.cn", live:"https://www.campuschina.org", tags:["fully"]},
-{name:"Tsinghua University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.tsinghua.edu.cn", live:"https://www.tsinghua.edu.cn", tags:["fully"]},
-{name:"Peking University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://english.pku.edu.cn", live:"https://english.pku.edu.cn", tags:["fully"]},
-{name:"Zhejiang University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.zju.edu.cn/english", live:"https://www.zju.edu.cn/english", tags:["fully"]},
-{name:"Fudan University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.fudan.edu.cn/en", live:"https://www.fudan.edu.cn/en", tags:["fully"]}
-]},
-"Japan": {flag:"🇯🇵", count:"Top 5 Unis", tags:["fully"], unis:[
-{name:"MEXT Scholarship Japan", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full + Monthly", link:"https://www.mext.go.jp", live:"https://www.studyinjapan.go.jp", tags:["fully"]},
-{name:"University of Tokyo", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.u-tokyo.ac.jp/en/", live:"https://www.u-tokyo.ac.jp/en/", tags:["fully"]},
-{name:"Kyoto University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.kyoto-u.ac.jp/en", live:"https://www.kyoto-u.ac.jp/en", tags:["fully"]},
-{name:"Osaka University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.osaka-u.ac.jp/en", live:"https://www.osaka-u.ac.jp/en", tags:["fully"]},
-{name:"Tohoku University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.tohoku.ac.jp/en/", live:"https://www.tohoku.ac.jp/en/", tags:["fully"]}
-]},
-"Malaysia": {flag:"🇲🇾", count:"Top 5 Unis", tags:["islamic"], unis:[
-{name:"International Islamic University Malaysia (IIUM)", type:"Scholarships + Self", level:"Bachelor/Master/PhD", fee:"Variable", link:"https://www.iium.edu.my", live:"https://www.iium.edu.my", tags:["islamic"]},
-{name:"University of Malaya - MIS Scholarship", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.um.edu.my", live:"https://www.um.edu.my", tags:["fully"]},
-{name:"Universiti Kebangsaan Malaysia (UKM)", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.ukm.my", live:"https://www.ukm.my", tags:[]},
-{name:"Universiti Putra Malaysia (UPM)", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.upm.edu.my", live:"https://www.upm.edu.my", tags:[]},
-{name:"Universiti Teknologi Malaysia (UTM)", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.utm.my", live:"https://www.utm.my", tags:[]}
-]},
-"Azerbaijan": {flag:"🇦🇿", count:"Top 2 Unis", tags:[], unis:[
-{name:"Azerbaijan State University", type:"Scholarships", level:"Bachelor/Master", fee:"Variable Low", link:"https://bsu.edu.az", live:"https://bsu.edu.az", tags:[]},
-{name:"Baku Engineering University", type:"Scholarships", level:"Bachelor/Master", fee:"Variable Low", link:"https://beu.edu.az", live:"https://beu.edu.az", tags:[]}
-]},
-"Kazakhstan": {flag:"🇰🇿", count:"Top 2 Unis", tags:[], unis:[
-{name:"Al-Farabi Kazakh National University", type:"Scholarships + Self", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.kaznu.kz", live:"https://www.kaznu.kz", tags:[]},
-{name:"Nazarbayev University", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full", link:"https://nu.edu.kz", live:"https://nu.edu.kz", tags:["fully"]}
-]},
-"Italy": {flag:"🇮🇹", count:"Top 4 Unis", tags:[], unis:[
-{name:"Sapienza University of Rome", type:"Self + Regional Scholarship", level:"Bachelor/Master/PhD", fee:"€1000-3000/year", link:"https://www.uniroma1.it", live:"https://www.uniroma1.it/en", tags:[]},
-{name:"University of Bologna", type:"Self + Regional Scholarship", level:"Bachelor/Master/PhD", fee:"€1000-3000/year", link:"https://www.unibo.it/en", live:"https://www.unibo.it/en", tags:[]},
-{name:"University of Milan", type:"Self + Regional Scholarship", level:"Bachelor/Master/PhD", fee:"€1000-3000/year", link:"https://www.unimi.it/en", live:"https://www.unimi.it/en", tags:[]},
-{name:"Politecnico di Milano", type:"Self + Regional Scholarship", level:"Bachelor/Master/PhD", fee:"€1000-3000/year", link:"https://www.polimi.it/en", live:"https://www.polimi.it/en", tags:[]}
-]},
-"Kuwait": {flag:"🇰🇼", count:"Top 1 Uni", tags:["fully","islamic"], unis:[
-{name:"Kuwait University Scholarship", type:"Fully Funded", level:"Bachelor/Master/PhD", fee:"Full", link:"https://www.ku.edu.kw", live:"https://www.ku.edu.kw", tags:["fully","islamic"]}
-]},
-"Iran": {flag:"🇮🇷", count:"Top 2 Unis", tags:["islamic"], unis:[
-{name:"University of Tehran", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://ut.ac.ir", live:"https://ut.ac.ir", tags:["islamic"]},
-{name:"Sharif University of Technology", type:"Self + Scholarships", level:"Bachelor/Master/PhD", fee:"Variable Low", link:"https://www.sharif.edu", live:"https://www.sharif.edu", tags:["islamic"]}
-]},
-"Canada": {flag:"🇨🇦", count:"Top 6 Unis", tags:["fully"], unis:[
-{name:"University of Toronto - Lester Pearson", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"CAD 60k", link:"https://www.utoronto.ca", live:"https://www.utoronto.ca", tags:["fully"]},
-{name:"University of British Columbia (UBC)", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"CAD 50k", link:"https://www.ubc.ca", live:"https://www.ubc.ca", tags:["fully"]},
-{name:"McGill University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"CAD 40k", link:"https://www.mcgill.ca", live:"https://www.mcgill.ca", tags:["fully"]},
-{name:"University of Waterloo", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"CAD 45k", link:"https://uwaterloo.ca", live:"https://uwaterloo.ca", tags:["fully"]},
-{name:"University of Alberta", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"CAD 35k", link:"https://www.ualberta.ca", live:"https://www.ualberta.ca", tags:["fully"]},
-{name:"McMaster University", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"CAD 38k", link:"https://www.mcmaster.ca", live:"https://www.mcmaster.ca", tags:["fully"]}
-]},
-"Australia": {flag:"🇦🇺", count:"Top 6 Unis", tags:["fully"], unis:[
-{name:"Australia Awards Scholarship", type:"Fully Funded", level:"Master/PhD", fee:"Full + Stipend", link:"https://www.dfat.gov.au/people-to-people/australia-awards", live:"https://www.dfat.gov.au", tags:["fully"]},
-{name:"University of Melbourne", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"AUD 40k", link:"https://www.unimelb.edu.au", live:"https://www.unimelb.edu.au", tags:["fully"]},
-{name:"University of Sydney", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"AUD 45k", link:"https://www.sydney.edu.au", live:"https://www.sydney.edu.au", tags:["fully"]},
-{name:"UNSW Sydney", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"AUD 42k", link:"https://www.unsw.edu.au", live:"https://www.unsw.edu.au", tags:["fully"]},
-{name:"Australian National University (ANU)", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"AUD 38k", link:"https://www.anu.edu.au", live:"https://www.anu.edu.au", tags:["fully"]},
-{name:"University of Queensland", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"AUD 36k", link:"https://www.uq.edu.au", live:"https://www.uq.edu.au", tags:["fully"]}
-]}
-};
-
-let currentCountry = "";
-let savedUnis = JSON.parse(localStorage.getItem('savedUnis')) || [];
-let currentLang = 'en';
-
-const LANG_DATA = {
-'en': { title:"🎓 STUDY ABROAD", sub:"🌍 Complete World Guide - 30+ Countries<br>Pakistan, India, Arab & Worldwide<br>Built on Humanity - Education for All", inst:"<b>📌 INSTRUCTIONS:</b><br>1. Click Open Main Gate → 2. Select Country → 3. Select University → 4. Check Official Live Link. Cost & Deadlines are VARIABLE - Always verify via Live Check.", disc:"<b>⚠️ DISCLAIMER:</b> NOT affiliated with any govt/university. Guidance only. No fees, No guarantee. Verify via .gov/.edu official sites.", gate:"🔽 Open Main Gate - World Countries", saved:"❤️ My Saved Universities", contact:"📞 Contact & Support", back:"⬅ Back", backC:"⬅ Countries", backU:"⬅ Universities", filterAll:"All", filterFully:"💚 Fully Funded", filterIslamic:"🕌 Islamic", filterFree:"🎓 Free" },
-'ur': { title:"🎓 بیرونِ ملک تعلیم", sub:"🌍 مکمل ورلڈ گائیڈ - 30+ ممالک<br>پاکستان، انڈیا، عرب اور دنیا بھر میں<br>انسانیت کی بنیاد پر - سب کے لیے تعلیم", inst:"<b>📌 ہدایات:</b><br>1. مین گیٹ کھولیں → 2. ملک منتخب کریں → 3. یونیورسٹی منتخب کریں → 4. سرکاری لنک چیک کریں۔ اخراجات اور آخری تاریخ تبدیل ہو سکتی ہے۔", disc:"<b>⚠️ دستبرداری:</b> کسی سرکاری ادارے سے منسلک نہیں۔ صرف رہنمائی۔ کوئی فیس نہیں، کوئی ضمانت نہیں۔", gate:"🔽 مین گیٹ کھولیں", saved:"❤️ محفوظ یونیورسٹیاں", contact:"📞 رابطہ اور معاونت", back:"⬅ واپس", backC:"⬅ ممالک", backU:"⬅ یونیورسٹیاں", filterAll:"تمام", filterFully:"💚 مکمل فنڈڈ", filterIslamic:"🕌 اسلامی", filterFree:"🎓 مفت" },
-'ar': { title:"🎓 الدراسة في الخارج", sub:"🌍 دليل عالمي شامل - أكثر من 30 دولة<br>باكستان، الهند، العرب والعالم<br>مبني على الإنسانية - التعليم للجميع", inst:"<b>📌 التعليمات:</b><br>1. افتح البوابة الرئيسية → 2. اختر الدولة → 3. اختر الجامعة → 4. تحقق من الرابط الرسمي.", disc:"<b>⚠️ إخلاء مسؤولية:</b> غير تابع لأي حكومة. إرشاد فقط. لا رسوم، لا ضمان.", gate:"🔽 افتح البوابة الرئيسية", saved:"❤️ جامعاتي المحفوظة", contact:"📞 الاتصال والدعم", back:"⬅ رجوع", backC:"⬅ الدول", backU:"⬅ الجامعات", filterAll:"الكل", filterFully:"💚 ممول بالكامل", filterIslamic:"🕌 إسلامي", filterFree:"🎓 مجاني" },
-'tr': { title:"🎓 YURTDIŞINDA EĞİTİM", sub:"🌍 Kapsamlı Dünya Rehberi - 30+ Ülke<br>Pakistan, Hindistan, Arap ve Dünya Çapında<br>İnsanlık Üzerine Kurulu - Herkes için Eğitim", inst:"<b>📌 TALİMATLAR:</b><br>1. Ana Kapıyı Aç → 2. Ülke Seç → 3. Üniversite Seç → 4. Resmi Bağlantıyı Kontrol Et.", disc:"<b>⚠️ SORUMLULUK REDDİ:</b> Hiçbir hükümete bağlı değildir. Sadece rehberlik. Ücret yok, garanti yok.", gate:"🔽 Ana Kapıyı Aç", saved:"❤️ Kaydedilen Üniversiteler", contact:"📞 İletişim ve Destek", back:"⬅ Geri", backC:"⬅ Ülkeler", backU:"⬅ Üniversiteler", filterAll:"Tümü", filterFully:"💚 Tam Burslu", filterIslamic:"🕌 İslami", filterFree:"🎓 Ücretsiz" },
-'hi': { title:"🎓 विदेश में अध्ययन", sub:"🌍 पूर्ण विश्व गाइड - 30+ देश<br>पाकिस्तान, भारत, अरब और दुनिया भर में<br>मानवता पर आधारित - सभी के लिए शिक्षा", inst:"<b>📌 निर्देश:</b><br>1. मुख्य द्वार खोलें → 2. देश चुनें → 3. विश्वविद्यालय चुनें → 4. आधिकारिक लिंक जांचें।", disc:"<b>⚠️ अस्वीकरण:</b> किसी सरकार से संबद्ध नहीं। केवल मार्गदर्शन। कोई शुल्क नहीं, कोई गारंटी नहीं।", gate:"🔽 मुख्य द्वार खोलें", saved:"❤️ सहेजे गए विश्वविद्यालय", contact:"📞 संपर्क और सहायता", back:"⬅ वापस", backC:"⬅ देश", backU:"⬅ विश्वविद्यालय", filterAll:"सभी", filterFully:"💚 पूर्ण वित्त पोषित", filterIslamic:"🕌 इस्लामी", filterFree:"🎓 मुफ्त" }
-};
-
-function setLang(lang, btn) {
-    currentLang = lang;
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    let d = LANG_DATA[lang];
-    document.getElementById('lbl-title').innerHTML = d.title;
-    document.getElementById('lbl-sub').innerHTML = d.sub;
-    document.getElementById('lbl-inst').innerHTML = d.inst;
-    document.getElementById('lbl-disc').innerHTML = d.disc;
-    document.getElementById('savedBtn').innerHTML = d.saved;
-    document.getElementById('lbl-contact').querySelector('h3').innerHTML = d.contact;
-    document.getElementById('qf-all').innerHTML = d.filterAll;
-    document.getElementById('qf-fully').innerHTML = d.filterFully;
-    document.getElementById('qf-islamic').innerHTML = d.filterIslamic;
-    document.getElementById('qf-free').innerHTML = d.filterFree;
-    if(document.getElementById('gateBtn').innerText.includes("Close") || document.getElementById('gateBtn').innerText.includes("بند")) {
-        document.getElementById('gateBtn').innerHTML = "🔼 Close Main Gate";
-    } else {
-        document.getElementById('gateBtn').innerHTML = d.gate;
-    }
-    document.querySelector('#countriesScreen .back').innerHTML = d.back;
-    document.querySelector('#unisScreen .back').innerHTML = d.backC;
-    document.querySelector('#detailScreen .back').innerHTML = d.backU;
+function toggleCountries(btn){
+ var c=document.getElementById("countries");
+ var arrow=btn.querySelector("span");
+ if(c.classList.contains("show")){c.classList.remove("show");arrow.innerHTML="▼ Click to expand";}
+ else{c.classList.add("show");arrow.innerHTML="▲ Click to collapse";}
 }
-
-function getBadge(u){
- let b="";
- if(u.tags && u.tags.includes("free")) b+=`<span class="badge" style="background:#00e676;color:#000">💚 FREE</span>`;
- if(u.tags && u.tags.includes("popular")) b+=`<span class="badge" style="background:#FFD700;color:#000">🔥 POPULAR</span>`;
- if(u.tags && u.tags.includes("islamic")) b+=`<span class="badge" style="background:#00bcd4;color:#fff">🕌 ISLAMIC</span>`;
- return b;
-}
-
-function openGate(){
-    document.getElementById('gateBtn').innerHTML="🔼 Close Main Gate";
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('countriesScreen').classList.add('active');
-    renderCountries();
-    window.scrollTo({top:300,behavior:'smooth'});
-}
-function closeGate(){
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('gateBtn').innerHTML=LANG_DATA[currentLang].gate;
-    window.scrollTo({top:0,behavior:'smooth'});
-}
-function renderCountries(){
-    let grid=document.getElementById('countryGrid');
-    grid.innerHTML="";
-    Object.keys(WORLD_DATA).forEach(c=>{
-        let d=WORLD_DATA[c];
-        grid.innerHTML+=`<div class="c-card" data-tags="${d.tags.join(',')}" onclick="openCountry('${c}')"><div class="flag">${d.flag}</div><h3>${c}</h3><p>${d.count}</p></div>`;
-    });
-}
-function openCountry(name){
-    currentCountry=name;
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('unisScreen').classList.add('active');
-    document.getElementById('selectedCountryTitle').innerText=`${WORLD_DATA[name].flag} ${name} - ${WORLD_DATA[name].count}`;
-    renderUnis(name);
-}
-function renderUnis(country){
-    let list=document.getElementById('uniList');
-    list.innerHTML="";
-    WORLD_DATA[country].unis.forEach((u,i)=>{
-        list.innerHTML+=`<div class="uni-card" onclick="openDetail('${country}',${i})"><div><h4>${u.name} ${getBadge(u)}</h4><span>${u.type} | ${u.level}</span></div><span>➤</span></div>`;
-    });
-}
-function showCountries(){
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('countriesScreen').classList.add('active');
-}
-function showUnis(){
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('unisScreen').classList.add('active');
-}
-function openDetail(country, idx){
-    let u=WORLD_DATA[country].unis[idx];
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('detailScreen').classList.add('active');
-    let isSaved = savedUnis.some(s => s.name === u.name);
-    let saveBtnColor = isSaved ? "#00e676" : "#ff5252";
-    let saveBtnIcon = isSaved ? "✅ Saved" : "❤️ Save";
-    document.getElementById('detailBox').innerHTML=`
-    <div class="detail">
-        <h2 style="color:var(--orange);font-size:16px">${u.name} ${getBadge(u)}</h2>
-        <p style="font-size:11px;color:#bb86fc;margin:6px 0">${WORLD_DATA[country].flag} ${country} - ${u.type}</p>
-        <div class="grid2">
-            <div class="item"><b>FEE / COST (Variable)</b><span>${u.fee}</span></div>
-            <div class="item"><b>DEGREE LEVEL</b><span>${u.level}</span></div>
-            <div class="item"><b>DEADLINE</b><span>Check Live Button - Changes yearly</span></div>
-            <div class="item"><b>VERIFICATION</b><span>Always verify via .gov/.edu</span></div>
-            ${u.focus?`<div class="item" style="grid-column:1/-1"><b>FOCUS</b><span>${u.focus}</span></div>`:""}
-        </div>
-        <div class="btn-row">
-            <a class="btn1" href="${u.link}" target="_blank">Official Site</a>
-            <a class="btn2" href="${u.live}" target="_blank">🔴 Live Check</a>
-        </div>
-        <div class="btn-row">
-            <button class="btn2" style="border-color:var(--gold);color:var(--gold)" onclick="shareUni('${u.name.replace(/'/g, "\\'")}', '${u.link}')">📤 Share</button>
-            <button class="btn1" style="background:transparent;border:1px solid ${saveBtnColor};color:${saveBtnColor}" onclick="toggleSave('${country}', ${idx})">${saveBtnIcon}</button>
-        </div>
-    </div>`;
-    window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function shareUni(name, link) {
-    if (navigator.share) { navigator.share({ title: name, url: link }).catch(() => {}); }
-    else { navigator.clipboard.writeText(link); alert("Link Copied: " + link); }
-}
-
-function toggleSave(country, idx) {
-    let u = WORLD_DATA[country].unis[idx];
-    let index = savedUnis.findIndex(s => s.name === u.name);
-    if (index > -1) savedUnis.splice(index, 1);
-    else savedUnis.push({ ...u, country: country, flag: WORLD_DATA[country].flag });
-    localStorage.setItem('savedUnis', JSON.stringify(savedUnis));
-    openDetail(country, idx);
-}
-
-function showSaved() {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('savedScreen').classList.add('active');
-    let list = document.getElementById('savedList');
-    list.innerHTML = "";
-    if(savedUnis.length === 0) list.innerHTML = "<p style='color:#fff;padding:20px'>No saved universities yet. Go to a university and click ❤️ Save.</p>";
-    else savedUnis.forEach((u, i) => {
-        list.innerHTML += `<div class="uni-card" onclick="openSavedDetail(${i})"><div><h4>${u.name} ${getBadge(u)}</h4><span>${u.country} - ${u.type}</span></div><span>➤</span></div>`;
-    });
-    window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function openSavedDetail(idx) {
-    let u = savedUnis[idx];
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('detailScreen').classList.add('active');
-    document.getElementById('detailBox').innerHTML=`
-    <div class="detail">
-        <h2 style="color:var(--orange);font-size:16px">${u.name}</h2>
-        <p style="font-size:11px;color:#bb86fc;margin:6px 0">${u.flag} ${u.country} - ${u.type}</p>
-        <div class="grid2">
-            <div class="item"><b>FEE / COST</b><span>${u.fee}</span></div>
-            <div class="item"><b>DEGREE LEVEL</b><span>${u.level}</span></div>
-        </div>
-        <div class="btn-row">
-            <a class="btn1" href="${u.link}" target="_blank">Official Site</a>
-            <a class="btn2" href="${u.live}" target="_blank">🔴 Live Check</a>
-        </div>
-        <div class="btn-row">
-            <button class="btn2" style="border-color:#ff5252;color:#ff5252" onclick="removeSaved(${idx})">❌ Remove from Saved</button>
-        </div>
-    </div>`;
-}
-
-function removeSaved(idx) {
-    savedUnis.splice(idx, 1);
-    localStorage.setItem('savedUnis', JSON.stringify(savedUnis));
-    showSaved();
-}
-
-function filterCountries(){
-    let q=document.getElementById('countrySearch').value.toLowerCase();
-    document.querySelectorAll('.c-card').forEach(card=>{
-        card.style.display=card.innerText.toLowerCase().includes(q)?'block':'none';
-    });
-}
-function filterUnis(){
-    let q=document.getElementById('uniSearch').value.toLowerCase();
-    document.querySelectorAll('.uni-card').forEach(card=>{
-        card.style.display=card.innerText.toLowerCase().includes(q)?'flex':'none';
-    });
-}
-
-function filterByQuick(type){
-    document.querySelectorAll('.qf').forEach(b => {
-        b.style.background='transparent';
-        if(b.id==='qf-all') b.style.color='var(--gold)';
-        if(b.id==='qf-fully') b.style.color='#00e676';
-        if(b.id==='qf-islamic') b.style.color='#00bcd4';
-        if(b.id==='qf-free') b.style.color='#bb86fc';
-        b.style.borderColor = b.style.color;
-    });
-    let activeBtn = document.getElementById('qf-' + type);
-    if(activeBtn){
-        activeBtn.style.background = activeBtn.style.color;
-        activeBtn.style.color = '#000';
-    }
-    document.querySelectorAll('.c-card').forEach(card=>{
-        let tags = card.getAttribute('data-tags') || "";
-        if(type==='all' || tags.includes(type)) {
-            card.style.display='block';
-        } else {
-            card.style.display='none';
-        }
-    });
-}
-
-window.onscroll = function() {scrollFunction()};
-function scrollFunction() {
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        document.getElementById("scrollTopBtn").style.display = "block";
-    } else {
-        document.getElementById("scrollTopBtn").style.display = "none";
-    }
-}
-function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+let deferredPrompt; const installBtn=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block';});
+installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();const r=await deferredPrompt.userChoice;if(r.outcome==='accepted'){installBtn.style.display='none';}deferredPrompt=null;}});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{});}
 </script>
-      <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
