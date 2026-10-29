@@ -4,86 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logical Reasoning MCQs Test</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004e92">
+    <link rel="icon" type="image/png" href="./icons-logical.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(180deg, #000428 0%, #004e92 100%);
             color: white; font-family: 'Arial'; text-align: center;
             padding: 15px 10px; min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
         }
+        .container { max-width: 700px; margin: 0 auto; width: 100%; }
         .main-title { font-size: 28px; color: #FF8C00; font-weight: bold; margin-bottom: 5px; }
         .main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 10px; }
         .disclaimer-top {
             background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.4);
-            border-radius: 8px; padding: 6px 10px; margin: 0 auto 10px auto; width: 90%; max-width: 400px;
+            border-radius: 8px; padding: 6px 10px; margin: 0 auto 10px auto; width: 90%; max-width: 500px;
             font-size: 11px; color: #FFD700; line-height: 1.4;
         }
         .box {
             background: linear-gradient(180deg, #001a4d 0%, #003399 100%);
-            border: 2px solid #FFD700; border-radius: 15px; padding: 15px;
-            margin: 10px auto; cursor: pointer; width: 90%; max-width: 400px;
-            transition: 0.3s; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            border: 2px solid #FFD700; border-radius: 12px; padding: 14px;
+            margin: 10px auto; width: 90%; max-width: 600px; transition: 0.3s; cursor: pointer;
         }
-        .box:active { transform: scale(0.98); }
-        .icon { font-size: 30px; margin-bottom: 8px; }
-        .box h2 { font-size: 20px; color: #FF8C00; margin-bottom: 5px; }
-        .box p { font-size: 14px; color: white; }
-        .madeby-box { padding: 12px; margin-top: 15px; }
-        .madeby-box h3 { font-size: 16px; color: #FFD700; font-weight: bold; }
-        .contact { font-size: 13px; color: white; margin: 3px 0; }
-        .feedback { color: #FFD700; font-weight: bold; margin-top: 8px; font-size: 13px; }
+        .box:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        .box h2 { font-size: 20px; color: #FF8C00; margin-bottom: 4px; }
+        .box p { font-size: 14px; color: white; margin: 2px 0; }
         .level-btn {
-            display: none; background: #FFD700; color: #000; border: none; padding: 12px;
-            margin: 6px auto; border-radius: 10px; font-size: 15px; width: 90%; max-width: 380px;
-            cursor: pointer; font-weight: bold;
+            display: block; background: #FFD700; color: #000; border: none;
+            padding: 10px; margin: 6px auto; border-radius: 8px; font-size: 15px;
+            width: 85%; max-width: 500px; cursor: pointer; font-weight: bold;
         }
-        .level-btn:active { background: #FFA500; }
+        .level-btn:hover { background: #FFA500; }
+        .hidden { display: none; }
+        .madeby-box { padding: 12px; margin-top: 12px; border: 2px solid #FFD700; border-radius: 12px; background: linear-gradient(180deg, #001a4d 0%, #003399 100%); max-width:600px; margin-left:auto; margin-right:auto; }
+        .madeby-box h3 { font-size: 16px; color: #FFD700; font-weight: bold; }
+        .contact { font-size: 13px; color: white; margin: 2px 0; }
+        .feedback { color: #FFD700; font-weight: bold; margin-top: 5px; font-size: 13px; }
+        #installBtn{display:none;background:linear-gradient(90deg,#FF8C00,#ffeb3b);color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:15px;margin:0 auto 12px auto;cursor:pointer;width:90%;max-width:600px;box-shadow:0 4px 15px rgba(255,215,0,0.4);}
     </style>
 </head>
 <body>
+<div class="container">
+    <h1 class="main-title">🧠 Logical Reasoning MCQs</h1>
+    <p class="main-subtitle">10 Full Tests | Practice Series</p>
 
-<h1 class="main-title">🧠 Logical Reasoning MCQs</h1>
-<p class="main-subtitle">5 Levels | Total 1000 MCQs</p>
+    <div class="disclaimer-top">
+        ⚠️ <strong>Disclaimer:</strong> Independent practice app only. For self-study purpose.
+    </div>
 
-<div class="disclaimer-top">
-    ⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with any official authority. For self-study.
-</div>
+    <button id="installBtn">📲 INSTALL Logical App</button>
 
-<div class="box" onclick="showLevels('main')">
-    <div class="icon">📘</div>
-    <h2>Logical Reasoning</h2>
-    <p>5 Level Tests | Each = 200 MCQs</p>
-</div>
+    <div class="box" onclick="toggleLevels()">
+        <h2>📚 Logical Reasoning Tests</h2>
+        <p>Click to expand · 10 Practice Tests</p>
+    </div>
 
-<div id="main">
-    <button class="level-btn" onclick="openLevel('Level1.html')">Level 1 (Basic) - 200 MCQs</button>
-    <button class="level-btn" onclick="openLevel('Level2.html')">Level 2 (Easy) - 200 MCQs</button>
-    <button class="level-btn" onclick="openLevel('Level3.html')">Level 3 (Medium) - 200 MCQs</button>
-    <button class="level-btn" onclick="openLevel('Level4.html')">Level 4 (Hard) - 200 MCQs</button>
-    <button class="level-btn" onclick="openLevel('Level5.html')">Level 5 (Expert) - 200 MCQs</button>
-</div>
+    <div id="testLevels" class="hidden">
+        <button class="level-btn" onclick="openTest('Level1.html')">📘 Test-1</button>
+        <button class="level-btn" onclick="openTest('Level2.html')">📗 Test-2</button>
+        <button class="level-btn" onclick="openTest('Level3.html')">📙 Test-3</button>
+        <button class="level-btn" onclick="openTest('Level4.html')">📘 Test-4</button>
+        <button class="level-btn" onclick="openTest('Level5.html')">📕 Test-5</button>
+        <button class="level-btn" onclick="openTest('Level6.html')">📒 Test-6</button>
+        <button class="level-btn" onclick="openTest('Level7.html')">📓 Test-7</button>
+        <button class="level-btn" onclick="openTest('Level8.html')">📔 Test-8</button>
+        <button class="level-btn" onclick="openTest('Level9.html')">📖 Test-9</button>
+        <button class="level-btn" onclick="openTest('Level10.html')">📚 Test-10</button>
+    </div>
 
-<div class="box madeby-box">
-    <h3>Made By: Akbar Ali Khan (SCT)</h3>
-    <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
-    <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
-    <p class="contact"><b>Phone 1:</b> +923068183790</p>
-    <p class="contact"><b>Phone 2:</b> +923339840801</p>
-    <p class="feedback">📢 Send Your Feedback & Suggestions</p>
-    <p style="font-size:10px; color:#E0E0FF; margin-top:8px; border-top:1px solid rgba(255,215,0,0.2); padding-top:6px;">Independent educational resource. Not affiliated with any authority. For practice only.</p>
+    <div class="box madeby-box">
+        <h3>Made By: Akbar Ali Khan (SCT)</h3>
+        <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+        <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+        <p class="contact"><b>Phone 1:</b> +923068183790</p>
+        <p class="contact"><b>Phone 2:</b> +923339840801</p>
+        <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+    </div>
 </div>
 
 <script>
-    function showLevels(part) {
-        var x = document.getElementById(part);
-        var btns = x.getElementsByClassName("level-btn");
-        for(var i=0; i<btns.length; i++){
-            btns[i].style.display = (btns[i].style.display === "block")? "none" : "block";
-        }
+    const toggleLevels = () => {
+        const x = document.getElementById("testLevels");
+        x.style.display = (x.style.display === "none" || x.style.display === "") ? "block" : "none";
+        if(x.style.display === "block") x.classList.remove("hidden");
     }
-    function openLevel(levelFile) { window.location.href = "file:///android_asset/" + levelFile; }
+    const openTest = (testFile) => { window.location.href = testFile; }
+    let deferredPrompt; const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
+    installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { installBtn.style.display = 'none'; } deferredPrompt = null; } });
+    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js', {scope: './'}); }
 </script>
-<!-- GoatCounter - SAFE -->
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
