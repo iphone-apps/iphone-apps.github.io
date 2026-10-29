@@ -1,150 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Educational Apps By Akbar Ali Khan</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-<link rel="icon" type="image/png" href="icons-index-html.png">
-<link rel="apple-touch-icon" href="icons-index-html.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<!-- WORLD INSTALL GUIDE - START -->
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#0f172a,#1e1b4b 40%,#312e81 100%);min-height:100vh;padding:14px;color:white}
-.container{max-width:420px;margin:0 auto}
-.hero{background:linear-gradient(135deg,#ffffff,#e0e7ff);border-radius:26px;padding:18px;text-align:center;box-shadow:0 20px 40px rgba(0,0,0,0.4)}
-.hero h1{font-size:24px;font-weight:800;color:#0f172a;line-height:1.1}
-.hero h1 span{background:linear-gradient(90deg,#7c3aed,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero .by{color:#4338ca;font-size:12px;font-weight:700;margin-top:6px;background:#eef2ff;display:inline-block;padding:4px 12px;border-radius:100px}
-.stats{display:flex;gap:8px;margin:12px 0}
-.stat{flex:1;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.15);border-radius:14px;padding:8px;text-align:center}
-.stat b{font-size:16px;display:block;color:#fbbf24}
-.stat span{font-size:9px;opacity:0.8}
-.title{font-size:13px;font-weight:800;margin:16px 0 10px 4px;display:flex;align-items:center;gap:6px}
-.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 10px #22c55e}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-.card{border-radius:18px;padding:13px;text-decoration:none;display:block;position:relative;transition:0.2s;box-shadow:0 6px 18px rgba(0,0,0,0.2);border:1px solid rgba(255,255,255,0.2)}
-.card:active{transform:scale(0.97)}
-.icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.95);margin-bottom:8px;overflow:hidden}
-.icon img{width:100%;height:100%;object-fit:contain;padding:3px}
-.card h3{font-size:12px;font-weight:800;color:#0f172a;line-height:1.2}
-.card p{font-size:10px;font-weight:600;color:#334155;margin-top:2px}
-.badge{position:absolute;top:10px;right:10px;font-size:8px;font-weight:800;padding:3px 7px;border-radius:100px;color:white}
-.arrow{position:absolute;bottom:10px;right:10px;width:20px;height:20px;background:#0f172a;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
-.c1{background:linear-gradient(135deg,#fef3c7,#fde68a)}.c1 .badge{background:#f59e0b}
-.c2{background:linear-gradient(135deg,#dbeafe,#bfdbfe)}.c2 .badge{background:#3b82f6}
-.c3{background:linear-gradient(135deg,#fce7f3,#fbcfe8)}.c3 .badge{background:#ec4899}
-.c4{background:linear-gradient(135deg,#dcfce7,#bbf7d0)}.c4 .badge{background:#22c55e}
-.c5{background:linear-gradient(135deg,#e0e7ff,#c7d2fe)}.c5 .badge{background:#6366f1}
-.c6{background:linear-gradient(135deg,#ffedd5,#fed7aa)}.c6 .badge{background:#f97316}
-.c7{background:linear-gradient(135deg,#f3e8ff,#e9d5ff)}.c7 .badge{background:#a855f7}
-.c8{background:linear-gradient(135deg,#ccfbf1,#99f6e0)}.c8 .badge{background:#14b8a6}
-.c9{background:linear-gradient(135deg,#fef9c3,#fde047)}.c9 .badge{background:#eab308}
-.c10{background:linear-gradient(135deg,#ffffff,#dcfce7);border:2px solid #16a34a}.c10 .badge{background:#006400}
-.c11{background:linear-gradient(135deg,#ede9fe,#ddd6fe)}.c11 .badge{background:#8b5cf6}
-.c12{background:linear-gradient(135deg,#fee2e2,#fecaca)}.c12 .badge{background:#ef4444}
-.c13{background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);border:2px solid #ffb300}.c13 h3{color:#ffb300}.c13 p{color:#e0e0ff}.c13 .badge{background:linear-gradient(90deg,#ff416c,#ffb300);animation:blink 1.2s infinite}
-.c14{background:linear-gradient(135deg,#bfdbfe,#93c5fd);border:2px solid #1e40af}.c14 .badge{background:#1e40af}
-.c15{background:linear-gradient(135deg,#fffbeb,#fde68a);border:2px solid #f59e0b}.c15 .badge{background:#d97706;animation:blink 1.2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.7}}
-.footer{text-align:center;margin-top:16px;padding:10px;background:rgba(0,0,0,0.3);border-radius:12px;font-size:10px}
-/* INSTALL GUIDE */
-.install-guide{background:#fff;border-radius:20px;padding:16px;margin-top:18px;color:#0f172a}
-.install-guide h2{font-size:14px;text-align:center;margin-bottom:12px;line-height:1.3}
-.tabs{display:flex;gap:6px;margin-bottom:12px}
-.tab{flex:1;padding:8px;border-radius:10px;border:none;font-weight:800;font-size:11px;cursor:pointer;background:#eef2ff;color:#4338ca}
-.tab.active{background:#4338ca;color:#fff}
-.tab-content{display:none}
-.tab-content.active{display:block}
-.step{display:flex;gap:10px;margin:8px 0;background:#f8fafc;padding:10px;border-radius:12px}
-.step b{width:26px;height:26px;background:#0f172a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.step p{font-size:11px;line-height:1.4}
-.lang{font-size:9px;color:#6366f1;font-weight:700;margin-top:10px;text-align:center;line-height:1.3}
+.install-guide{background:#fff;border-radius:22px;padding:16px;margin-top:18px;color:#0f172a}
+.install-guide h2{font-size:15px;text-align:center;font-weight:800}
+.device-tabs{display:flex;gap:6px;margin:14px 0 10px}
+.device-tabs .tab{flex:1;padding:9px;border-radius:12px;border:none;font-weight:800;font-size:12px;cursor:pointer;background:#eef2ff;color:#4338ca}
+.device-tabs .tab.active{background:#4338ca;color:#fff;box-shadow:0 6px 14px rgba(67,56,202,0.3)}
+.lang-label{font-size:10px;font-weight:800;color:#64748b;margin:8px 0 6px 2px}
+.lang-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.lang-tabs .ltab{padding:6px 10px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;font-size:10px;font-weight:700;cursor:pointer}
+.lang-tabs .ltab.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.instr-box{background:#f8fafc;border:1px solid #eef2ff;border-radius:16px;padding:12px;margin-top:12px}
+.step{display:flex;gap:10px;margin:10px 0}
+.step b{min-width:28px;height:28px;background:#0f172a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
+.step p{font-size:12px;line-height:1.5;font-weight:600}
+.dev-card{margin-top:14px;background:linear-gradient(135deg,#0f172a,#312e81);border-radius:16px;padding:14px;color:#fff;text-align:center}
+.dev-card h3{font-size:13px;color:#fbbf24}
+.dev-card p{font-size:10px;opacity:0.9;margin-top:4px;line-height:1.4}
 </style>
-</head>
-<body>
-<div class="container">
-<div class="hero">
-<h1>🎓 My Educational<br><span>Apps For Everyone!</span></h1>
-<div class="by">By Akbar Ali Khan • SCT GCMHS No.3 Mardan</div>
-</div>
 
-<div class="stats">
-<div class="stat"><b id="appCount">0</b><span>APPS</span></div>
-<div class="stat"><b>15K+</b><span>MCQs</span></div>
-<div class="stat"><b>100%</b><span>FREE</span></div>
-<div class="stat"><b>ALL</b><span>DEVICES</span></div>
-</div>
-
-<div class="title"><span class="dot"></span> 🔥 NEW - OFFICE + STUDY ABROAD (2 in 1)</div>
-<div class="grid">
-<a class="card c13" href="./universal-wps/" target="_blank" rel="noopener"><div class="badge">🔥</div><div class="icon"><img src="icons-universal-wps.png" alt="Universal WPS"></div><h3>Universal WPS</h3><p>Word, Excel, PPT to PDF REAL</p><div class="arrow">→</div></a>
-<a class="card c15" href="./study-abroad/" target="_blank" rel="noopener"><div class="badge">🌍 NEW</div><div class="icon"><img src="icons-study-abroad.png" alt="Study Abroad"></div><h3>Study Abroad</h3><p>21 Countries - World Guide</p><div class="arrow">→</div></a>
-</div>
-<div class="title"><span class="dot"></span> 🔥 NEW - NTS TEACHERS TESTS</div>
-<div class="grid">
-<a class="card c14" href="./nts-teachers/" target="_blank" rel="noopener"><div class="badge">8 TESTS</div><div class="icon"><img src="icons-nts-teachers.png" alt="NTS Teachers"></div><h3>NTS Teachers</h3><p>PST, PET, Qari, SST, AT, CT, DM, TT</p><div class="arrow">→</div></a>
-</div>
-<div class="title"><span class="dot"></span> ENTRY TESTS PREPARATION</div>
-<div class="grid">
-<a class="card c1" href="./mdcat/" target="_blank" rel="noopener"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-mdcat.png" alt="MDCAT"></div><h3>MDCAT</h3><p>Medical Entry Test</p><div class="arrow">→</div></a>
-<a class="card c2" href="./ecat/" target="_blank" rel="noopener"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-ecat.png" alt="ECAT"></div><h3>ECAT</h3><p>Engineering Test</p><div class="arrow">→</div></a>
-<a class="card c3" href="./lat/" target="_blank" rel="noopener"><div class="badge">10 TESTS</div><div class="icon"><img src="icons-lat.png" alt="LAT"></div><h3>LAT</h3><p>Law Admission Test</p><div class="arrow">→</div></a>
-<a class="card c4" href="./logical/" target="_blank" rel="noopener"><div class="badge">1000 MCQs</div><div class="icon"><img src="icons-logical.png" alt="Logical"></div><h3>Logical Reasoning</h3><p>Reasoning Test</p><div class="arrow">→</div></a>
-</div>
-<div class="title"><span class="dot"></span> FSc / HSSC - 2000 MCQs EACH</div>
-<div class="grid">
-<a class="card c5" href="./fsc-biology/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-biology.png" alt="Biology"></div><h3>FSc Biology</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c6" href="./fsc-chemistry/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-chemistry.png" alt="Chemistry"></div><h3>FSc Chemistry</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c7" href="./fsc-physics/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-physics.png" alt="Physics"></div><h3>FSc Physics</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c8" href="./fsc-maths/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-fsc-maths.png" alt="Maths"></div><h3>FSc Maths</h3><p>Class 11-12</p><div class="arrow">→</div></a>
-<a class="card c9" href="./hssc-english/" target="_blank" rel="noopener"><div class="badge">2000 MCQs</div><div class="icon"><img src="icons-hssc-english.png" alt="English"></div><h3>HSSC English</h3><p>Grammar & Vocab</p><div class="arrow">→</div></a>
-<a class="card c10" href="./constitution/" target="_blank" rel="noopener"><div class="badge">🇵🇰 1973</div><div class="icon"><img src="icons-constitution.png" alt="Constitution" style="padding:0"></div><h3>Constitution</h3><p>Pakistan 1973 🇵🇰</p><div class="arrow">→</div></a>
-<a class="card c11" href="./translator/" target="_blank" rel="noopener"><div class="badge">50+ LANGS</div><div class="icon"><img src="icons-translator.png" alt="Translator"></div><h3>Global Translator</h3><p>50+ Languages</p><div class="arrow">→</div></a>
-<a class="card c12" href="./converter/" target="_blank" rel="noopener"><div class="badge">ALL UNITS</div><div class="icon"><img src="icons-converter.png" alt="Converter"></div><h3>Unit Converter</h3><p>Universal Converter</p><div class="arrow">→</div></a>
-</div>
-
-<!-- HOW TO INSTALL GUIDE - 3 LANGUAGES -->
 <div class="install-guide">
-<h2>📲 How to Install / انسٹال کرنے کا طریقہ / نصب کولو طریقہ</h2>
-<div class="tabs">
-<button class="tab active" onclick="openTab(event,'android')">🤖 Android</button>
-<button class="tab" onclick="openTab(event,'iphone')">🍎 iPhone</button>
-<button class="tab" onclick="openTab(event,'pc')">💻 PC</button>
-</div>
-<div id="android" class="tab-content active">
-<div class="step"><b>1</b><p><strong>English:</strong> Open App → Tap Chrome 3 dots ⋮ → <strong>Add to Home Screen</strong> → Add<br><strong>اردو:</strong> ایپ کھولیں → کروم کے 3 نقطوں ⋮ پر کلک کریں → <strong>Add to Home Screen</strong> → Add<br><strong>پښتو:</strong> اپ خلاص کړئ → د کروم 3 نقطې ⋮ ووهئ → <strong>Add to Home Screen</strong></p></div>
-<div class="step"><b>2</b><p>✅ App icon with <strong>original icon</strong> will appear! Works offline!</p></div>
-</div>
-<div id="iphone" class="tab-content">
-<div class="step"><b>1</b><p><strong>English:</strong> Open in Safari → Tap Share ⎙ → <strong>Add to Home Screen</strong><br><strong>اردو:</strong> سفاری میں کھولیں → شیئر بٹن دبائیں → <strong>Add to Home Screen</strong><br><strong>پښتو:</strong> په سفاري کې خلاص کړئ → شریکولو تڼۍ ووهئ → <strong>Add to Home Screen</strong></p></div>
-<div class="step"><b>2</b><p>Tap <strong>Add</strong> → Icon appears on iPhone!</p></div>
-</div>
-<div id="pc" class="tab-content">
-<div class="step"><b>1</b><p><strong>English:</strong> Open in Chrome → Address bar Install icon or 3 dots ⋮ → <strong>Install</strong><br><strong>اردو:</strong> کروم میں کھولیں → ایڈریس بار میں Install آئیکون → <strong>Install</strong><br><strong>پښتو:</strong> په کروم کې خلاص کړئ → Install نښه ووهئ</p></div>
-<div class="step"><b>2</b><p>App works like computer software!</p></div>
-</div>
-<div class="lang">🇵🇰 No Play Store Needed • All Devices • By Akbar Ali Khan SCT GCMHS No.3 Mardan</div>
+<h2>📲 How to Install - App Installation Guide</h2>
+
+<div class="device-tabs">
+<button class="tab active" data-device="android">🤖 Android</button>
+<button class="tab" data-device="iphone">🍎 iPhone</button>
+<button class="tab" data-device="pc">💻 PC</button>
 </div>
 
-<div class="footer"><span id="footerCount">0</span> APPS • No Play Store Needed | iPhone • Android • Laptop • PC<br>By Akbar Ali Khan SCT GCMHS No.3 Mardan • Study Abroad Added • <span id="liveCount">0/0 LIVE</span></div>
+<div class="lang-label">🌍 SELECT LANGUAGE / زبان منتخب کریں</div>
+<div class="lang-tabs" id="langTabs">
+<button class="ltab active" data-lang="en">English</button>
+<button class="ltab" data-lang="ur">اردو</button>
+<button class="ltab" data-lang="ps">پښتو</button>
+<button class="ltab" data-lang="ar">العربية</button>
+<button class="ltab" data-lang="zh">中文</button>
+<button class="ltab" data-lang="fr">Français</button>
+<button class="ltab" data-lang="es">Español</button>
+<button class="ltab" data-lang="de">Deutsch</button>
+<button class="ltab" data-lang="tr">Türkçe</button>
+<button class="ltab" data-lang="hi">हिन्दी</button>
 </div>
+
+<div class="instr-box" id="instrBox">
+<!-- JS will fill -->
+</div>
+
+<div class="dev-card">
+<h3>👨‍🏫 Developer - Akbar Ali Khan</h3>
+<p><strong>SCT (Senior Certified Teacher) - GCMHS No.3 Mardan, KP Pakistan</strong><br>
+15 Educational Apps • 15,000+ MCQs • MDCAT, ECAT, NTS, FSc, WPS, Translator<br>
+🎯 Mission: Free Quality Education For Everyone • No Play Store Needed<br>
+📍 Mardan, Khyber Pakhtunkhwa • 🇵🇰 Pakistan • 2024-2026<br>
+© All Apps Free - Educational Purpose</p>
+</div>
+</div>
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const totalCards = document.querySelectorAll('.card').length;
-  document.getElementById('appCount').textContent = totalCards;
-  document.getElementById('footerCount').textContent = totalCards;
-  document.getElementById('liveCount').textContent = totalCards + '/' + totalCards + ' LIVE';
-  document.title = totalCards + ' Educational Apps - By Akbar Ali Khan';
-});
-function openTab(evt, name){
-  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(name).classList.add('active');
-  evt.currentTarget.classList.add('active');
+const DATA = {
+android: {
+en: ["Open any App in Chrome → Tap 3 dots ⋮ on top right → Add to Home Screen → Add","App icon will appear on home screen with original icon! Works offline like real app!"],
+ur: ["کوئی بھی ایپ کروم میں کھولیں → اوپر دائیں 3 نقطوں ⋮ پر کلک کریں → Add to Home Screen → Add","ایپ آپ کی سکرین پر اصلی آئیکون کے ساتھ آ جائے گی! بغیر پلے سٹور کے کام کرے گی!"],
+ps: ["هر اپ په کروم کې خلاص کړئ → پاس 3 نقطې ⋮ ووهئ → Add to Home Screen → Add","اپ به ستاسو په سکرین کې د اصلي آئیکون سره څرګند شي! آف لائن کار کوي!"],
+ar: ["افتح أي تطبيق في كروم → اضغط على 3 نقاط ⋮ في الأعلى → إضافة إلى الشاشة الرئيسية → إضافة","سيظهر التطبيق على الشاشة بأيقونته الأصلية! يعمل بدون متجر!"],
+zh: ["在 Chrome 中打开应用 → 点击右上角 3 个点 ⋮ → 添加到主屏幕 → 添加","应用将以原始图标显示在主屏幕上！离线可用！"],
+fr: ["Ouvrez l'App dans Chrome → Appuyez sur 3 points ⋮ en haut → Ajouter à l'écran d'accueil → Ajouter","L'icône apparaîtra avec l'icône originale! Fonctionne hors ligne!"],
+es: ["Abra la App en Chrome → Toque 3 puntos ⋮ arriba → Agregar a pantalla de inicio → Agregar","¡El icono aparecerá con su icono original! ¡Funciona sin conexión!"],
+de: ["App in Chrome öffnen → Auf 3 Punkte ⋮ oben tippen → Zum Startbildschirm hinzufügen → Hinzufügen","App erscheint mit Original-Icon! Funktioniert offline!"],
+tr: ["Uygulamayı Chrome'da aç → Sağ üstte 3 nokta ⋮ → Ana ekrana ekle → Ekle","Uygulama orijinal ikonla ana ekranda görünecek! Çevrimdışı çalışır!"],
+hi: ["Chrome में कोई भी App खोलें → ऊपर 3 डॉट्स ⋮ पर टैप करें → होम स्क्रीन में जोड़ें → जोड़ें","App असली आइकन के साथ होम स्क्रीन पर आएगी! ऑफलाइन चलेगी!"]
+},
+iphone: {
+en: ["Open App in Safari → Tap Share button ⎙ at bottom → Add to Home Screen","Tap Add on top right → Icon appears on iPhone home!"],
+ur: ["سفاری میں ایپ کھولیں → نیچے شیئر بٹن ⎙ دبائیں → Add to Home Screen","اوپر Add دبائیں → آئیکون آئی فون پر آ جائے گا!"],
+ps: ["اپ په سفاري کې خلاص کړئ → لاندې شریکولو تڼۍ ⎙ ووهئ → Add to Home Screen","پورته Add ووهئ → آئیکون به په آی فون کې ښکاره شي!"],
+ar: ["افتح التطبيق في سفاري → اضغط زر المشاركة ⎙ في الأسفل → إضافة إلى الشاشة الرئيسية","اضغط إضافة في الأعلى → سيظهر على الآيفون!"],
+zh: ["在 Safari 中打开应用 → 点击底部共享按钮 ⎙ → 添加到主屏幕","点击右上角添加 → 图标将出现在 iPhone 上！"],
+fr: ["Ouvrez dans Safari → Appuyez sur Partager ⎙ en bas → Sur l'écran d'accueil","Appuyez Ajouter en haut → Icône apparaît sur iPhone!"],
+es: ["Abra en Safari → Toque Compartir ⎙ abajo → Agregar a pantalla de inicio","Toque Agregar arriba → ¡Icono aparece en iPhone!"],
+de: ["In Safari öffnen → Auf Teilen ⎙ unten tippen → Zum Home-Bildschirm","Oben Hinzufügen tippen → Icon erscheint auf iPhone!"],
+tr: ["Safari'de aç → Altta Paylaş ⎙ düğmesine dokun → Ana Ekrana Ekle","Sağ üstte Ekle'ye dokun → Simge iPhone'da görünecek!"],
+hi: ["Safari में App खोलें → नीचे Share ⎙ बटन दबाएं → होम स्क्रीन में जोड़ें","ऊपर Add दबाएं → आइकन iPhone पर आएगा!"]
+},
+pc: {
+en: ["Open App in Chrome / Edge → Click Install icon ⊞ in address bar OR 3 dots ⋮ → Install / Create Shortcut","App will work like computer software! Pin to taskbar, works offline!"],
+ur: ["کروم / ایج میں ایپ کھولیں → ایڈریس بار میں Install آئیکون ⊞ یا 3 نقطے ⋮ → Install","ایپ کمپیوٹر سافٹ ویئر کی طرح کام کرے گی! آف لائن بھی چلے گی!"],
+ps: ["اپ په کروم کې خلاص کړئ → د ادرس بار کې Install نښه ⊞ یا 3 نقطې ⋮ → Install","اپ به د کمپیوټر سافټویر په څیر کار وکړي! آف لائن کار کوي!"],
+ar: ["افتح التطبيق في كروم / إيدج → اضغط أيقونة التثبيت ⊞ في شريط العنوان أو 3 نقاط ⋮ → تثبيت","سيعمل كبرنامج كمبيوتر! يعمل بدون إنترنت!"],
+zh: ["在 Chrome / Edge 中打开 → 点击地址栏安装图标 ⊞ 或 3 个点 ⋮ → 安装","应用将像电脑软件一样工作！可离线使用！"],
+fr: ["Ouvrez dans Chrome / Edge → Cliquez icône Installer ⊞ dans barre d'adresse ou 3 points ⋮ → Installer","L'app fonctionne comme logiciel PC! Hors ligne!"],
+es: ["Abra en Chrome / Edge → Clic en icono Instalar ⊞ en barra o 3 puntos ⋮ → Instalar","¡Funciona como programa de PC! ¡Sin conexión!"],
+de: ["In Chrome / Edge öffnen → Auf Install-Symbol ⊞ in Adressleiste oder 3 Punkte ⋮ → Installieren","Funktioniert wie PC-Software! Offline!"],
+tr: ["Chrome / Edge'de aç → Adres çubuğunda Yükle simgesi ⊞ veya 3 nokta ⋮ → Yükle","Bilgisayar yazılımı gibi çalışır! Çevrimdışı!"],
+hi: ["Chrome / Edge में खोलें → एड्रेस बार में Install आइकन ⊞ या 3 डॉट्स ⋮ → Install","App कंप्यूटर सॉफ्टवेयर की तरह काम करेगी! ऑफलाइन!"]
 }
+};
+
+let curDevice='android', curLang='en';
+const instrBox=document.getElementById('instrBox');
+function render(){
+  const steps=DATA[curDevice][curLang];
+  instrBox.innerHTML=`<div class="step"><b>1</b><p>${steps[0]}</p></div><div class="step"><b>2</b><p>${steps[1]}</p></div>`;
+}
+document.querySelectorAll('.device-tabs .tab').forEach(b=>{
+  b.addEventListener('click',e=>{
+    document.querySelectorAll('.device-tabs .tab').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');
+    curDevice=e.target.dataset.device;
+    render();
+  });
+});
+document.querySelectorAll('.lang-tabs .ltab').forEach(b=>{
+  b.addEventListener('click',e=>{
+    document.querySelectorAll('.lang-tabs .ltab').forEach(x=>x.classList.remove('active'));
+    e.target.classList.add('active');
+    curLang=e.target.dataset.lang;
+    render();
+  });
+});
+render();
 </script>
-<script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
-</html>
+<!-- WORLD INSTALL GUIDE - END -->
