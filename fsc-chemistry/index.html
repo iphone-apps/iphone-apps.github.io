@@ -3,59 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FSc Chemistry MCQs Test P1+2</title>
+    <title>FSc Chestry MCQs Test P1+2</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#004e92">
     <link rel="icon" type="image/png" href="./icons-fsc-chemistry.png">
-    <link rel="apple-touch-icon" href="./icons-fsc-chemistry.png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: linear-gradient(180deg, #000428 0%, #004e92 100%); color: white; font-family: 'Arial'; text-align: center; padding: 8px 10px; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        body {
+            background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+            color: white;
+            font-family: 'Arial';
+            text-align: center;
+            padding: 8px 10px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
         .main-title { font-size: 29px; color: #FF8C00; font-weight: bold; margin-bottom: 3px; }
-        .main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 10px; }
-        .disclaimer-top { background: rgba(255, 215, 0, 0.12); border: 1px solid rgba(255, 215, 0, 0.4); border-radius: 8px; padding: 6px 10px; margin: 0 auto 10px auto; width: 70%; max-width: 650px; font-size: 11px; color: #FFD700; line-height: 1.4; }
-        .box { background: linear-gradient(135deg, #000428, #004e92); border: 2px solid #FF8C00; border-radius: 14px; padding: 16px; margin: 10px auto; width: 100%; max-width: 600px; cursor: pointer; box-shadow: 0 4px 20px rgba(255,140,0,0.2); }
-        .level-btn { display: block; background: linear-gradient(135deg, #FF8C00, #ff5500); color: white; border: none; padding: 12px; margin: 6px auto; border-radius: 10px; font-size: 17px; width: 90%; max-width: 500px; cursor: pointer; font-weight: bold; }
-        .hidden { display: none; }
-        #installBtn{ display:none; background:linear-gradient(90deg,#FF8C00,#ffeb3b); color:#000; border:none; padding:13px 24px; border-radius:30px; font-weight:900; font-size:16px; margin:14px auto; cursor:pointer; box-shadow:0 0 20px rgba(255,140,0,0.6); width:95%; max-width:600px; animation:btnGlow 1.5s infinite; }
-        @keyframes btnGlow{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.03)} }
-        .madeby-box { background: linear-gradient(135deg, #000428, #004e92); border: 2px solid #ffeb3b; border-radius: 14px; padding: 16px; margin: 15px auto; max-width: 600px; }
+        .main-subtitle { font-size: 15px; color: #E0E0FF; margin-bottom: 12px; }
+        .box {
+            background: linear-gradient(180deg, #001a4d 0%, #003399 100%);
+            border: 2px solid #FFD700;
+            border-radius: 12px;
+            padding: 12px;
+            margin: 7px auto;
+            cursor: pointer;
+            width: 70%;
+            max-width: 650px;
+            transition: 0.3s;
+        }
+        .box:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        .icon { font-size: 26px; margin-bottom: 5px; }
+        .box h2 { font-size: 20px; color: #FF8C00; margin-bottom: 4px; }
+        .box p { font-size: 13px; color: white; margin: 2px 0; }
+        .madeby-box { padding: 10px; margin-top: 10px; }
+        .madeby-box h3 { font-size: 15px; color: #FFD700; font-weight: bold; }
+        .contact { font-size: 12px; color: white; margin: 2px 0; }
+        .feedback { color: #FFD700; font-weight: bold; margin-top: 5px; font-size: 12px; }
+        .level-btn {
+            display: block;
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 7px;
+            margin: 5px auto;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 65%;
+            max-width: 600px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .level-btn:hover { background: #FFA500; }
+        #installBtn{display:none;background:linear-gradient(90deg,#FF8C00,#ffeb3b);color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:15px;margin:0 auto 12px auto;cursor:pointer;width:70%;max-width:650px;}
     </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="main-title">🧪 FSc Chemistry MCQs</h1>
-    <p class="main-subtitle">Part 1 + Part 2 · Chapterwise Tests</p>
-    <div class="disclaimer-top">⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with BISE or any textbook board. For self-study.</div>
-    
-    <div class="box" onclick="toggleTests()">
-        <h2>📚 Chemistry Test Series</h2>
-        <p>Click to expand · Part 1 & 2</p>
-    </div>
 
-    <button id="installBtn">📲 INSTALL Chemistry App - اصلی آئیکون کے ساتھ</button>
+<h1 class="main-title">FSc Chemistry MCQs</h1>
+<p class="main-subtitle">Part-1 + Part-2 | Total 2000 MCQs</p>
 
-    <div id="testLevels" class="hidden">
-        <button class="level-btn" onclick="openTest('chem1-ch1.html')">📘 Ch-01: Basic Concepts</button>
-        <button class="level-btn" onclick="openTest('chem1-ch2.html')">📗 Ch-02: Experimental Techniques</button>
-        <button class="level-btn" onclick="openTest('chem2-ch1.html')">📙 Part 2 Ch-01: Periodic Table</button>
-        <button class="level-btn" onclick="openTest('full-test.html')">📕 Full Syllabus Test</button>
-    </div>
+<button id="installBtn">📲 INSTALL Chemistry App</button>
 
-    <div class="madeby-box">
-        <h3>Made By: Akbar Ali Khan (SCT)</h3>
-        <p>GCMHS No:3 MARDAN<br>akbarmdn72@gmail.com</p>
-    </div>
+<!-- Part First -->
+<div class="box" onclick="showLevels('part1')">
+    <div class="icon">📘</div>
+    <h2>Part First</h2>
+    <p>5 Level Tests | Each = 200 MCQs</p>
 </div>
+<div id="part1" style="display: none;">
+    <button class="level-btn" onclick="openLevel('Level1.html')">Level 1</button>
+    <button class="level-btn" onclick="openLevel('Level2.html')">Level 2</button>
+    <button class="level-btn" onclick="openLevel('Level3.html')">Level 3</button>
+    <button class="level-btn" onclick="openLevel('Level4.html')">Level 4</button>
+    <button class="level-btn" onclick="openLevel('Level5.html')">Level 5</button>
+</div>
+
+<!-- Part Second -->
+<div class="box" onclick="showLevels('part2')">
+    <div class="icon">📗</div>
+    <h2>Part Second</h2>
+    <p>5 Level Tests | Each = 200 MCQs</p>
+</div>
+<div id="part2" style="display: none;">
+    <button class="level-btn" onclick="openLevel('Level6.html')">Level 6</button>
+    <button class="level-btn" onclick="openLevel('Level7.html')">Level 7</button>
+    <button class="level-btn" onclick="openLevel('Level8.html')">Level 8</button>
+    <button class="level-btn" onclick="openLevel('Level9.html')">Level 9</button>
+    <button class="level-btn" onclick="openLevel('Level10.html')">Level 10</button>
+</div>
+
+<!-- Made By - Email + 2 Numbers -->
+<div class="box madeby-box">
+    <h3>Made By: Akbar Ali Khan (SCT)</h3>
+    <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
+    <p class="contact"><b>Email:</b> akbarmdn72@gmail.com</p>
+    <p class="contact"><b>Phone 1:</b> +923068183790</p>
+    <p class="contact"><b>Phone 2:</b> +923339840801</p>
+    <p class="feedback">📢 Send Your Feedback & Suggestions</p>
+</div>
+
 <script>
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
+    function showLevels(part) {
+        var x = document.getElementById(part);
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function openLevel(levelFile) {
+        window.location.href = levelFile;
+    }
+    let deferredPrompt; const installBtn = document.getElementById('installBtn');
     window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
     installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { installBtn.style.display = 'none'; } deferredPrompt = null; } });
-    window.addEventListener('appinstalled', () => { installBtn.style.display = 'none'; });
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js', {scope: './'}); }
-    function toggleTests() { var x = document.getElementById("testLevels"); if (x.style.display === "none" || x.style.display === "") { x.style.display = "block"; x.classList.remove("hidden"); } else { x.style.display = "none"; } }
-    function openTest(f) { window.location.href = f; }
 </script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
