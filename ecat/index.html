@@ -59,6 +59,13 @@
         .madeby-box .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
         .madeby-box .contact b { color: #bb86fc; }
         .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
+        /* INSTALL BUTTON STYLE LIKE CONVERTER */
+        #installBtn {
+            display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+            background:#ffeb3b; color:#000; padding:14px 28px; border-radius:30px;
+            font-weight:bold; font-size:16px; z-index:9999; border:none;
+            box-shadow:0 4px 15px rgba(255,235,59,0.5); cursor:pointer;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +113,10 @@
         <p style="font-size:11px; color:#d1c5e8; margin-top:10px; border-top:1px solid rgba(255,235,59,0.2); padding-top:8px;">This app is an independent educational resource. It is not affiliated with, endorsed by, or connected to UET Lahore or any ECAT authority.</p>
     </div>
 </div>
+
+<!-- INSTALL BUTTON - LIKE CONVERTER -->
+<button id="installBtn">📲 INSTALL ECAT App</button>
+
 <script>
     function toggleTests() {
         var x = document.getElementById("testLevels");
@@ -115,9 +126,29 @@
     }
     function openTest(testFile) { window.location.href = testFile; }
 
+    // PWA Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js');
     }
+
+    // INSTALL LOGIC - This was missing for 1 month
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'block'; // Show button like Converter
+    });
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBtn.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
 </script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
