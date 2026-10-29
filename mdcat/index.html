@@ -8,64 +8,55 @@
     <meta name="theme-color" content="#1a0033">
     <link rel="icon" type="image/png" href="./icons-mdcat.png">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(180deg, #0a0a1a 0%, #1a0033 50%, #2e0059 100%);
-            color: white; font-family: 'Segoe UI', Arial; text-align: center;
-            padding: 10px 15px 20px 15px; min-height: 100vh;
-            display: flex; flex-direction: column; justify-content: center;
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background:linear-gradient(180deg,#0a0a1a 0%,#1a0033 50%,#2e0059 100%);
+            color:white;font-family:'Segoe UI',Arial;text-align:center;
+            padding:10px 15px 20px 15px;min-height:100vh;
+            display:flex;flex-direction:column;justify-content:center;
         }
-        .container { max-width: 700px; margin: 0 auto; width: 100%; }
-        .main-title { font-size: 30px; color: #ffeb3b; font-weight: bold; text-shadow: 0 0 20px #ffeb3b; margin-bottom: 5px; }
-        .main-subtitle { font-size: 17px; color: #d1c5e8; margin-bottom: 10px; }
-        .disclaimer-top {
-            background: rgba(255, 235, 59, 0.12); border: 1px solid rgba(255, 235, 59, 0.4);
-            border-radius: 8px; padding: 7px 10px; margin: 0 auto 12px auto; max-width: 600px;
-            font-size: 11px; color: #ffeb3b; line-height: 1.4;
+        .container{max-width:700px;margin:0 auto;width:100%}
+        .main-title{font-size:30px;color:#ffeb3b;font-weight:bold;text-shadow:0 0 20px #ffeb3b;margin-bottom:5px}
+        .main-subtitle{font-size:17px;color:#d1c5e8;margin-bottom:10px}
+        .disclaimer-top{
+            background:rgba(255,235,59,0.12);border:1px solid rgba(255,235,59,0.4);
+            border-radius:8px;padding:7px 10px;margin:0 auto 12px auto;max-width:600px;
+            font-size:11px;color:#ffeb3b;line-height:1.4
         }
-        .box {
-            background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #bb86fc;
-            border-radius: 14px; padding: 16px; margin: 10px auto; width: 100%; max-width: 600px;
-            transition: 0.3s; box-shadow: 0 4px 20px rgba(123, 0, 255, 0.2); cursor: pointer;
+        .box{
+            background:linear-gradient(135deg,#1a0033,#3d0099);border:2px solid #bb86fc;
+            border-radius:14px;padding:16px;margin:10px auto;width:100%;max-width:600px;transition:0.3s;
+            box-shadow:0 4px 20px rgba(123,0,255,0.2);cursor:pointer
         }
-        .box:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(187, 134, 252, 0.4); }
-        .box h2 { font-size: 22px; color: #ffeb3b; margin-bottom: 4px; }
-        .box p { font-size: 15px; color: #d1c5e8; margin: 3px 0; }
-        .level-btn {
-            display: block; background: linear-gradient(135deg, #7f00ff, #e100ff); color: white;
-            border: none; padding: 12px; margin: 6px auto; border-radius: 10px; font-size: 17px;
-            width: 90%; max-width: 500px; cursor: pointer; font-weight: bold; transition: 0.3s;
+        .box:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(187,134,252,0.4)}
+        .box h2{font-size:22px;color:#ffeb3b;margin-bottom:4px}
+        .box p{font-size:15px;color:#d1c5e8;margin:3px 0}
+        .level-btn{
+            display:block;background:linear-gradient(135deg,#7f00ff,#e100ff);color:white;
+            border:none;padding:12px;margin:6px auto;border-radius:10px;font-size:17px;
+            width:90%;max-width:500px;cursor:pointer;font-weight:bold;transition:0.3s
         }
-        .level-btn:hover { transform: scale(1.03); box-shadow: 0 0 20px #7f00ff; }
-        .hidden { display: none; }
-        .madeby-box {
-            background: linear-gradient(135deg, #1a0033, #3d0099); border: 2px solid #ffeb3b;
-            border-radius: 14px; padding: 16px; margin: 15px auto; width: 100%; max-width: 600px;
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.1);
+        .level-btn:hover{transform:scale(1.03);box-shadow:0 0 20px #7f00ff}
+        .hidden{display:none}
+        .madeby-box{
+            background:linear-gradient(135deg,#1a0033,#3d0099);border:2px solid #ffeb3b;
+            border-radius:14px;padding:16px;margin:15px auto;width:100%;max-width:600px;
+            box-shadow:0 4px 20px rgba(255,215,0,0.1)
         }
-        .madeby-box h3 { font-size: 18px; color: #ffeb3b; font-weight: bold; margin-bottom: 5px; }
-        .contact { font-size: 14px; color: #d1c5e8; margin: 3px 0; }
-        .contact b { color: #bb86fc; }
-        .feedback { color: #ffeb3b; font-weight: bold; margin-top: 6px; font-size: 14px; }
-        #installBtn{display:none;background:linear-gradient(90deg,#ffeb3b,#7f00ff);color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:15px;margin:0 auto 12px auto;cursor:pointer;width:100%;max-width:600px;box-shadow:0 4px 15px rgba(127,0,255,0.5);}
+        .madeby-box h3{font-size:18px;color:#ffeb3b;font-weight:bold;margin-bottom:5px}
+        .contact{font-size:14px;color:#d1c5e8;margin:3px 0}
+        .contact b{color:#bb86fc}
+        .feedback{color:#ffeb3b;font-weight:bold;margin-top:6px;font-size:14px}
+        #installBtn{display:none;background:linear-gradient(90deg,#ffeb3b,#7f00ff);color:#000;border:none;padding:12px 20px;border-radius:30px;font-weight:900;font-size:15px;margin:0 auto 12px auto;cursor:pointer;width:100%;max-width:600px;box-shadow:0 4px 15px rgba(127,0,255,0.5)}
     </style>
 </head>
 <body>
 <div class="container">
     <h1 class="main-title">🩺 MDCAT Sample Tests</h1>
     <p class="main-subtitle">10 Full-Length Tests · 200 Marks Each</p>
-
-    <div class="disclaimer-top">
-        ⚠️ <strong>Disclaimer:</strong> Independent practice app only. NOT affiliated with PMDC, NMDCAT or any official authority. For self-study.
-    </div>
-
+    <div class="disclaimer-top">⚠️ <b>Disclaimer:</b> Independent practice app only. NOT affiliated with PMDC, NMDCAT or any official authority. For self-study.</div>
     <button id="installBtn">📲 INSTALL MDCAT App</button>
-
-    <div class="box" onclick="toggleLevels()">
-        <h2>📚 MDCAT Test Series</h2>
-        <p>Click to expand · 10 Practice Tests</p>
-    </div>
-
+    <div class="box" onclick="toggleLevels()"><h2>📚 MDCAT Test Series</h2><p>Click to expand · 10 Practice Tests</p></div>
     <div id="testLevels" class="hidden">
         <button class="level-btn" onclick="openTest('Level1.html')">📘 Test-1</button>
         <button class="level-btn" onclick="openTest('Level2.html')">📗 Test-2</button>
@@ -78,7 +69,6 @@
         <button class="level-btn" onclick="openTest('Level9.html')">📖 Test-9</button>
         <button class="level-btn" onclick="openTest('Level10.html')">📚 Test-10</button>
     </div>
-
     <div class="madeby-box">
         <h3>Made By: Akbar Ali Khan (SCT)</h3>
         <p class="contact"><b>Institute:</b> GCMHS No:3 MARDAN</p>
@@ -86,21 +76,39 @@
         <p class="contact"><b>Phone 1:</b> +923068183790</p>
         <p class="contact"><b>Phone 2:</b> +923339840801</p>
         <p class="feedback">📢 Send Your Feedback & Suggestions</p>
-        <p style="font-size:11px; color:#d1c5e8; margin-top:10px; border-top:1px solid rgba(255,235,59,0.2); padding-top:8px;">Independent educational resource. Not affiliated with PMDC/NMDCAT. For practice only.</p>
     </div>
 </div>
 
 <script>
-    const toggleLevels = () => {
-        const x = document.getElementById("testLevels");
-        x.style.display = (x.style.display === "none" || x.style.display === "") ? "block" : "none";
-        if(x.style.display === "block") x.classList.remove("hidden");
+function toggleLevels(){
+    var x = document.getElementById("testLevels");
+    if(x.style.display === "none" || x.style.display === ""){
+        x.style.display = "block";
+        x.classList.remove("hidden");
+    } else {
+        x.style.display = "none";
     }
-    const openTest = (testFile) => { window.location.href = testFile; }
-    let deferredPrompt; const installBtn = document.getElementById('installBtn');
-    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; installBtn.style.display = 'block'; });
-    installBtn.addEventListener('click', async () => { if (deferredPrompt) { deferredPrompt.prompt(); const { outcome } = await deferredPrompt.userChoice; if (outcome === 'accepted') { installBtn.style.display = 'none'; } deferredPrompt = null; } });
-    if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js', {scope: './'}); }
+}
+function openTest(testFile){ window.location.href = testFile; }
+
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+});
+installBtn.addEventListener('click', async () => {
+    if(deferredPrompt){
+        deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        if(choice.outcome === 'accepted'){ installBtn.style.display = 'none'; }
+        deferredPrompt = null;
+    }
+});
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
 </script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
