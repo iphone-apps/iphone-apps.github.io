@@ -36,8 +36,6 @@ body{background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-light) 100%);c
 .country-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
 @media(min-width:500px){.country-grid{grid-template-columns:1fr 1fr 1fr}}
 .c-card{background:linear-gradient(180deg,var(--box-dark),var(--box-light));border:1.5px solid var(--gold);border-radius:12px;padding:12px;cursor:pointer;transition:.3s;text-align:center;position:relative;overflow:hidden}
-.c-card::before{content:"";position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,.1) 50%,transparent 70%);transform:rotate(45deg) translateX(-100%);transition:.6s}
-.c-card:hover::before{transform:rotate(45deg) translateX(100%)}
 .c-card:hover{box-shadow:0 0 12px rgba(255,215,0,.4);transform:translateY(-3px)}
 .c-card .flag{font-size:28px}
 .c-card h3{font-size:13px;color:var(--orange);margin:4px 0}
@@ -66,19 +64,15 @@ body{background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-light) 100%);c
 <div class="container">
 <h1 class="main-title" id="lbl-title">🎓 STUDY ABROAD</h1>
 <div class="sub" id="lbl-sub">🌍 Complete World Guide - 30+ Countries<br>Pakistan, India, Arab & Worldwide<br>Built on Humanity - Education for All</div>
-
 <div class="stats-bar">
 <div class="stat stat1">🌍 21 Countries</div>
 <div class="stat stat2">🎓 150+ Top Universities</div>
 <div class="stat stat3">💰 100% Free Guide</div>
 </div>
-
 <div class="ticker">
 <marquee style="font-size:10px;color:#FFD700">🌟 Ali from Mardan got admission in IIUI → NUST → Germany! | 🌟 Ahmed got KSU Saudi Scholarship 2024! | 🌟 Fatima got Turkey Burslari! | 🌟 Your story next InshaAllah!</marquee>
 </div>
-
 <button id="installBtn">📲 INSTALL Study Abroad App</button>
-
 <div class="langs">
 <button class="lang-btn active" onclick="setLang('en', this)">English</button>
 <button class="lang-btn" onclick="setLang('ur', this)">اردو</button>
@@ -86,13 +80,10 @@ body{background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-light) 100%);c
 <button class="lang-btn" onclick="setLang('tr', this)">Türkçe</button>
 <button class="lang-btn" onclick="setLang('hi', this)">हिन्दी</button>
 </div>
-
 <div class="box" id="lbl-inst"><b>📌 INSTRUCTIONS:</b><br>1. Click Open Main Gate → 2. Select Country → 3. Select University → 4. Check Official Live Link. Cost & Deadlines are VARIABLE - Always verify via Live Check.</div>
 <div class="box" style="border-color:var(--orange)" id="lbl-disc"><b>⚠️ DISCLAIMER:</b> NOT affiliated with any govt/university. Guidance only. No fees, No guarantee. Verify via .gov/.edu official sites.</div>
-
 <button class="main-gate" id="gateBtn" onclick="openGate()">🔽 Open Main Gate - World Countries</button>
 <button class="saved-btn" id="savedBtn" onclick="showSaved()">❤️ My Saved Universities</button>
-
 <div id="countriesScreen" class="screen">
 <button class="back" onclick="closeGate()">⬅ Back</button>
 <div class="quick-filters">
@@ -104,25 +95,21 @@ body{background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-light) 100%);c
 <input class="search" id="countrySearch" placeholder="🔍 Search Country: Pakistan, Saudi, UK..." onkeyup="filterCountries()">
 <div class="country-grid" id="countryGrid"></div>
 </div>
-
 <div id="unisScreen" class="screen">
 <button class="back" onclick="showCountries()">⬅ Countries</button>
 <h3 id="selectedCountryTitle" style="color:var(--gold);margin:8px 0"></h3>
 <input class="search" id="uniSearch" placeholder="🔍 Search University..." onkeyup="filterUnis()">
 <div id="uniList"></div>
 </div>
-
 <div id="detailScreen" class="screen">
 <button class="back" onclick="showUnis()">⬅ Universities</button>
 <div id="detailBox"></div>
 </div>
-
 <div id="savedScreen" class="screen">
 <button class="back" onclick="closeGate()">⬅ Back to Home</button>
 <h3 style="color:var(--gold);margin:8px 0">❤️ Saved Universities</h3>
 <div id="savedList"></div>
 </div>
-
 <div class="box" style="text-align:center" id="lbl-contact">
 <h3 style="color:var(--gold);font-size:13px">📞 Contact & Support</h3>
 <p><b>Made By:</b> Akbar Ali Khan (SCT) - GCMHS No:3 MARDAN</p>
@@ -131,9 +118,7 @@ body{background:linear-gradient(180deg,var(--bg-dark) 0%,var(--bg-light) 100%);c
 <p style="color:var(--orange);font-weight:bold">📢 Send Your Feedback</p>
 </div>
 </div>
-
 <button onclick="topFunction()" id="scrollTopBtn" title="Go to top">⬆️</button>
-
 <script>
 const WORLD_DATA = {
 "Pakistan": {flag:"🇵🇰", count:"Top 6 Unis", tags:["islamic"], unis:[
@@ -275,11 +260,9 @@ const WORLD_DATA = {
 {name:"University of Queensland", type:"Fully + Self", level:"Bachelor/Master/PhD", fee:"AUD 36k", link:"https://www.uq.edu.au", live:"https://www.uq.edu.au", tags:["fully"]}
 ]}
 };
-
 let currentCountry = "";
 let savedUnis = JSON.parse(localStorage.getItem('savedUnis')) || [];
 let currentLang = 'en';
-
 const LANG_DATA = {
 'en': { title:"🎓 STUDY ABROAD", sub:"🌍 Complete World Guide - 30+ Countries<br>Pakistan, India, Arab & Worldwide<br>Built on Humanity - Education for All", inst:"<b>📌 INSTRUCTIONS:</b><br>1. Click Open Main Gate → 2. Select Country → 3. Select University → 4. Check Official Live Link. Cost & Deadlines are VARIABLE - Always verify via Live Check.", disc:"<b>⚠️ DISCLAIMER:</b> NOT affiliated with any govt/university. Guidance only. No fees, No guarantee. Verify via .gov/.edu official sites.", gate:"🔽 Open Main Gate - World Countries", saved:"❤️ My Saved Universities", contact:"📞 Contact & Support", back:"⬅ Back", backC:"⬅ Countries", backU:"⬅ Universities", filterAll:"All", filterFully:"💚 Fully Funded", filterIslamic:"🕌 Islamic", filterFree:"🎓 Free" },
 'ur': { title:"🎓 بیرونِ ملک تعلیم", sub:"🌍 مکمل ورلڈ گائیڈ - 30+ ممالک<br>پاکستان، انڈیا، عرب اور دنیا بھر میں<br>انسانیت کی بنیاد پر - سب کے لیے تعلیم", inst:"<b>📌 ہدایات:</b><br>1. مین گیٹ کھولیں → 2. ملک منتخب کریں → 3. یونیورسٹی منتخب کریں → 4. سرکاری لنک چیک کریں۔ اخراجات اور آخری تاریخ تبدیل ہو سکتی ہے۔", disc:"<b>⚠️ دستبرداری:</b> کسی سرکاری ادارے سے منسلک نہیں۔ صرف رہنمائی۔ کوئی فیس نہیں، کوئی ضمانت نہیں۔", gate:"🔽 مین گیٹ کھولیں", saved:"❤️ محفوظ یونیورسٹیاں", contact:"📞 رابطہ اور معاونت", back:"⬅ واپس", backC:"⬅ ممالک", backU:"⬅ یونیورسٹیاں", filterAll:"تمام", filterFully:"💚 مکمل فنڈڈ", filterIslamic:"🕌 اسلامی", filterFree:"🎓 مفت" },
@@ -287,7 +270,6 @@ const LANG_DATA = {
 'tr': { title:"🎓 YURTDIŞINDA EĞİTİM", sub:"🌍 Kapsamlı Dünya Rehberi - 30+ Ülke<br>Pakistan, Hindistan, Arap ve Dünya Çapında<br>İnsanlık Üzerine Kurulu - Herkes için Eğitim", inst:"<b>📌 TALİMATLAR:</b><br>1. Ana Kapıyı Aç → 2. Ülke Seç → 3. Üniversite Seç → 4. Resmi Bağlantıyı Kontrol Et.", disc:"<b>⚠️ SORUMLULUK REDDİ:</b> Hiçbir hükümete bağlı değildir. Sadece rehberlik. Ücret yok, garanti yok.", gate:"🔽 Ana Kapıyı Aç", saved:"❤️ Kaydedilen Üniversiteler", contact:"📞 İletişim ve Destek", back:"⬅ Geri", backC:"⬅ Ülkeler", backU:"⬅ Üniversiteler", filterAll:"Tümü", filterFully:"💚 Tam Burslu", filterIslamic:"🕌 İslami", filterFree:"🎓 Ücretsiz" },
 'hi': { title:"🎓 विदेश में अध्ययन", sub:"🌍 पूर्ण विश्व गाइड - 30+ देश<br>पाकिस्तान, भारत, अरब और दुनिया भर में<br>मानवता पर आधारित - सभी के लिए शिक्षा", inst:"<b>📌 निर्देश:</b><br>1. मुख्य द्वार खोलें → 2. देश चुनें → 3. विश्वविद्यालय चुनें → 4. आधिकारिक लिंक जांचें।", disc:"<b>⚠️ अस्वीकरण:</b> किसी सरकार से संबद्ध नहीं। केवल मार्गदर्शन। कोई शुल्क नहीं, कोई गारंटी नहीं।", gate:"🔽 मुख्य द्वार खोलें", saved:"❤️ सहेजे गए विश्वविद्यालय", contact:"📞 संपर्क और सहायता", back:"⬅ वापस", backC:"⬅ देश", backU:"⬅ विश्वविद्यालय", filterAll:"सभी", filterFully:"💚 पूर्ण वित्त पोषित", filterIslamic:"🕌 इस्लामी", filterFree:"🎓 मुफ्त" }
 };
-
 function setLang(lang, btn) {
     currentLang = lang;
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -312,7 +294,6 @@ function setLang(lang, btn) {
     document.querySelector('#unisScreen .back').innerHTML = d.backC;
     document.querySelector('#detailScreen .back').innerHTML = d.backU;
 }
-
 function getBadge(u){
  let b="";
  if(u.tags && u.tags.includes("free")) b+=`<span class="badge" style="background:#00e676;color:#000">💚 FREE</span>`;
@@ -320,7 +301,6 @@ function getBadge(u){
  if(u.tags && u.tags.includes("islamic")) b+=`<span class="badge" style="background:#00bcd4;color:#fff">🕌 ISLAMIC</span>`;
  return b;
 }
-
 function openGate(){
     document.getElementById('gateBtn').innerHTML="🔼 Close Main Gate";
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -338,7 +318,7 @@ function renderCountries(){
     grid.innerHTML="";
     Object.keys(WORLD_DATA).forEach(c=>{
         let d=WORLD_DATA[c];
-        grid.innerHTML+=`<div class="c-card" data-tags="${d.tags.join(',')}" onclick="openCountry('${c}')"><div class="flag">${d.flag}</div><h3>${c}</h3><p>${d.count}</p></div>`;
+        grid.innerHTML+=`<div class="c-card" data-country="${c}" data-tags="${d.tags.join(',')}" onclick="openCountry(this.getAttribute('data-country'))"><div class="flag">${d.flag}</div><h3>${c}</h3><p>${d.count}</p></div>`;
     });
 }
 function openCountry(name){
@@ -352,7 +332,7 @@ function renderUnis(country){
     let list=document.getElementById('uniList');
     list.innerHTML="";
     WORLD_DATA[country].unis.forEach((u,i)=>{
-        list.innerHTML+=`<div class="uni-card" onclick="openDetail('${country}',${i})"><div><h4>${u.name} ${getBadge(u)}</h4><span>${u.type} | ${u.level}</span></div><span>➤</span></div>`;
+        list.innerHTML+=`<div class="uni-card" data-country="${country}" data-idx="${i}" onclick="openDetail(this.getAttribute('data-country'), this.getAttribute('data-idx'))"><div><h4>${u.name} ${getBadge(u)}</h4><span>${u.type} | ${u.level}</span></div><span>➤</span></div>`;
     });
 }
 function showCountries(){
@@ -364,6 +344,7 @@ function showUnis(){
     document.getElementById('unisScreen').classList.add('active');
 }
 function openDetail(country, idx){
+    idx=parseInt(idx);
     let u=WORLD_DATA[country].unis[idx];
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('detailScreen').classList.add('active');
@@ -387,17 +368,15 @@ function openDetail(country, idx){
         </div>
         <div class="btn-row">
             <button class="btn2" style="border-color:var(--gold);color:var(--gold)" onclick="shareUni('${u.name.replace(/'/g, "\\'")}', '${u.link}')">📤 Share</button>
-            <button class="btn1" style="background:transparent;border:1px solid ${saveBtnColor};color:${saveBtnColor}" onclick="toggleSave('${country}', ${idx})">${saveBtnIcon}</button>
+            <button class="btn1" style="background:transparent;border:1px solid ${saveBtnColor};color:${saveBtnColor}" onclick="toggleSave('${country.replace(/'/g, "\\'")}', ${idx})">${saveBtnIcon}</button>
         </div>
     </div>`;
     window.scrollTo({top:0,behavior:'smooth'});
 }
-
 function shareUni(name, link) {
     if (navigator.share) { navigator.share({ title: name, url: link }).catch(() => {}); }
     else { navigator.clipboard.writeText(link); alert("Link Copied: " + link); }
 }
-
 function toggleSave(country, idx) {
     let u = WORLD_DATA[country].unis[idx];
     let index = savedUnis.findIndex(s => s.name === u.name);
@@ -406,7 +385,6 @@ function toggleSave(country, idx) {
     localStorage.setItem('savedUnis', JSON.stringify(savedUnis));
     openDetail(country, idx);
 }
-
 function showSaved() {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById('savedScreen').classList.add('active');
@@ -418,7 +396,6 @@ function showSaved() {
     });
     window.scrollTo({top:0,behavior:'smooth'});
 }
-
 function openSavedDetail(idx) {
     let u = savedUnis[idx];
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -440,13 +417,11 @@ function openSavedDetail(idx) {
         </div>
     </div>`;
 }
-
 function removeSaved(idx) {
     savedUnis.splice(idx, 1);
     localStorage.setItem('savedUnis', JSON.stringify(savedUnis));
     showSaved();
 }
-
 function filterCountries(){
     let q=document.getElementById('countrySearch').value.toLowerCase();
     document.querySelectorAll('.c-card').forEach(card=>{
@@ -459,7 +434,6 @@ function filterUnis(){
         card.style.display=card.innerText.toLowerCase().includes(q)?'flex':'none';
     });
 }
-
 function filterByQuick(type){
     document.querySelectorAll('.qf').forEach(b => {
         b.style.background='transparent';
@@ -483,7 +457,6 @@ function filterByQuick(type){
         }
     });
 }
-
 window.onscroll = function() {scrollFunction()};
 function scrollFunction() {
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
@@ -493,8 +466,6 @@ function scrollFunction() {
     }
 }
 function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
-
-// --- ADDED: INSTALL + SW ---
 let deferredPrompt; const installBtn=document.getElementById('installBtn');
 window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;installBtn.style.display='block';});
 installBtn.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();const r=await deferredPrompt.userChoice;if(r.outcome==='accepted'){installBtn.style.display='none';}deferredPrompt=null;}});
