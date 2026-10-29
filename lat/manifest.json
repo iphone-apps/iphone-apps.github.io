@@ -1,0 +1,20 @@
+{
+  "name": "LAT Practice Tests",
+  "short_name": "LAT Tests",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#1a0033",
+  "theme_color": "#1a0033",
+  "icons": [
+    {
+      "src": "./icons-lat.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icons-lat.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
