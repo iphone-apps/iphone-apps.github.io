@@ -1,0 +1,21 @@
+{
+  "name": "World Funny Jokes - 16 Languages",
+  "short_name": "Funny Jokes",
+  "description": "16000+ Jokes in 16 Languages - By Akbar Ali Khan SCT GCMHS No:3 MARDAN",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0d1b2a",
+  "theme_color": "#0d1b2a",
+  "icons": [
+    {
+      "src": "icons-jokes.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons-jokes.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
