@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Funny Jokes</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;width:100%;overflow:hidden;}
+body{
+    background:linear-gradient(180deg, #08133A 0%, #0F2A7A 50%, #123CA8 100%);
+    font-family:Arial, Tahoma, sans-serif;
+    display:flex;flex-direction:column;
+    height:100vh;height:100dvh;direction:ltr;
+}
+.header{
+    flex-shrink:0;text-align:center;padding:12px 10px;
+    background:#08133A;border-bottom:3px solid #FFD600;width:100%;
+}
+.header h1{color:#FF8F00;font-size:20px;font-weight:900;}
+.count{
+    flex-shrink:0;text-align:center;padding:6px;
+    color:#FFEB3B;font-weight:bold;font-size:13px;
+    background:rgba(0,0,0,0.3);direction:ltr;
+}
+.joke-box{
+    flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    background:linear-gradient(180deg, #0A1E5E 0%, #0F2F8A 100%);
+    margin:10px;border:2.5px solid #FFD600;border-radius:16px;
+    padding:16px;color:white;font-size:19px;line-height:34px;
+    white-space:pre-wrap;word-wrap:break-word;
+    box-shadow:0 4px 10px rgba(0,0,0,0.4);
+    min-height:0;text-align:left;direction:ltr;
+}
+.nav-area{
+    flex-shrink:0;padding:10px;display:flex;gap:8px;
+    background:rgba(0,0,0,0.25);direction:ltr;
+}
+.nav-btn{
+    flex:1;padding:13px 6px;border:2.5px solid #FFD600;
+    border-radius:12px;font-weight:bold;font-size:14px;cursor:pointer;
+}
+.btn-prev{background:#0A1E5E;color:white}
+.btn-next{background:#0A1E5E;color:white}
+.btn-home{background:#2E7D32;color:white}
+.nav-btn:active{transform:scale(0.97);}
+.footer{
+    flex-shrink:0;background:linear-gradient(180deg, #0A1E5E 0%, #0F2F8A 100%);
+    border-top:2px solid #FFD600;padding:6px 8px;text-align:center;
+    color:white;font-size:10px;line-height:15px;
+    max-height:22vh;overflow-y:auto;direction:ltr;
+}
+.footer b{color:#FFEB3B;font-size:11px}
+@media (max-height:600px){
+    .footer{display:none;}
+    .header h1{font-size:17px;}
+    .joke-box{font-size:16px;line-height:28px;padding:12px;margin:8px;}
+    .nav-btn{padding:11px 4px;font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h1>Funny Jokes</h1>
+</div>
+
+<div class="count" id="count">Joke 1 / 0</div>
+
+<div class="joke-box" id="jokeBox">Loading...</div>
+
+<div class="nav-area">
+<button class="nav-btn btn-prev" onclick="prev()">⬅ Previous</button>
+<button class="nav-btn btn-home" onclick="goHome()">🏠 Home</button>
+<button class="nav-btn btn-next" onclick="next()">Next ➡</button>
+</div>
+
+<div class="footer">
+<b>Made By: Akbar Ali Khan (SCT)</b><br>
+GCMHS No:3 MARDAN<br>
+akbarmdn72@gmail.com
+</div>
+
+<script>
+// ============================================================
+// JOKES ARRAY — har joke ke shuru mein "Joke N:" laga hua hai
+// ============================================================
+var jokes = [
+"Joke 1:\n\nTeacher: What is the difference between an accident and a disaster?\nStudent: If a wife goes to her mother's house and meets with an accident, that's an accident. But if she returns safe and sound, that's a disaster!",
+
+"Joke 2:\n\nA man goes to the doctor: Doctor, I think I'll die soon.\nDoctor: Why do you say that?\nMan: Ever since I got married!",
+
+"Joke 3:\n\nWife: Honey, if I die, will you marry again?\nHusband: No, of course not.\nWife: And if I stay alive?\nHusband: Well, we'll see...",
+
+"Joke 4:\n\nTeacher: If you had a million dollars, what would you do?\nStudent: First I'd pay the school fee.\nTeacher: What a good boy!\nStudent: And the rest I'd give to my wife to visit her mother!",
+
+"Joke 5:\n\nWife: Do you love me a lot?\nHusband: So much that I can't live without you even for an hour.\nWife: Then why didn't you cook dinner?\nHusband: Because without you, I don't know how to cook!",
+
+"Joke 6:\n\nTeacher: If your wife and mother were drowning, who would you save first?\nStudent: My mother, because my wife knows how to swim — she crosses the river every day to visit her mother!",
+
+"Joke 7:\n\nDoctor: What's the problem?\nPatient: Doctor, my wife scolds me every day.\nDoctor: And what can I do?\nPatient: Give her some medicine so she stops!",
+
+"Joke 8:\n\nWife: Honey, let's go to the market?\nHusband: We don't have money.\nWife: So what, we'll just look.\nHusband: Last time we just looked, and I left three months' salary there!",
+
+"Joke 9:\n\nTeacher: How did you feel after marriage?\nStudent: Before, I thought I was free. After marriage, I realized I was in prison before, and now I've been released!",
+
+"Joke 10:\n\nWife: You've never given me flowers.\nHusband: Do you like flowers?\nWife: Yes.\nHusband: Then buy some yourself tomorrow!",
+
+"Joke 11:\n\nTeacher: What's the biggest stress in your life?\nStudent: When my wife told me I'm going to be a father. But I'm still a child myself!",
+
+"Joke 12:\n\nDoctor: You need to exercise.\nPatient: I exercise every day.\nDoctor: How?\nPatient: Every day I run away from my wife's scolding!",
+
+"Joke 13:\n\nTeacher: If your wife and mother scold you at the same time, who do you listen to?\nStudent: My mother.\nTeacher: Why not your wife?\nStudent: I listen to my wife at night too, my mother only during the day!",
+
+"Joke 14:\n\nWife: What should I cook for dinner?\nHusband: Whatever your heart desires.\nWife: Okay, I won't cook anything today.\nHusband: No, I was joking!",
+
+"Joke 15:\n\nTeacher: What's the most important lesson you've learned in life?\nStudent: Before marriage, I thought I was a king. After marriage, I realized I'm a minister, and my wife is the prime minister!",
+
+"Joke 16:\n\nDoctor: You can't smoke.\nPatient: Doctor, I just watch.\nDoctor: Then stop watching!",
+
+"Joke 17:\n\nTeacher: If you had a plane, where would you fly?\nStudent: To my wife's mother's house!",
+
+"Joke 18:\n\nWife: What's your favorite thing?\nHusband: You.\nWife: Oh, how sweet!\nHusband: No, my favorite thing is when you go to your mother's house!",
+
+"Joke 19:\n\nTeacher: Who's the strongest person in your house?\nStudent: My wife.\nTeacher: Why?\nStudent: With one hand, she manages the whole house and my salary!",
+
+"Joke 20:\n\nWife: If I and your mother both got sick, who would you buy medicine for?\nHusband: You!\nWife: Oh, what love!\nHusband: No, my mother will buy her own medicine, I'll buy yours!",
+
+"Joke 21:\n\nTeacher: Do you think marriage is the biggest decision in life?\nStudent: No, marriage is the biggest accident, and the wife is the disaster!",
+
+"Joke 22:\n\nTeacher: If you had a million, what would you do?\nStudent: First I'd send my wife to her mother's, then sleep peacefully!",
+
+"Joke 23:\n\nWife: Do you love me a lot?\nHusband: So much that I don't let you go to your mother's.\nWife: Oh, what love!\nHusband: No, I'm just saving on bus tickets!",
+
+"Joke 24:\n\nTeacher: How did you feel after marriage?\nStudent: Before I was alone, now we are. But in this 'we', only the wife is heard!",
+
+"Joke 25:\n\nDoctor: You need to exercise.\nPatient: I exercise every day.\nDoctor: How?\nPatient: Every morning I try to get out of bed!",
+
+"Joke 26:\n\nTeacher: If your wife and mother got sick, who would you take to the hospital?\nStudent: My mother.\nTeacher: And your wife?\nStudent: My wife will go herself, I have to take my mother!",
+
+"Joke 27:\n\nWife: What's for dinner?\nHusband: What you cooked.\nWife: I didn't cook anything!\nHusband: Then let's order delivery!",
+
+"Joke 28:\n\nTeacher: What does your father do?\nStudent: He's my father!\nTeacher: I know that, what's his job?\nStudent: He's my mother's husband!",
+
+"Joke 29:\n\nDoctor: You need to eat fruit.\nPatient: I eat bananas every day.\nDoctor: Only bananas?\nPatient: Doctor, the banana is the king of fruits!",
+
+"Joke 30:\n\nTeacher: If you were made president for one night, what would you do?\nStudent: I'd cancel school and raise my wife's salary!",
+
+"Joke 31:\n\nWife: Where are we going?\nHusband: To the market.\nWife: What to buy?\nHusband: Whatever you want, but I only have 500 rupees!",
+
+"Joke 32:\n\nTeacher: Why do you want to get married?\nStudent: My mother said after marriage no one will scold me.\nTeacher: And then?\nStudent: Turns out now only my wife scolds me!",
+
+"Joke 33:\n\nDoctor: You need to eat less sweets.\nPatient: I don't eat sweets.\nDoctor: Then why are your teeth bad?\nPatient: I gave up sweets, but not my wife!",
+
+"Joke 34:\n\nTeacher: What's the biggest shock you've experienced?\nStudent: When I prepared my wife to go to her mother's, and she said, 'I'm not going!' That was a shock!",
+
+"Joke 35:\n\nTeacher: If your wife and child fell into a river, who would you save first?\nStudent: The child.\nTeacher: And your wife?\nStudent: My wife can swim, the child can't!",
+
+"Joke 36:\n\nDoctor: You need rest.\nPatient: I rest anyway.\nDoctor: Then why are you sick?\nPatient: I'm tired of resting!",
+
+"Joke 37:\n\nTeacher: How were your grades?\nStudent: I passed!\nTeacher: How many marks?\nStudent: To pass, you don't need marks!",
+
+"Joke 38:\n\nWife: Where shall we go tonight?\nHusband: Wherever you say.\nWife: To my mother's?\nHusband: Why?\nWife: There's food there and your salary will be saved!",
+
+"Joke 39:\n\nDoctor: You need to sleep.\nPatient: I do sleep.\nDoctor: How many hours?\nPatient: I sleep all day!",
+
+"Joke 40:\n\nTeacher: Why are you late?\nStudent: Sir, I woke up, looked at the clock, and it was already 8:30!\nTeacher: If you had looked at the calendar, you'd have known today is Saturday!",
+
+"Joke 41:\n\nDoctor: Patient, your health is excellent! How old are you?\nPatient: 40.\nDoctor: And you look 30!\nPatient: Thank you, that's because I'm not married.\nDoctor: Then who troubled you so much?",
+
+"Joke 42:\n\nTwo friends talking:\n- How are you?\n- Just got married.\n- Congratulations! How's the wife?\n- Don't know, she's quiet for now, but looking suspicious.",
+
+"Joke 43:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: We went fishing with my dad.\nTeacher: Did you catch a lot?\nPetrov: No, but dad said if I don't submit my homework, he won't take me fishing again. I don't want that!",
+
+"Joke 44:\n\nMan at the pharmacy:\n- Give me something for a headache.\n- Here, take this.\n- Do you have something for a wife?\n- Sorry, that can't be cured, only divorce!",
+
+"Joke 45:\n\nWife: Do you love me?\nHusband: Yes.\nWife: Then why don't you compliment me?\nHusband: I already said 'Yes'.\nWife: That's not a compliment!\nHusband: Okay, 'Yes, my queen'.",
+
+"Joke 46:\n\nTeacher: Sidorov, do you know what 'forever' means?\nSidorov: It's the time that will pass while my mother talks on the phone with Aunt Zina!",
+
+"Joke 47:\n\nHusband: Honey, I'll be late from work today, we have an emergency.\nWife: Okay, then I'll invite my friends over.\nHusband: No need! I'm coming home now!",
+
+"Joke 48:\n\nDoctor: You have amnesia. Do you remember what I told you yesterday?\nPatient: No.\nDoctor: And the day before?\nPatient: No either.\nDoctor: And you still complain about memory?",
+
+"Joke 49:\n\nTeacher: Ivanov, what is 'business'?\nIvanov: It's when you sell things you bought on credit, to buy back what you sold.",
+
+"Joke 50:\n\nTeacher: Vovochka, do you know what 2 times 2 is?\nVovochka: 4.\nTeacher: Correct! What about 5 times 5?\nVovochka: 25.\nTeacher: And what is 'infinity'?\nVovochka: That's the marks I get in maths for homework!",
+
+"Joke 51:\n\nWife: Honey, if you don't love me, say it directly.\nHusband: I love you.\nWife: Why did you say it without emotion?\nHusband: Because I don't have a remote control to switch on emotion!",
+
+"Joke 52:\n\nTwo friends:\n- When you got married, were you happy?\n- Of course!\n- What about your freedom?\n- I didn't lose it! I just ask permission for everything now!",
+
+"Joke 53:\n\nTeacher: Petrov, why are you silent?\nPetrov: I'm thinking.\nTeacher: About what?\nPetrov: The meaning of life.\nTeacher: And what is it?\nPetrov: Get bad marks and go home to sleep!",
+
+"Joke 54:\n\nHusband to wife:\n- I've realized I'm not perfect.\n- And now?\n- Now I realize you're not perfect either. Let's have tea for our imperfection!",
+
+"Joke 55:\n\nAt the pharmacy:\n- I need medicine for greed.\n- One box?\n- Give me two, but half the discount!",
+
+"Joke 56:\n\nTeacher: How do you understand the word 'compromise'?\nStudent: It's when your wife says, 'Buy me a handbag', and you buy her a car, but cheaper, so she doesn't notice!",
+
+"Joke 57:\n\nMan at a restaurant:\n- Waiter, there's a fly in my soup!\n- Sorry, sir, we'll catch it and replace it with a fresh one!",
+
+"Joke 58:\n\nWife: Do you remember today is our wedding anniversary?\nHusband: Of course, honey! I even bought a gift!\nWife: Why is it in the garage?\nHusband: Because there's no space in the house!",
+
+"Joke 59:\n\nMan in a shop:\n- Do you have anything for depression?\n- We have chocolate.\n- Something more effective?\n- There's an extra discount!",
+
+"Joke 60:\n\nTeacher: What is 'lying'?\nStudent: It's when dad says he's not hungry, then finishes the whole dinner!",
+
+"Joke 61:\n\nTwo men:\n- You know, I got so drunk yesterday I don't remember coming home.\n- How did your wife react?\n- Don't remember how she scolded, but in the morning my ears hurt, not just my head!",
+
+"Joke 62:\n\nWife: Honey, do you hear me?\nHusband: Yes, honey.\nWife: Then why aren't you listening?\nHusband: I'm listening, just not remembering!",
+
+"Joke 63:\n\nDoctor: You have a serious illness.\nPatient: Doctor, may I go out and smoke to calm down?\nDoctor: No, you can't smoke!\nPatient: Then may I go out and drink?\nDoctor: No, you can't!\nPatient: Then how do I calm down?",
+
+"Joke 64:\n\nTeacher: Vovochka, do you know what 'evolution' is?\nVovochka: It's when a monkey turns into a human.\nTeacher: Do you know what 'degradation' is?\nVovochka: It's when a human turns into a student!",
+
+"Joke 65:\n\nHusband: Honey, I forgot we were fighting. Remind me why?\nWife: Because you forgot we were fighting!",
+
+"Joke 66:\n\nTwo friends:\n- My wife is cooking dinner.\n- What's she cooking?\n- Don't know, but she said it'll be a surprise.\n- Scared?\n- Very!",
+
+"Joke 67:\n\nWife: I found a restaurant receipt in your pocket. Who were you with?\nHusband: I was with a friend.\nWife: Why does it say 'two coffees and one dessert'?\nHusband: Because my friend doesn't like sweets!",
+
+"Joke 68:\n\nDoctor: You have sclerosis.\nPatient: What's that?\nDoctor: It's when you forget everything.\nPatient: Oh, that's not so bad, I thought it was something serious!",
+
+"Joke 69:\n\nWife: Honey, do you love me?\nHusband: Yes.\nWife: Then why don't you say it with emotion?\nHusband: I'm saving words to buy you a gift!",
+
+"Joke 70:\n\nMan goes to a shop:\n- Do you have 'Alenka' chocolate?\n- Yes.\n- Why is it so expensive?\n- Because it has nuts.\n- Where are the nuts?\n- In the price!",
+
+"Joke 71:\n\nTeacher: Ivanov, what is 'friendship'?\nIvanov: It's when a friend calls you at 3 AM and you don't hang up!\nTeacher: What is 'true friendship'?\nIvanov: It's when he also comes to help!",
+
+"Joke 72:\n\nTwo men:\n- Yesterday I gave my wife flowers.\n- What did she say?\n- She said she didn't expect it. Then she asked what I had done wrong!",
+
+"Joke 73:\n\nDoctor: You need to lose weight.\nPatient: I can't, doctor.\nDoctor: Why?\nPatient: I'm afraid my wife won't love me. She loves me for my kindness, and my kindness is in my belly!",
+
+"Joke 74:\n\nTeacher: Vovochka, who is an 'optimist'?\nVovochka: It's the person who thinks their low maths mark is just a misunderstanding!",
+
+"Joke 75:\n\nWife: Last night I dreamt you cheated on me.\nHusband: Honey, it was just a dream.\nWife: Then why are you defending yourself?",
+
+"Joke 76:\n\nTeacher: Petrov, what do you call a person who doesn't want to study?\nPetrov: Lazy!\nTeacher: What about a person who wants to study but can't?\nPetrov: That's me!",
+
+"Joke 77:\n\nWife: Do you know that I love you?\nHusband: Yes, honey.\nWife: Then why don't you tell me you love me?\nHusband: Because I already told you when you married me!",
+
+"Joke 78:\n\nTeacher: Vovochka, what is 'time'?\nVovochka: It's the thing I don't have when I play computer, and which drags on forever when I do homework!",
+
+"Joke 79:\n\nTwo men:\n- Yesterday I admitted to my wife that I'm not perfect.\n- What did she say?\n- She said she's known that for a long time and accepts it!",
+
+"Joke 80:\n\nDoctor: Patient, you have a heart problem.\nPatient: Is it serious?\nDoctor: That depends on how you treat your wife!",
+
+"Joke 81:\n\nWife: Honey, we need to talk.\nHusband: About what?\nWife: About us.\nHusband: What about us?\nWife: Exactly, you're not listening!",
+
+"Joke 82:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: I did, but it ran away!\nTeacher: How?\nPetrov: I put it in the notebook, the notebook ran into the bag, and the bag ran home!",
+
+"Joke 83:\n\nHusband: Honey, I'll be late today.\nWife: Okay, I'll invite my friends.\nHusband: No, I'm coming home now!",
+
+"Joke 84:\n\nTeacher: Vovochka, what is 'money'?\nVovochka: It's what dad hides from mum, but mum still finds!\nTeacher: What is a 'budget'?\nVovochka: It's when dad thinks he has money, but mum knows he doesn't!",
+
+"Joke 85:\n\nWife: Honey, why don't you ever give me flowers?\nHusband: Because I don't want you to think I only love you on special occasions.\nWife: Then give me a handbag.\nHusband: So you think I only love you in winter?",
+
+"Joke 86:\n\nTwo friends:\n- Yesterday I bought a gift for my wife.\n- What did you buy?\n- A vacuum cleaner.\n- What did she say?\n- She said now I have a choice: either me, or the vacuum cleaner!",
+
+"Joke 87:\n\nAt the pharmacy:\n- Do you have anything for greed?\n- We do, but it's expensive.\n- Is there anything cheaper?\n- Then it's not for greed, it's for poverty!",
+
+"Joke 88:\n\nTeacher: Vovochka, what do you want to be when you grow up?\nVovochka: A millionaire!\nTeacher: How will you achieve that?\nVovochka: I'll marry a rich woman!\nTeacher: And if that fails?\nVovochka: Then I'll become a programmer and earn a living!",
+
+"Joke 89:\n\nHusband: Honey, do you love me?\nWife: Yes, but not more than chocolate.\nHusband: I love you more than football!\nWife: Then why don't you look at me like football?\nHusband: Because you're not broadcast live!",
+
+"Joke 90:\n\nTeacher: Vovochka, what is 'justice'?\nVovochka: It's when I get bad marks, and dad gets the belt!\nTeacher: What is 'injustice'?\nVovochka: It's when dad gets the belt, and I get bad marks!",
+
+"Joke 91:\n\nDoctor: Patient, you need to reduce stress.\nPatient: Doctor, how can I not be stressed if I have a wife and three children?\nDoctor: Then you need more rest.\nPatient: How can I rest if I have a wife and three children?",
+
+"Joke 92:\n\nTeacher: Petrov, what is 'progress'?\nPetrov: It's when I used to get bad marks, and now I get average marks!\nTeacher: What is 'regression'?\nPetrov: It's when I get bad marks, and dad gets a heart attack!",
+
+"Joke 93:\n\nTwo friends:\n- Yesterday I went to a restaurant with my wife.\n- How was it?\n- Great, she didn't even notice I forgot my wallet!",
+
+"Joke 94:\n\nAt the pharmacy:\n- I need sleeping pills.\n- One box?\n- Two. One for me, one for my wife so she doesn't disturb my sleep!\n- What's the wife's for?\n- For snoring!",
+
+"Joke 95:\n\nTeacher: Vovochka, what is 'economics'?\nVovochka: It's when mum says there's no money, but dad buys a new TV!\nTeacher: What is 'inflation'?\nVovochka: It's when dad buys a TV, but mum says it used to be cheaper!",
+
+"Joke 96:\n\nHusband: Honey, I earned a lot today!\nWife: Great, give it to me.\nHusband: Can I keep a little for pocket money?\nWife: Of course, here's 100 rupees for you.\nHusband: Where's the rest?\nWife: I spent it on your benefit — I bought you a new shirt!",
+
+"Joke 97:\n\nTwo men:\n- Yesterday I had a fight with my wife.\n- Why?\n- She said I don't give her attention.\n- What did you do?\n- I gave her attention and took out the rubbish!",
+
+"Joke 98:\n\nTeacher: Petrov, what is 'love'?\nPetrov: It's when you're ready to give everything to be with her.\nTeacher: What is 'marriage'?\nPetrov: It's when you've given everything, but she's still not happy!",
+
+"Joke 99:\n\nDoctor: Patient, you need to exercise.\nPatient: Doctor, I run after the bus every day!\nDoctor: Good. What do you do when you catch it?\nPatient: I get on and go to work!\nDoctor: And if you don't catch it?\nPatient: I walk, that's exercise too!",
+
+"Joke 100:\n\nTeacher: Vovochka, what is 'friendship'?\nVovochka: It's when you let your friend copy your homework, and then he says he did it himself!\nTeacher: What is 'true friendship'?\nVovochka: It's when he also says you helped him!",
+
+"Joke 101:\n\nTeacher: Why are you late?\nStudent: Sir, I woke up, looked at the clock, and it was already 8:30!\nTeacher: If you had looked at the calendar, you'd have known today is Saturday!",
+
+"Joke 102:\n\nDoctor: Patient, your health is excellent! How old are you?\nPatient: 40.\nDoctor: And you look 30!\nPatient: Thank you, that's because I'm not married.\nDoctor: Then who troubled you so much?",
+
+"Joke 103:\n\nWife: Honey, we're out of sugar.\nHusband: I'm at the store.\nWife: And milk, bread, butter are also out...\nHusband: I understand, I'm heading to the supermarket.\nWife: And I need a new handbag too!\nHusband: I'm already at the jewellery shop... I mean, at the airport!",
+
+"Joke 104:\n\nTwo friends talking:\n- How are you?\n- Just got married.\n- Congratulations! How's the wife?\n- Don't know, she's quiet for now, but looking suspicious.",
+
+"Joke 105:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: We went fishing with my dad.\nTeacher: Did you catch a lot?\nPetrov: No, but dad said if I don't submit my homework, he won't take me fishing again. I don't want that!",
+
+"Joke 106:\n\nMan at the pharmacy:\n- Give me something for a headache.\n- Here, take this.\n- Do you have something for a wife?\n- Sorry, that can't be cured, only divorce!",
+
+"Joke 107:\n\nWife: Do you love me?\nHusband: Yes.\nWife: Then why don't you compliment me?\nHusband: I already said 'Yes'.\nWife: That's not a compliment!\nHusband: Okay, 'Yes, my queen'.",
+
+"Joke 108:\n\nTeacher: Sidorov, do you know what 'forever' means?\nSidorov: It's the time that will pass while my mother talks on the phone with Aunt Zina!",
+
+"Joke 109:\n\nTwo programmers:\n- My house is under renovation. My wife made me stick wallpaper.\n- How's it going?\n- Don't know yet, I redid it twice yesterday. Third time, I'm hiring a professional!",
+
+"Joke 110:\n\nHusband: Honey, I'll be late from work today, we have an emergency.\nWife: Okay, then I'll invite my friends over.\nHusband: No need! I'm coming home now!",
+
+"Joke 111:\n\nDoctor: You have amnesia. Do you remember what I told you yesterday?\nPatient: No.\nDoctor: And the day before?\nPatient: No either.\nDoctor: And you still complain about memory?",
+
+"Joke 112:\n\nTeacher: Ivanov, what is 'business'?\nIvanov: It's when you sell things you bought on credit, to buy back what you sold.",
+
+"Joke 113:\n\nMother-in-law to son-in-law:\n- Why did you come home so late yesterday?\nSon-in-law: I was with friends.\n- Why don't you smell of alcohol?\n- I didn't drink.\n- Why do you smell of your wife?\n- Oh, sorry, I got off at the wrong floor!",
+
+"Joke 114:\n\nTeacher: Vovochka, do you know what 2 times 2 is?\nVovochka: 4.\nTeacher: Correct! What about 5 times 5?\nVovochka: 25.\nTeacher: And what is 'infinity'?\nVovochka: That's the marks I get in maths for homework!",
+
+"Joke 115:\n\nWife: Honey, if you don't love me, say it directly.\nHusband: I love you.\nWife: Why did you say it without emotion?\nHusband: Because I don't have a remote control to switch on emotion!",
+
+"Joke 116:\n\nMan goes to the doctor:\n- Doctor, I have a problem: every time I close my eyes, I see my wife.\n- What's wrong with that?\n- She scolds me even in my dreams!",
+
+"Joke 117:\n\nTwo friends:\n- When you got married, were you happy?\n- Of course!\n- What about your freedom?\n- I didn't lose it! I just ask permission for everything now!",
+
+"Joke 118:\n\nTeacher: Petrov, why are you silent?\nPetrov: I'm thinking.\nTeacher: About what?\nPetrov: The meaning of life.\nTeacher: And what is it?\nPetrov: Get bad marks and go home to sleep!",
+
+"Joke 119:\n\nHusband to wife:\n- I've realized I'm not perfect.\n- And now?\n- Now I realize you're not perfect either. Let's have tea for our imperfection!",
+
+"Joke 120:\n\nAt the pharmacy:\n- I need medicine for greed.\n- One box?\n- Give me two, but half the discount!",
+
+"Joke 121:\n\nTeacher: How do you understand the word 'compromise'?\nStudent: It's when your wife says, 'Buy me a handbag', and you buy her a car, but cheaper, so she doesn't notice!",
+
+"Joke 122:\n\nTwo female friends:\n- My husband doesn't help at all at home.\n- What did you tell him?\n- I told him he was lazy.\n- You should have told him his hands were useless! He'd have done everything to prove you wrong!",
+
+"Joke 123:\n\nMan at a restaurant:\n- Waiter, there's a fly in my soup!\n- Sorry, sir, we'll catch it and replace it with a fresh one!",
+
+"Joke 124:\n\nTeacher: Vovochka, why didn't you pass the exam?\nVovochka: Ma'am, I couldn't come.\nTeacher: Why?\nVovochka: I was watching TV and my remote was taken!",
+
+"Joke 125:\n\nWife: Do you remember today is our wedding anniversary?\nHusband: Of course, honey! I even bought a gift!\nWife: Why is it in the garage?\nHusband: Because there's no space in the house!",
+
+"Joke 126:\n\nMan in a shop:\n- Do you have anything for depression?\n- We have chocolate.\n- Something more effective?\n- There's an extra discount!",
+
+"Joke 127:\n\nTeacher: What is 'lying'?\nStudent: It's when dad says he's not hungry, then finishes the whole dinner!",
+
+"Joke 128:\n\nTwo men:\n- You know, I got so drunk yesterday I don't remember coming home.\n- How did your wife react?\n- Don't remember how she scolded, but in the morning my ears hurt, not just my head!",
+
+"Joke 129:\n\nWife: Honey, do you hear me?\nHusband: Yes, honey.\nWife: Then why aren't you listening?\nHusband: I'm listening, just not remembering!",
+
+"Joke 130:\n\nDoctor: You have a serious illness.\nPatient: Doctor, may I go out and smoke to calm down?\nDoctor: No, you can't smoke!\nPatient: Then may I go out and drink?\nDoctor: No, you can't!\nPatient: Then how do I calm down?",
+
+"Joke 131:\n\nTeacher: Vovochka, do you know what 'evolution' is?\nVovochka: It's when a monkey turns into a human.\nTeacher: Do you know what 'degradation' is?\nVovochka: It's when a human turns into a student!",
+
+"Joke 132:\n\nHusband: Honey, I forgot we were fighting. Remind me why?\nWife: Because you forgot we were fighting!",
+
+"Joke 133:\n\nTwo friends:\n- My wife is cooking dinner.\n- What's she cooking?\n- Don't know, but she said it'll be a surprise.\n- Scared?\n- Very!",
+
+"Joke 134:\n\nTeacher: Petrov, what do you call a person who lives in a forest?\nPetrov: A wild man!\nTeacher: And if he sits on a tree?\nPetrov: That's watching TV!",
+
+"Joke 135:\n\nWife: I found a restaurant receipt in your pocket. Who were you with?\nHusband: I was with a friend.\nWife: Why does it say 'two coffees and one dessert'?\nHusband: Because my friend doesn't like sweets!",
+
+"Joke 136:\n\nDoctor: You have sclerosis.\nPatient: What's that?\nDoctor: It's when you forget everything.\nPatient: Oh, that's not so bad, I thought it was something serious!",
+
+"Joke 137:\n\nTeacher: Vovochka, why are you late?\nVovochka: I woke up, looked at the clock, and it was 8:30.\nTeacher: Why didn't you look at the alarm clock?\nVovochka: I broke it when it rang!",
+
+"Joke 138:\n\nWife: Honey, do you love me?\nHusband: Yes.\nWife: Then why don't you say it with emotion?\nHusband: I'm saving words to buy you a gift!",
+
+"Joke 139:\n\nMan goes to a shop:\n- Do you have 'Alenka' chocolate?\n- Yes.\n- Why is it so expensive?\n- Because it has nuts.\n- Where are the nuts?\n- In the price!",
+
+"Joke 140:\n\nTeacher: Ivanov, what is 'friendship'?\nIvanov: It's when a friend calls you at 3 AM and you don't hang up!\nTeacher: What is 'true friendship'?\nIvanov: It's when he also comes to help!",
+
+"Joke 141:\n\nTwo men:\n- Yesterday I gave my wife flowers.\n- What did she say?\n- She said she didn't expect it. Then she asked what I had done wrong!",
+
+"Joke 142:\n\nDoctor: You need to lose weight.\nPatient: I can't, doctor.\nDoctor: Why?\nPatient: I'm afraid my wife won't love me. She loves me for my kindness, and my kindness is in my belly!",
+
+"Joke 143:\n\nTeacher: Vovochka, who is an 'optimist'?\nVovochka: It's the person who thinks their low maths mark is just a misunderstanding!",
+
+"Joke 144:\n\nWife: Last night I dreamt you cheated on me.\nHusband: Honey, it was just a dream.\nWife: Then why are you defending yourself?",
+
+"Joke 145:\n\nTwo friends:\n- Yesterday I was so tired I fell asleep during dinner.\n- And your wife?\n- She fell asleep too, but in front of the TV!",
+
+"Joke 146:\n\nTeacher: Petrov, what do you call a person who doesn't want to study?\nPetrov: Lazy!\nTeacher: What about a person who wants to study but can't?\nPetrov: That's me!",
+
+"Joke 147:\n\nAt the pharmacy:\n- I need medicine for greed.\n- One box?\n- Give me two, but free!",
+
+"Joke 148:\n\nWife: Do you know that I love you?\nHusband: Yes, honey.\nWife: Then why don't you tell me you love me?\nHusband: Because I already told you when you married me!",
+
+"Joke 149:\n\nTeacher: Vovochka, what is 'time'?\nVovochka: It's the thing I don't have when I play computer, and which drags on forever when I do homework!",
+
+"Joke 150:\n\nTwo men:\n- Yesterday I admitted to my wife that I'm not perfect.\n- What did she say?\n- She said she's known that for a long time and accepts it!",
+
+"Joke 151:\n\nDoctor: Patient, you have a heart problem.\nPatient: Is it serious?\nDoctor: That depends on how you treat your wife!",
+
+"Joke 152:\n\nTeacher: Ivanov, what is 'lying'?\nIvanov: It's when dad says he's not hungry, then finishes the whole dinner!",
+
+"Joke 153:\n\nWife: Honey, we need to talk.\nHusband: About what?\nWife: About us.\nHusband: What about us?\nWife: Exactly, you're not listening!",
+
+"Joke 154:\n\nTwo friends:\n- You know, I got so drunk yesterday I don't remember coming home.\n- How did your wife react?\n- Don't remember, but in the morning my ears hurt, not just my head!",
+
+"Joke 155:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: I did, but it ran away!\nTeacher: How?\nPetrov: I put it in the notebook, the notebook ran into the bag, and the bag ran home!",
+
+"Joke 156:\n\nHusband: Honey, I'll be late today.\nWife: Okay, I'll invite my friends.\nHusband: No, I'm coming home now!",
+
+"Joke 157:\n\nDoctor: You have amnesia. Do you remember what I told you yesterday?\nPatient: No.\nDoctor: And the day before?\nPatient: No either.\nDoctor: And you still complain about memory?",
+
+"Joke 158:\n\nTeacher: Vovochka, what is 'business'?\nVovochka: It's when you sell things you bought on credit, to buy what you sold!",
+
+"Joke 159:\n\nWife: Honey, do you hear me?\nHusband: Yes, honey.\nWife: Why aren't you listening?\nHusband: I'm listening, just not remembering!",
+
+"Joke 160:\n\nTwo men:\n- Yesterday I was so tired I fell asleep during dinner.\n- And your wife?\n- She fell asleep too, but in front of the TV!",
+
+"Joke 161:\n\nTeacher: Petrov, what do you call a person who doesn't want to study?\nPetrov: Lazy!\nTeacher: And a person who wants to study but can't?\nPetrov: That's me!",
+
+"Joke 162:\n\nAt the pharmacy:\n- I need medicine for greed.\n- One box?\n- Give me two, but free!",
+
+"Joke 163:\n\nWife: Do you know I love you?\nHusband: Yes, honey.\nWife: Then why don't you tell me you love me?\nHusband: Because I already told you when you married me!",
+
+"Joke 164:\n\nTeacher: Vovochka, what is 'time'?\nVovochka: It's the thing I don't have when I play computer, and which drags on forever when I do homework!",
+
+"Joke 165:\n\nTwo men:\n- Yesterday I admitted to my wife that I'm not perfect.\n- What did she say?\n- She said she's known that for a long time and accepts it!",
+
+"Joke 166:\n\nDoctor: Patient, you have a heart problem.\nPatient: Is it serious?\nDoctor: That depends on how you treat your wife!",
+
+"Joke 167:\n\nTeacher: Ivanov, what is 'lying'?\nIvanov: It's when dad says he's not hungry, then finishes the whole dinner!",
+
+"Joke 168:\n\nWife: Honey, we need to talk.\nHusband: About what?\nWife: About us.\nHusband: What about us?\nWife: Exactly, you're not listening!",
+
+"Joke 169:\n\nTwo friends:\n- You know, I got so drunk yesterday I don't remember coming home.\n- How did your wife react?\n- Don't remember, but in the morning my ears hurt, not just my head!",
+
+"Joke 170:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: I did, but it ran away!\nTeacher: How?\nPetrov: I put it in the notebook, the notebook ran into the bag, and the bag ran home!",
+
+"Joke 171:\n\nHusband: Honey, I'll be late today.\nWife: Okay, I'll invite my friends.\nHusband: No, I'm coming home now!",
+
+"Joke 172:\n\nDoctor: You have amnesia. Do you remember what I told you yesterday?\nPatient: No.\nDoctor: And the day before?\nPatient: No either.\nDoctor: And you still complain about memory?",
+
+"Joke 173:\n\nTeacher: Vovochka, what is 'business'?\nVovochka: It's when you sell things you bought on credit, to buy what you sold!",
+
+"Joke 174:\n\nWife: Honey, do you hear me?\nHusband: Yes, honey.\nWife: Why aren't you listening?\nHusband: I'm listening, just not remembering!",
+
+"Joke 175:\n\nTwo men:\n- Yesterday I was so tired I fell asleep during dinner.\n- And your wife?\n- She fell asleep too, but in front of the TV!",
+
+"Joke 176:\n\nTeacher: Petrov, what do you call a person who doesn't want to study?\nPetrov: Lazy!\nTeacher: And a person who wants to study but can't?\nPetrov: That's me!",
+
+"Joke 177:\n\nAt the pharmacy:\n- I need medicine for greed.\n- One box?\n- Give me two, but free!",
+
+"Joke 178:\n\nWife: Do you know I love you?\nHusband: Yes, honey.\nWife: Then why don't you tell me you love me?\nHusband: Because I already told you when you married me!",
+
+"Joke 179:\n\nTeacher: Vovochka, what is 'time'?\nVovochka: It's the thing I don't have when I play computer, and which drags on forever when I do homework!",
+
+"Joke 180:\n\nTwo men:\n- Yesterday I admitted to my wife that I'm not perfect.\n- What did she say?\n- She said she's known that for a long time and accepts it!",
+
+"Joke 181:\n\nDoctor: Patient, you have a heart problem.\nPatient: Is it serious?\nDoctor: That depends on how you treat your wife!",
+
+"Joke 182:\n\nTeacher: Ivanov, what is 'lying'?\nIvanov: It's when dad says he's not hungry, then finishes the whole dinner!",
+
+"Joke 183:\n\nWife: Honey, we need to talk.\nHusband: About what?\nWife: About us.\nHusband: What about us?\nWife: Exactly, you're not listening!",
+
+"Joke 184:\n\nTwo friends:\n- You know, I got so drunk yesterday I don't remember coming home.\n- How did your wife react?\n- Don't remember, but in the morning my ears hurt, not just my head!",
+
+"Joke 185:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: I did, but it ran away!\nTeacher: How?\nPetrov: I put it in the notebook, the notebook ran into the bag, and the bag ran home!",
+
+"Joke 186:\n\nHusband: Honey, I'll be late today.\nWife: Okay, I'll invite my friends.\nHusband: No, I'm coming home now!",
+
+"Joke 187:\n\nDoctor: You have amnesia. Do you remember what I told you yesterday?\nPatient: No.\nDoctor: And the day before?\nPatient: No either.\nDoctor: And you still complain about memory?",
+
+"Joke 188:\n\nTeacher: Vovochka, what is 'business'?\nVovochka: It's when you sell things you bought on credit, to buy what you sold!",
+
+"Joke 189:\n\nWife: Honey, do you hear me?\nHusband: Yes, honey.\nWife: Why aren't you listening?\nHusband: I'm listening, just not remembering!",
+
+"Joke 190:\n\nTwo men:\n- Yesterday I was so tired I fell asleep during dinner.\n- And your wife?\n- She fell asleep too, but in front of the TV!",
+
+"Joke 191:\n\nTeacher: Petrov, what do you call a person who doesn't want to study?\nPetrov: Lazy!\nTeacher: And a person who wants to study but can't?\nPetrov: That's me!",
+
+"Joke 192:\n\nAt the pharmacy:\n- I need medicine for greed.\n- One box?\n- Give me two, but free!",
+
+"Joke 193:\n\nWife: Do you know I love you?\nHusband: Yes, honey.\nWife: Then why don't you tell me you love me?\nHusband: Because I already told you when you married me!",
+
+"Joke 194:\n\nTeacher: Vovochka, what is 'time'?\nVovochka: It's the thing I don't have when I play computer, and which drags on forever when I do homework!",
+
+"Joke 195:\n\nTwo men:\n- Yesterday I admitted to my wife that I'm not perfect.\n- What did she say?\n- She said she's known that for a long time and accepts it!",
+
+"Joke 196:\n\nDoctor: Patient, you have a heart problem.\nPatient: Is it serious?\nDoctor: That depends on how you treat your wife!",
+
+"Joke 197:\n\nTeacher: Ivanov, what is 'lying'?\nIvanov: It's when dad says he's not hungry, then finishes the whole dinner!",
+
+"Joke 198:\n\nWife: Honey, we need to talk.\nHusband: About what?\nWife: About us.\nHusband: What about us?\nWife: Exactly, you're not listening!",
+
+"Joke 199:\n\nTwo friends:\n- You know, I got so drunk yesterday I don't remember coming home.\n- How did your wife react?\n- Don't remember, but in the morning my ears hurt, not just my head!",
+
+"Joke 200:\n\nTeacher: Petrov, why didn't you do your homework?\nPetrov: I did, but it ran away!\nTeacher: How?\nPetrov: I put it in the notebook, the notebook ran into the bag, and the bag ran home! Congratulations, 200 jokes complete! 🎉",
+
+"Joke 201:\n\nTeacher: What is the longest word in the English language?\nStudent: Smiles — because there is a mile between the first and last letter!",
+
+"Joke 202:\n\nWife: Honey, the car won't start.\nHusband: Did you check the battery?\nWife: No, but I checked the mirror and my hair looks fine!",
+
+"Joke 203:\n\nDoctor: You need to walk more.\nPatient: I walk every day.\nDoctor: Where to?\nPatient: From the sofa to the fridge and back!",
+
+"Joke 204:\n\nTeacher: Why is the sky blue?\nStudent: Because it would be too expensive to paint it green!",
+
+"Joke 205:\n\nMan: Waiter, how do you prepare your chicken?\nWaiter: Nothing special, we just tell them they're going to be eaten and hope they cooperate!",
+
+"Joke 206:\n\nWife: Honey, do I look fat in this dress?\nHusband: No, honey, the dress looks fat on you!",
+
+"Joke 207:\n\nTeacher: If you have 10 apples and you give 3 to your friend, what do you have left?\nStudent: A very angry friend, because I only gave him 3!",
+
+"Joke 208:\n\nPatient: Doctor, I feel like nobody understands me.\nDoctor: What do you mean?\nPatient: I don't know, nobody ever explains!",
+
+"Joke 209:\n\nTwo cows in a field:\n- So, what do you think about this mad cow disease?\n- I don't know, and frankly, I don't care — I'm a chicken!",
+
+"Joke 210:\n\nWife: Honey, I want to go somewhere I've never been before.\nHusband: Try the kitchen!",
+
+"Joke 211:\n\nTeacher: What is a synonym?\nStudent: It's a word you use when you can't spell the other one!",
+
+"Joke 212:\n\nMan: Doctor, I keep thinking I'm a dog.\nDoctor: Sit down and tell me about it.\nMan: I can't, I'm not allowed on the furniture!",
+
+"Joke 213:\n\nWife: Honey, will you still love me when I'm old and grey?\nHusband: Of course, I've loved you through every colour of hair dye so far!",
+
+"Joke 214:\n\nTeacher: What is the plural of 'box'?\nStudent: Boxes.\nTeacher: What is the plural of 'ox'?\nStudent: Oxes.\nTeacher: And the plural of 'taxi'?\nStudent: Taxies!\nTeacher: No, taxis!\nStudent: Then why isn't it 'taxies'?\nTeacher: Because English doesn't follow rules!\nStudent: Then why do we study it?",
+
+"Joke 215:\n\nPatient: Doctor, I have a problem — I think I'm a refrigerator.\nDoctor: How long have you had this feeling?\nPatient: About a week. But I get cold easily!",
+
+"Joke 216:\n\nWife: Honey, the plumber is coming tomorrow.\nHusband: Why, what's broken?\nWife: Nothing, I just want him to see how a real man fixes things!\nHusband: Then I'm leaving before he arrives!",
+
+"Joke 217:\n\nTeacher: What is a 'pessimist'?\nStudent: Someone who thinks tomorrow will be worse.\nTeacher: And an 'optimist'?\nStudent: Someone who thinks tomorrow will be better.\nTeacher: And a 'realist'?\nStudent: Someone who knows tomorrow is Monday!",
+
+"Joke 218:\n\nMan: Waiter, this coffee tastes like mud!\nWaiter: Well, sir, it was ground this morning!",
+
+"Joke 219:\n\nWife: Honey, I had a dream that you bought me a diamond necklace.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming!",
+
+"Joke 220:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!",
+
+"Joke 221:\n\nPatient: Doctor, I think I'm losing my memory.\nDoctor: When did this start?\nPatient: When did what start?",
+
+"Joke 222:\n\nTwo men:\n- I quit smoking!\n- Really? How?\n- I just stopped buying cigarettes.\n- And the cravings?\n- I still have them — I just can't afford to satisfy them!",
+
+"Joke 223:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?",
+
+"Joke 224:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 225:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!",
+
+"Joke 226:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!",
+
+"Joke 227:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 228:\n\nTwo friends:\n- My wife told me she wants a divorce because I'm not romantic enough.\n- What did you say?\n- I said, 'Okay, but can we discuss this over dinner? I'm hungry!'",
+
+"Joke 229:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!",
+
+"Joke 230:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 231:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!",
+
+"Joke 232:\n\nMan: Why did you leave your last job?\nBoss: You're the boss, sir, you tell me — you fired me!",
+
+"Joke 233:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!",
+
+"Joke 234:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!",
+
+"Joke 235:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!",
+
+"Joke 236:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking!",
+
+"Joke 237:\n\nWife: Honey, let's play a game — I'll think of a number and you guess.\nHusband: Okay.\nWife: Guess!\nHusband: 7.\nWife: How did you know? That's amazing!\nHusband: It's always 7 when you play this game!",
+
+"Joke 238:\n\nMan: Doctor, I'm allergic to Mondays.\nDoctor: That's not a real allergy.\nMan: Then why do I sneeze when I wake up on Monday morning and realise it's Monday?",
+
+"Joke 239:\n\nTeacher: What is the difference between a taxi and a bus?\nStudent: A taxi takes you where you want, a bus takes you where you need!",
+
+"Joke 240:\n\nWife: Honey, I've decided to become a vegetarian.\nHusband: Great, so what will you eat?\nWife: Everything except meat and vegetables!",
+
+"Joke 241:\n\nPatient: Doctor, I can't stop singing 'The Green, Green Grass of Home'.\nDoctor: That sounds like Tom Jones syndrome.\nPatient: Is it common?\nDoctor: It's not unusual!",
+
+"Joke 242:\n\nTwo friends:\n- I bought my wife a diamond ring for her birthday.\n- What did she say?\n- She said she wanted something that goes from 0 to 200 in 3 seconds!\n- So what did you do?\n- I bought her a weighing scale!",
+
+"Joke 243:\n\nTeacher: What is a 'cowboy'?\nStudent: A boy who sits on a cow.\nTeacher: No, it's someone who herds cattle!\nStudent: Then why isn't a boy on a horse called a 'horseyboy'?",
+
+"Joke 244:\n\nMan: Waiter, do you have frog's legs?\nWaiter: No, sir, I've always walked like this!",
+
+"Joke 245:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 246:\n\nPatient: Doctor, I think I'm a bird.\nDoctor: How long have you felt this way?\nPatient: Since I fell out of my nest!",
+
+"Joke 247:\n\nTeacher: What is 'experience'?\nStudent: It's what you get just after you needed it!",
+
+"Joke 248:\n\nTwo men:\n- I gave my wife a gift for our anniversary.\n- What was it?\n- I don't remember, but she hasn't spoken to me for a week!\n- So it's a good gift then?",
+
+"Joke 249:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!",
+
+"Joke 250:\n\nMan: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nMan: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 251:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 252:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 253:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!",
+
+"Joke 254:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!",
+
+"Joke 255:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!",
+
+"Joke 256:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 257:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!",
+
+"Joke 258:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!",
+
+"Joke 259:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 260:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!",
+
+"Joke 261:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!",
+
+"Joke 262:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 263:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 264:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!",
+
+"Joke 265:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 266:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!",
+
+"Joke 267:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 268:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!",
+
+"Joke 269:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 270:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 271:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 272:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 273:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 274:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 275:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 276:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 277:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 278:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 279:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 280:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 281:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 282:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 283:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 284:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 285:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 286:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 287:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 288:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 289:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 290:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air!",
+
+"Joke 291:\n\nTwo men:\n- My wife said I'm a bad influence on our kids.\n- What did you do?\n- I told them that money grows on trees!\n- What did they say?\n- They asked why I keep pulling my wallet out from my pocket and not from a tree!",
+
+"Joke 292:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy!\nDoctor: Okay, let's start with a simple test — what's 2 + 2?\nMan: Woof!",
+
+"Joke 293:\n\nWife: Honey, I want a pet.\nHusband: What kind?\nWife: Something that listens to me, understands me, and loves me unconditionally.\nHusband: That's impossible.\nWife: Not if you try harder!",
+
+"Joke 294:\n\nTeacher: What is the difference between a bird and a fly?\nStudent: A bird can fly, but a fly can't bird!\nTeacher: Why was the fly sad?\nStudent: Because it was a fly with a blue face!",
+
+"Joke 295:\n\nPatient: Doctor, I think I'm a bee.\nDoctor: Why do you think that?\nPatient: Because I keep buzzing around!\nDoctor: Buzz off, then!\nPatient: I'm already gone!",
+
+"Joke 296:\n\nTwo friends:\n- My wife told me she wants a diamond ring.\n- What did you say?\n- I said, 'Diamonds are expensive.'\n- And what did she say?\n- She said, 'So is divorce!'",
+
+"Joke 297:\n\nWife: Honey, do you love me?\nHusband: Yes.\nWife: Would you die for me?\nHusband: No, because then you'd find someone else!\nWife: And that's why I love you!",
+
+"Joke 298:\n\nMan: Doctor, I have a problem — I think I'm a chicken.\nDoctor: That's serious.\nMan: I know, but I don't want to stop — I lay eggs!\nDoctor: How many?\nMan: Two a day!",
+
+"Joke 299:\n\nTeacher: What is a 'parliament'?\nStudent: It's where people argue and nothing gets done.\nTeacher: And what is a 'classroom'?\nStudent: It's where people don't argue, but nothing gets done!",
+
+"Joke 300:\n\nWife: Honey, what's the most important thing in the world to you?\nHusband: You and our children.\nWife: And what about your new car?\nHusband: Oh, I forgot about that — but it's a very close third! 🎉 Congratulations, 300 jokes complete!",
+
+"Joke 301:\n\nTeacher: What is the longest word in the dictionary?\nStudent: Smiles — because there's a mile between the first and last letter!",
+
+"Joke 302:\n\nWife: Honey, I want to go somewhere I've never been.\nHusband: Try the gym!",
+
+"Joke 303:\n\nDoctor: You need to eat more vegetables.\nPatient: I eat salad every day.\nDoctor: What kind?\nPatient: Chocolate salad!",
+
+"Joke 304:\n\nMan: Waiter, there's a fly in my soup!\nWaiter: Don't worry, sir, the spider in your bread will catch it!",
+
+"Joke 305:\n\nTeacher: Why did the student bring a ladder to class?\nStudent: Because the teacher said we're going to a higher level!",
+
+"Joke 306:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: You're just saying that because you want dinner!\nHusband: No, dear, I'm saying it because I want to live!",
+
+"Joke 307:\n\nPatient: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nPatient: Ever since I was a puppy!\nDoctor: And do you chase cars?\nPatient: No, I'm a lazy dog — I wait for them to stop!",
+
+"Joke 308:\n\nTwo men:\n- I told my wife she was the most important person in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my phone password!\n- What happened?\n- She changed it and now I can't log in!",
+
+"Joke 309:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!\nStudent: Then why did you ask?",
+
+"Joke 310:\n\nWife: Honey, the car won't start.\nHusband: Did you check the battery?\nWife: No, I checked the mirror — my hair looks fine, but the car still won't start!",
+
+"Joke 311:\n\nMan: Doctor, I keep thinking I'm a refrigerator.\nDoctor: How long has this been going on?\nMan: About a week — but I get cold easily!\nDoctor: And do you keep things inside you?\nMan: Yes, my lunch!",
+
+"Joke 312:\n\nTeacher: What is the plural of 'box'?\nStudent: Boxes.\nTeacher: What is the plural of 'ox'?\nStudent: Oxes.\nTeacher: And the plural of 'taxi'?\nStudent: Taxies!\nTeacher: No, it's taxis!\nStudent: Then why isn't it 'taxies'?\nTeacher: Because English doesn't follow rules!\nStudent: Then why do we study it?\nTeacher: Because I need a job!",
+
+"Joke 313:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!\nWife: Then you eat it!\nHusband: That's why I'm not on a diet!",
+
+"Joke 314:\n\nPatient: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nPatient: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 315:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 316:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 317:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nPatient: Yes, but I lost all my memory!",
+
+"Joke 318:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!\n- And you?\n- I'm still trying to guess it!",
+
+"Joke 319:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!\nTeacher: Why did the student wear sunglasses?\nStudent: Because the teacher's future was so bright!",
+
+"Joke 320:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 321:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!\nWife: Then why don't you say that more often?\nHusband: Because I'm usually asleep!",
+
+"Joke 322:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!\nTeacher: And what's the difference between a student and a train?\nStudent: A student says 'I forgot my homework', a train says 'I'm late'!",
+
+"Joke 323:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 324:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!\n- So what are you going to do?\n- Do what?",
+
+"Joke 325:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!\nTeacher: And what's the difference between a dog and a full stop?\nStudent: A dog wags its tail, a full stop ends the tale!",
+
+"Joke 326:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 327:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 328:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!\nTeacher: Then why don't you give it a break?\nStudent: Because it doesn't listen to me!",
+
+"Joke 329:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 330:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!\nDoctor: And do you eat grass?\nPatient: No, I eat everything — including the bill!",
+
+"Joke 331:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 332:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!\nStudent: Then what's the slowest?\nTeacher: A student doing homework!",
+
+"Joke 333:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 334:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 335:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 336:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 337:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 338:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 339:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 340:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 341:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 342:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 343:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 344:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 345:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 346:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 347:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 348:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 349:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 350:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 351:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 352:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 353:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 354:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air!",
+
+"Joke 355:\n\nTwo men:\n- My wife said I'm a bad influence on our kids.\n- What did you do?\n- I told them that money grows on trees!\n- What did they say?\n- They asked why I keep pulling my wallet out from my pocket and not from a tree!",
+
+"Joke 356:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy!\nDoctor: Okay, let's start with a simple test — what's 2 + 2?\nMan: Woof!",
+
+"Joke 357:\n\nWife: Honey, I want a pet.\nHusband: What kind?\nWife: Something that listens to me, understands me, and loves me unconditionally.\nHusband: That's impossible.\nWife: Not if you try harder!",
+
+"Joke 358:\n\nTeacher: What is the difference between a bird and a fly?\nStudent: A bird can fly, but a fly can't bird!\nTeacher: Why was the fly sad?\nStudent: Because it was a fly with a blue face!",
+
+"Joke 359:\n\nPatient: Doctor, I think I'm a bee.\nDoctor: Why do you think that?\nPatient: Because I keep buzzing around!\nDoctor: Buzz off, then!\nPatient: I'm already gone!",
+
+"Joke 360:\n\nTwo friends:\n- My wife told me she wants a diamond ring.\n- What did you say?\n- I said, 'Diamonds are expensive.'\n- And what did she say?\n- She said, 'So is divorce!'",
+
+"Joke 361:\n\nWife: Honey, do you love me?\nHusband: Yes.\nWife: Would you die for me?\nHusband: No, because then you'd find someone else!\nWife: And that's why I love you!",
+
+"Joke 362:\n\nMan: Doctor, I have a problem — I think I'm a chicken.\nDoctor: That's serious.\nMan: I know, but I don't want to stop — I lay eggs!\nDoctor: How many?\nMan: Two a day!",
+
+"Joke 363:\n\nTeacher: What is a 'parliament'?\nStudent: It's where people argue and nothing gets done.\nTeacher: And what is a 'classroom'?\nStudent: It's where people don't argue, but nothing gets done!",
+
+"Joke 364:\n\nWife: Honey, what's the most important thing in the world to you?\nHusband: You and our children.\nWife: And what about your new car?\nHusband: Oh, I forgot about that — but it's a very close third!",
+
+"Joke 365:\n\nTeacher: What is the longest word in the English language?\nStudent: Smiles — because there is a mile between the first and last letter!",
+
+"Joke 366:\n\nWife: Honey, the car won't start.\nHusband: Did you check the battery?\nWife: No, but I checked the mirror and my hair looks fine!",
+
+"Joke 367:\n\nDoctor: You need to walk more.\nPatient: I walk every day.\nDoctor: Where to?\nPatient: From the sofa to the fridge and back!",
+
+"Joke 368:\n\nTeacher: Why is the sky blue?\nStudent: Because it would be too expensive to paint it green!",
+
+"Joke 369:\n\nMan: Waiter, how do you prepare your chicken?\nWaiter: Nothing special, we just tell them they're going to be eaten and hope they cooperate!",
+
+"Joke 370:\n\nWife: Honey, do I look fat in this dress?\nHusband: No, honey, the dress looks fat on you!",
+
+"Joke 371:\n\nTeacher: If you have 10 apples and you give 3 to your friend, what do you have left?\nStudent: A very angry friend, because I only gave him 3!",
+
+"Joke 372:\n\nPatient: Doctor, I feel like nobody understands me.\nDoctor: What do you mean?\nPatient: I don't know, nobody ever explains!",
+
+"Joke 373:\n\nTwo cows in a field:\n- So, what do you think about this mad cow disease?\n- I don't know, and frankly, I don't care — I'm a chicken!",
+
+"Joke 374:\n\nWife: Honey, I want to go somewhere I've never been before.\nHusband: Try the kitchen!",
+
+"Joke 375:\n\nTeacher: What is a synonym?\nStudent: It's a word you use when you can't spell the other one!",
+
+"Joke 376:\n\nMan: Doctor, I keep thinking I'm a dog.\nDoctor: Sit down and tell me about it.\nMan: I can't, I'm not allowed on the furniture!",
+
+"Joke 377:\n\nWife: Honey, will you still love me when I'm old and grey?\nHusband: Of course, I've loved you through every colour of hair dye so far!",
+
+"Joke 378:\n\nTeacher: What is the plural of 'box'?\nStudent: Boxes.\nTeacher: What is the plural of 'ox'?\nStudent: Oxes.\nTeacher: And the plural of 'taxi'?\nStudent: Taxies!\nTeacher: No, taxis!\nStudent: Then why isn't it 'taxies'?\nTeacher: Because English doesn't follow rules!\nStudent: Then why do we study it?",
+
+"Joke 379:\n\nPatient: Doctor, I have a problem — I think I'm a refrigerator.\nDoctor: How long have you had this feeling?\nPatient: About a week. But I get cold easily!",
+
+"Joke 380:\n\nWife: Honey, the plumber is coming tomorrow.\nHusband: Why, what's broken?\nWife: Nothing, I just want him to see how a real man fixes things!\nHusband: Then I'm leaving before he arrives!",
+
+"Joke 381:\n\nTeacher: What is a 'pessimist'?\nStudent: Someone who thinks tomorrow will be worse.\nTeacher: And an 'optimist'?\nStudent: Someone who thinks tomorrow will be better.\nTeacher: And a 'realist'?\nStudent: Someone who knows tomorrow is Monday!",
+
+"Joke 382:\n\nMan: Waiter, this coffee tastes like mud!\nWaiter: Well, sir, it was ground this morning!",
+
+"Joke 383:\n\nWife: Honey, I had a dream that you bought me a diamond necklace.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming!",
+
+"Joke 384:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!",
+
+"Joke 385:\n\nPatient: Doctor, I think I'm losing my memory.\nDoctor: When did this start?\nPatient: When did what start?",
+
+"Joke 386:\n\nTwo men:\n- I quit smoking!\n- Really? How?\n- I just stopped buying cigarettes.\n- And the cravings?\n- I still have them — I just can't afford to satisfy them!",
+
+"Joke 387:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?",
+
+"Joke 388:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 389:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!",
+
+"Joke 390:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!",
+
+"Joke 391:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 392:\n\nTwo friends:\n- My wife told me she wants a divorce because I'm not romantic enough.\n- What did you say?\n- I said, 'Okay, but can we discuss this over dinner? I'm hungry!'",
+
+"Joke 393:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!",
+
+"Joke 394:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 395:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!",
+
+"Joke 396:\n\nMan: Why did you leave your last job?\nBoss: You're the boss, sir, you tell me — you fired me!",
+
+"Joke 397:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!",
+
+"Joke 398:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!",
+
+"Joke 399:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!",
+
+"Joke 400:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking! 🎉 Congratulations, 400 jokes complete!",
+
+"Joke 401:\n\nTeacher: What is the longest word in the dictionary?\nStudent: Rubberband — because it stretches!\nTeacher: That's not a word, that's a thing!\nStudent: Then why is it in the dictionary?",
+
+"Joke 402:\n\nWife: Honey, I want to redecorate the house.\nHusband: What's wrong with the current decoration?\nWife: The sofa has your shape on it!\nHusband: That's not decoration, that's my seat!",
+
+"Joke 403:\n\nDoctor: You need to lose weight.\nPatient: I've tried everything, doctor.\nDoctor: Have you tried eating less?\nPatient: I've tried, but my wife keeps cooking delicious food!\nDoctor: Then maybe your wife should cook less!\nPatient: Then who will eat the leftovers?",
+
+"Joke 404:\n\nMan: Waiter, there's a bug in my soup!\nWaiter: That's not a bug, sir, that's the chef's special ingredient!\nMan: Then why is it moving?\nWaiter: Because it's fresh!",
+
+"Joke 405:\n\nTeacher: Why did the student bring a pencil to the beach?\nStudent: Because the teacher said we're going to draw conclusions!",
+
+"Joke 406:\n\nWife: Honey, do you think I'm getting forgetful?\nHusband: Forgetful? You asked me that five minutes ago!\nWife: I did? What did you say?\nHusband: I don't remember!",
+
+"Joke 407:\n\nPatient: Doctor, I keep thinking I'm a bell.\nDoctor: Don't worry, I'll ring you later!\nPatient: Ding dong!\nDoctor: See, you're already getting better!",
+
+"Joke 408:\n\nTwo men:\n- I told my wife she was the best thing that ever happened to me.\n- What did she say?\n- She said, 'And you're the worst thing that ever happened to my wardrobe — you keep leaving clothes everywhere!'",
+
+"Joke 409:\n\nTeacher: What is 'procrastination'?\nStudent: I'll tell you tomorrow.\nTeacher: That's exactly what it is!\nStudent: I was going to explain that, but I didn't get around to it!",
+
+"Joke 410:\n\nWife: Honey, the car won't start.\nHusband: Did you try turning the key?\nWife: Yes, but nothing happened!\nHusband: Did you check if there's petrol?\nWife: Petrol? I thought it ran on hopes and dreams!",
+
+"Joke 411:\n\nMan: Doctor, I have a problem — I can't stop counting things!\nDoctor: How many things have you counted today?\nMan: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10...\nDoctor: Okay, you need help!\nMan: 11, 12, 13...",
+
+"Joke 412:\n\nTeacher: What is the difference between a dog and a cat?\nStudent: A dog barks, a cat meows.\nTeacher: And what's the difference between a dog and a student?\nStudent: A dog listens when you call it!",
+
+"Joke 413:\n\nWife: Honey, I had a dream that you bought me a new dress.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go to sleep again!",
+
+"Joke 414:\n\nPatient: Doctor, I think I'm a pair of scissors.\nDoctor: Why do you think that?\nPatient: Because I keep cutting people off!\nDoctor: That's not a medical condition — that's just rude!",
+
+"Joke 415:\n\nTeacher: What is a 'dilemma'?\nStudent: It's when you have two choices and both are bad.\nTeacher: Give me an example.\nStudent: Should I do my homework or should I sleep — both are impossible!",
+
+"Joke 416:\n\nWife: Honey, I want to buy a new handbag.\nHusband: You already have ten!\nWife: But this one matches my shoes!\nHusband: Your shoes match everything!\nWife: Exactly — that's why I need a new bag!",
+
+"Joke 417:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy.\nDoctor: And do you chase cars?\nMan: No, I wait for them to stop — I'm a lazy dog!",
+
+"Joke 418:\n\nTeacher: Why did the teacher go to the beach?\nStudent: Because she wanted to test the waters!\nTeacher: Why did the student go to the beach?\nStudent: Because he wanted to skip class!",
+
+"Joke 419:\n\nWife: Honey, do I look like a model?\nHusband: Yes, dear — a model of patience!\nWife: And do I look like a chef?\nHusband: No, but you cook like one!\nWife: Then why don't you help me in the kitchen?\nHusband: Because I'm a model of laziness!",
+
+"Joke 420:\n\nPatient: Doctor, I have a problem — I keep seeing things that aren't there!\nDoctor: Like what?\nPatient: Like that pink elephant behind you!\nDoctor: There's no elephant behind me!\nPatient: Exactly — that's the problem!",
+
+"Joke 421:\n\nTeacher: What is 'arithmetic'?\nStudent: It's when you add, subtract, multiply, and divide numbers.\nTeacher: And what is 'maths'?\nStudent: It's when you do all those things and still get the wrong answer!",
+
+"Joke 422:\n\nWife: Honey, do you love me?\nHusband: Yes, dear.\nWife: Would you jump off a cliff for me?\nHusband: No, but I'd call someone to jump for me!\nWife: That's not love!\nHusband: That's common sense!",
+
+"Joke 423:\n\nMan: Waiter, this plate is dirty!\nWaiter: That's not dirt, sir — that's seasoning!\nMan: Then why is it moving?\nWaiter: Because it's fresh seasoning!",
+
+"Joke 424:\n\nTeacher: What is the plural of 'cactus'?\nStudent: Cactuses.\nTeacher: Actually, it's cacti.\nStudent: Then what's the plural of 'octopus'?\nTeacher: Octopi.\nStudent: And what's the plural of 'platypus'?\nTeacher: Platypi?\nStudent: No, it's platypuses — English doesn't follow rules!",
+
+"Joke 425:\n\nWife: Honey, I want to go on a holiday.\nHusband: Where do you want to go?\nWife: Somewhere hot and sunny!\nHusband: How about the kitchen — the stove is hot!",
+
+"Joke 426:\n\nPatient: Doctor, I think I'm a mosquito.\nDoctor: Why do you think that?\nPatient: Because I keep biting people!\nDoctor: That's not a disease — that's just annoying!",
+
+"Joke 427:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!\nTeacher: And why did the teacher give him a cake?\nStudent: Because he passed the test!",
+
+"Joke 428:\n\nWife: Honey, I had a dream that you gave me a diamond ring.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go back to sleep and dream about something cheaper!",
+
+"Joke 429:\n\nMan: Doctor, I think I'm a clock.\nDoctor: Why do you think that?\nMan: Because I keep ticking!\nDoctor: Let me check your pulse.\nMan: No, let me tick first!",
+
+"Joke 430:\n\nTeacher: What is 'history'?\nStudent: It's the story of the past.\nTeacher: And what is 'geography'?\nStudent: It's the story of the present — where things are now!\nTeacher: And what is 'maths'?\nStudent: It's the story of my nightmares!",
+
+"Joke 431:\n\nWife: Honey, I think I'm getting old.\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, you're better at remembering everything I did wrong!",
+
+"Joke 432:\n\nPatient: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nPatient: That's not a pill, that's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 433:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 434:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?\nWife: No, I want you to buy me a steak!\nHusband: That's expensive!\nWife: Then buy me an iron pill — cheaper!",
+
+"Joke 435:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!\nDoctor: Then maybe you should see one!\nMan: But the elephants are more fun!",
+
+"Joke 436:\n\nTeacher: What is a 'synonym'?\nStudent: It's a word that means the same as another word.\nTeacher: Give me an example.\nStudent: 'Homework' and 'nightmare'!",
+
+"Joke 437:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!\nWife: Then plug it in and finish!",
+
+"Joke 438:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!\nPatient: But I can't write — I'm the one who swallowed it!",
+
+"Joke 439:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 440:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 441:\n\nMan: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nMan: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nMan: Yes, but I lost all my memory!",
+
+"Joke 442:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!\nStudent: Then why did you ask?",
+
+"Joke 443:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!\nHusband: Then let's buy him a lock — cheaper than a bike!",
+
+"Joke 444:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!\nPatient: I can't — I'm too tired!",
+
+"Joke 445:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!\nTeacher: And if I say please?\nStudent: Still 5 — I don't share!",
+
+"Joke 446:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking!\n- And what did she say?\n- I don't know, I wasn't listening!",
+
+"Joke 447:\n\nWife: Honey, let's play a game — I'll think of a number and you guess.\nHusband: Okay.\nWife: Guess!\nHusband: 7.\nWife: How did you know? That's amazing!\nHusband: It's always 7 when you play this game!",
+
+"Joke 448:\n\nMan: Doctor, I'm allergic to Mondays.\nDoctor: That's not a real allergy.\nMan: Then why do I sneeze when I wake up on Monday morning and realise it's Monday?",
+
+"Joke 449:\n\nTeacher: What is the difference between a taxi and a bus?\nStudent: A taxi takes you where you want, a bus takes you where you need!\nTeacher: And what's the difference between a student and a bus?\nStudent: A student never arrives on time!",
+
+"Joke 450:\n\nWife: Honey, I've decided to become a vegetarian.\nHusband: Great, so what will you eat?\nWife: Everything except meat and vegetables!",
+
+"Joke 451:\n\nPatient: Doctor, I can't stop singing 'The Green, Green Grass of Home'.\nDoctor: That sounds like Tom Jones syndrome.\nPatient: Is it common?\nDoctor: It's not unusual!",
+
+"Joke 452:\n\nTwo friends:\n- I bought my wife a diamond ring for her birthday.\n- What did she say?\n- She said she wanted something that goes from 0 to 200 in 3 seconds!\n- So what did you do?\n- I bought her a weighing scale!",
+
+"Joke 453:\n\nTeacher: What is a 'cowboy'?\nStudent: A boy who sits on a cow.\nTeacher: No, it's someone who herds cattle!\nStudent: Then why isn't a boy on a horse called a 'horseyboy'?",
+
+"Joke 454:\n\nMan: Waiter, do you have frog's legs?\nWaiter: No, sir, I've always walked like this!",
+
+"Joke 455:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 456:\n\nPatient: Doctor, I think I'm a bird.\nDoctor: How long have you felt this way?\nPatient: Since I fell out of my nest!",
+
+"Joke 457:\n\nTeacher: What is 'experience'?\nStudent: It's what you get just after you needed it!",
+
+"Joke 458:\n\nTwo men:\n- I gave my wife a gift for our anniversary.\n- What was it?\n- I don't remember, but she hasn't spoken to me for a week!\n- So it's a good gift then?",
+
+"Joke 459:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!",
+
+"Joke 460:\n\nMan: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nMan: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 461:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 462:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 463:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nPatient: Yes, but I lost all my memory!",
+
+"Joke 464:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!",
+
+"Joke 465:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!\nTeacher: Why did the student wear sunglasses?\nStudent: Because the teacher's future was so bright!",
+
+"Joke 466:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 467:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!\nWife: Then why don't you say that more often?\nHusband: Because I'm usually asleep!",
+
+"Joke 468:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!",
+
+"Joke 469:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 470:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!",
+
+"Joke 471:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!",
+
+"Joke 472:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 473:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 474:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!",
+
+"Joke 475:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 476:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!",
+
+"Joke 477:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 478:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!",
+
+"Joke 479:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 480:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 481:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 482:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 483:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 484:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 485:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 486:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 487:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 488:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 489:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 490:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 491:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 492:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 493:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 494:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 495:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 496:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 497:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 498:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 499:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 500:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air! 🎉 Congratulations, 500 jokes complete!",
+
+"Joke 501:\n\nTeacher: What is the longest word in the English language?\nStudent: Smiles — because there is a mile between the first and last letter!\nTeacher: What is the longest word in a student's vocabulary?\nStudent: 'Homework' — it feels like it takes forever!",
+
+"Joke 502:\n\nWife: Honey, I want to go on a shopping spree.\nHusband: What's a spree?\nWife: It's when I buy everything I want and you pay for it!\nHusband: That's not a spree — that's a disaster!",
+
+"Joke 503:\n\nDoctor: You need to reduce your salt intake.\nPatient: But doctor, I don't add salt to my food!\nDoctor: Then why is your blood pressure high?\nPatient: Because my wife adds salt to everything — including my coffee!",
+
+"Joke 504:\n\nMan: Waiter, there's a hair in my soup!\nWaiter: That's not a hair, sir — that's the chef's signature!\nMan: Then tell the chef to sign with a pen next time!",
+
+"Joke 505:\n\nTeacher: Why did the student bring a ladder to the exam?\nStudent: Because the teacher said the test would be at a higher level!\nTeacher: And why did you bring a pillow?\nStudent: Because the test was a nightmare!",
+
+"Joke 506:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 507:\n\nPatient: Doctor, I keep thinking I'm a refrigerator.\nDoctor: How long has this been going on?\nPatient: About a week — but I get cold easily!\nDoctor: And do you keep things inside you?\nPatient: Yes, my lunch!",
+
+"Joke 508:\n\nTwo men:\n- I told my wife she was the best thing that ever happened to me.\n- What did she say?\n- She said, 'And you're the worst thing that ever happened to my wardrobe — you keep leaving clothes everywhere!'",
+
+"Joke 509:\n\nTeacher: What is 'procrastination'?\nStudent: I'll tell you tomorrow.\nTeacher: That's exactly what it is!\nStudent: I was going to explain that, but I didn't get around to it!",
+
+"Joke 510:\n\nWife: Honey, the car won't start.\nHusband: Did you try turning the key?\nWife: Yes, but nothing happened!\nHusband: Did you check if there's petrol?\nWife: Petrol? I thought it ran on hopes and dreams!",
+
+"Joke 511:\n\nMan: Doctor, I have a problem — I can't stop counting things!\nDoctor: How many things have you counted today?\nMan: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10...\nDoctor: Okay, you need help!\nMan: 11, 12, 13...",
+
+"Joke 512:\n\nTeacher: What is the difference between a dog and a cat?\nStudent: A dog barks, a cat meows.\nTeacher: And what's the difference between a dog and a student?\nStudent: A dog listens when you call it!",
+
+"Joke 513:\n\nWife: Honey, I had a dream that you bought me a new dress.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go to sleep again!",
+
+"Joke 514:\n\nPatient: Doctor, I think I'm a pair of scissors.\nDoctor: Why do you think that?\nPatient: Because I keep cutting people off!\nDoctor: That's not a medical condition — that's just rude!",
+
+"Joke 515:\n\nTeacher: What is a 'dilemma'?\nStudent: It's when you have two choices and both are bad.\nTeacher: Give me an example.\nStudent: Should I do my homework or should I sleep — both are impossible!",
+
+"Joke 516:\n\nWife: Honey, I want to buy a new handbag.\nHusband: You already have ten!\nWife: But this one matches my shoes!\nHusband: Your shoes match everything!\nWife: Exactly — that's why I need a new bag!",
+
+"Joke 517:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy.\nDoctor: And do you chase cars?\nMan: No, I wait for them to stop — I'm a lazy dog!",
+
+"Joke 518:\n\nTeacher: Why did the teacher go to the beach?\nStudent: Because she wanted to test the waters!\nTeacher: Why did the student go to the beach?\nStudent: Because he wanted to skip class!",
+
+"Joke 519:\n\nWife: Honey, do I look like a model?\nHusband: Yes, dear — a model of patience!\nWife: And do I look like a chef?\nHusband: No, but you cook like one!\nWife: Then why don't you help me in the kitchen?\nHusband: Because I'm a model of laziness!",
+
+"Joke 520:\n\nPatient: Doctor, I have a problem — I keep seeing things that aren't there!\nDoctor: Like what?\nPatient: Like that pink elephant behind you!\nDoctor: There's no elephant behind me!\nPatient: Exactly — that's the problem!",
+
+"Joke 521:\n\nTeacher: What is 'arithmetic'?\nStudent: It's when you add, subtract, multiply, and divide numbers.\nTeacher: And what is 'maths'?\nStudent: It's when you do all those things and still get the wrong answer!",
+
+"Joke 522:\n\nWife: Honey, do you love me?\nHusband: Yes, dear.\nWife: Would you jump off a cliff for me?\nHusband: No, but I'd call someone to jump for me!\nWife: That's not love!\nHusband: That's common sense!",
+
+"Joke 523:\n\nMan: Waiter, this plate is dirty!\nWaiter: That's not dirt, sir — that's seasoning!\nMan: Then why is it moving?\nWaiter: Because it's fresh seasoning!",
+
+"Joke 524:\n\nTeacher: What is the plural of 'cactus'?\nStudent: Cactuses.\nTeacher: Actually, it's cacti.\nStudent: Then what's the plural of 'octopus'?\nTeacher: Octopi.\nStudent: And what's the plural of 'platypus'?\nTeacher: Platypi?\nStudent: No, it's platypuses — English doesn't follow rules!",
+
+"Joke 525:\n\nWife: Honey, I want to go on a holiday.\nHusband: Where do you want to go?\nWife: Somewhere hot and sunny!\nHusband: How about the kitchen — the stove is hot!",
+
+"Joke 526:\n\nPatient: Doctor, I think I'm a mosquito.\nDoctor: Why do you think that?\nPatient: Because I keep biting people!\nDoctor: That's not a disease — that's just annoying!",
+
+"Joke 527:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!\nTeacher: And why did the teacher give him a cake?\nStudent: Because he passed the test!",
+
+"Joke 528:\n\nWife: Honey, I had a dream that you gave me a diamond ring.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go back to sleep and dream about something cheaper!",
+
+"Joke 529:\n\nMan: Doctor, I think I'm a clock.\nDoctor: Why do you think that?\nMan: Because I keep ticking!\nDoctor: Let me check your pulse.\nMan: No, let me tick first!",
+
+"Joke 530:\n\nTeacher: What is 'history'?\nStudent: It's the story of the past.\nTeacher: And what is 'geography'?\nStudent: It's the story of the present — where things are now!\nTeacher: And what is 'maths'?\nStudent: It's the story of my nightmares!",
+
+"Joke 531:\n\nWife: Honey, I think I'm getting old.\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, you're better at remembering everything I did wrong!",
+
+"Joke 532:\n\nPatient: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nPatient: That's not a pill, that's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 533:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 534:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?\nWife: No, I want you to buy me a steak!\nHusband: That's expensive!\nWife: Then buy me an iron pill — cheaper!",
+
+"Joke 535:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!\nDoctor: Then maybe you should see one!\nMan: But the elephants are more fun!",
+
+"Joke 536:\n\nTeacher: What is a 'synonym'?\nStudent: It's a word that means the same as another word.\nTeacher: Give me an example.\nStudent: 'Homework' and 'nightmare'!",
+
+"Joke 537:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!\nWife: Then plug it in and finish!",
+
+"Joke 538:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!\nPatient: But I can't write — I'm the one who swallowed it!",
+
+"Joke 539:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 540:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 541:\n\nMan: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nMan: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nMan: Yes, but I lost all my memory!",
+
+"Joke 542:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!\nStudent: Then why did you ask?",
+
+"Joke 543:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!\nHusband: Then let's buy him a lock — cheaper than a bike!",
+
+"Joke 544:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!\nPatient: I can't — I'm too tired!",
+
+"Joke 545:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!\nTeacher: And if I say please?\nStudent: Still 5 — I don't share!",
+
+"Joke 546:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking!\n- And what did she say?\n- I don't know, I wasn't listening!",
+
+"Joke 547:\n\nWife: Honey, let's play a game — I'll think of a number and you guess.\nHusband: Okay.\nWife: Guess!\nHusband: 7.\nWife: How did you know? That's amazing!\nHusband: It's always 7 when you play this game!",
+
+"Joke 548:\n\nMan: Doctor, I'm allergic to Mondays.\nDoctor: That's not a real allergy.\nMan: Then why do I sneeze when I wake up on Monday morning and realise it's Monday?",
+
+"Joke 549:\n\nTeacher: What is the difference between a taxi and a bus?\nStudent: A taxi takes you where you want, a bus takes you where you need!\nTeacher: And what's the difference between a student and a bus?\nStudent: A student never arrives on time!",
+
+"Joke 550:\n\nWife: Honey, I've decided to become a vegetarian.\nHusband: Great, so what will you eat?\nWife: Everything except meat and vegetables!",
+
+"Joke 551:\n\nPatient: Doctor, I can't stop singing 'The Green, Green Grass of Home'.\nDoctor: That sounds like Tom Jones syndrome.\nPatient: Is it common?\nDoctor: It's not unusual!",
+
+"Joke 552:\n\nTwo friends:\n- I bought my wife a diamond ring for her birthday.\n- What did she say?\n- She said she wanted something that goes from 0 to 200 in 3 seconds!\n- So what did you do?\n- I bought her a weighing scale!",
+
+"Joke 553:\n\nTeacher: What is a 'cowboy'?\nStudent: A boy who sits on a cow.\nTeacher: No, it's someone who herds cattle!\nStudent: Then why isn't a boy on a horse called a 'horseyboy'?",
+
+"Joke 554:\n\nMan: Waiter, do you have frog's legs?\nWaiter: No, sir, I've always walked like this!",
+
+"Joke 555:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 556:\n\nPatient: Doctor, I think I'm a bird.\nDoctor: How long have you felt this way?\nPatient: Since I fell out of my nest!",
+
+"Joke 557:\n\nTeacher: What is 'experience'?\nStudent: It's what you get just after you needed it!",
+
+"Joke 558:\n\nTwo men:\n- I gave my wife a gift for our anniversary.\n- What was it?\n- I don't remember, but she hasn't spoken to me for a week!\n- So it's a good gift then?",
+
+"Joke 559:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!",
+
+"Joke 560:\n\nMan: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nMan: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 561:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 562:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 563:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nPatient: Yes, but I lost all my memory!",
+
+"Joke 564:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!",
+
+"Joke 565:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!\nTeacher: Why did the student wear sunglasses?\nStudent: Because the teacher's future was so bright!",
+
+"Joke 566:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 567:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!\nWife: Then why don't you say that more often?\nHusband: Because I'm usually asleep!",
+
+"Joke 568:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!",
+
+"Joke 569:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 570:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!",
+
+"Joke 571:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!",
+
+"Joke 572:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 573:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 574:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!",
+
+"Joke 575:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 576:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!",
+
+"Joke 577:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 578:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!",
+
+"Joke 579:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 580:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 581:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 582:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 583:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 584:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 585:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 586:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 587:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 588:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 589:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 590:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 591:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 592:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 593:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 594:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 595:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 596:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 597:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 598:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 599:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 600:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air! 🎉 Congratulations, 600 jokes complete!",
+
+"Joke 601:\n\nTeacher: What is the longest word in the English language?\nStudent: Smiles — because there is a mile between the first and last letter!\nTeacher: What is the longest word in a student's vocabulary?\nStudent: 'Homework' — it feels like it takes forever!",
+
+"Joke 602:\n\nWife: Honey, I want to go on a shopping spree.\nHusband: What's a spree?\nWife: It's when I buy everything I want and you pay for it!\nHusband: That's not a spree — that's a disaster!",
+
+"Joke 603:\n\nDoctor: You need to reduce your salt intake.\nPatient: But doctor, I don't add salt to my food!\nDoctor: Then why is your blood pressure high?\nPatient: Because my wife adds salt to everything — including my coffee!",
+
+"Joke 604:\n\nMan: Waiter, there's a hair in my soup!\nWaiter: That's not a hair, sir — that's the chef's signature!\nMan: Then tell the chef to sign with a pen next time!",
+
+"Joke 605:\n\nTeacher: Why did the student bring a ladder to the exam?\nStudent: Because the teacher said the test would be at a higher level!\nTeacher: And why did you bring a pillow?\nStudent: Because the test was a nightmare!",
+
+"Joke 606:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 607:\n\nPatient: Doctor, I keep thinking I'm a refrigerator.\nDoctor: How long has this been going on?\nPatient: About a week — but I get cold easily!\nDoctor: And do you keep things inside you?\nPatient: Yes, my lunch!",
+
+"Joke 608:\n\nTwo men:\n- I told my wife she was the best thing that ever happened to me.\n- What did she say?\n- She said, 'And you're the worst thing that ever happened to my wardrobe — you keep leaving clothes everywhere!'",
+
+"Joke 609:\n\nTeacher: What is 'procrastination'?\nStudent: I'll tell you tomorrow.\nTeacher: That's exactly what it is!\nStudent: I was going to explain that, but I didn't get around to it!",
+
+"Joke 610:\n\nWife: Honey, the car won't start.\nHusband: Did you try turning the key?\nWife: Yes, but nothing happened!\nHusband: Did you check if there's petrol?\nWife: Petrol? I thought it ran on hopes and dreams!",
+
+"Joke 611:\n\nMan: Doctor, I have a problem — I can't stop counting things!\nDoctor: How many things have you counted today?\nMan: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10...\nDoctor: Okay, you need help!\nMan: 11, 12, 13...",
+
+"Joke 612:\n\nTeacher: What is the difference between a dog and a cat?\nStudent: A dog barks, a cat meows.\nTeacher: And what's the difference between a dog and a student?\nStudent: A dog listens when you call it!",
+
+"Joke 613:\n\nWife: Honey, I had a dream that you bought me a new dress.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go to sleep again!",
+
+"Joke 614:\n\nPatient: Doctor, I think I'm a pair of scissors.\nDoctor: Why do you think that?\nPatient: Because I keep cutting people off!\nDoctor: That's not a medical condition — that's just rude!",
+
+"Joke 615:\n\nTeacher: What is a 'dilemma'?\nStudent: It's when you have two choices and both are bad.\nTeacher: Give me an example.\nStudent: Should I do my homework or should I sleep — both are impossible!",
+
+"Joke 616:\n\nWife: Honey, I want to buy a new handbag.\nHusband: You already have ten!\nWife: But this one matches my shoes!\nHusband: Your shoes match everything!\nWife: Exactly — that's why I need a new bag!",
+
+"Joke 617:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy.\nDoctor: And do you chase cars?\nMan: No, I wait for them to stop — I'm a lazy dog!",
+
+"Joke 618:\n\nTeacher: Why did the teacher go to the beach?\nStudent: Because she wanted to test the waters!\nTeacher: Why did the student go to the beach?\nStudent: Because he wanted to skip class!",
+
+"Joke 619:\n\nWife: Honey, do I look like a model?\nHusband: Yes, dear — a model of patience!\nWife: And do I look like a chef?\nHusband: No, but you cook like one!\nWife: Then why don't you help me in the kitchen?\nHusband: Because I'm a model of laziness!",
+
+"Joke 620:\n\nPatient: Doctor, I have a problem — I keep seeing things that aren't there!\nDoctor: Like what?\nPatient: Like that pink elephant behind you!\nDoctor: There's no elephant behind me!\nPatient: Exactly — that's the problem!",
+
+"Joke 621:\n\nTeacher: What is 'arithmetic'?\nStudent: It's when you add, subtract, multiply, and divide numbers.\nTeacher: And what is 'maths'?\nStudent: It's when you do all those things and still get the wrong answer!",
+
+"Joke 622:\n\nWife: Honey, do you love me?\nHusband: Yes, dear.\nWife: Would you jump off a cliff for me?\nHusband: No, but I'd call someone to jump for me!\nWife: That's not love!\nHusband: That's common sense!",
+
+"Joke 623:\n\nMan: Waiter, this plate is dirty!\nWaiter: That's not dirt, sir — that's seasoning!\nMan: Then why is it moving?\nWaiter: Because it's fresh seasoning!",
+
+"Joke 624:\n\nTeacher: What is the plural of 'cactus'?\nStudent: Cactuses.\nTeacher: Actually, it's cacti.\nStudent: Then what's the plural of 'octopus'?\nTeacher: Octopi.\nStudent: And what's the plural of 'platypus'?\nTeacher: Platypi?\nStudent: No, it's platypuses — English doesn't follow rules!",
+
+"Joke 625:\n\nWife: Honey, I want to go on a holiday.\nHusband: Where do you want to go?\nWife: Somewhere hot and sunny!\nHusband: How about the kitchen — the stove is hot!",
+
+"Joke 626:\n\nPatient: Doctor, I think I'm a mosquito.\nDoctor: Why do you think that?\nPatient: Because I keep biting people!\nDoctor: That's not a disease — that's just annoying!",
+
+"Joke 627:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!\nTeacher: And why did the teacher give him a cake?\nStudent: Because he passed the test!",
+
+"Joke 628:\n\nWife: Honey, I had a dream that you gave me a diamond ring.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go back to sleep and dream about something cheaper!",
+
+"Joke 629:\n\nMan: Doctor, I think I'm a clock.\nDoctor: Why do you think that?\nMan: Because I keep ticking!\nDoctor: Let me check your pulse.\nMan: No, let me tick first!",
+
+"Joke 630:\n\nTeacher: What is 'history'?\nStudent: It's the story of the past.\nTeacher: And what is 'geography'?\nStudent: It's the story of the present — where things are now!\nTeacher: And what is 'maths'?\nStudent: It's the story of my nightmares!",
+
+"Joke 631:\n\nWife: Honey, I think I'm getting old.\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, you're better at remembering everything I did wrong!",
+
+"Joke 632:\n\nPatient: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nPatient: That's not a pill, that's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 633:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 634:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?\nWife: No, I want you to buy me a steak!\nHusband: That's expensive!\nWife: Then buy me an iron pill — cheaper!",
+
+"Joke 635:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!\nDoctor: Then maybe you should see one!\nMan: But the elephants are more fun!",
+
+"Joke 636:\n\nTeacher: What is a 'synonym'?\nStudent: It's a word that means the same as another word.\nTeacher: Give me an example.\nStudent: 'Homework' and 'nightmare'!",
+
+"Joke 637:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!\nWife: Then plug it in and finish!",
+
+"Joke 638:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!\nPatient: But I can't write — I'm the one who swallowed it!",
+
+"Joke 639:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 640:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 641:\n\nMan: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nMan: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nMan: Yes, but I lost all my memory!",
+
+"Joke 642:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!\nStudent: Then why did you ask?",
+
+"Joke 643:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!\nHusband: Then let's buy him a lock — cheaper than a bike!",
+
+"Joke 644:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!\nPatient: I can't — I'm too tired!",
+
+"Joke 645:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!\nTeacher: And if I say please?\nStudent: Still 5 — I don't share!",
+
+"Joke 646:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking!\n- And what did she say?\n- I don't know, I wasn't listening!",
+
+"Joke 647:\n\nWife: Honey, let's play a game — I'll think of a number and you guess.\nHusband: Okay.\nWife: Guess!\nHusband: 7.\nWife: How did you know? That's amazing!\nHusband: It's always 7 when you play this game!",
+
+"Joke 648:\n\nMan: Doctor, I'm allergic to Mondays.\nDoctor: That's not a real allergy.\nMan: Then why do I sneeze when I wake up on Monday morning and realise it's Monday?",
+
+"Joke 649:\n\nTeacher: What is the difference between a taxi and a bus?\nStudent: A taxi takes you where you want, a bus takes you where you need!\nTeacher: And what's the difference between a student and a bus?\nStudent: A student never arrives on time!",
+
+"Joke 650:\n\nWife: Honey, I've decided to become a vegetarian.\nHusband: Great, so what will you eat?\nWife: Everything except meat and vegetables!",
+
+"Joke 651:\n\nPatient: Doctor, I can't stop singing 'The Green, Green Grass of Home'.\nDoctor: That sounds like Tom Jones syndrome.\nPatient: Is it common?\nDoctor: It's not unusual!",
+
+"Joke 652:\n\nTwo friends:\n- I bought my wife a diamond ring for her birthday.\n- What did she say?\n- She said she wanted something that goes from 0 to 200 in 3 seconds!\n- So what did you do?\n- I bought her a weighing scale!",
+
+"Joke 653:\n\nTeacher: What is a 'cowboy'?\nStudent: A boy who sits on a cow.\nTeacher: No, it's someone who herds cattle!\nStudent: Then why isn't a boy on a horse called a 'horseyboy'?",
+
+"Joke 654:\n\nMan: Waiter, do you have frog's legs?\nWaiter: No, sir, I've always walked like this!",
+
+"Joke 655:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 656:\n\nPatient: Doctor, I think I'm a bird.\nDoctor: How long have you felt this way?\nPatient: Since I fell out of my nest!",
+
+"Joke 657:\n\nTeacher: What is 'experience'?\nStudent: It's what you get just after you needed it!",
+
+"Joke 658:\n\nTwo men:\n- I gave my wife a gift for our anniversary.\n- What was it?\n- I don't remember, but she hasn't spoken to me for a week!\n- So it's a good gift then?",
+
+"Joke 659:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!",
+
+"Joke 660:\n\nMan: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nMan: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 661:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 662:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 663:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nPatient: Yes, but I lost all my memory!",
+
+"Joke 664:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!",
+
+"Joke 665:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!\nTeacher: Why did the student wear sunglasses?\nStudent: Because the teacher's future was so bright!",
+
+"Joke 666:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 667:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!\nWife: Then why don't you say that more often?\nHusband: Because I'm usually asleep!",
+
+"Joke 668:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!",
+
+"Joke 669:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 670:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!",
+
+"Joke 671:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!",
+
+"Joke 672:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 673:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 674:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!",
+
+"Joke 675:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 676:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!",
+
+"Joke 677:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 678:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!",
+
+"Joke 679:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 680:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 681:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 682:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 683:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 684:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 685:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 686:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 687:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 688:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 689:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 690:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 691:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 692:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 693:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 694:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 695:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 696:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 697:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 698:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 699:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 700:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air! 🎉 Congratulations, 700 jokes complete!",
+
+"Joke 701:\n\nTeacher: What is the longest word in the English language?\nStudent: Smiles — because there is a mile between the first and last letter!\nTeacher: What is the longest word in a student's vocabulary?\nStudent: 'Homework' — it feels like it takes forever!",
+
+"Joke 702:\n\nWife: Honey, I want to go on a shopping spree.\nHusband: What's a spree?\nWife: It's when I buy everything I want and you pay for it!\nHusband: That's not a spree — that's a disaster!",
+
+"Joke 703:\n\nDoctor: You need to reduce your salt intake.\nPatient: But doctor, I don't add salt to my food!\nDoctor: Then why is your blood pressure high?\nPatient: Because my wife adds salt to everything — including my coffee!",
+
+"Joke 704:\n\nMan: Waiter, there's a hair in my soup!\nWaiter: That's not a hair, sir — that's the chef's signature!\nMan: Then tell the chef to sign with a pen next time!",
+
+"Joke 705:\n\nTeacher: Why did the student bring a ladder to the exam?\nStudent: Because the teacher said the test would be at a higher level!\nTeacher: And why did you bring a pillow?\nStudent: Because the test was a nightmare!",
+
+"Joke 706:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 707:\n\nPatient: Doctor, I keep thinking I'm a refrigerator.\nDoctor: How long has this been going on?\nPatient: About a week — but I get cold easily!\nDoctor: And do you keep things inside you?\nPatient: Yes, my lunch!",
+
+"Joke 708:\n\nTwo men:\n- I told my wife she was the best thing that ever happened to me.\n- What did she say?\n- She said, 'And you're the worst thing that ever happened to my wardrobe — you keep leaving clothes everywhere!'",
+
+"Joke 709:\n\nTeacher: What is 'procrastination'?\nStudent: I'll tell you tomorrow.\nTeacher: That's exactly what it is!\nStudent: I was going to explain that, but I didn't get around to it!",
+
+"Joke 710:\n\nWife: Honey, the car won't start.\nHusband: Did you try turning the key?\nWife: Yes, but nothing happened!\nHusband: Did you check if there's petrol?\nWife: Petrol? I thought it ran on hopes and dreams!",
+
+"Joke 711:\n\nMan: Doctor, I have a problem — I can't stop counting things!\nDoctor: How many things have you counted today?\nMan: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10...\nDoctor: Okay, you need help!\nMan: 11, 12, 13...",
+
+"Joke 712:\n\nTeacher: What is the difference between a dog and a cat?\nStudent: A dog barks, a cat meows.\nTeacher: And what's the difference between a dog and a student?\nStudent: A dog listens when you call it!",
+
+"Joke 713:\n\nWife: Honey, I had a dream that you bought me a new dress.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go to sleep again!",
+
+"Joke 714:\n\nPatient: Doctor, I think I'm a pair of scissors.\nDoctor: Why do you think that?\nPatient: Because I keep cutting people off!\nDoctor: That's not a medical condition — that's just rude!",
+
+"Joke 715:\n\nTeacher: What is a 'dilemma'?\nStudent: It's when you have two choices and both are bad.\nTeacher: Give me an example.\nStudent: Should I do my homework or should I sleep — both are impossible!",
+
+"Joke 716:\n\nWife: Honey, I want to buy a new handbag.\nHusband: You already have ten!\nWife: But this one matches my shoes!\nHusband: Your shoes match everything!\nWife: Exactly — that's why I need a new bag!",
+
+"Joke 717:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy.\nDoctor: And do you chase cars?\nMan: No, I wait for them to stop — I'm a lazy dog!",
+
+"Joke 718:\n\nTeacher: Why did the teacher go to the beach?\nStudent: Because she wanted to test the waters!\nTeacher: Why did the student go to the beach?\nStudent: Because he wanted to skip class!",
+
+"Joke 719:\n\nWife: Honey, do I look like a model?\nHusband: Yes, dear — a model of patience!\nWife: And do I look like a chef?\nHusband: No, but you cook like one!\nWife: Then why don't you help me in the kitchen?\nHusband: Because I'm a model of laziness!",
+
+"Joke 720:\n\nPatient: Doctor, I have a problem — I keep seeing things that aren't there!\nDoctor: Like what?\nPatient: Like that pink elephant behind you!\nDoctor: There's no elephant behind me!\nPatient: Exactly — that's the problem!",
+
+"Joke 721:\n\nTeacher: What is 'arithmetic'?\nStudent: It's when you add, subtract, multiply, and divide numbers.\nTeacher: And what is 'maths'?\nStudent: It's when you do all those things and still get the wrong answer!",
+
+"Joke 722:\n\nWife: Honey, do you love me?\nHusband: Yes, dear.\nWife: Would you jump off a cliff for me?\nHusband: No, but I'd call someone to jump for me!\nWife: That's not love!\nHusband: That's common sense!",
+
+"Joke 723:\n\nMan: Waiter, this plate is dirty!\nWaiter: That's not dirt, sir — that's seasoning!\nMan: Then why is it moving?\nWaiter: Because it's fresh seasoning!",
+
+"Joke 724:\n\nTeacher: What is the plural of 'cactus'?\nStudent: Cactuses.\nTeacher: Actually, it's cacti.\nStudent: Then what's the plural of 'octopus'?\nTeacher: Octopi.\nStudent: And what's the plural of 'platypus'?\nTeacher: Platypi?\nStudent: No, it's platypuses — English doesn't follow rules!",
+
+"Joke 725:\n\nWife: Honey, I want to go on a holiday.\nHusband: Where do you want to go?\nWife: Somewhere hot and sunny!\nHusband: How about the kitchen — the stove is hot!",
+
+"Joke 726:\n\nPatient: Doctor, I think I'm a mosquito.\nDoctor: Why do you think that?\nPatient: Because I keep biting people!\nDoctor: That's not a disease — that's just annoying!",
+
+"Joke 727:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!\nTeacher: And why did the teacher give him a cake?\nStudent: Because he passed the test!",
+
+"Joke 728:\n\nWife: Honey, I had a dream that you gave me a diamond ring.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go back to sleep and dream about something cheaper!",
+
+"Joke 729:\n\nMan: Doctor, I think I'm a clock.\nDoctor: Why do you think that?\nMan: Because I keep ticking!\nDoctor: Let me check your pulse.\nMan: No, let me tick first!",
+
+"Joke 730:\n\nTeacher: What is 'history'?\nStudent: It's the story of the past.\nTeacher: And what is 'geography'?\nStudent: It's the story of the present — where things are now!\nTeacher: And what is 'maths'?\nStudent: It's the story of my nightmares!",
+
+"Joke 731:\n\nWife: Honey, I think I'm getting old.\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, you're better at remembering everything I did wrong!",
+
+"Joke 732:\n\nPatient: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nPatient: That's not a pill, that's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 733:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 734:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?\nWife: No, I want you to buy me a steak!\nHusband: That's expensive!\nWife: Then buy me an iron pill — cheaper!",
+
+"Joke 735:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!\nDoctor: Then maybe you should see one!\nMan: But the elephants are more fun!",
+
+"Joke 736:\n\nTeacher: What is a 'synonym'?\nStudent: It's a word that means the same as another word.\nTeacher: Give me an example.\nStudent: 'Homework' and 'nightmare'!",
+
+"Joke 737:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!\nWife: Then plug it in and finish!",
+
+"Joke 738:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!\nPatient: But I can't write — I'm the one who swallowed it!",
+
+"Joke 739:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 740:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 741:\n\nMan: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nMan: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nMan: Yes, but I lost all my memory!",
+
+"Joke 742:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!\nStudent: Then why did you ask?",
+
+"Joke 743:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!\nHusband: Then let's buy him a lock — cheaper than a bike!",
+
+"Joke 744:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!\nPatient: I can't — I'm too tired!",
+
+"Joke 745:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!\nTeacher: And if I say please?\nStudent: Still 5 — I don't share!",
+
+"Joke 746:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking!\n- And what did she say?\n- I don't know, I wasn't listening!",
+
+"Joke 747:\n\nWife: Honey, let's play a game — I'll think of a number and you guess.\nHusband: Okay.\nWife: Guess!\nHusband: 7.\nWife: How did you know? That's amazing!\nHusband: It's always 7 when you play this game!",
+
+"Joke 748:\n\nMan: Doctor, I'm allergic to Mondays.\nDoctor: That's not a real allergy.\nMan: Then why do I sneeze when I wake up on Monday morning and realise it's Monday?",
+
+"Joke 749:\n\nTeacher: What is the difference between a taxi and a bus?\nStudent: A taxi takes you where you want, a bus takes you where you need!\nTeacher: And what's the difference between a student and a bus?\nStudent: A student never arrives on time!",
+
+"Joke 750:\n\nWife: Honey, I've decided to become a vegetarian.\nHusband: Great, so what will you eat?\nWife: Everything except meat and vegetables!",
+
+"Joke 751:\n\nPatient: Doctor, I can't stop singing 'The Green, Green Grass of Home'.\nDoctor: That sounds like Tom Jones syndrome.\nPatient: Is it common?\nDoctor: It's not unusual!",
+
+"Joke 752:\n\nTwo friends:\n- I bought my wife a diamond ring for her birthday.\n- What did she say?\n- She said she wanted something that goes from 0 to 200 in 3 seconds!\n- So what did you do?\n- I bought her a weighing scale!",
+
+"Joke 753:\n\nTeacher: What is a 'cowboy'?\nStudent: A boy who sits on a cow.\nTeacher: No, it's someone who herds cattle!\nStudent: Then why isn't a boy on a horse called a 'horseyboy'?",
+
+"Joke 754:\n\nMan: Waiter, do you have frog's legs?\nWaiter: No, sir, I've always walked like this!",
+
+"Joke 755:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 756:\n\nPatient: Doctor, I think I'm a bird.\nDoctor: How long have you felt this way?\nPatient: Since I fell out of my nest!",
+
+"Joke 757:\n\nTeacher: What is 'experience'?\nStudent: It's what you get just after you needed it!",
+
+"Joke 758:\n\nTwo men:\n- I gave my wife a gift for our anniversary.\n- What was it?\n- I don't remember, but she hasn't spoken to me for a week!\n- So it's a good gift then?",
+
+"Joke 759:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!",
+
+"Joke 760:\n\nMan: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nMan: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 761:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 762:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 763:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nPatient: Yes, but I lost all my memory!",
+
+"Joke 764:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!",
+
+"Joke 765:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!\nTeacher: Why did the student wear sunglasses?\nStudent: Because the teacher's future was so bright!",
+
+"Joke 766:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 767:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!\nWife: Then why don't you say that more often?\nHusband: Because I'm usually asleep!",
+
+"Joke 768:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!",
+
+"Joke 769:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 770:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!",
+
+"Joke 771:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!",
+
+"Joke 772:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 773:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 774:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!",
+
+"Joke 775:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 776:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!",
+
+"Joke 777:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 778:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!",
+
+"Joke 779:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 780:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 781:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 782:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 783:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 784:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 785:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 786:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 787:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 788:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 789:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 790:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 791:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 792:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 793:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 794:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 795:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 796:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 797:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 798:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 799:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 800:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air! 🎉 Congratulations, 800 jokes complete!",
+
+"Joke 801:\n\nTeacher: What is the longest word in the English language?\nStudent: Smiles — because there is a mile between the first and last letter!\nTeacher: What is the longest word in a student's vocabulary?\nStudent: 'Homework' — it feels like it takes forever!",
+
+"Joke 802:\n\nWife: Honey, I want to go on a shopping spree.\nHusband: What's a spree?\nWife: It's when I buy everything I want and you pay for it!\nHusband: That's not a spree — that's a disaster!",
+
+"Joke 803:\n\nDoctor: You need to reduce your salt intake.\nPatient: But doctor, I don't add salt to my food!\nDoctor: Then why is your blood pressure high?\nPatient: Because my wife adds salt to everything — including my coffee!",
+
+"Joke 804:\n\nMan: Waiter, there's a hair in my soup!\nWaiter: That's not a hair, sir — that's the chef's signature!\nMan: Then tell the chef to sign with a pen next time!",
+
+"Joke 805:\n\nTeacher: Why did the student bring a ladder to the exam?\nStudent: Because the teacher said the test would be at a higher level!\nTeacher: And why did you bring a pillow?\nStudent: Because the test was a nightmare!",
+
+"Joke 806:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 807:\n\nPatient: Doctor, I keep thinking I'm a refrigerator.\nDoctor: How long has this been going on?\nPatient: About a week — but I get cold easily!\nDoctor: And do you keep things inside you?\nPatient: Yes, my lunch!",
+
+"Joke 808:\n\nTwo men:\n- I told my wife she was the best thing that ever happened to me.\n- What did she say?\n- She said, 'And you're the worst thing that ever happened to my wardrobe — you keep leaving clothes everywhere!'",
+
+"Joke 809:\n\nTeacher: What is 'procrastination'?\nStudent: I'll tell you tomorrow.\nTeacher: That's exactly what it is!\nStudent: I was going to explain that, but I didn't get around to it!",
+
+"Joke 810:\n\nWife: Honey, the car won't start.\nHusband: Did you try turning the key?\nWife: Yes, but nothing happened!\nHusband: Did you check if there's petrol?\nWife: Petrol? I thought it ran on hopes and dreams!",
+
+"Joke 811:\n\nMan: Doctor, I have a problem — I can't stop counting things!\nDoctor: How many things have you counted today?\nMan: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10...\nDoctor: Okay, you need help!\nMan: 11, 12, 13...",
+
+"Joke 812:\n\nTeacher: What is the difference between a dog and a cat?\nStudent: A dog barks, a cat meows.\nTeacher: And what's the difference between a dog and a student?\nStudent: A dog listens when you call it!",
+
+"Joke 813:\n\nWife: Honey, I had a dream that you bought me a new dress.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go to sleep again!",
+
+"Joke 814:\n\nPatient: Doctor, I think I'm a pair of scissors.\nDoctor: Why do you think that?\nPatient: Because I keep cutting people off!\nDoctor: That's not a medical condition — that's just rude!",
+
+"Joke 815:\n\nTeacher: What is a 'dilemma'?\nStudent: It's when you have two choices and both are bad.\nTeacher: Give me an example.\nStudent: Should I do my homework or should I sleep — both are impossible!",
+
+"Joke 816:\n\nWife: Honey, I want to buy a new handbag.\nHusband: You already have ten!\nWife: But this one matches my shoes!\nHusband: Your shoes match everything!\nWife: Exactly — that's why I need a new bag!",
+
+"Joke 817:\n\nMan: Doctor, I think I'm a dog.\nDoctor: How long have you felt this way?\nMan: Ever since I was a puppy.\nDoctor: And do you chase cars?\nMan: No, I wait for them to stop — I'm a lazy dog!",
+
+"Joke 818:\n\nTeacher: Why did the teacher go to the beach?\nStudent: Because she wanted to test the waters!\nTeacher: Why did the student go to the beach?\nStudent: Because he wanted to skip class!",
+
+"Joke 819:\n\nWife: Honey, do I look like a model?\nHusband: Yes, dear — a model of patience!\nWife: And do I look like a chef?\nHusband: No, but you cook like one!\nWife: Then why don't you help me in the kitchen?\nHusband: Because I'm a model of laziness!",
+
+"Joke 820:\n\nPatient: Doctor, I have a problem — I keep seeing things that aren't there!\nDoctor: Like what?\nPatient: Like that pink elephant behind you!\nDoctor: There's no elephant behind me!\nPatient: Exactly — that's the problem!",
+
+"Joke 821:\n\nTeacher: What is 'arithmetic'?\nStudent: It's when you add, subtract, multiply, and divide numbers.\nTeacher: And what is 'maths'?\nStudent: It's when you do all those things and still get the wrong answer!",
+
+"Joke 822:\n\nWife: Honey, do you love me?\nHusband: Yes, dear.\nWife: Would you jump off a cliff for me?\nHusband: No, but I'd call someone to jump for me!\nWife: That's not love!\nHusband: That's common sense!",
+
+"Joke 823:\n\nMan: Waiter, this plate is dirty!\nWaiter: That's not dirt, sir — that's seasoning!\nMan: Then why is it moving?\nWaiter: Because it's fresh seasoning!",
+
+"Joke 824:\n\nTeacher: What is the plural of 'cactus'?\nStudent: Cactuses.\nTeacher: Actually, it's cacti.\nStudent: Then what's the plural of 'octopus'?\nTeacher: Octopi.\nStudent: And what's the plural of 'platypus'?\nTeacher: Platypi?\nStudent: No, it's platypuses — English doesn't follow rules!",
+
+"Joke 825:\n\nWife: Honey, I want to go on a holiday.\nHusband: Where do you want to go?\nWife: Somewhere hot and sunny!\nHusband: How about the kitchen — the stove is hot!",
+
+"Joke 826:\n\nPatient: Doctor, I think I'm a mosquito.\nDoctor: Why do you think that?\nPatient: Because I keep biting people!\nDoctor: That's not a disease — that's just annoying!",
+
+"Joke 827:\n\nTeacher: Why did the student eat his homework?\nStudent: Because the teacher said it was a piece of cake!\nTeacher: And why did the teacher give him a cake?\nStudent: Because he passed the test!",
+
+"Joke 828:\n\nWife: Honey, I had a dream that you gave me a diamond ring.\nHusband: That's nice, dear.\nWife: So, what does it mean?\nHusband: It means you were dreaming — now go back to sleep and dream about something cheaper!",
+
+"Joke 829:\n\nMan: Doctor, I think I'm a clock.\nDoctor: Why do you think that?\nMan: Because I keep ticking!\nDoctor: Let me check your pulse.\nMan: No, let me tick first!",
+
+"Joke 830:\n\nTeacher: What is 'history'?\nStudent: It's the story of the past.\nTeacher: And what is 'geography'?\nStudent: It's the story of the present — where things are now!\nTeacher: And what is 'maths'?\nStudent: It's the story of my nightmares!",
+
+"Joke 831:\n\nWife: Honey, I think I'm getting old.\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, you're better at remembering everything I did wrong!",
+
+"Joke 832:\n\nPatient: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nPatient: That's not a pill, that's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 833:\n\nTeacher: What is the fastest thing in the world?\nStudent: A thought — it can go anywhere in a second!\nTeacher: What is the slowest?\nStudent: A Monday morning!",
+
+"Joke 834:\n\nWife: Honey, the doctor said I need more iron in my diet.\nHusband: So you want me to buy you a car battery?\nWife: No, I want you to buy me a steak!\nHusband: That's expensive!\nWife: Then buy me an iron pill — cheaper!",
+
+"Joke 835:\n\nMan: Doctor, I keep seeing pink elephants everywhere.\nDoctor: Have you seen a psychiatrist?\nMan: No, just pink elephants!\nDoctor: Then maybe you should see one!\nMan: But the elephants are more fun!",
+
+"Joke 836:\n\nTeacher: What is a 'synonym'?\nStudent: It's a word that means the same as another word.\nTeacher: Give me an example.\nStudent: 'Homework' and 'nightmare'!",
+
+"Joke 837:\n\nWife: Honey, do you think I'm pretty?\nHusband: Of course, dear.\nWife: Would you say I'm the prettiest woman in the world?\nHusband: I would, but my phone's battery might die before I finish!\nWife: Then plug it in and finish!",
+
+"Joke 838:\n\nPatient: Doctor, I swallowed a pen!\nDoctor: Don't worry, just write it off!\nPatient: But I can't write — I'm the one who swallowed it!",
+
+"Joke 839:\n\nTeacher: Why are you scratching your head?\nStudent: Because I forgot the answer.\nTeacher: Why not scratch your notebook?\nStudent: Because my brain is in my head, not in my notebook!",
+
+"Joke 840:\n\nWife: Honey, look at that man — he's been standing outside our house for an hour!\nHusband: Maybe he's waiting for someone.\nWife: Or maybe he's a thief!\nHusband: Then let's go out and introduce ourselves — he's been more patient than our guests!",
+
+"Joke 841:\n\nMan: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nMan: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nMan: Yes, but I lost all my memory!",
+
+"Joke 842:\n\nTeacher: What is 'ignorance'?\nStudent: I don't know.\nTeacher: Exactly!\nStudent: Then why did you ask?",
+
+"Joke 843:\n\nWife: Honey, I think our son needs a new bicycle.\nHusband: Why?\nWife: Because he's been riding the neighbour's bike home every day!\nHusband: Then let's buy him a lock — cheaper than a bike!",
+
+"Joke 844:\n\nPatient: Doctor, I feel like I'm a pair of curtains.\nDoctor: Pull yourself together, man!\nPatient: I can't — I'm too tired!",
+
+"Joke 845:\n\nTeacher: If you have 5 sweets and I ask for 2, how many do you have left?\nStudent: 5 — because I'm not giving you any!\nTeacher: And if I say please?\nStudent: Still 5 — I don't share!",
+
+"Joke 846:\n\nTwo men:\n- My wife says I never listen to her.\n- What do you think?\n- I think she's right — I was reading a newspaper while she was talking!\n- And what did she say?\n- I don't know, I wasn't listening!",
+
+"Joke 847:\n\nWife: Honey, let's play a game — I'll think of a number and you guess.\nHusband: Okay.\nWife: Guess!\nHusband: 7.\nWife: How did you know? That's amazing!\nHusband: It's always 7 when you play this game!",
+
+"Joke 848:\n\nMan: Doctor, I'm allergic to Mondays.\nDoctor: That's not a real allergy.\nMan: Then why do I sneeze when I wake up on Monday morning and realise it's Monday?",
+
+"Joke 849:\n\nTeacher: What is the difference between a taxi and a bus?\nStudent: A taxi takes you where you want, a bus takes you where you need!\nTeacher: And what's the difference between a student and a bus?\nStudent: A student never arrives on time!",
+
+"Joke 850:\n\nWife: Honey, I've decided to become a vegetarian.\nHusband: Great, so what will you eat?\nWife: Everything except meat and vegetables!",
+
+"Joke 851:\n\nPatient: Doctor, I can't stop singing 'The Green, Green Grass of Home'.\nDoctor: That sounds like Tom Jones syndrome.\nPatient: Is it common?\nDoctor: It's not unusual!",
+
+"Joke 852:\n\nTwo friends:\n- I bought my wife a diamond ring for her birthday.\n- What did she say?\n- She said she wanted something that goes from 0 to 200 in 3 seconds!\n- So what did you do?\n- I bought her a weighing scale!",
+
+"Joke 853:\n\nTeacher: What is a 'cowboy'?\nStudent: A boy who sits on a cow.\nTeacher: No, it's someone who herds cattle!\nStudent: Then why isn't a boy on a horse called a 'horseyboy'?",
+
+"Joke 854:\n\nMan: Waiter, do you have frog's legs?\nWaiter: No, sir, I've always walked like this!",
+
+"Joke 855:\n\nWife: Honey, do you think I'm the most beautiful woman in the world?\nHusband: Yes, dear.\nWife: And the smartest?\nHusband: Yes, dear.\nWife: And the kindest?\nHusband: Yes, dear.\nWife: Are you just saying that because we're married?\nHusband: No, dear, I'm saying it because you're holding a frying pan!",
+
+"Joke 856:\n\nPatient: Doctor, I think I'm a bird.\nDoctor: How long have you felt this way?\nPatient: Since I fell out of my nest!",
+
+"Joke 857:\n\nTeacher: What is 'experience'?\nStudent: It's what you get just after you needed it!",
+
+"Joke 858:\n\nTwo men:\n- I gave my wife a gift for our anniversary.\n- What was it?\n- I don't remember, but she hasn't spoken to me for a week!\n- So it's a good gift then?",
+
+"Joke 859:\n\nWife: Honey, I want to go on a diet.\nHusband: Okay, start tomorrow.\nWife: Why not today?\nHusband: Because there's cake in the fridge and I don't want it wasted!",
+
+"Joke 860:\n\nMan: Doctor, I have a problem — I can't stop stealing things!\nDoctor: Here, take this pill.\nMan: It's not a pill, it's my wallet!\nDoctor: And you're already cured!",
+
+"Joke 861:\n\nTeacher: What is a 'zero'?\nStudent: It's what I get in exams when I don't study.\nTeacher: And what is a 'hero'?\nStudent: It's my dad who still loves me after seeing my result!",
+
+"Joke 862:\n\nWife: Honey, the TV is broken.\nHusband: What's wrong with it?\nWife: It shows the same thing every day — you on the sofa!",
+
+"Joke 863:\n\nPatient: Doctor, I think I'm a computer.\nDoctor: How long have you had this problem?\nPatient: Ever since I got a virus!\nDoctor: Have you tried turning yourself off and on again?\nPatient: Yes, but I lost all my memory!",
+
+"Joke 864:\n\nTwo friends:\n- I told my wife she was the most important thing in my life.\n- What did she say?\n- She said, 'Prove it' — so I gave her my password!\n- What happened?\n- She changed it!",
+
+"Joke 865:\n\nTeacher: Why did the teacher wear sunglasses?\nStudent: Because her students were so bright!\nTeacher: Why did the student wear sunglasses?\nStudent: Because the teacher's future was so bright!",
+
+"Joke 866:\n\nMan: Doctor, I think I'm a moth.\nDoctor: Why do you think that?\nMan: I don't know, but I keep flying towards bright lights!\nDoctor: So why did you come to me?\nMan: Because your light was on!",
+
+"Joke 867:\n\nWife: Honey, do I look beautiful in this dress?\nHusband: You look beautiful in anything.\nWife: And in nothing?\nHusband: Especially in nothing!\nWife: Then why don't you say that more often?\nHusband: Because I'm usually asleep!",
+
+"Joke 868:\n\nTeacher: What's the difference between a teacher and a train?\nStudent: A train says 'choo choo', a teacher says 'don't chew gum'!",
+
+"Joke 869:\n\nPatient: Doctor, I can't stop arguing with people on the internet!\nDoctor: And how does that make you feel?\nPatient: I don't know, you're a doctor — figure it out yourself!",
+
+"Joke 870:\n\nTwo men:\n- My wife told me I'm a bad listener.\n- What do you think?\n- I think she's right — I wasn't really paying attention to what she said!",
+
+"Joke 871:\n\nTeacher: What is the difference between a cat and a comma?\nStudent: A cat has claws at the end of its paws, and a comma has a pause at the end of a clause!",
+
+"Joke 872:\n\nWife: Honey, if I were a cat, what would you do?\nHusband: I'd feed you the best food.\nWife: And if I were a dog?\nHusband: Same.\nWife: And if I were a snake?\nHusband: I'd still feed you — but from a distance!",
+
+"Joke 873:\n\nMan: Doctor, I keep hearing noises in my head.\nDoctor: What kind of noises?\nMan: Voices asking me to do things!\nDoctor: What do they say?\nMan: They say 'stop wasting money on doctors who can't help you!'",
+
+"Joke 874:\n\nTeacher: Why is your homework always late?\nStudent: Because it's always doing overtime at home!",
+
+"Joke 875:\n\nWife: Honey, I want to go to Paris, Rome, and Tokyo.\nHusband: I want to go to a place where there are no shops!\nWife: There's no such place.\nHusband: Then I'll stay home!",
+
+"Joke 876:\n\nPatient: Doctor, I think I'm a goat.\nDoctor: How long?\nPatient: Ever since I was a kid!",
+
+"Joke 877:\n\nTwo friends:\n- I proposed to my girlfriend yesterday.\n- What did she say?\n- She said she needed time to think.\n- So what are you doing now?\n- Waiting for her to think — and eating all her chocolates!",
+
+"Joke 878:\n\nTeacher: What is the fastest animal in the world?\nStudent: A cheetah!\nTeacher: Wrong, a chicken — it can cross the road in a second when it sees a car!",
+
+"Joke 879:\n\nMan: Waiter, my soup is cold!\nWaiter: Of course, sir, it's gazpacho!\nMan: I didn't order any gazpacho!\nWaiter: Then why did you order cold soup?",
+
+"Joke 880:\n\nWife: Honey, what would you do if I won the lottery?\nHusband: I'd take half and leave you!\nWife: That's fine — I'd take the other half and stay with you!",
+
+"Joke 881:\n\nPatient: Doctor, I think I'm a racehorse.\nDoctor: Why do you think that?\nPatient: I keep trying to win at the races!\nDoctor: Okay, and how long have you had this feeling?\nPatient: Ever since I left the starting gate!",
+
+"Joke 882:\n\nTeacher: What is 'foresight'?\nStudent: It's the ability to predict what's going to happen.\nTeacher: And 'hindsight'?\nStudent: It's the ability to know what would have happened — after you've already done something wrong!",
+
+"Joke 883:\n\nTwo men:\n- My wife said I'm always looking at my phone.\n- What did you say?\n- Nothing, I was too busy checking my notifications!",
+
+"Joke 884:\n\nWife: Honey, the doctor said I need to eat more fruit.\nHusband: So what do you want me to buy? Apples, bananas, grapes?\nWife: Chocolate-covered strawberries!",
+
+"Joke 885:\n\nTeacher: Why did the student bring a ladder to school?\nStudent: Because the teacher said the test would be at a higher level!",
+
+"Joke 886:\n\nMan: Doctor, I keep thinking I'm a bridge!\nDoctor: What's been brought to this bridge?\nMan: A lot of cars, some trucks, and a very heavy load of worry!",
+
+"Joke 887:\n\nWife: Honey, look at that couple — they've been married 50 years and still hold hands!\nHusband: Of course, they're not arguing!\nWife: And we argue — so why don't you hold my hand?\nHusband: Because you'd need my other hand for my wallet!",
+
+"Joke 888:\n\nPatient: Doctor, I think I'm a clock!\nDoctor: Why do you think that?\nPatient: I keep ticking!\nDoctor: Let's check your pulse.\nPatient: No, let me tick first!",
+
+"Joke 889:\n\nTeacher: What is the difference between a pizza and a teacher?\nStudent: A pizza can feed a family of four!",
+
+"Joke 890:\n\nTwo friends:\n- I told my wife she should smile more.\n- What did she say?\n- She said she'd smile when I give her a reason to!\n- So what did you do?\n- I bought her a new car!",
+
+"Joke 891:\n\nMan: Doctor, I have a problem — I can't stop thinking about my computer.\nDoctor: How long?\nMan: Since I got a new one.\nDoctor: Have you tried turning yourself off and on again?",
+
+"Joke 892:\n\nWife: Honey, do you think I'm getting old?\nHusband: No, dear, you're getting better.\nWife: Really?\nHusband: Yes, your memory is getting better — you remember everything I did wrong!",
+
+"Joke 893:\n\nTeacher: What is a 'battery'?\nStudent: It's something you hit me with?\nTeacher: No, a battery is something you put in a toy to make it work.\nStudent: Then what's the thing my dad uses on the remote?",
+
+"Joke 894:\n\nPatient: Doctor, I think I'm invisible.\nDoctor: Who said that?\nPatient: I did — can't you see me?\nDoctor: I'm afraid I can't!\nPatient: Then how did you hear me?\nDoctor: I didn't!",
+
+"Joke 895:\n\nTwo friends:\n- I asked my wife to marry me again.\n- What did she say?\n- She said she'd need a lot of convincing.\n- So what's the plan?\n- I'm going to buy a new sofa — the old one has my impression on it!",
+
+"Joke 896:\n\nTeacher: What is 'punctuation'?\nStudent: It's what you put at the end of a sentence.\nTeacher: What is a 'full stop'?\nStudent: It's when you stop fully!\nTeacher: What is a 'comma'?\nStudent: It's what my dad uses when he's angry — 'Come here!'",
+
+"Joke 897:\n\nMan: Doctor, I keep having dreams about chickens.\nDoctor: Why do you think that is?\nMan: Because I'm a chicken!\nDoctor: Then why did you come to me?\nMan: Because the chicken said I should!",
+
+"Joke 898:\n\nWife: Honey, I had a dream you gave me a diamond necklace.\nHusband: That's nice, but what do you think it means?\nWife: It means I want a diamond necklace in real life!\nHusband: Then I want to have a dream about giving you one!",
+
+"Joke 899:\n\nPatient: Doctor, I think I'm a telephone.\nDoctor: Why do you think that?\nPatient: Because I ring when I get excited!\nDoctor: Then maybe you should get a phone line!\nPatient: I already have one — my wife!",
+
+"Joke 900:\n\nTeacher: What is 'gravity'?\nStudent: It's what keeps us on the ground.\nTeacher: And what would happen if there was no gravity?\nStudent: The teacher would fly away!\nTeacher: And why would the teacher fly away?\nStudent: Because she's full of hot air! 🎉 Congratulations, 900 jokes complete!",
+
+"Joke 901:\n\nTeacher: What is a computer's favorite snack?\nStudent: Microchips!",
+
+"Joke 902:\n\nWhy did the smartphone go to therapy?\nBecause it lost its touch!",
+
+"Joke 903:\n\nWhat did the Wi-Fi say to the router?\nYou're the only one who truly connects with me!",
+
+"Joke 904:\n\nWhy don't programmers like nature?\nToo many bugs!",
+
+"Joke 905:\n\nWhat is a computer's favorite beat?\nAn algorithm!",
+
+"Joke 906:\n\nWhy did the laptop break up with the printer?\nBecause it kept paper-jamming their relationship!",
+
+"Joke 907:\n\nWhat do you call a computer that sings?\nA Dell!",
+
+"Joke 908:\n\nWhy was the computer cold?\nIt left its Windows open!",
+
+"Joke 909:\n\nWhat is a cat's favorite colour?\nPurr-ple!",
+
+"Joke 910:\n\nWhy did the cat sit on the computer?\nTo keep an eye on the mouse!",
+
+"Joke 911:\n\nWhat do you call a dog that does magic tricks?\nA labracadabrador!",
+
+"Joke 912:\n\nWhy did the dog sit in the shade?\nBecause he didn't want to be a hot dog!",
+
+"Joke 913:\n\nWhat do you call a fish with no eyes?\nA fsh!",
+
+"Joke 914:\n\nWhy did the fish blush?\nBecause it saw the ocean's bottom!",
+
+"Joke 915:\n\nWhat do you call a bear with no teeth?\nA gummy bear!",
+
+"Joke 916:\n\nWhy did the elephant use a computer?\nTo get on the internet — and never forget anything!",
+
+"Joke 917:\n\nWhat do you call an elephant that doesn't matter?\nAn irrelephant!",
+
+"Joke 918:\n\nWhy don't elephants use computers?\nBecause they're afraid of the mouse!",
+
+"Joke 919:\n\nWhat did the ocean say to the beach?\nNothing, it just waved!",
+
+"Joke 920:\n\nWhy did the golfer wear two pairs of trousers?\nIn case he got a hole in one!",
+
+"Joke 921:\n\nWhy did the football coach go to the bank?\nTo get his quarter back!",
+
+"Joke 922:\n\nWhy did the basketball player bring a ladder to the game?\nBecause he wanted to reach new heights!",
+
+"Joke 923:\n\nWhat do you call a swimming pool full of basketball players?\nA dunk tank!",
+
+"Joke 924:\n\nWhy did the tennis player bring a rope to the match?\nTo keep the score tied!",
+
+"Joke 925:\n\nWhat did the sushi say to the bee?\nWasabi!",
+
+"Joke 926:\n\nWhy did the tomato turn red?\nBecause it saw the salad dressing!",
+
+"Joke 927:\n\nWhat do you call a fake noodle?\nAn impasta!",
+
+"Joke 928:\n\nWhy did the bread go to the doctor?\nIt was feeling crumby!",
+
+"Joke 929:\n\nWhat do you call a cheese that isn't yours?\nNacho cheese!",
+
+"Joke 930:\n\nWhy did the coffee file a police report?\nIt got mugged!",
+
+"Joke 931:\n\nWhat did the egg say to the boiling water?\nIt's been a while since I got hard-boiled!",
+
+"Joke 932:\n\nWhy did the banana go to the hospital?\nIt wasn't peeling well!",
+
+"Joke 933:\n\nWhat do you call a snowman with a six-pack?\nAn abdominal snowman!",
+
+"Joke 934:\n\nWhy did the sun go to school?\nTo get brighter!",
+
+"Joke 935:\n\nWhat did the cloud say to the thunder?\nYou're shocking!",
+
+"Joke 936:\n\nWhy did the wind stop blowing?\nIt ran out of breath!",
+
+"Joke 937:\n\nWhat do you call a rainstorm that only falls on one house?\nA shower!",
+
+"Joke 938:\n\nWhy did the tourist bring a ladder to Paris?\nTo see the Eiffel Tower from a higher level!",
+
+"Joke 939:\n\nWhat did the traveller say when he reached the top of the mountain?\nI'm on top of the world!",
+
+"Joke 940:\n\nWhy did the tourist get lost in the desert?\nHe followed the signs — but they were mirages!",
+
+"Joke 941:\n\nWhat do you call a map that guides you to the fridge?\nA snack map!",
+
+"Joke 942:\n\nWhy did the car stop in the middle of the road?\nIt ran out of fuel — and patience!",
+
+"Joke 943:\n\nWhat did the traffic light say to the car?\nDon't look now, I'm changing!",
+
+"Joke 944:\n\nWhy did the bicycle fall over?\nIt was two-tired!",
+
+"Joke 945:\n\nWhat do you call a motorcycle that can't start?\nA nothing-cycle!",
+
+"Joke 946:\n\nWhy did the shopkeeper put a mirror in the window?\nTo see what was coming!",
+
+"Joke 947:\n\nWhat did the shop assistant say to the customer who asked for a discount?\nYou're already getting a bargain — my time!",
+
+"Joke 948:\n\nWhy did the shoplifter get caught?\nHe tried to steal a free sample!",
+
+"Joke 949:\n\nWhat did the credit card say to the wallet?\nYou're empty without me!",
+
+"Joke 950:\n\nWhy did the wallet go to the gym?\nIt wanted to lose some weight!",
+
+"Joke 951:\n\nWhat did the clock say to the calendar?\nYou have more dates than me!",
+
+"Joke 952:\n\nWhy did the watch get arrested?\nIt was caught killing time!",
+
+"Joke 953:\n\nWhat do you call a lazy clock?\nA slow-atch!",
+
+"Joke 954:\n\nWhy did the mirror go to the party?\nIt wanted to reflect on the good times!",
+
+"Joke 955:\n\nWhat did the comb say to the brush?\nYou're always in my hair!",
+
+"Joke 956:\n\nWhy did the toothbrush go to the dentist?\nIt was bristling with fear!",
+
+"Joke 957:\n\nWhat did the soap say to the water?\nYou make me feel clean!",
+
+"Joke 958:\n\nWhy did the towel go to therapy?\nIt had too many hang-ups!",
+
+"Joke 959:\n\nWhat did the pillow say to the bed?\nYou're the best thing that ever happened to me — I dream about you!",
+
+"Joke 960:\n\nWhy did the blanket go to school?\nIt wanted to be a cover story!",
+
+"Joke 961:\n\nWhat do you call a sleeping dinosaur?\nA dino-snore!",
+
+"Joke 962:\n\nWhy did the dinosaur cross the road?\nBecause the chicken hadn't evolved yet!",
+
+"Joke 963:\n\nWhat did the mama dinosaur say to the baby dinosaur?\nYou're dino-mite!",
+
+"Joke 964:\n\nWhy did the pirate go to the movies?\nHe wanted to see a rated-R movie — Arr!",
+
+"Joke 965:\n\nWhat is a pirate's favorite letter?\nYou think it's R, but it's actually the C!",
+
+"Joke 966:\n\nWhy did the pirate take a nap?\nHe needed some shut-eye — and a treasure map!",
+
+"Joke 967:\n\nWhat do you call a pirate who skips school?\nCaptain Hooky!",
+
+"Joke 968:\n\nWhy did the astronaut take a pen to space?\nTo write about his out-of-this-world experience!",
+
+"Joke 969:\n\nWhat did the astronaut say when he ran out of fuel?\nHouston, we have a problem!",
+
+"Joke 970:\n\nWhy did the star go to the party?\nBecause it was the life of the galaxy!",
+
+"Joke 971:\n\nWhat do you call a moon that's always sad?\nA blue moon!",
+
+"Joke 972:\n\nWhy did the sun go to the beach?\nTo get a tan!",
+
+"Joke 973:\n\nWhat did the moon say to the sun?\nYou're my sunshine — even at night!",
+
+"Joke 974:\n\nWhy did the scientist bring a ladder to the lab?\nTo reach a higher level of experiments!",
+
+"Joke 975:\n\nWhat do you call a scientist who studies insects?\nA bug-ologist!",
+
+"Joke 976:\n\nWhy did the chemist get excited?\nHe found the right solution!",
+
+"Joke 977:\n\nWhat did the physicist say when he broke a glass?\nThat's a matter of gravity!",
+
+"Joke 978:\n\nWhy did the mathematician bring a ruler to the party?\nTo measure the fun!",
+
+"Joke 979:\n\nWhat do you call a math teacher with a parrot?\nA poly-math!",
+
+"Joke 980:\n\nWhy did the number 6 get scared of 7?\nBecause 7 ate 9!",
+
+"Joke 981:\n\nWhat did the zero say to the eight?\nNice belt!",
+
+"Joke 982:\n\nWhy did the geometry teacher bring a blanket?\nTo cover the angles!",
+
+"Joke 983:\n\nWhat did the triangle say to the circle?\nYou're pointless!",
+
+"Joke 984:\n\nWhy did the square go to the party?\nBecause it was a well-rounded person!",
+
+"Joke 985:\n\nWhat do you call a snake that's good at maths?\nA calcu-lator!",
+
+"Joke 986:\n\nWhy did the snake cross the road?\nTo get to the hiss-side!",
+
+"Joke 987:\n\nWhat did the snake say to the mouse?\nYou're my type — fast food!",
+
+"Joke 988:\n\nWhy did the frog go to the doctor?\nIt had a croak in its throat!",
+
+"Joke 989:\n\nWhat do you call a frog who's good at everything?\nA jack-of-all-trades — but he still croaks!",
+
+"Joke 990:\n\nWhy did the frog sit on the lily pad?\nIt was the only seat available!",
+
+"Joke 991:\n\nWhat did the bee say to the flower?\nYou're bee-autiful!",
+
+"Joke 992:\n\nWhy did the bee go to the doctor?\nIt had a buzz in its ear!",
+
+"Joke 993:\n\nWhat do you call a bee that can't make up its mind?\nA maybe!",
+
+"Joke 994:\n\nWhy did the butterfly go to the dance?\nTo show off its flutter-by moves!",
+
+"Joke 995:\n\nWhat did the caterpillar say when it became a butterfly?\nI've changed!",
+
+"Joke 996:\n\nWhy did the ant go to the gym?\nTo get stronger — it was tired of being a lightweight!",
+
+"Joke 997:\n\nWhat do you call an ant that's always late?\nAn ant-icipated arrival!",
+
+"Joke 998:\n\nWhy did the spider go to the computer?\nTo check its website!",
+
+"Joke 999:\n\nWhat did the spider say to the fly?\nYou're caught in my web of lies!",
+
+"Joke 1000:\n\nWhy did the chicken cross the road?\nTo get to the other side — and finally complete 1000 jokes! 🎉 Congratulations, 1000 jokes complete!"
+];
+
+
+var current = 0;
+function showJoke() {
+    document.getElementById('jokeBox').textContent = jokes[current];
+    document.getElementById('count').textContent = 'Joke ' + (current + 1) + ' / ' + jokes.length;
+}
+
+function next() {
+    if (current < jokes.length - 1) {
+        current++;
+        showJoke();
+    }
+}
+
+function prev() {
+    if (current > 0) {
+        current--;
+        showJoke();
+    }
+}
+
+// 🏠 HOME BUTTON — index.html par le jayega
+function goHome() {
+    window.location.href = 'index.html';
+}
+
+// Initialize
+showJoke();
+
+// Keyboard support (optional)
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'Home') goHome();
+});
+</script>
+
+</body>
+</html>
