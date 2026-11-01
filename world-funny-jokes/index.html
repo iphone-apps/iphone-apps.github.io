@@ -4,151 +4,92 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>World Funny Jokes - 16 Languages</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<link rel="icon" type="image/png" href="icons-jokes.png">
+<link rel="apple-touch-icon" href="icons-jokes.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
-    background:linear-gradient(180deg, #08133A 0%, #0F2A7A 50%, #123CA8 100%);
-    font-family:Arial, sans-serif;
-    width:100%;
-    overflow-x:hidden;
-    min-height:100vh;
-    padding-bottom:10px;
-    display: flex;
-    flex-direction: column;
-}
-.header{
-    text-align:center;
-    padding:15px 10px 10px 10px;
-    width:100%;
-}
-.header h1{
-    color:#FF8F00;
-    font-size:22px;
-    font-weight:900;
-    letter-spacing:0.5px;
-}
-.header p{
-    color:#E0E0E0;
-    font-size:11px;
-    margin-top:4px;
-    letter-spacing:0.3px;
-}
-.container{
-    width:100%;
-    max-width:450px;
-    margin:0 auto;
-    padding:0 10px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-    flex-grow: 1;
-}
-
-/* GRID 4 COLUMNS */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:8px;
-    width: 100%;
-}
-.card{
-    background:linear-gradient(180deg, #0A1E5E 0%, #0F2F8A 100%);
-    border:2px solid #FFD600;
-    border-radius:12px;
-    padding:8px 4px;
-    text-align:center;
-    text-decoration:none;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 3px 6px rgba(0,0,0,0.4);
-    min-height: 70px;
-}
-
-/* English Name (Golden) */
-.card .title{
-    color:#FF8F00;
-    font-size:11px;
-    font-weight:900;
-    display:block;
-    line-height: 1.2;
-}
-
-/* Native Name (White - Made Bigger) */
-.card .native{
-    color:#FFFFFF;
-    font-size:12px; /* Size barha diya hai */
-    font-weight:bold; /* Bold kar diya hai taake clear nazar aaye */
-    display:block;
-    margin-top:3px;
-    line-height: 1.2;
-}
-
-/* FOOTER */
-.footer-card{
-    background:linear-gradient(180deg, #0A1E5E 0%, #0F2F8A 100%);
-    border:2px solid #FFD600;
-    border-radius:12px;
-    padding:10px;
-    text-align:center;
-    margin-top:10px;
-}
-.footer-card b{
-    color:#FFEB3B;
-    font-size:12px;
-    display:block;
-    line-height:16px;
-}
-.footer-card .line{
-    color:#FFFFFF;
-    font-size:10px;
-    line-height:15px;
-    font-weight:bold;
-}
+body{background:linear-gradient(180deg,#08133A 0%,#0F2A7A 50%,#123CA8 100%);font-family:Arial,sans-serif;width:100%;overflow-x:hidden;min-height:100vh;padding-bottom:10px;display:flex;flex-direction:column}
+.header{text-align:center;padding:15px 10px 10px;width:100%}
+.header h1{color:#FF8F00;font-size:22px;font-weight:900}
+.header p{color:#E0E0E0;font-size:11px;margin-top:4px}
+.container{width:100%;max-width:450px;margin:0 auto;padding:0 10px;display:flex;flex-direction:column;gap:12px;flex-grow:1}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%}
+.card{background:linear-gradient(180deg,#0A1E5E 0%,#0F2F8A 100%);border:2px solid #FFD600;border-radius:12px;padding:8px 4px;text-align:center;text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,0.4);min-height:70px}
+.card .title{color:#FF8F00;font-size:11px;font-weight:900;display:block;line-height:1.2}
+.card .native{color:#FFFFFF;font-size:12px;font-weight:bold;display:block;margin-top:3px;line-height:1.2}
+.install-guide{background:#fff;border-radius:18px;padding:14px;margin-top:10px;color:#0f172a;font-family:Arial,sans-serif}
+.install-guide h2{font-size:13px;text-align:center;font-weight:900}
+.device-tabs{display:flex;gap:6px;margin:10px 0 8px}
+.device-tabs .tab{flex:1;padding:8px;border-radius:10px;border:none;font-weight:800;font-size:11px;cursor:pointer;background:#eef2ff;color:#4338ca}
+.device-tabs .tab.active{background:#4338ca;color:#fff}
+.lang-label{font-size:9px;font-weight:800;color:#64748b;margin:6px 0}
+.lang-tabs{display:flex;flex-wrap:wrap;gap:5px}
+.lang-tabs .ltab{padding:5px 9px;border-radius:16px;border:1px solid #e2e8f0;background:#f8fafc;font-size:9px;font-weight:700;cursor:pointer}
+.lang-tabs .ltab.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.instr-box{background:#f8fafc;border-radius:12px;padding:10px;margin-top:10px;border:1px solid #eef2ff}
+.step{display:flex;gap:8px;margin:10px 0}
+.step b{min-width:24px;height:24px;background:#0f172a;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
+.step p{font-size:11px;line-height:1.4;font-weight:600}
+.footer-card{background:linear-gradient(180deg,#0A1E5E 0%,#0F2F8A 100%);border:2px solid #FFD600;border-radius:12px;padding:10px;text-align:center;margin-top:10px}
+.footer-card b{color:#FFEB3B;font-size:12px;display:block;line-height:16px}
+.footer-card .line{color:#FFFFFF;font-size:10px;line-height:15px;font-weight:bold}
 .footer-card .line span{color:#FFFFFF;font-weight:normal}
-.footer-card .feedback{
-    color:#FFFFFF;
-    font-size:10px;
-    margin-top:4px;
-    font-weight:bold;
-}
+.footer-card .feedback{color:#FFFFFF;font-size:10px;margin-top:4px;font-weight:bold}
 </style>
 </head>
 <body>
-
-<div class="header">
-<h1>World Funny Jokes</h1>
-<p>16 Languages | Total 16000+ Jokes</p>
-</div>
-
+<div class="header"><h1>World Funny Jokes</h1><p>16 Languages | Total 16000+ Jokes</p></div>
 <div class="container">
-
-<!-- GRID START -->
 <div class="grid">
 <a href="eng.html" class="card"><span class="title">English</span><span class="native">English</span></a>
 <a href="ur.html" class="card"><span class="title">Urdu</span><span class="native">اردو</span></a>
 <a href="pa.html" class="card"><span class="title">Pashto</span><span class="native">پښتو</span></a>
 <a href="ar.html" class="card"><span class="title">Arabic</span><span class="native">العربية</span></a>
-
 <a href="hi.html" class="card"><span class="title">Hindi</span><span class="native">हिन्दी</span></a>
 <a href="ch.html" class="card"><span class="title">Chinese</span><span class="native">中文</span></a>
 <a href="fr.html" class="card"><span class="title">French</span><span class="native">Français</span></a>
 <a href="jp.html" class="card"><span class="title">Japanese</span><span class="native">日本語</span></a>
-
 <a href="sp.html" class="card"><span class="title">Spanish</span><span class="native">Español</span></a>
 <a href="gr.html" class="card"><span class="title">German</span><span class="native">Deutsch</span></a>
 <a href="ra.html" class="card"><span class="title">Russian</span><span class="native">Русский</span></a>
 <a href="tr.html" class="card"><span class="title">Turkish</span><span class="native">Türkçe</span></a>
-
 <a href="kr.html" class="card"><span class="title">Korean</span><span class="native">한국어</span></a>
 <a href="ml.html" class="card"><span class="title">Malaysian</span><span class="native">Melayu</span></a>
 <a href="in.html" class="card"><span class="title">Indonesian</span><span class="native">Indonesia</span></a>
 <a href="ph.html" class="card"><span class="title">Filipino</span><span class="native">Filipino</span></a>
 </div>
-<!-- GRID END -->
 
-<!-- FOOTER SAME AS PHYSICS APP -->
+<div class="install-guide">
+<h2>📲 How to Install - 16 Languages</h2>
+<div class="device-tabs">
+<button class="tab active" data-device="android">🤖 Android</button>
+<button class="tab" data-device="iphone">🍎 iPhone</button>
+<button class="tab" data-device="pc">💻 PC</button>
+</div>
+<div class="lang-label">🌍 SELECT LANGUAGE / زبان منتخب کریں</div>
+<div class="lang-tabs">
+<button class="ltab active" data-lang="en">English</button>
+<button class="ltab" data-lang="ur">اردو</button>
+<button class="ltab" data-lang="ps">پښتو</button>
+<button class="ltab" data-lang="ar">العربية</button>
+<button class="ltab" data-lang="hi">हिन्दी</button>
+<button class="ltab" data-lang="zh">中文</button>
+<button class="ltab" data-lang="fr">Français</button>
+<button class="ltab" data-lang="ja">日本語</button>
+<button class="ltab" data-lang="es">Español</button>
+<button class="ltab" data-lang="de">Deutsch</button>
+<button class="ltab" data-lang="ru">Русский</button>
+<button class="ltab" data-lang="tr">Türkçe</button>
+<button class="ltab" data-lang="ko">한국어</button>
+<button class="ltab" data-lang="ms">Melayu</button>
+<button class="ltab" data-lang="id">Indonesia</button>
+<button class="ltab" data-lang="tl">Filipino</button>
+</div>
+<div class="instr-box" id="instrBox"></div>
+</div>
+
 <div class="footer-card">
 <b>Made By: Akbar Ali Khan (SCT)</b>
 <span class="line">Institute: GCMHS No:3 MARDAN</span><br>
@@ -157,8 +98,73 @@ body{
 <span class="line">Phone 2: +923339840801</span>
 <div class="feedback">📢 Send Your Feedback &<br>Suggestions</div>
 </div>
-
 </div>
+
+<script>
+const DATA={
+android:{
+en:["<b>Method:</b> Open in Chrome → 3 dots ⋮ → Add to Home Screen","✅ No Play Store needed. Works offline!"],
+ur:["<b>طریقہ:</b> کروم میں کھولیں → 3 نقطے ⋮ → Add to Home Screen","✅ پلے سٹور کی ضرورت نہیں!"],
+ps:["<b>طریقه:</b> په کروم کې خلاص کړئ → 3 نقطې ⋮ → Add to Home Screen","✅ پلې سټور ته اړتیا نشته!"],
+ar:["<b>الطريقة:</b> افتح في كروم → 3 نقاط ⋮ → إضافة","✅ بدون متجر!"],
+hi:["<b>तरीका:</b> Chrome में खोलें → 3 डॉट्स ⋮ → होम स्क्रीन में जोड़ें","✅ Play Store की जरूरत नहीं!"],
+zh:["<b>方法:</b> 在Chrome中打开 → 3个点 ⋮ → 添加到主屏幕","✅ 无需商店！"],
+fr:["<b>Méthode:</b> Ouvrir dans Chrome → 3 points ⋮ → Ajouter","✅ Sans Play Store!"],
+ja:["<b>方法:</b> Chromeで開く → 3点 ⋮ → ホーム画面に追加","✅ Playストア不要！"],
+es:["<b>Método:</b> Abrir en Chrome → 3 puntos ⋮ → Agregar","✅ Sin Play Store!"],
+de:["<b>Methode:</b> In Chrome öffnen → 3 Punkte ⋮ → Hinzufügen","✅ Kein Play Store!"],
+ru:["<b>Метод:</b> Открыть в Chrome → 3 точки ⋮ → Добавить на главный экран","✅ Без Play Store!"],
+tr:["<b>Yöntem:</b> Chrome'da aç → 3 nokta ⋮ → Ana ekrana ekle","✅ Play Store gerekmez!"],
+ko:["<b>방법:</b> Chrome에서 열기 → 3점 ⋮ → 홈 화면에 추가","✅ Play Store 필요 없음!"],
+ms:["<b>Kaedah:</b> Buka dalam Chrome → 3 titik ⋮ → Tambah ke Skrin Utama","✅ Tanpa Play Store!"],
+id:["<b>Metode:</b> Buka di Chrome → 3 titik ⋮ → Tambah ke Layar Utama","✅ Tanpa Play Store!"],
+tl:["<b>Paraan:</b> Buksan sa Chrome → 3 tuldok ⋮ → Idagdag sa Home Screen","✅ Walang Play Store!"]
+},
+iphone:{
+en:["<b>Method:</b> Open in Safari → Share ⎙ → Add to Home Screen","Icon appears on iPhone!"],
+ur:["<b>طریقہ:</b> سفاری میں → شیئر ⎙ → Add to Home Screen","آئیکون آ جائے گا!"],
+ps:["<b>طریقه:</b> په سفاري کې → شریکول ⎙ → Add","آئیکون به ښکاره شي!"],
+ar:["<b>الطريقة:</b> في سفاري → مشاركة ⎙ → إضافة","يظهر على الآيفون!"],
+hi:["<b>तरीका:</b> Safari में → Share ⎙ → जोड़ें","आइकन आएगा!"],
+zh:["<b>方法:</b> 在Safari中 → 共享 ⎙ → 添加","图标出现！"],
+fr:["<b>Méthode:</b> Dans Safari → Partager ⎙ → Ajouter","Icône apparaît!"],
+ja:["<b>方法:</b> Safariで → 共有 ⎙ → ホーム画面に追加","アイコン表示！"],
+es:["<b>Método:</b> En Safari → Compartir ⎙ → Agregar","¡Icono aparece!"],
+de:["<b>Methode:</b> In Safari → Teilen ⎙ → Hinzufügen","Icon erscheint!"],
+ru:["<b>Метод:</b> В Safari → Поделиться ⎙ → Добавить","Иконка появится!"],
+tr:["<b>Yöntem:</b> Safari'de → Paylaş ⎙ → Ana Ekrana Ekle","Simge görünür!"],
+ko:["<b>방법:</b> Safari에서 → 공유 ⎙ → 홈 화면에 추가","아이콘 표시!"],
+ms:["<b>Kaedah:</b> Dalam Safari → Kongsi ⎙ → Tambah","Ikon muncul!"],
+id:["<b>Metode:</b> Di Safari → Bagikan ⎙ → Tambah","Ikon muncul!"],
+tl:["<b>Paraan:</b> Sa Safari → Ibahagi ⎙ → Idagdag","Lalabas ang icon!"]
+},
+pc:{
+en:["<b>Method:</b> Open in Chrome/Edge → Install ⊞ → Install","Works like Windows software!"],
+ur:["<b>طریقہ:</b> کروم میں → Install ⊞ → Install","ونڈوز کی طرح!"],
+ps:["<b>طریقه:</b> په کروم کې → Install ⊞ → Install","د وینډوز په څیر!"],
+ar:["<b>الطريقة:</b> في كروم → تثبيت ⊞ → تثبيت","كبرنامج ويندوز!"],
+hi:["<b>तरीका:</b> Chrome में → Install ⊞ → Install","Windows जैसी!"],
+zh:["<b>方法:</b> 在Chrome中 → 安装 ⊞ → 安装","像Windows软件！"],
+fr:["<b>Méthode:</b> Dans Chrome → Installer ⊞ → Installer","Comme Windows!"],
+ja:["<b>方法:</b> Chromeで → インストール ⊞ → インストール","Windowsのように！"],
+es:["<b>Método:</b> En Chrome → Instalar ⊞ → Instalar","¡Como Windows!"],
+de:["<b>Methode:</b> In Chrome → Install ⊞ → Installieren","Wie Windows!"],
+ru:["<b>Метод:</b> В Chrome → Установить ⊞ → Установить","Как Windows!"],
+tr:["<b>Yöntem:</b> Chrome'da → Yükle ⊞ → Yükle","Windows gibi!"],
+ko:["<b>방법:</b> Chrome에서 → 설치 ⊞ → 설치","Windows처럼!"],
+ms:["<b>Kaedah:</b> Dalam Chrome → Pasang ⊞ → Pasang","Seperti Windows!"],
+id:["<b>Metode:</b> Di Chrome → Instal ⊞ → Instal","Seperti Windows!"],
+tl:["<b>Paraan:</b> Sa Chrome → I-install ⊞ → I-install","Parang Windows!"]
+}
+};
+let curDevice='android',curLang='en';
+const instrBox=document.getElementById('instrBox');
+function render(){const s=(DATA[curDevice][curLang]||DATA[curDevice]['en']);instrBox.innerHTML=`<div class="step"><b>1</b><p>${s[0]}</p></div><div class="step"><b>2</b><p>${s[1]}</p></div>`;}
+document.querySelectorAll('.device-tabs .tab').forEach(b=>{b.addEventListener('click',e=>{document.querySelectorAll('.device-tabs .tab').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');curDevice=e.target.dataset.device;render();});});
+document.querySelectorAll('.lang-tabs .ltab').forEach(b=>{b.addEventListener('click',e=>{document.querySelectorAll('.lang-tabs .ltab').forEach(x=>x.classList.remove('active'));e.target.classList.add('active');curLang=e.target.dataset.lang;render();});});
+render();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}
+</script>
 <script data-goatcounter="https://iphone-apps.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
